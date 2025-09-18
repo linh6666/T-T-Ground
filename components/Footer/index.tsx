@@ -1,44 +1,51 @@
 "use client";
 
-import { IconBrandInstagram, IconBrandTwitter, IconBrandYoutube } from '@tabler/icons-react';
-import { ActionIcon, Container, Group } from '@mantine/core';
-
+import { Container, Text, Title, Group, Box, Anchor } from '@mantine/core';
+import Image from 'next/image';
 import classes from './FooterLinks.module.css';
 import AppContainer from "../../common/AppContainer";
-import Image from 'next/image';
 
 export default function Footer() {
   return (
-   
- <footer style={{ backgroundColor: "#ffbe00" }} className="text-white ">
-       <AppContainer>
+    <footer style={{ backgroundColor: "#ffbe00", padding: '15px', color: '#000' }}>
+      <AppContainer>
+      
+          <Group style={{ alignItems: 'flex-start' }}>
+            
+            {/* Logo bên trái */}
+            <Box style={{ flex: '1 1 200px', marginBottom: '20px', textAlign: 'center' }}>
+              <Image 
+                src="/Logo T&T.png" 
+                alt="Logo T&T" 
+                width={250} 
+                height={200} 
+              />
+            </Box>
 
-<div className={classes.footer}>
-      <Container className={classes.inner}>
-      <Image 
-  src="/Logo T&T.png" 
-  alt="Logo" 
-  width={100} 
-  height={28} 
-/>
+            {/* Thông tin công ty ở giữa */}
+            <Box style={{ flex: '2 1 300px', lineHeight: '1.6', fontSize: '8px', marginBottom: '20px',  }}>
+              <Title order={5}>CÔNG TY CỔ PHẦN TẬP ĐOÀN T&T</Title>
+              <Text>31 - 33 Ngô Quyền, P. Cửa Nam, TP. Hà Nội, Việt Nam</Text>
+              <Text>Phone: <strong>(+84) 24 7308 1616</strong></Text>
+              <Text>Fax: <strong>(+84) 24 3972 1775</strong></Text>
+              <Text>
+                Email: <Anchor href="mailto:info@ttgroup.com.vn" style={{ color: '#000' }}>info@ttgroup.com.vn</Anchor>
+              </Text>
+              <Text>Copyright © T&T Group 2023</Text>
+            </Box>
 
-        <Group gap={0} className={classes.links} justify="flex-end" wrap="nowrap">
-          <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandTwitter size={18} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandYoutube size={18} stroke={1.5} />
-          </ActionIcon>
-          <ActionIcon size="lg" color="gray" variant="subtle">
-            <IconBrandInstagram size={18} stroke={1.5} />
-          </ActionIcon>
-        </Group>
-      </Container>
-    </div>
-       </AppContainer>
-   
-  
-</footer>
+            {/* Danh sách liên kết bên phải */}
+            <Box style={{ flex: '1 1 200px', lineHeight: '1.8', fontSize: '8px', }}>
+              <Text>Giới thiệu</Text>
+              <Text>Tướng tác</Text>
+              <Text>Quản lý bán hàng</Text>
+              <Text>Liên hệ</Text>
+           
+            </Box>
 
+          </Group>
+      
+      </AppContainer>
+    </footer>
   );
 }
