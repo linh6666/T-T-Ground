@@ -1,0 +1,23 @@
+.footer {
+
+  border-top: 1px solid var(--mantine-color-gray-2); /* hoặc var(--mantine-color-dark-5) */
+}
+
+.inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 2rem; /* thay var(--mantine-spacing-xl) */
+  padding-bottom: 2rem;
+
+  /* Media query CSS chuẩn */
+  @media (max-width: 576px) { /* thay cho $mantine-breakpoint-xs */
+    flex-direction: column;
+  }
+}
+
+.links {
+  @media (max-width: 576px) { /* thay cho $mantine-breakpoint-xs */
+    margin-top: 1rem; /* thay var(--mantine-spacing-md) */
+  }
+}
