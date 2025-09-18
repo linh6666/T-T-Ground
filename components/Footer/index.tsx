@@ -23,19 +23,19 @@ export default function Footer() {
             </Box>
 
             {/* Thông tin công ty ở giữa */}
-            <Box style={{ flex: '2 1 300px', lineHeight: '1.6', fontSize: '8px', marginBottom: '20px',  }}>
+            <Box style={{ flex: '2 1 300px',  fontSize: '8px', marginBottom: '20px', color: '#762f0b',  }}>
               <Title order={5}>CÔNG TY CỔ PHẦN TẬP ĐOÀN T&T</Title>
               <Text>31 - 33 Ngô Quyền, P. Cửa Nam, TP. Hà Nội, Việt Nam</Text>
               <Text>Phone: <strong>(+84) 24 7308 1616</strong></Text>
               <Text>Fax: <strong>(+84) 24 3972 1775</strong></Text>
               <Text>
-                Email: <Anchor href="mailto:info@ttgroup.com.vn" style={{ color: '#000' }}>info@ttgroup.com.vn</Anchor>
+                Email: <Anchor href="mailto:info@ttgroup.com.vn" style={{ color: '#762f0b' }}>info@ttgroup.com.vn</Anchor>
               </Text>
               <Text>Copyright © T&T Group 2023</Text>
             </Box>
 
             {/* Danh sách liên kết bên phải */}
-            <Box style={{ flex: '1 1 200px', lineHeight: '1.8', fontSize: '8px', }}>
+            <Box style={{ flex: '1 1 200px',  fontSize: '8px', color: '#762f0b', }}>
               <Text>Giới thiệu</Text>
               <Text>Tướng tác</Text>
               <Text>Quản lý bán hàng</Text>
