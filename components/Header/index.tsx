@@ -8,6 +8,8 @@ import { Image } from "@mantine/core";
 // import LoginButton from "../../components/LoginButton/LoginButton";
 import styles from "./Header.module.css";
 
+import LoginButton from "./ButtonLogin/index";
+
 // menu mặc định
 const baseLinks = [
   { label: "TRANG CHỦ", href: "/", highlight: true },
@@ -21,19 +23,11 @@ const baseLinks = [
 export default function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-//   const [currentFlag, setCurrentFlag] = useState<"vn" | "en">("vn");
+
   const [isFlagDropdownOpen, setIsFlagDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-//   useEffect(() => {
-//     if (pathname.startsWith("/en")) {
-//       setCurrentFlag("en");
-//     } else {
-//       setCurrentFlag("vn");
-//     }
-//   }, [pathname]);
 
-  // Tự động đóng dropdown nếu click ra ngoài
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -61,17 +55,12 @@ export default function Header() {
     <nav className={styles.navbar}>
       <div className={styles.container}>
         {/* Logo + Flags + Menu Icon */}
-        <div className="flex items-center justify-between w-full md:w-auto">
-          <div className="flex items-center gap-3">
+      <div className={styles.mobileHeader}>
+      
             <Link href="/" className="flex items-center space-x-3">
               <Image src="/Logo T&T.png" alt="Logo" className={styles.logo} />
             </Link>
 
-            {/* Flags for mobile */}
-        
-          </div>
-
-          {/* Toggle Button (mobile only) */}
           <button
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             className={styles.mobileToggle}
@@ -111,14 +100,7 @@ export default function Header() {
         </div>
 
         {/* Right Section (Login + Flags) */}
-        <div className="flex items-center gap-3 md:order-2">
-          {/* <div className={`hidden md:flex ${styles.loginLangBlock}`}>
-            <LoginButton />
-          </div> */}
-
-          {/* Flag Dropdown */}
-         
-        </div>
+        
 
         {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
@@ -132,10 +114,15 @@ export default function Header() {
                     {label}
                   </span>
                 </Link>
+                
               </li>
             ))}
           </ul>
+        
         </div>
+         <div className={`hidden md:flex ${styles.loginLangBlock}`}>
+  <LoginButton/>
+</div>
       </div>
 
       {/* Mobile Menu */}
@@ -160,9 +147,10 @@ export default function Header() {
             </ul>
 
             {/* Login in Mobile */}
-            {/* <div className="flex items-center justify-between pt-2">
-              <LoginButton isMobile />
-            </div> */}
+            <div className="flex items-center justify-between pt-2">
+              {/* <LoginButton isMobile /> */}
+             <LoginButton/>
+            </div>
           </div>
         </div>
       )}

@@ -15,7 +15,7 @@
   align-items: center;
   justify-content: space-between;
   margin: auto;
-  padding: 0.75rem 1rem;
+  padding: 0.75rem 0rem;
 }
 
 .logo {
@@ -43,7 +43,7 @@
   padding: 0.5rem;
   width: 2.5rem;
   height: 2.5rem;
-  color: white;
+  color:#762f0b;     ;
   border-radius: 9999px;
   transition: all 0.3s;
 }
@@ -63,7 +63,7 @@
     align-items: center;
     justify-content: space-between;
     width: auto;
-    order: 1;
+    /* order: 1; */
   }
 }
 
@@ -74,6 +74,7 @@
   margin-top: 1rem;
   /* font-weight: 500; */
   font-size: 1.125rem;
+  
 }
 
 @media (min-width: 768px) {
@@ -377,5 +378,17 @@
 @media (max-width: 768px) {
   .flagWrapper {
     display: none;
+  }
+}
+.mobileHeader {
+  display: flex;
+  align-items: center;        /* = items-center */
+  justify-content: space-between; /* = justify-between */
+  width: 100%;                /* = w-full */
+}
+
+@media (min-width: 768px) {
+  .mobileHeader {
+    width: auto; /* = md:w-auto */
   }
 }

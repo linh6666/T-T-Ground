@@ -1,20 +1,43 @@
-
-
-.inner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-top: 2rem; /* thay var(--mantine-spacing-xl) */
-  padding-bottom: 2rem;
-
-  /* Media query CSS chuẩn */
-  @media (max-width: 576px) { /* thay cho $mantine-breakpoint-xs */
-    flex-direction: column;
-  }
+.footer {
+  background-color: #ffbe00;
+  padding: 1px;
+  color: #000;
 }
 
+.logo {
+  flex: 1 1 200px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.company {
+  flex: 2 1 300px;
+  font-size: 3em; /* Thay đổi từ px sang em cho tính linh hoạt */
+  margin-bottom: 20px;
+  color: #762f0b;
+}
+
+@media (max-width: 600px) {
+  .logo {
+    flex: 1 1 100px; /* Giảm kích thước logo */
+    margin-bottom: 10px; /* Giảm khoảng cách dưới */
+  }
+
+  .company {
+    flex: 1 1 150px; /* Giảm kích thước company */
+    font-size: 1em; /* Giảm kích thước chữ */
+    margin-bottom: 10px; /* Giảm khoảng cách dưới */
+  }
+}
 .links {
-  @media (max-width: 576px) { /* thay cho $mantine-breakpoint-xs */
-    margin-top: 1rem; /* thay var(--mantine-spacing-md) */
+  flex: 1 1 200px;
+  font-size: 3px;
+  color: #762f0b;
+}
+
+/* Ẩn phần links trên màn hình nhỏ */
+@media (max-width: 600px) {
+  .links {
+    display: none;
   }
 }
