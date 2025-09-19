@@ -1,8 +1,8 @@
 "use client";
 
-import { Container, Text, Title, Group, Box, Anchor } from '@mantine/core';
+import { Text, Title, Group, Box, Anchor } from '@mantine/core';
 import Image from 'next/image';
-import classes from './FooterLinks.module.css';
+// import classes from './FooterLinks.module.css';
 import AppContainer from "../../common/AppContainer";
 
 export default function Footer() {
