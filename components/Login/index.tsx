@@ -12,19 +12,34 @@ import {
   Title,
 } from "@mantine/core";
 import ForgotPasswordModal from "./ForgotPasswordModal/index";
+import { loginUser } from "../../api/apiLogin"; // Đảm bảo rằng bạn đã import hàm loginUser
+import axios from "axios";
 
 export default function LoginPage() {
-  const [email, setEmail] = useState("");
+  const [username, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailFocused, setEmailFocused] = useState(false);
   const [passFocused, setPassFocused] = useState(false);
-
   const [opened, setOpened] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
-    // gọi API login ở đây
+    try {
+      const response = await loginUser(username, password); // Gọi API
+
+      if (response?.access_token) {
+        localStorage.setItem("access_token", response.access_token);
+        window.location.href = "/";
+      } else {
+        console.error("Sai tài khoản hoặc mật khẩu, vui lòng thử lại.");
+      }
+    } catch (error: unknown) {
+      if (axios.isAxiosError(error)) {
+        console.error(error.response?.data?.detail || "Sai tài khoản hoặc mật khẩu");
+      } else {
+        console.error((error as Error).message || "Có lỗi xảy ra, vui lòng thử lại");
+      }
+    }
   };
 
   return (
@@ -42,18 +57,18 @@ export default function LoginPage() {
           background: "#fff",
         }}
       >
-      <Title
-  order={2}
-  ta="center"
-  mb="xl"
-  style={{ fontWeight: 700, fontSize: "24px", color: "#762f0b" }}
->
-  Đăng nhập vào Hệ thống
-</Title>
+        <Title
+          order={2}
+          ta="center"
+          mb="xl"
+          style={{ fontWeight: 700, fontSize: "24px", color: "#762f0b" }}
+        >
+          Đăng nhập vào Hệ thống
+        </Title>
         <form onSubmit={handleSubmit}>
           {/* Email */}
           <Box mb="lg" style={{ position: "relative" }}>
-            {(emailFocused || email) && (
+            {(emailFocused || username) && (
               <Text
                 size="xs"
                 c="dimmed"
@@ -69,9 +84,9 @@ export default function LoginPage() {
             )}
             <Input
               type="email"
-              placeholder={!emailFocused && !email ? "Nhập email" : ""}
+              placeholder={!emailFocused && !username ? "Nhập email" : ""}
               variant="unstyled"
-              value={email}
+              value={username}
               onChange={(e) => setEmail(e.currentTarget.value)}
               onFocus={() => setEmailFocused(true)}
               onBlur={() => setEmailFocused(false)}
@@ -127,21 +142,20 @@ export default function LoginPage() {
           </Group>
 
           {/* Button */}
-     <Button
-  type="submit"
-  fullWidth
-  size="md"
-  color="#ffbe00"
-  styles={{
-    label: {
-      color: "#762f0b", // đổi màu text ở đây
-      fontWeight: 600, // có thể thêm đậm
-    },
-  }}
->
-  Đăng nhập
-</Button>
-
+          <Button
+            type="submit"
+            fullWidth
+            size="md"
+            color="#ffbe00"
+            styles={{
+              label: {
+                color: "#762f0b", // đổi màu text ở đây
+                fontWeight: 600, // có thể thêm đậm
+              },
+            }}
+          >
+            Đăng nhập
+          </Button>
 
           <Text ta="center" mt="md">
             Bạn chưa có tài khoản?{" "}
