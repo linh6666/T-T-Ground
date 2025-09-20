@@ -22,7 +22,7 @@ export default function RootLayout({
         <MantineProvider>
           <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column"}}>
             <Header />
-          <main style={{ flex: 1, marginTop: "90px" }}>
+          <main style={{ flex: 1, marginTop: "80px" }}>
               <AppContainer>{children}</AppContainer>
             </main>
             <Footer />
