@@ -2,7 +2,9 @@ import type { Metadata } from "next";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { MantineProvider } from "@mantine/core";
+import { Notifications } from "@mantine/notifications"; // ✅ thêm vào
 import "@mantine/core/styles.css";
+import "@mantine/notifications/styles.css"; // ✅ style cho notifications
 import AppContainer from "../../common/AppContainer";
 import "./globals.css";
 
@@ -20,9 +22,16 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <MantineProvider>
-          <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column"}}>
+          <Notifications position="top-center" /> {/* ✅ thêm vào đây */}
+          <div
+            style={{
+              minHeight: "100vh",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
             <Header />
-          <main style={{ flex: 1, marginTop: "80px" }}>
+            <main style={{ flex: 1, marginTop: "80px" }}>
               <AppContainer>{children}</AppContainer>
             </main>
             <Footer />

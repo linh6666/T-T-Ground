@@ -12,7 +12,8 @@ import {
   Title,
 } from "@mantine/core";
 import ForgotPasswordModal from "./ForgotPasswordModal/index";
-import { loginUser } from "../../api/apiLogin"; // Đảm bảo rằng bạn đã import hàm loginUser
+import { loginUser } from "../../api/apiLogin";
+import { NotificationExtension } from "../../extension/NotificationExtension"; // import sẵn
 import axios from "axios";
 
 export default function LoginPage() {
@@ -31,13 +32,22 @@ export default function LoginPage() {
         localStorage.setItem("access_token", response.access_token);
         window.location.href = "/";
       } else {
-        console.error("Sai tài khoản hoặc mật khẩu, vui lòng thử lại.");
+        // 🔔 Thông báo lỗi trả về từ API
+        NotificationExtension.Fails(
+          response?.message || "Sai tài khoản hoặc mật khẩu, vui lòng thử lại."
+        );
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        console.error(error.response?.data?.detail || "Sai tài khoản hoặc mật khẩu");
+        // 🔔 Thông báo lỗi từ server (API)
+        NotificationExtension.Fails(
+          error.response?.data?.detail || "Sai tài khoản hoặc mật khẩu"
+        );
       } else {
-        console.error((error as Error).message || "Có lỗi xảy ra, vui lòng thử lại");
+        // 🔔 Thông báo lỗi khác (mạng, code, etc.)
+        NotificationExtension.Fails(
+          (error as Error).message || "Có lỗi xảy ra, vui lòng thử lại"
+        );
       }
     }
   };
@@ -136,7 +146,11 @@ export default function LoginPage() {
           {/* Links phụ */}
           <Group justify="space-between" mb="md">
             <Anchor size="sm"></Anchor>
-            <Anchor size="sm" style={{ cursor: "pointer" }} onClick={() => setOpened(true)}>
+            <Anchor
+              size="sm"
+              style={{ cursor: "pointer" }}
+              onClick={() => setOpened(true)}
+            >
               Quên mật khẩu?
             </Anchor>
           </Group>
