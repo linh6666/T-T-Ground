@@ -3,17 +3,20 @@ import { BASE_API_FASTAPI } from "../config";
 import { API_ROUTE } from "../const/apiRouter"; // Đảm bảo đã khai báo REGISTER
 
 export async function registerUser(
-  email: string,
-  full_name: string,
-  password: string,
-  phone:string,
   
+  full_name: string,
+  email: string,
+    phone:string,
+  password: string,
+
 ) {
   const payload = {
-    email,
+    
     full_name,
-    password,
+     email,
     phone,
+    password,
+    
  
   };
 

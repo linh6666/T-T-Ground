@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { Modal, Text, Input, PasswordInput, Button, Box } from "@mantine/core";
+import { Modal, Text, Input, Button, Box } from "@mantine/core";
+import { sendPasswordResetEmail } from "../../../api/apiSendEmail";
 
 interface ForgotPasswordModalProps {
   opened: boolean;
@@ -13,23 +14,36 @@ export default function ForgotPasswordModal({
   onClose,
 }: ForgotPasswordModalProps) {
   const [resetEmail, setResetEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [emailFocused, setEmailFocused] = useState(false);
-  const [passFocused, setPassFocused] = useState(false);
 
-  const handleResetPassword = () => {
+const handleResetPassword = async () => {
+  try {
     console.log("Gửi yêu cầu reset mật khẩu cho:", resetEmail);
-    console.log("Mật khẩu mới:", password);
-    // gọi API reset password ở đây
-    onClose(); // đóng modal sau khi gửi
-  };
+    await sendPasswordResetEmail(resetEmail); // Gọi API gửi email
+    alert("Yêu cầu khôi phục mật khẩu đã được gửi thành công. Vui lòng kiểm tra email.");
+
+    setResetEmail(""); // ✅ reset ô input về rỗng
+    setEmailFocused(false); // ✅ bỏ trạng thái focus label
+
+    onClose(); // Đóng modal sau khi gửi
+  } catch (error) {
+    console.error("Lỗi khi gửi yêu cầu:", error);
+    alert("Bạn chưa nhập Email hoặc Email không hợp lệ. Vui lòng thử lại.");
+  }
+};
+
 
   return (
-    <Modal opened={opened} onClose={onClose} title={<h1 style={{ color: "#762f0b" }}>Khôi phục mật khẩu</h1>} centered>
+    <Modal
+      opened={opened}
+      onClose={onClose}
+      title={<h1 style={{ color: "#762f0b" }}>Khôi phục mật khẩu</h1>}
+      centered
+    >
       <Text size="sm" mb="sm">
-        Vui lòng nhập email và mật khẩu mới:
+        Vui lòng nhập email để khôi phục mật khẩu:
       </Text>
-      
+
       {/* Ô nhập email */}
       <Box mb="lg" style={{ position: "relative" }}>
         {(emailFocused || resetEmail) && (
@@ -65,52 +79,18 @@ export default function ForgotPasswordModal({
         />
       </Box>
 
-      {/* Ô nhập mật khẩu mới */}
-      <Box mb="lg" style={{ position: "relative" }}>
-        {(passFocused || password) && (
-          <Text
-            size="xs"
-            c="dimmed"
-            style={{
-              position: "absolute",
-              top: -10,
-              left: 0,
-              fontSize: "12px",
-            }}
-          >
-            Nhập mật khẩu mới
-          </Text>
-        )}
-        <PasswordInput
-          placeholder={!passFocused && !password ? "Nhập mật khẩu mới" : ""}
-          variant="unstyled"
-          value={password}
-          onChange={(e) => setPassword(e.currentTarget.value)}
-          onFocus={() => setPassFocused(true)}
-          onBlur={() => setPassFocused(false)}
-          styles={{
-            input: {
-              borderBottom: "1px solid #ccc",
-              borderRadius: 0,
-              padding: "8px 0",
-            },
-          }}
-          mb="md"
-        />
-      </Box>
-
       <Button
         fullWidth
         onClick={handleResetPassword}
         color="yellow"
         styles={{
           label: {
-            color: "#762f0b", // đổi màu text ở đây
-            fontWeight: 600, // có thể thêm đậm
+            color: "#762f0b", // Đổi màu text ở đây
+            fontWeight: 600,
           },
         }}
       >
-        Gửi yêu cầu
+        Gửi yêu cầu 
       </Button>
     </Modal>
   );

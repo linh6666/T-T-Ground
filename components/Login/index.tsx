@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react"; // ✅ thêm useEffect
 import {
   Input,
   PasswordInput,
@@ -23,28 +23,52 @@ export default function LoginPage() {
   const [passFocused, setPassFocused] = useState(false);
   const [opened, setOpened] = useState(false);
 
+  // ✅ Check nếu đã login thì redirect
+  useEffect(() => {
+    const token = localStorage.getItem("access_token");
+    if (token) {
+      window.location.href = "/";
+    }
+  }, []);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Validate cơ bản
+    if (!username) {
+      NotificationExtension.Fails("Email không được để trống");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(username)) {
+      NotificationExtension.Fails("Email không hợp lệ");
+      return;
+    }
+    if (!password) {
+      NotificationExtension.Fails("Mật khẩu không được để trống");
+      return;
+    }
+    if (password.length < 8) {
+      NotificationExtension.Fails("Mật khẩu phải ít nhất 8 ký tự");
+      return;
+    }
+
     try {
-      const response = await loginUser(username, password); // Gọi API
+      const response = await loginUser(username, password);
 
       if (response?.access_token) {
         localStorage.setItem("access_token", response.access_token);
         window.location.href = "/";
       } else {
-        // 🔔 Thông báo lỗi trả về từ API
         NotificationExtension.Fails(
           response?.message || "Sai tài khoản hoặc mật khẩu, vui lòng thử lại."
         );
       }
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        // 🔔 Thông báo lỗi từ server (API)
         NotificationExtension.Fails(
           error.response?.data?.detail || "Sai tài khoản hoặc mật khẩu"
         );
       } else {
-        // 🔔 Thông báo lỗi khác (mạng, code, etc.)
         NotificationExtension.Fails(
           (error as Error).message || "Có lỗi xảy ra, vui lòng thử lại"
         );

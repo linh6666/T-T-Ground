@@ -9,41 +9,35 @@ import {
   Box,
   Text,
   Title,
-  
 } from "@mantine/core";
 // Import your API function here
 import { registerUser } from "../../api/apiRegister";
 
 export default function RegisterPage() {
   const [fullname, setFullname] = useState("");
-  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
- 
 
+  // Focus state
   const [fullnameFocused, setFullnameFocused] = useState(false);
-  const [phoneFocused, setPhoneFocused] = useState(false);
   const [emailFocused, setEmailFocused] = useState(false);
+  const [phoneFocused, setPhoneFocused] = useState(false);
   const [passFocused, setPassFocused] = useState(false);
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Call your API register function
     try {
-      const response = await registerUser(fullname, phone, email, password);
+      const response = await registerUser(fullname, email, phone, password);
       console.log("Registration successful:", response);
-      
-     
-      // Optionally reset the form fields
+
+      // Reset input
       setFullname("");
-      setPhone("");
       setEmail("");
+      setPhone("");
       setPassword("");
-    
     } catch (error) {
       console.error("Registration failed:", error);
-     
     }
   };
 
@@ -69,11 +63,8 @@ export default function RegisterPage() {
 
       <form onSubmit={handleSubmit}>
         {/* Họ và tên */}
-        
-
-        {/* Số điện thoại */}
         <Box mb="lg" style={{ position: "relative" }}>
-          {(phoneFocused || phone) && (
+          {(fullnameFocused || fullname) && (
             <Text
               size="xs"
               c="dimmed"
@@ -89,44 +80,12 @@ export default function RegisterPage() {
           )}
           <Input
             type="text"
-            placeholder={!phoneFocused && !phone ? "Nhập họ và tên" : ""}
+            placeholder={!fullnameFocused && !fullname ? "Nhập họ và tên" : ""}
             variant="unstyled"
-            value={phone}
-            onChange={(e) => setPhone(e.currentTarget.value)}
-            onFocus={() => setPhoneFocused(true)}
-            onBlur={() => setPhoneFocused(false)}
-            styles={{
-              input: {
-                borderBottom: "1px solid #ccc",
-                borderRadius: 0,
-                padding: "8px 0",
-              },
-            }}
-          />
-        </Box>
- <Box mb="lg" style={{ position: "relative" }}>
-          {(passFocused || password) && (
-            <Text
-              size="xs"
-              c="dimmed"
-              style={{
-                position: "absolute",
-                top: -10,
-                left: 0,
-                fontSize: "12px",
-              }}
-            >
-              Số điện thoại
-            </Text>
-          )}
-          <Input
-          type="number"
-            placeholder={!passFocused && !password ? "Nhập số điện thoại" : ""}
-            variant="unstyled"
-            value={password}
-            onChange={(e) => setPassword(e.currentTarget.value)}
-            onFocus={() => setPassFocused(true)}
-            onBlur={() => setPassFocused(false)}
+            value={fullname}
+            onChange={(e) => setFullname(e.currentTarget.value)}
+            onFocus={() => setFullnameFocused(true)}
+            onBlur={() => setFullnameFocused(false)}
             styles={{
               input: {
                 borderBottom: "1px solid #ccc",
@@ -137,9 +96,9 @@ export default function RegisterPage() {
           />
         </Box>
 
-
-<Box mb="lg" style={{ position: "relative" }}>
-          {(fullnameFocused || fullname) && (
+        {/* Email */}
+        <Box mb="lg" style={{ position: "relative" }}>
+          {(emailFocused || email) && (
             <Text
               size="xs"
               c="dimmed"
@@ -155,40 +114,7 @@ export default function RegisterPage() {
           )}
           <Input
             type="email"
-            placeholder={!fullnameFocused && !fullname ? "Nhập Email" : ""}
-            variant="unstyled"
-            value={fullname}
-            onChange={(e) => setFullname(e.currentTarget.value)}
-            onFocus={() => setFullnameFocused(true)}
-            onBlur={() => setFullnameFocused(false)}
-            styles={{
-              input: {
-                borderBottom: "1px solid #ccc",
-                borderRadius: 0,
-                padding: "8px 0",
-              },
-            }}
-          />
-        </Box>
-        {/* Email */}
-        <Box mb="lg" style={{ position: "relative" }}>
-          {(emailFocused || email) && (
-            <Text
-              size="xs"
-              c="dimmed"
-              style={{
-                position: "absolute",
-                top: -10,
-                left: 0,
-                fontSize: "12px",
-              }}
-            >
-              Mật khẩu
-            </Text>
-          )}
-          <PasswordInput
-            type="text"
-            placeholder={!emailFocused && !email ? "Nhập mật khẩu" : ""}
+            placeholder={!emailFocused && !email ? "Nhập Email" : ""}
             variant="unstyled"
             value={email}
             onChange={(e) => setEmail(e.currentTarget.value)}
@@ -204,8 +130,45 @@ export default function RegisterPage() {
           />
         </Box>
 
+        {/* Số điện thoại */}
+        <Box mb="lg" style={{ position: "relative" }}>
+          {(phoneFocused || phone) && (
+            <Text
+              size="xs"
+              c="dimmed"
+              style={{
+                position: "absolute",
+                top: -10,
+                left: 0,
+                fontSize: "12px",
+              }}
+            >
+              Số điện thoại
+            </Text>
+          )}
+          <Input
+            type="tel"
+            placeholder={!phoneFocused && !phone ? "Nhập số điện thoại" : ""}
+            variant="unstyled"
+            value={phone}
+            onChange={(e) => {
+              const onlyNums = e.currentTarget.value.replace(/[^0-9]/g, "");
+              setPhone(onlyNums);
+            }}
+            onFocus={() => setPhoneFocused(true)}
+            onBlur={() => setPhoneFocused(false)}
+            styles={{
+              input: {
+                borderBottom: "1px solid #ccc",
+                borderRadius: 0,
+                padding: "8px 0",
+              },
+            }}
+          />
+        </Box>
+
         {/* Mật khẩu */}
-        {/* <Box mb="lg" style={{ position: "relative" }}>
+        <Box mb="lg" style={{ position: "relative" }}>
           {(passFocused || password) && (
             <Text
               size="xs"
@@ -217,10 +180,11 @@ export default function RegisterPage() {
                 fontSize: "12px",
               }}
             >
-              Nhập mật khẩu
+              Mật khẩu
             </Text>
           )}
           <PasswordInput
+            type="password"
             placeholder={!passFocused && !password ? "Nhập mật khẩu" : ""}
             variant="unstyled"
             value={password}
@@ -235,12 +199,8 @@ export default function RegisterPage() {
               },
             }}
           />
-        </Box> */}
+        </Box>
 
-        {/* Nhập lại mật khẩu */}
-    
-
-        {/* Button */}
         <Button
           type="submit"
           fullWidth
@@ -248,15 +208,14 @@ export default function RegisterPage() {
           color="#ffbe00"
           styles={{
             label: {
-              color: "#762f0b", // đổi màu text ở đây
-              fontWeight: 600, // có thể thêm đậm
+              color: "#762f0b",
+              fontWeight: 600,
             },
           }}
         >
           Đăng ký
         </Button>
 
-        {/* Đăng nhập */}
         <Text ta="center" mt="md">
           Bạn đã có tài khoản?{" "}
           <Anchor href="/dang-nhap" size="sm" c="red">
