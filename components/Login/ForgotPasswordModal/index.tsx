@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Modal, Text, Input, Button, Box } from "@mantine/core";
 import { sendPasswordResetEmail } from "../../../api/apiSendEmail";
+import { NotificationExtension } from "../../../extension/NotificationExtension";
 
 interface ForgotPasswordModalProps {
   opened: boolean;
@@ -19,16 +20,27 @@ export default function ForgotPasswordModal({
 const handleResetPassword = async () => {
   try {
     console.log("Gửi yêu cầu reset mật khẩu cho:", resetEmail);
-    await sendPasswordResetEmail(resetEmail); // Gọi API gửi email
-    alert("Yêu cầu khôi phục mật khẩu đã được gửi thành công. Vui lòng kiểm tra email.");
 
-    setResetEmail(""); // ✅ reset ô input về rỗng
-    setEmailFocused(false); // ✅ bỏ trạng thái focus label
+    await sendPasswordResetEmail(resetEmail); // Gọi API gửi email
+
+    // ✅ Thông báo thành công
+    NotificationExtension.Success(
+      "Yêu cầu khôi phục mật khẩu đã được gửi thành công. Vui lòng kiểm tra email."
+    );
+
+    setResetEmail(""); // reset ô input về rỗng
+    setEmailFocused(false); // bỏ trạng thái focus label
 
     onClose(); // Đóng modal sau khi gửi
-  } catch (error) {
+  } catch (error: unknown) {
     console.error("Lỗi khi gửi yêu cầu:", error);
-    alert("Bạn chưa nhập Email hoặc Email không hợp lệ. Vui lòng thử lại.");
+
+    // ✅ Thông báo lỗi
+    let msg = "Bạn chưa nhập Email hoặc Email không hợp lệ. Vui lòng thử lại.";
+    if (error instanceof Error && error.message) {
+      msg = error.message;
+    }
+    NotificationExtension.Fails(msg);
   }
 };
 

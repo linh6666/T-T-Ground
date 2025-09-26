@@ -1,228 +1,231 @@
 "use client";
 
-import { useState } from "react";
 import {
-  Input,
-  PasswordInput,
-  Button,
   Anchor,
   Box,
+  Button,
+  PasswordInput,
+  Space,
   Text,
-  Title,
+  TextInput,
 } from "@mantine/core";
-// Import your API function here
+import { useForm } from "@mantine/form";
 import { registerUser } from "../../api/apiRegister";
+import { NotificationExtension } from "../../extension/NotificationExtension";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation"; // ✅ import router
+import style from "./Register.module.css";
 
-export default function RegisterPage() {
-  const [fullname, setFullname] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [password, setPassword] = useState("");
+interface Register {
+  fullName: string;
+  email: string;
+  phone: string;
+  password: string;
+}
 
-  // Focus state
-  const [fullnameFocused, setFullnameFocused] = useState(false);
-  const [emailFocused, setEmailFocused] = useState(false);
-  const [phoneFocused, setPhoneFocused] = useState(false);
-  const [passFocused, setPassFocused] = useState(false);
+const RegisterForm = () => {
+  const router = useRouter(); // ✅ khởi tạo router
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      const response = await registerUser(fullname, email, phone, password);
-      console.log("Registration successful:", response);
+  const form = useForm<Register>({
+    initialValues: {
+      fullName: "",
+      email: "",
+      phone: "",
+      password: "",
+    },
+    validate: {
+      fullName: (value) =>
+        value && value.trim() ? null : "Họ và tên không được để trống",
+      phone: (value) =>
+        /^\d{8}$/.test(value.trim()) ? null : "Số điện thoại không hợp lệ",
+      password: (value) =>
+        value && value.length >= 5 && value.length <= 100
+          ? null
+          : "Mật khẩu phải chứa từ 5 đến 100 kí tự",
+      email: (value) =>
+        /^\S+@\S+\.\S+$/.test(value) ? null : "Email không hợp lệ",
+    },
+  });
 
-      // Reset input
-      setFullname("");
-      setEmail("");
-      setPhone("");
-      setPassword("");
-    } catch (error) {
-      console.error("Registration failed:", error);
+  const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [successMsg, setSuccessMsg] = useState<string | null>(null);
+
+  // floating labels
+  const [clickName, setClickName] = useState(false);
+  const floatingName =
+    clickName || form.values.fullName.length > 0 || undefined;
+  const [clickPhone, setClickPhone] = useState(false);
+  const floatingPhone =
+    clickPhone || form.values.phone.length > 0 || undefined;
+  const [clickPassword, setClickPassword] = useState(false);
+  const floatingPassword =
+    clickPassword || form.values.password.length > 0 || undefined;
+  const [clickEmail, setClickEmail] = useState(false);
+  const floatingEmail =
+    clickEmail || form.values.email.length > 0 || undefined;
+
+  // ✅ khi successMsg thay đổi, sau 1s thì redirect
+  useEffect(() => {
+    if (successMsg) {
+      const timer = setTimeout(() => {
+        router.push("/dang-nhap");
+      }, 1000);
+      return () => clearTimeout(timer);
     }
-  };
+  }, [successMsg, router]);
+
+ const handleSubmit = async (values: Register) => {
+  try {
+    setLoading(true);
+    setErrorMsg(null);
+    setSuccessMsg(null);
+
+    const res = await registerUser(
+      values.fullName,
+      values.email,
+      values.phone,
+      values.password
+    );
+
+    console.log("✅ Đăng ký thành công:", res);
+
+    // ✅ Thông báo thành công
+    NotificationExtension.Success("Đăng ký thành công!");
+    setSuccessMsg("Đăng ký thành công!");
+
+  } catch (error: unknown) {
+    console.error("❌ Lỗi đăng ký:", error);
+
+    if (error instanceof Error) {
+      setErrorMsg(error.message);
+      NotificationExtension.Fails(error.message || "Có lỗi xảy ra khi đăng ký");
+    } else {
+      setErrorMsg("Có lỗi xảy ra khi đăng ký");
+      NotificationExtension.Fails("Có lỗi xảy ra khi đăng ký");
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   return (
     <Box
-      style={{
-        maxWidth: 600,
-        margin: "auto",
-        marginTop: "100px",
-        borderRadius: "10px",
-        padding: "30px",
-        background: "#fff",
-      }}
+      className={style.registerPage}
+      component="form"
+      onSubmit={form.onSubmit(handleSubmit)}
     >
-      <Title
-        order={2}
-        ta="center"
-        mb="xl"
-        style={{ fontWeight: 700, fontSize: "24px", color: "#762f0b" }}
-      >
-        Đăng ký tài khoản vào Hệ thống
-      </Title>
-
-      <form onSubmit={handleSubmit}>
-        {/* Họ và tên */}
-        <Box mb="lg" style={{ position: "relative" }}>
-          {(fullnameFocused || fullname) && (
-            <Text
-              size="xs"
-              c="dimmed"
-              style={{
-                position: "absolute",
-                top: -10,
-                left: 0,
-                fontSize: "12px",
-              }}
-            >
-              Họ và tên
-            </Text>
-          )}
-          <Input
-            type="text"
-            placeholder={!fullnameFocused && !fullname ? "Nhập họ và tên" : ""}
-            variant="unstyled"
-            value={fullname}
-            onChange={(e) => setFullname(e.currentTarget.value)}
-            onFocus={() => setFullnameFocused(true)}
-            onBlur={() => setFullnameFocused(false)}
-            styles={{
-              input: {
-                borderBottom: "1px solid #ccc",
-                borderRadius: 0,
-                padding: "8px 0",
-              },
-            }}
-          />
+      <Box className={style.container}>
+        {/* Header */}
+        <Box className={style.topNavBar}>
+          <Box className={style.navBarContainer}>
+            <Box className={style.navBarTitle}>
+              Đăng ký tài khoản vào Hệ thống
+            </Box>
+          </Box>
         </Box>
 
-        {/* Email */}
-        <Box mb="lg" style={{ position: "relative" }}>
-          {(emailFocused || email) && (
-            <Text
-              size="xs"
-              c="dimmed"
-              style={{
-                position: "absolute",
-                top: -10,
-                left: 0,
-                fontSize: "12px",
-              }}
-            >
-              Email
-            </Text>
-          )}
-          <Input
-            type="email"
-            placeholder={!emailFocused && !email ? "Nhập Email" : ""}
-            variant="unstyled"
-            value={email}
-            onChange={(e) => setEmail(e.currentTarget.value)}
-            onFocus={() => setEmailFocused(true)}
-            onBlur={() => setEmailFocused(false)}
-            styles={{
-              input: {
-                borderBottom: "1px solid #ccc",
-                borderRadius: 0,
-                padding: "8px 0",
-              },
-            }}
-          />
+        <Space h="xl" />
+
+        {/* Form */}
+        <Box className={style.loginForm}>
+          <Box className={style.formGroup}>
+            <div className={style.inputBox}>
+              <TextInput
+                label="Họ và tên"
+                labelProps={{ "data-floating": floatingName }}
+                withAsterisk
+                mt="md"
+                classNames={{
+                  root: style.root,
+                  input: style.input,
+                  label: style.label,
+                }}
+                onFocus={() => setClickName(true)}
+                onBlur={() => setClickName(false)}
+                {...form.getInputProps("fullName")}
+              />
+            </div>
+
+            <div className={style.inputBox}>
+              <TextInput
+                label="Email"
+                labelProps={{ "data-floating": floatingEmail }}
+                withAsterisk
+                mt="md"
+                type="email"
+                classNames={{
+                  root: style.root,
+                  input: style.input,
+                  label: style.label,
+                }}
+                onFocus={() => setClickEmail(true)}
+                onBlur={() => setClickEmail(false)}
+                {...form.getInputProps("email")}
+              />
+            </div>
+
+            <div className={style.inputBox}>
+              <TextInput
+                label="Số điện thoại"
+                labelProps={{ "data-floating": floatingPhone }}
+                withAsterisk
+                type="number"
+                mt="md"
+                classNames={{
+                  root: style.root,
+                  input: style.input,
+                  label: style.label,
+                }}
+                onFocus={() => setClickPhone(true)}
+                onBlur={() => setClickPhone(false)}
+                {...form.getInputProps("phone")}
+              />
+            </div>
+
+            <div className={style.inputBox}>
+              <PasswordInput
+                label="Mật khẩu"
+                labelProps={{ "data-floating": floatingPassword }}
+                withAsterisk
+                mt="md"
+                classNames={{
+                  root: style.root,
+                  input: style.input,
+                  label: style.label,
+                }}
+                onFocus={() => setClickPassword(true)}
+                onBlur={() => setClickPassword(false)}
+                {...form.getInputProps("password")}
+              />
+            </div>
+          </Box>
         </Box>
 
-        {/* Số điện thoại */}
-        <Box mb="lg" style={{ position: "relative" }}>
-          {(phoneFocused || phone) && (
-            <Text
-              size="xs"
-              c="dimmed"
-              style={{
-                position: "absolute",
-                top: -10,
-                left: 0,
-                fontSize: "12px",
-              }}
-            >
-              Số điện thoại
-            </Text>
-          )}
-          <Input
-            type="tel"
-            placeholder={!phoneFocused && !phone ? "Nhập số điện thoại" : ""}
-            variant="unstyled"
-            value={phone}
-            onChange={(e) => {
-              const onlyNums = e.currentTarget.value.replace(/[^0-9]/g, "");
-              setPhone(onlyNums);
-            }}
-            onFocus={() => setPhoneFocused(true)}
-            onBlur={() => setPhoneFocused(false)}
-            styles={{
-              input: {
-                borderBottom: "1px solid #ccc",
-                borderRadius: 0,
-                padding: "8px 0",
-              },
-            }}
-          />
-        </Box>
-
-        {/* Mật khẩu */}
-        <Box mb="lg" style={{ position: "relative" }}>
-          {(passFocused || password) && (
-            <Text
-              size="xs"
-              c="dimmed"
-              style={{
-                position: "absolute",
-                top: -10,
-                left: 0,
-                fontSize: "12px",
-              }}
-            >
-              Mật khẩu
-            </Text>
-          )}
-          <PasswordInput
-            type="password"
-            placeholder={!passFocused && !password ? "Nhập mật khẩu" : ""}
-            variant="unstyled"
-            value={password}
-            onChange={(e) => setPassword(e.currentTarget.value)}
-            onFocus={() => setPassFocused(true)}
-            onBlur={() => setPassFocused(false)}
-            styles={{
-              input: {
-                borderBottom: "1px solid #ccc",
-                borderRadius: 0,
-                padding: "8px 0",
-              },
-            }}
-          />
-        </Box>
+        {errorMsg && (
+          <p style={{ color: "red", marginTop: "10px" }}>{errorMsg}</p>
+        )}
+        {successMsg && (
+          <p style={{ color: "green", marginTop: "10px" }}>{successMsg}</p>
+        )}
 
         <Button
+          className={style.btn}
           type="submit"
-          fullWidth
-          size="md"
-          color="#ffbe00"
-          styles={{
-            label: {
-              color: "#762f0b",
-              fontWeight: 600,
-            },
-          }}
+          loading={loading}
         >
           Đăng ký
         </Button>
-
-        <Text ta="center" mt="md">
-          Bạn đã có tài khoản?{" "}
-          <Anchor href="/dang-nhap" size="sm" c="red">
-            Đăng nhập ngay
-          </Anchor>
-        </Text>
-      </form>
+         <Text style={{ textAlign: "center", marginTop: "16px" }}>
+            Bạn đã có tài khoản?{" "}
+            <Anchor href="/dang-nhap" size="sm" c="red">
+              Đăng nhập ngay
+            </Anchor>
+          </Text>
+      </Box>
     </Box>
   );
-}
+};
+
+export default RegisterForm;
+
