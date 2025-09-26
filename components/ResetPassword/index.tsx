@@ -5,18 +5,17 @@ import { useForm } from "@mantine/form";
 import {
   Stack,
   Button,
-  Paper,
   Title,
   Text,
-  PasswordInput,
-  Divider,
+  Box,
   Group,
+  PasswordInput,
 } from "@mantine/core";
 import { useState } from "react";
 import { api } from "../../libray/axios";
 import { IconLock } from "@tabler/icons-react";
 import { AxiosError } from "axios";
-import { useRouter } from "next/navigation"; 
+import { useRouter } from "next/navigation";
 
 // 👇 định nghĩa kiểu response từ API reset password
 interface ResetPasswordResponse {
@@ -37,6 +36,9 @@ export default function ResetPasswordPage() {
     },
   });
 
+  // 👇 thêm state focus riêng để hiển thị label nhỏ
+  const [passFocused, setPassFocused] = useState(false);
+
   const handleSubmit = async (values: { new_password: string }) => {
     try {
       setLoading(true);
@@ -51,7 +53,7 @@ export default function ResetPasswordPage() {
 
       console.log("✅ Reset thành công:", response.data);
       alert("Đổi mật khẩu thành công!");
-         router.push("/dang-nhap"); 
+      router.push("/dang-nhap");
     } catch (error: unknown) {
       const err = error as AxiosError<{ detail?: string }>;
       console.error("❌ Lỗi reset:", err.response?.data || err.message);
@@ -62,45 +64,74 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <Paper
-      shadow="lg"
-      p="xl"
-      radius="md"
-      maw={420}
+    <Box
+      maw={600}
       mx="auto"
-      mt={120} // 👈 margin-top
-      withBorder
+      mt={100}
+       p={30}
+    
     >
-      <Title order={2} ta="center" mb="md">
-        🔒 Đặt lại mật khẩu
-      </Title>
+  <Title order={2} ta="center" mb="md" style={{ color: '#762f0b' }}>
+    🔒 Đặt lại mật khẩu
+</Title>
       <Text size="sm" c="dimmed" ta="center" mb="lg">
         Nhập mật khẩu mới cho tài khoản của bạn
       </Text>
 
       <form onSubmit={form.onSubmit(handleSubmit)}>
         <Stack>
-          <PasswordInput
-            label="Mật khẩu mới"
-            placeholder="Nhập mật khẩu mới"
-            leftSection={<IconLock size={18} />}
-            {...form.getInputProps("new_password")}
-          />
+          {/* Ô mật khẩu với UI giống RegisterPage */}
+          <Box mb="lg" style={{ position: "relative" }}>
+            {(passFocused || form.values.new_password) && (
+              <Text
+                size="xs"
+                c="dimmed"
+                style={{
+                  position: "absolute",
+                  top: -10,
+                  left: 0,
+                  fontSize: "12px",
+                }}
+              >
+                Mật khẩu mới
+              </Text>
+            )}
+            <PasswordInput
+              placeholder={
+                !passFocused && !form.values.new_password
+                  ? "Nhập mật khẩu mới"
+                  : ""
+              }
+              variant="unstyled"
+              leftSection={<IconLock size={18} />}
+              {...form.getInputProps("new_password")}
+              onFocus={() => setPassFocused(true)}
+              onBlur={() => setPassFocused(false)}
+              styles={{
+                input: {
+                  borderBottom: "1px solid #ccc",
+                  borderRadius: 0,
+                  padding: "8px 0",
+                },
+              }}
+            />
+          </Box>
 
-          <Divider my="sm" />
+    
 
           <Group grow>
             <Button
               type="submit"
+             
               loading={loading}
-              style={{ backgroundColor: "#294b61" }}
+              style={{ backgroundColor: "#ffbe00",color: "#762f0b", }}
             >
               Đặt lại mật khẩu
             </Button>
           </Group>
         </Stack>
       </form>
-    </Paper>
+    </Box>
   );
 }
 

@@ -1,16 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { IconUser } from "@tabler/icons-react";
+import {  IconUserCircle } from "@tabler/icons-react";
 import { Menu, Text } from "@mantine/core";
 import useAuth from "../../../hook/useAuth";
-import styles from "./ButtonLogin.module.css";
+// import styles from "./ButtonLogin.module.css";
 import Link from "next/link";
-import ProfileModal from "./Profile/index"; // ✅ import modal hồ sơ
+import ProfileModal from "./Profile/index"; 
+import ButtonsCollection from "../../../common/ButtonsCollection";
+import {
+ 
+  useViewportSize,
+
+} from "@mantine/hooks";// ✅ import modal hồ sơ
 
 export default function LoginButton() {
   const { user, isLoggedIn, logout, error } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
+   const widthView = useViewportSize().width;
 
   const handleLogout = async () => {
     await logout();
@@ -23,12 +30,18 @@ export default function LoginButton() {
       {isLoggedIn && user ? (
         <Menu shadow="md" width={200} withinPortal>
           <Menu.Target>
-            <Text
-              style={{ fontSize: "14px", cursor: "pointer" }}
-              td="underline"
-            >
-              {user.full_name}
-            </Text>
+          
+              <ButtonsCollection
+                background
+                hover
+                leftIcon={<IconUserCircle size={widthView < 600 ? 16 : 24} color="#ffbe00" />}
+              >
+                
+                  <Text w={"100%"} fw={"700"} c={"white"} truncate="end">
+                      {user.full_name}
+                  </Text>
+                
+              </ButtonsCollection>
           </Menu.Target>
 
           <Menu.Dropdown>
@@ -41,12 +54,20 @@ export default function LoginButton() {
           </Menu.Dropdown>
         </Menu>
       ) : (
-        <Link href="/dang-nhap">
-          <button type="button" className={styles.userBtn}>
-            <IconUser size={14} />{" "}
-            <span style={{ fontSize: "12px" }}>Đăng nhập</span>
-          </button>
-        </Link>
+        <ButtonsCollection background hover>
+                <Link
+                  href={"/dang-nhap"}
+                  style={{
+                    textDecoration: "none",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                  }}
+                >
+                  <IconUserCircle size={24} style={{ marginRight: 8 }} />
+                  Đăng nhập
+                </Link>
+              </ButtonsCollection>
       )}
 
       {/* ✅ Modal hồ sơ cá nhân */}
