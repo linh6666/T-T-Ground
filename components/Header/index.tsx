@@ -4,13 +4,9 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Image } from "@mantine/core";
-
-
 // import LoginButton from "../../components/LoginButton/LoginButton";
 import styles from "./Header.module.css";
-
 import LoginButton from "./ButtonLogin/index";
-
 // menu mặc định
 const baseLinks = [
   { label: "TRANG CHỦ", href: "/", highlight: true },
@@ -24,11 +20,8 @@ const baseLinks = [
 export default function Header() {
   const pathname = usePathname();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
   const [isFlagDropdownOpen, setIsFlagDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-
-
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -45,13 +38,11 @@ export default function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isFlagDropdownOpen]);
-
   const isActive = (href: string, highlight?: boolean) => {
     if (pathname === href) return styles.navActive;
     if (highlight) return styles.navHighlight;
     return styles.navNormal;
   };
-
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
@@ -101,8 +92,6 @@ export default function Header() {
         </div>
 
         {/* Right Section (Login + Flags) */}
-        
-
         {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
           <ul className={styles.navList}>
@@ -125,8 +114,7 @@ export default function Header() {
   <LoginButton/>
 </div>
       </div>
-
-      {/* Mobile Menu */}
+{/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className={styles.mobileMenu}>
           <div className={styles.mobileMenuContainer}>

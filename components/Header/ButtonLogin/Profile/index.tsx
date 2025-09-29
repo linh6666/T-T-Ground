@@ -20,7 +20,9 @@ interface User {
   is_active: boolean;
   id: string;
   system_rank: string;
-  creation_time: string;
+
+last_logout:string;
+
   last_login: string;
 }
 
@@ -90,10 +92,30 @@ export default function ProfileModal({ opened, onClose }: ProfileModalProps) {
               <Text c="dimmed">SĐT:</Text>
               <Text>{user.phone || "Chưa có"}</Text>
             </Group>
+
+             <Group justify="space-between">
+              <Text c="dimmed">Vai trò:</Text>
+             <Text>chưa có </Text>
+            </Group>
+
+             <Group justify="space-between">
+              <Text c="dimmed">Dự án của bạn:</Text>
+             <Text>chưa có </Text>
+            </Group>
+            
             <Group justify="space-between">
               <Text c="dimmed">Cấp bậc:</Text>
-             <Text>{user.system_rank
- || "chưa có"}</Text>
+             <Text>{user.system_rank|| "chưa có"}</Text>
+
+            </Group>
+
+                  <Group justify="space-between">
+              <Text c="dimmed">Lần đăng nhập cuối cùng:</Text>
+              <Text>{user.last_login|| "chưa có"}</Text>
+            </Group>
+                <Group justify="space-between">
+              <Text c="dimmed">lần đăng xuất cuối cùng:</Text>
+              <Text>{user.last_logout|| "chưa có"}</Text>
             </Group>
           </Stack>
         </Paper>
