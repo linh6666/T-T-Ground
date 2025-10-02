@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Cột trái */
+.leftColumn {
+  flex: 0 0 80%;
+  max-width: 75%;
+}
+
+.responsiveImage {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Cột phải */
+.rightColumn {
+  flex: 0 0 20%;
+  max-width: 20%;
+  background-color: #f0f0f0;
+  padding: 16px;
+}
+
+/* Responsive cho mobile */
+@media (max-width: 768px) {
+  .leftColumn,
+  .rightColumn {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}

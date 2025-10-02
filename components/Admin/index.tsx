@@ -14,6 +14,7 @@ import classes from './NavbarSimple.module.css';
 // import ListProject from './ListProject'; 
 // import UserProject from './UserPoject'; 
 // import ProjectManagere from './ProjectManagere'; 
+import HomeAdmin from '../HomeAdmin/index'; 
 
 const mockdata = [
   { label: 'Trang chủ', icon: IconGauge, link: 'home' },
@@ -76,7 +77,7 @@ export default function PageAdmin() {
         return <div>Đây là trang dự án</div>;
          
       default:
-        return <h2>Chào mừng bạn đến với trang quản trị !!!</h2>;
+        return <HomeAdmin/>;
     }
   };
 

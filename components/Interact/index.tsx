@@ -22,7 +22,7 @@ export default function DetailInteractive () {
           </Stack>
           <Button 
                component="a"
-   href="/chi-tiet-du-an"
+   href="/Dieu-khien"
           className={`${styles.baseButton} ${styles.primaryButton}`}>
             Đi tới dự án
           </Button>

@@ -20,12 +20,9 @@ interface User {
   is_active: boolean;
   id: string;
   system_rank: string;
-
-last_logout:string;
-
+  last_logout:string;
   last_login: string;
 }
-
 interface ProfileModalProps {
   opened: boolean;
   onClose: () => void;
@@ -34,7 +31,6 @@ interface ProfileModalProps {
 export default function ProfileModal({ opened, onClose }: ProfileModalProps) {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
     if (!opened) return; // chỉ gọi API khi modal mở
     setLoading(true);
@@ -52,7 +48,7 @@ export default function ProfileModal({ opened, onClose }: ProfileModalProps) {
     <Modal
       opened={opened}
       onClose={onClose}
-    title={<span style={{ color: '#294b61' }}>Hồ sơ cá nhân</span>} // ✅ đổi màu
+    title={<span style={{ color: '#762f0b' }}>Hồ sơ cá nhân</span>} // ✅ đổi màu
       centered
       size="lg"
       overlayProps={{ backgroundOpacity: 0.55, blur: 3 }}
@@ -75,9 +71,7 @@ export default function ProfileModal({ opened, onClose }: ProfileModalProps) {
               </Stack>
             </Group>
           </Group>
-
           <Divider mb="md" />
-
           {/* Info fields */}
           <Stack gap="sm">
             <Group justify="space-between">
@@ -92,23 +86,18 @@ export default function ProfileModal({ opened, onClose }: ProfileModalProps) {
               <Text c="dimmed">SĐT:</Text>
               <Text>{user.phone || "Chưa có"}</Text>
             </Group>
-
              <Group justify="space-between">
               <Text c="dimmed">Vai trò:</Text>
              <Text>chưa có </Text>
             </Group>
-
              <Group justify="space-between">
               <Text c="dimmed">Dự án của bạn:</Text>
              <Text>chưa có </Text>
-            </Group>
-            
+            </Group> 
             <Group justify="space-between">
               <Text c="dimmed">Cấp bậc:</Text>
              <Text>{user.system_rank|| "chưa có"}</Text>
-
             </Group>
-
                   <Group justify="space-between">
               <Text c="dimmed">Lần đăng nhập cuối cùng:</Text>
               <Text>{user.last_login|| "chưa có"}</Text>

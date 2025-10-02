@@ -48,11 +48,9 @@ export default function Header() {
       <div className={styles.container}>
         {/* Logo + Flags + Menu Icon */}
       <div className={styles.mobileHeader}>
-      
             <Link href="/" className="flex items-center space-x-3">
               <Image src="/Logo T&T.png" alt="Logo" className={styles.logo} />
             </Link>
-
           <button
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             className={styles.mobileToggle}
@@ -90,9 +88,6 @@ export default function Header() {
             )}
           </button>
         </div>
-
-        {/* Right Section (Login + Flags) */}
-        {/* Desktop Navigation */}
         <div className={styles.desktopNav}>
           <ul className={styles.navList}>
             {baseLinks.map(({ label, href, highlight }) => (

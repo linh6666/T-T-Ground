@@ -4,7 +4,8 @@ import Header from "../../components/Header";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications"; // ✅ thêm vào
 import "@mantine/core/styles.css";
-import "@mantine/notifications/styles.css"; // ✅ style cho notifications
+import "@mantine/notifications/styles.css";
+import '@mantine/charts/styles.css'; // ✅ style cho notifications
 import AppContainer from "../../common/AppContainer";
 import "./globals.css";
 
