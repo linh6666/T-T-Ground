@@ -1,50 +1,52 @@
-.logo{
-    height: 150px;
-    border: 2px solid #762f0b;
-    margin-bottom: 10px;
-      display: flex;               /* bật flexbox */
-  justify-content: center;     /* căn giữa ngang */
-  align-items: center;         /* căn giữa dọc */
+.logo {
+  height: 150px;
+  border: 2px solid #762f0b;
+  margin-bottom: 10px;
+  display: flex; /* bật flexbox */
+  justify-content: center; /* căn giữa ngang */
+  align-items: center; /* căn giữa dọc */
 }
 /* nút chức năng */
-.Function{
-     height: 320px;
-    border: 2px solid #762f0b;
-      margin-bottom: 10px;
-      padding: 10px;
-     
-       display: flex;
-      
+.Function {
+  height: 320px;
+  border: 2px solid #762f0b;
+  margin-bottom: 10px;
+  padding: 10px;
+
+  display: flex;
+
   flex-direction: column;
-   /* 🟠 Căn giữa theo chiều dọc */
-  align-items: center;  
+  /* 🟠 Căn giữa theo chiều dọc */
+  align-items: center;
 }
 
 .btn {
-  background: linear-gradient(to bottom, #b36b4e, #a3543a); /* màu cam nâu đậm nhạt */
+  background: linear-gradient(
+    to bottom,
+    #b36b4e,
+    #a3543a
+  ); /* màu cam nâu đậm nhạt */
   color: #fff;
-   color: #fff;
-  
-  width: 150px;         /* 🔸 Chiều ngang full theo khung chứa */
-  height: 40px;  
-      /* 🔸 Chiều cao của nút */
+  color: #fff;
 
+  width: 150px; /* 🔸 Chiều ngang full theo khung chứa */
+  height: 40px;
+  /* 🔸 Chiều cao của nút */
 }
 
 .btn:hover {
   background: linear-gradient(to bottom, #c57756, #b05b3e);
 }
 
-
 /* hàng nút cuối cùng */
 .footer {
   height: 120px;
   border: 2px solid #762f0b;
   display: flex;
-  flex-direction: column;     /* sắp xếp theo chiều dọc */
+  flex-direction: column; /* sắp xếp theo chiều dọc */
   justify-content: center;
   align-items: center;
-  gap: 15px;                  /* khoảng cách giữa 2 hàng */
+  gap: 15px; /* khoảng cách giữa 2 hàng */
   /* margin-top: 20px; */
 }
 
@@ -85,21 +87,75 @@
 }
 
 .circleBtn {
-  width: 35px;              /* 👈 chiều rộng */
-  height: 35px;             /* 👈 chiều cao bằng width để thành hình tròn */
-  border-radius: 50%;       /* 👈 bo tròn hoàn toàn */
-  
-  display: flex;            /* 👈 căn icon hoặc text ra giữa */
+  width: 35px; /* 👈 chiều rộng */
+  height: 35px; /* 👈 chiều cao bằng width để thành hình tròn */
+  border-radius: 50%; /* 👈 bo tròn hoàn toàn */
+
+  display: flex; /* 👈 căn icon hoặc text ra giữa */
   align-items: center;
   justify-content: center;
 
   background-color: #fff;
   color: #000;
   cursor: pointer;
-   /* tuỳ chọn: viền */
+  /* tuỳ chọn: viền */
   transition: background-color 0.2s ease;
 }
 
 .circleBtn:hover {
   background-color: #f2f2f2;
+}
+
+@media only screen and (max-width: 600px) {
+  .logo,
+  .Function,
+  .footer {
+    border: none; /* bỏ viền */
+  }
+
+  /* Logo + Function nằm chung hàng */
+  .box {
+    display: flex;
+    flex-direction: column; /* nếu muốn dọc vẫn giữ, đổi sang row nếu muốn ngang */
+    align-items: center;
+    gap: 10px;
+  }
+
+  .logo {
+    height: 100px; /* thu nhỏ logo trên mobile */
+  }
+
+  .Function {
+    width: 100%; /* chiếm full width mobile */
+    height: auto; /* để chiều cao tự động */
+    padding: 5px;
+  }
+
+  /* Footer vẫn căn giữa, nút nhỏ hơn */
+  .footer {
+    width: 100%;
+    height: auto;
+    gap: 10px;
+  }
+
+  .btn {
+    width: 120px; /* nút nhỏ hơn mobile */
+    height: 35px;
+  }
+
+  .circleBtn {
+    width: 30px;
+    height: 30px;
+  }
+
+  .modeBtn {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .imgea {
+    width: 200px; /* thu nhỏ chiều ngang */
+    height: auto; /* giữ tỉ lệ ảnh */
+  }
 }
