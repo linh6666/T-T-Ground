@@ -1,26 +1,22 @@
 "use client";
 
-import Image from "next/image";
+import { Image } from "@mantine/core";
 import React from "react";
-import styles from "./Control.module.css"; // ✅ import CSS Module
+import styles from "./Control.module.css";
+import Menu from "./Menu/index"; 
 
 export default function ControlPage() {
   return (
-    <div className={styles.container}>
-      {/* Cột bên trái */}
-      <div className={styles.leftColumn}>
+    <div className={styles.box}>
+      <div className={styles.left}>
         <Image
           src="https://vietmodel.com.vn/api/v1/static/EcoRetreat/home.jpg"
           alt="Ảnh trang chủ"
-          width={1000}
-          height={690}
-          className={styles.responsiveImage}
+          className={styles.img}
         />
       </div>
-
-      {/* Cột bên phải */}
-      <div className={styles.rightColumn}>
-        xin chào các bạn nhé
+      <div className={styles.right}>
+      <Menu/>
       </div>
     </div>
   );
