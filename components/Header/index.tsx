@@ -7,14 +7,16 @@ import { Image } from "@mantine/core";
 // import LoginButton from "../../components/LoginButton/LoginButton";
 import styles from "./Header.module.css";
 import LoginButton from "./ButtonLogin/index";
+import { IconPhoneCall, IconShoppingCart } from "@tabler/icons-react";
 // menu mặc định
 const baseLinks = [
   { label: "TRANG CHỦ", href: "/", highlight: true },
-  { label: "GIỚI THIỆU", href: "/gioi-thieu" },
-  { label: "TƯƠNG TÁC", href: "/Tuong-tac" },
+  // { label: "GIỚI THIỆU", href: "/gioi-thieu" },
+  { label: "MÔ HÌNH TƯƠNG TÁC", href: "/Tuong-tac" },
   { label: "QUẢN LÝ BÁN HÀNG", href: "/quan-ly-ban-hang" },
+   { label: "QUẢN TRỊ DỰ ÁN", href: "/lien-he" },
   { label: "QUẢN TRỊ HỆ THỐNG", href: "/quan-ly-he-thong" },
-  { label: "LIÊN HỆ", href: "/lien-he" },
+ 
 ];
 
 export default function Header() {
@@ -49,7 +51,7 @@ export default function Header() {
         {/* Logo + Flags + Menu Icon */}
       <div className={styles.mobileHeader}>
             <Link href="/" className="flex items-center space-x-3">
-              <Image src="/Logo T&T.png" alt="Logo" className={styles.logo} />
+              <Image src="/Logo/Logo_của_Tập_đoàn_T&T_Group.png" alt="Logo" className={styles.logo} />
             </Link>
           <button
             onClick={() => setIsMobileMenuOpen((prev) => !prev)}
@@ -105,7 +107,34 @@ export default function Header() {
           </ul>
         
         </div>
-         <div className={`hidden md:flex ${styles.loginLangBlock}`}>
+        
+         <div className={`hidden md:flex ${styles.loginLangBlock}`} style={{ display: "flex", gap: "20px" }}>
+            <div
+      style={{
+        border: "1px solid #752E0B",
+        borderRadius: "50%",
+        width: 26,
+        height: 26,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <IconPhoneCall size={17} color="#752E0B" stroke={1.5} />
+    </div>
+     <div
+      style={{
+        border: "1px solid #752E0B",
+        borderRadius: "50%",
+        width: 26,
+        height: 26,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <IconShoppingCart size={17} color="#752E0B" stroke={1.5} />
+    </div>
   <LoginButton/>
 </div>
       </div>

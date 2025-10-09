@@ -1,21 +1,21 @@
 "use client";
 
 import { useState } from "react";
-import {  IconUserCircle } from "@tabler/icons-react";
+import {  IconUser } from "@tabler/icons-react";
 import { Menu, Text } from "@mantine/core";
 import useAuth from "../../../hook/useAuth";
 // import styles from "./ButtonLogin.module.css";
 import Link from "next/link";
 import ProfileModal from "./Profile/index"; 
 import ButtonsCollection from "../../../common/ButtonsCollection";
-import {
-  useViewportSize,
-} from "@mantine/hooks";// ✅ import modal hồ sơ
+// import {
+//   useViewportSize,
+// } from "@mantine/hooks";// ✅ import modal hồ sơ
 
 export default function LoginButton() {
   const { user, isLoggedIn, logout, error } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-   const widthView = useViewportSize().width;
+  //  const widthView = useViewportSize().width;
 
   const handleLogout = async () => {
     await logout();
@@ -32,7 +32,7 @@ export default function LoginButton() {
               <ButtonsCollection
                 background
                 hover
-                leftIcon={<IconUserCircle size={widthView < 600 ? 16 : 24} color="#ffbe00" />}
+                // leftIcon={<IconUserCircle size={widthView < 600 ? 16 : 24} color="#ffbe00" />}
               >
                 
                   <Text w={"100%"} fw={"700"} c={"white"} truncate="end">
@@ -52,7 +52,7 @@ export default function LoginButton() {
           </Menu.Dropdown>
         </Menu>
       ) : (
-        <ButtonsCollection background hover>
+        // <ButtonsCollection background hover>
                 <Link
                   href={"/dang-nhap"}
                   style={{
@@ -62,10 +62,22 @@ export default function LoginButton() {
                     alignItems: "center",
                   }}
                 >
-                  <IconUserCircle size={24} style={{ marginRight: 8 }} />
-                  Đăng nhập
+              
+  <div
+      style={{
+        border: "1px solid #752E0B",
+        borderRadius: "50%",
+        width: 26,
+        height: 26,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <IconUser size={17} color="#752E0B" stroke={1.5} />
+    </div>
                 </Link>
-              </ButtonsCollection>
+              // </ButtonsCollection>
       )}
 
       {/* ✅ Modal hồ sơ cá nhân */}

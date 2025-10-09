@@ -10,7 +10,7 @@ export default function ControlPage() {
     <div className={styles.box}>
       <div className={styles.left}>
         <Image
-          src="https://vietmodel.com.vn/api/v1/static/EcoRetreat/home.jpg"
+         src="/image/home_bg.png"   
           alt="Ảnh trang chủ"
           className={styles.img}
         />

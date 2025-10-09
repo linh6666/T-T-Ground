@@ -1,62 +1,118 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Menu.module.css";
-import { Button, Image, SimpleGrid } from "@mantine/core";
-import { IconChevronsLeft } from "@tabler/icons-react";
+import { Button, Group, Image, Stack } from "@mantine/core";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import Sun from "./Sun/index";
+import { IconArrowLeft } from "@tabler/icons-react";
+
 
 export default function ControlPage() {
-  const [activeMode, setActiveMode] = useState<'single' | 'multi' | null>(null);
+  const router = useRouter();
+    const [active, setActive] = useState(false);
 
-  const handleModeChange = (mode: 'single' | 'multi') => {
-    if (activeMode === mode) {
-      setActiveMode(null); // toggle bỏ chọn
-    } else {
-      setActiveMode(mode);
-    }
-  };
+
+
+  // Danh sách nút và link tương ứng
+  const menuItems = [
+    { label: "GIỚI THIỆU DỰ ÁN", link: "/gioi-thieu" },
+    { label: "PHÂN KỲ ĐẦU TƯ", link: "" },
+    { label: "HỆ THỐNG PHÂN KHU", link: "/phan-khu" },
+    { label: "HỆ THỐNG TIỆN ÍCH", link: "/tien-ich" },
+    { label: "HIỆU ỨNG ÁNH SÁNG", link: "/hieu-ung-anh-sang" },
+    { label: "THƯ VIỆN", link: "/thu-vien" },
+    { label: "MÔ HÌNH", link: "/mo-hinh" },
+  ];
 
   return (
     <div className={styles.box}>
+      {/* Logo */}
       <div className={styles.logo}>
-        <Image src="/Logo T&T.png" alt="Logo" className={styles.imgea} />
+        <Image
+          src="/Logo/logo-tt-city-millennia.png"
+          alt="Logo"
+          className={styles.imgea}
+        />
       </div>
 
+      {/* Tiêu đề */}
+      <div className={styles.title}>
+        <h1>MÔ HÌNH TƯƠNG TÁC</h1>
+      </div>
+
+      {/* Danh sách nút chuyển trang */}
       <div className={styles.Function}>
-        <SimpleGrid cols={1} spacing="xs" verticalSpacing="xs">
-            <Button className={styles.btn}>Green Ville 1</Button>
-      <Button className={styles.btn}>Green Ville 2</Button>
-      <Button className={styles.btn}>Green Ville 3</Button>
-      <Button className={styles.btn}>Green Ville 4</Button>
-      <Button className={styles.btn}>Green Ville 5</Button>
-      </SimpleGrid>
+
+      <Stack align="center" style={{ gap: '20px', marginTop: '30px' }}>
+          {/* 5 nút đầu (giữ kích thước giống trước) */}
+          {menuItems.slice(0, 5).map((item) => (
+            <Button
+              key={item.link}
+              className={styles.menuBtn}     // class cho 5 nút trên
+              onClick={() => router.push(item.link)}
+              variant="outline"
+            >
+              {item.label}
+            </Button>
+          ))}
+
+          {/* 2 nút cuối tách riêng, co giãn theo text */}
+          <div className={styles.bottomTwo}>
+            {menuItems.slice(5).map((item) => (
+              <Button
+                key={item.link}
+                className={styles.menuBtnSmall}  // class riêng cho 2 nút
+                onClick={() => router.push(item.link)}
+                variant="outline"
+                w="auto"                          // ép Mantine không full width
+                style={{ display: "inline-block" }}
+              >
+                {item.label}
+              </Button>
+            ))}
+          </div>
+        </Stack>
       </div>
 
-    <div className={styles.footer}>
-  {/* Hàng 1 */}
-  <div className={styles.modeRow}>
-    <button
-      className={`${styles.modeBtn} ${activeMode === 'single' ? styles.active : ''}`}
-      onClick={() => handleModeChange('single')}
-    >
-      SINGLE MODE
-    </button>
-    <button
-      className={`${styles.modeBtn} ${activeMode === 'multi' ? styles.active : ''}`}
-      onClick={() => handleModeChange('multi')}
-    >
-      MULTI MODE
-    </button>
-  </div>
+      {/* Footer */}
+      <div className={styles.footer}>
+         <Group gap="xs">
 
-  {/* Hàng 2 */}
-  <div className={styles.controlRow}>
-    <Button className={styles.circleBtn}>ON</Button>
-    <Button className={styles.circleBtn}>OFF</Button>
-    <Button className={styles.circleBtn}><IconChevronsLeft/>
-</Button>
-  </div>
-</div>
+ <Sun />
+
+
+
+ 
+ <Button
+      onClick={() => setActive((prev) => !prev)}
+      variant="filled"
+      style={{
+        width: 30,
+        height: 30,
+        padding: 0,
+        borderRadius: 40,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        transition: "background 0.3s",
+        background: active
+          ? "linear-gradient(to top, #FFE09A, #FFF1D2)" // khi click
+          : "#FFFAEE",                                   // mặc định
+        color: "#752E0B",
+        border: "1.5px solid #752E0B",
+      }}
+    >
+      <Group gap={0} align="center">
+        <IconArrowLeft
+ size={18} color="#752E0B" />
+      </Group>
+    </Button>
+</Group>
+
+      </div>
     </div>
   );
 }

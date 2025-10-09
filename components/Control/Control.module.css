@@ -1,6 +1,6 @@
 .box {
-  max-width: 1150px;
-  height: 650px;
+  max-width: 1270px;
+  /* height: 750px; */
   padding: 10px;
   margin: auto;
   display: flex;
@@ -13,8 +13,8 @@
 
 /* Cột phải (text) */
 .right {
-  flex: 1;
-  background-color: #ffbe00;
+   width: 240px;     
+  background-color:#FFFAEE;
   /* display: flex; */
   /* align-items: center; */
   justify-content: center;
@@ -26,8 +26,8 @@
 
 /* Ảnh full kích thước */
 .img {
-  width: 100%;
-  height: 100%; /* ✅ chiều cao full theo khung */
+   /* width: 900px; */
+  /* height: 100%;  */
   object-fit: cover; /* ✅ không méo, ảnh được crop cho vừa khung */
   display: block;
 }

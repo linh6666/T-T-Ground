@@ -14,7 +14,7 @@ export default function Footer() {
           {/* Logo bên trái */}
           <Box className={styles.logo}>
             <Image 
-              src="/Logo T&T.png" 
+              src="/Logo/Logo_của_Tập_đoàn_T&T_Group.png" 
               alt="Logo T&T" 
               width={250} 
               height={200} 
@@ -34,12 +34,12 @@ export default function Footer() {
           </Box>
 
           {/* Danh sách liên kết bên phải */}
-          <Box className={styles.links}>
+          {/* <Box className={styles.links}>
             <Text>Giới thiệu</Text>
             <Text>Tướng tác</Text>
             <Text>Quản lý bán hàng</Text>
             <Text>Liên hệ</Text>
-          </Box>
+          </Box> */}
 
         </Group>
       </AppContainer>
