@@ -1,0 +1,71 @@
+.box {
+  max-width: 1270px;
+  /* height: 750px; */
+  padding: 10px;
+  margin: auto;
+  display: flex;
+}
+
+/* Cột trái (ảnh) */
+.left {
+  flex: 3;
+}
+
+/* Cột phải (text) */
+.right {
+   width: 240px;     
+  background-color:#FFFAEE;
+  /* display: flex; */
+  /* align-items: center; */
+  justify-content: center;
+  color: #762f0b;
+  font-size: 18px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* Ảnh full kích thước */
+.img {
+   /* width: 900px; */
+  /* height: 100%;  */
+  object-fit: cover; /* ✅ không méo, ảnh được crop cho vừa khung */
+  display: block;
+}
+
+/* 📱 Mobile responsive */
+@media (max-width: 768px) {
+  .box {
+    flex-direction: column; /* đổi từ hàng ngang sang hàng dọc */
+    height: auto; /* cho phép chiều cao co dãn */
+  }
+
+  .left {
+    flex: none;
+    width: 100%;
+    height: 300px; /* chiều cao ảnh khi mobile */
+  }
+
+  .right {
+    flex: none;
+    width: 100%;
+    padding: 20px;
+    font-size: 16px;
+  }
+
+  .img {
+    height: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .left {
+    height: 220px; /* ảnh nhỏ hơn cho điện thoại nhỏ */
+  }
+
+  .right {
+    font-size: 14px;
+    padding: 15px;
+    margin-top: 10px;
+  }
+}
+/* logo ô thao tác nhé */

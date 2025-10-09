@@ -5,7 +5,7 @@ import styles from "./Menu.module.css";
 import { Button, Group, Image, Stack } from "@mantine/core";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Sun from "./Sun/index";
+// import Sun from "./Sun/index";
 import { IconArrowLeft } from "@tabler/icons-react";
 
 
@@ -17,13 +17,17 @@ export default function ControlPage() {
 
   // Danh sách nút và link tương ứng
   const menuItems = [
-    { label: "GIỚI THIỆU DỰ ÁN", link: "/gioi-thieu" },
-    { label: "PHÂN KỲ ĐẦU TƯ", link: "/He-thong-phan-khu" },
-    { label: "HỆ THỐNG PHÂN KHU", link: "" },
-    { label: "HỆ THỐNG TIỆN ÍCH", link: "/tien-ich" },
-    { label: "HIỆU ỨNG ÁNH SÁNG", link: "/hieu-ung-anh-sang" },
-    { label: "THƯ VIỆN", link: "/thu-vien" },
-    { label: "MÔ HÌNH", link: "/mo-hinh" },
+    { label: "D-Lk49.1", link: "" },
+    { label: "D-Lk49.2", link: "" },
+    { label: "D-Lk49.3", link: "" },
+    { label: "D-Lk49.4", link: "" },
+    { label: "D-Lk49.5", link: "" },
+     { label: "D-Lk49.6", link: "" },
+    { label: "D-Lk49.7", link: "" },
+    { label: "D-Lk49.8", link: "" },
+    { label: "D-Lk49.9", link: "" },
+    { label: "D-Lk49.10", link: "" },
+
   ];
 
   return (
@@ -39,7 +43,7 @@ export default function ControlPage() {
 
       {/* Tiêu đề */}
       <div className={styles.title}>
-        <h1>MÔ HÌNH TƯƠNG TÁC</h1>
+        <h1>D-LK49</h1>
       </div>
 
       {/* Danh sách nút chuyển trang */}
@@ -47,19 +51,19 @@ export default function ControlPage() {
 
       <Stack align="center" style={{ gap: '20px', marginTop: '30px' }}>
           {/* 5 nút đầu (giữ kích thước giống trước) */}
-          {menuItems.slice(0, 5).map((item) => (
-            <Button
-              key={item.link}
-              className={styles.menuBtn}     // class cho 5 nút trên
-              onClick={() => router.push(item.link)}
-              variant="outline"
-            >
-              {item.label}
-            </Button>
-          ))}
+       {menuItems.map((item) => (
+  <Button
+    key={item.link}
+    className={styles.menuBtn}   // class cho toàn bộ các nút
+    onClick={() => router.push(item.link)}
+    variant="outline"
+  >
+    {item.label}
+  </Button>
+))}
 
           {/* 2 nút cuối tách riêng, co giãn theo text */}
-          <div className={styles.bottomTwo}>
+          {/* <div className={styles.bottomTwo}>
             {menuItems.slice(5).map((item) => (
               <Button
                 key={item.link}
@@ -72,14 +76,14 @@ export default function ControlPage() {
                 {item.label}
               </Button>
             ))}
-          </div>
+          </div> */}
         </Stack>
       </div>
 
       {/* Footer */}
       <div className={styles.footer}>
          <Group gap="xs">
- <Sun />
+ {/* <Sun /> */}
  <Button
       onClick={() => setActive((prev) => !prev)}
       variant="filled"

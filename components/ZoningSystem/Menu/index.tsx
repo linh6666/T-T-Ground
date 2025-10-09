@@ -5,7 +5,7 @@ import styles from "./Menu.module.css";
 import { Button, Group, Image, Stack } from "@mantine/core";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Sun from "./Sun/index";
+// import Sun from "./Sun/index";
 import { IconArrowLeft } from "@tabler/icons-react";
 
 
@@ -17,13 +17,12 @@ export default function ControlPage() {
 
   // Danh sách nút và link tương ứng
   const menuItems = [
-    { label: "GIỚI THIỆU DỰ ÁN", link: "/gioi-thieu" },
-    { label: "PHÂN KỲ ĐẦU TƯ", link: "/He-thong-phan-khu" },
-    { label: "HỆ THỐNG PHÂN KHU", link: "" },
-    { label: "HỆ THỐNG TIỆN ÍCH", link: "/tien-ich" },
-    { label: "HIỆU ỨNG ÁNH SÁNG", link: "/hieu-ung-anh-sang" },
-    { label: "THƯ VIỆN", link: "/thu-vien" },
-    { label: "MÔ HÌNH", link: "/mo-hinh" },
+    { label: "Gia Phúc 1", link: "chi-tiet-dau-tu" },
+    // { label: "Gia Phúc 2", link: "" },
+    // { label: "Gia Phúc 3", link: "" },
+    // { label: "Gia phúc 4", link: "" },
+    // { label: "Gia phúc 5", link: "" },
+
   ];
 
   return (
@@ -39,7 +38,7 @@ export default function ControlPage() {
 
       {/* Tiêu đề */}
       <div className={styles.title}>
-        <h1>MÔ HÌNH TƯƠNG TÁC</h1>
+        <h1>Phân Khu</h1>
       </div>
 
       {/* Danh sách nút chuyển trang */}
@@ -79,7 +78,7 @@ export default function ControlPage() {
       {/* Footer */}
       <div className={styles.footer}>
          <Group gap="xs">
- <Sun />
+ {/* <Sun /> */}
  <Button
       onClick={() => setActive((prev) => !prev)}
       variant="filled"
