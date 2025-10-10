@@ -49,7 +49,7 @@ export default function ControlPage() {
       {/* Danh sách nút chuyển trang */}
       <div className={styles.Function}>
 
-      <Stack align="center" style={{ gap: '20px', marginTop: '30px' }}>
+      <Stack align="center" style={{ gap: '20px', marginTop: '10px' }}>
           {/* 5 nút đầu (giữ kích thước giống trước) */}
        {menuItems.map((item) => (
   <Button
