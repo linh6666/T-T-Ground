@@ -34,7 +34,7 @@ const handleSelect = (id: string) => {
         } else {
           // giữ nguyên fill gốc của shape, nếu muốn reset về màu gốc
           const originalFill = shape.getAttribute("data-original-fill");
-          shape.setAttribute("fill", originalFill || "black");
+          shape.setAttribute("fill", originalFill || "red");
         }
       });
     });

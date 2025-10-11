@@ -6,65 +6,63 @@ import {
   IconUser,
 } from '@tabler/icons-react';
 import { ScrollArea } from '@mantine/core';
-import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
+import { LinksGroup } from './NavbarLinksGroup/NavbarLinksGroup';
 import classes from './NavbarSimple.module.css';
-import User from './User'; 
+// import Project from './Project'; 
 // import System from './System'; 
 // import Users from './Users'; 
 // import ListProject from './ListProject'; 
-// import UserProject from './UserPoject'; 
+// import UserProject from './UserPoject';
+// import HomeAdmin from '../HomeAdmin/index';  
 // import ProjectManagere from './ProjectManagere'; 
-import HomeAdmin from '../HomeAdmin/index'; 
 
 const mockdata = [
   { label: 'Báo cáo tổng quan', icon: IconGauge, link: 'home' },
-  {
-    label: 'Cấu hình',
+ {
+    label: 'Quản lý dự án',
     icon: IconNotes,
     initiallyOpened: true,
     links: [
-      { label: 'Định danh vai trò trong hệ thống', link: 'user' },
-      { label: 'Định danh vai trò trong dự án', link: 'project' },
+      { label: 'Danh sách dự án', link: 'project-list' },
+      { label: 'Dự án MILLENNIA', link: 'project-1' },
+      { label: 'Dự án khu Dân Cư Phước Thọ', link: 'project' },
     ],
   },
   {
-    label: 'Phân quyền',
+    label: 'Phân quyền người dùng trong dự án',
     icon: IconUser,
     initiallyOpened: true,
-    links: [{ label: 'Quản lý vai trò người dùng trong hệ thống', link: 'permission' },
-      { label: 'Quản lý vai trò ,quyền', link: 'role_permission' },
-      { label: 'Quản lý quyền trong hệ thống', link: 'system_permission' },
-      { label: 'Quản lý người dùng trong dự án', link: 'user_project_role' },
-      { label: 'Yều cầu cấp quyền trong dự dự án ', link: 'join_project' },
+    links: [{ label: 'Quản lý vai trò người dùng dự án', link: 'user-list' },
+     
     ],
   },
 ];
 
 
 
-export default function PageAdmin() {
+export function ProjectManagement() {
   const [active, setActive] = useState<string>(''); // <-- thêm state để xử lý active
 
-  const combinedData = [...mockdata];
+  const combinedData = [...mockdata, ];
 
   // Hàm render nội dung tương ứng với menu
   const renderContent = () => {
     switch (active) {
-      case 'user':
-        return <User/>;
       case 'project':
+        return <div>Đây là trang dự án</div>;
+      case 'user-role-project':
         return <div>Đây là trang dự án</div>;
       case 'permission':
         return <div>Đây là trang dự án</div>;
       case 'project-list':
         return <div>Đây là trang dự án</div>;
       case 'project-1':
-        return <div>Đây là trang dự án</div>;
+       return <div>Đây là trang dự án</div>;
       case 'user-list':
         return <div>Đây là trang dự án</div>;
          
       default:
-        return <HomeAdmin/>;
+         return<div>Đây là trang dự án</div>;
     }
   };
 
@@ -82,7 +80,7 @@ export default function PageAdmin() {
       {/* Sidebar */}
       <nav className={classes.navbar}>
         <div className={classes.header}>
-          <h1>QUẢN TRỊ HỆ THỐNG</h1>
+          <h1>QUẢN TRỊ DỰ ÁN</h1>
         </div>
 
         <ScrollArea className={classes.links}>
@@ -97,7 +95,7 @@ export default function PageAdmin() {
             ))}
           </div>
 
-         
+       
         </ScrollArea>
       </nav>
 

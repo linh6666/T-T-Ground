@@ -14,7 +14,7 @@ const baseLinks = [
   // { label: "GIỚI THIỆU", href: "/gioi-thieu" },
   { label: "MÔ HÌNH TƯƠNG TÁC", href: "/Tuong-tac" },
   { label: "QUẢN LÝ BÁN HÀNG", href: "/quan-ly-ban-hang" },
-   { label: "QUẢN TRỊ DỰ ÁN", href: "/lien-he" },
+   { label: "QUẢN TRỊ DỰ ÁN", href: "/quan-tri-du-an" },
   { label: "QUẢN TRỊ HỆ THỐNG", href: "/quan-ly-he-thong" },
  
 ];

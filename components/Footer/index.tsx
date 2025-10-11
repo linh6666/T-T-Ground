@@ -3,12 +3,12 @@
 import { Text, Title, Group, Box, Anchor } from '@mantine/core';
 import Image from 'next/image';
 import styles from './FooterLinks.module.css';
-import AppContainer from "../../common/AppContainer";
+// import AppContainer from "../../common/AppContainer";
 
 export default function Footer() {
   return (
     <footer className={styles.footer}>
-      <AppContainer>
+      <div className={styles.footerOverlay} >
         <Group style={{ alignItems: 'flex-start' }}>
           
           {/* Logo bên trái */}
@@ -42,7 +42,7 @@ export default function Footer() {
           </Box> */}
 
         </Group>
-      </AppContainer>
+      </div>
     </footer>
   );
 }

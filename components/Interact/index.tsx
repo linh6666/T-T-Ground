@@ -1,9 +1,9 @@
 import { Card, Image, Stack, Text, Button} from "@mantine/core";
 import styles from "./Interact.module.css";
-import AppContainer from "../../common/AppContainer";
+// import AppContainer from "../../common/AppContainer";
 export default function DetailInteractive () {
   return (
-<AppContainer>
+<div className={styles.background}>
  <div className={styles.container}>
       {/* Search Section */}  
       <div className={styles.cardGrid}>
@@ -16,8 +16,8 @@ export default function DetailInteractive () {
             style={{ borderTopLeftRadius: "var(--mantine-radius-md)", borderTopRightRadius: "var(--mantine-radius-md)" }}
           />
           <Stack gap="xs" p="md" style={{ flexGrow: 1 }}>
-            <Text fw={500}>ECO RETREAT</Text>
-            <Text size="sm" c="dimmed">Long An</Text>
+            <Text fw={500}>MILLENIA</Text>
+            <Text size="sm" c="dimmed">Huyện Cần Giuộc-Tỉnh Long An</Text>
             <Text size="sm" c="dimmed">100%</Text>
           </Stack>
           <Button 
@@ -36,8 +36,8 @@ export default function DetailInteractive () {
             style={{ borderTopLeftRadius: "var(--mantine-radius-md)", borderTopRightRadius: "var(--mantine-radius-md)" }}
           />
           <Stack gap="xs" p="md" style={{ flexGrow: 1 }}>
-            <Text fw={500}>HIGHRISE MELBOURNE</Text>
-            <Text size="sm" c="dimmed">Melbourne</Text>
+            <Text fw={500}>Khu Dân cư Phước Thọ</Text>
+            <Text size="sm" c="dimmed">Thành Phố Vĩnh Long</Text>
             <Text size="sm" c="dimmed">6%, bao gồm 24 tầng, hướng biển</Text>
           </Stack>
             <Button
@@ -83,6 +83,6 @@ Chờ phê duyệt
         </Card>       
       </div>
     </div>
-</AppContainer>  
+</div>  
   );
 }
