@@ -10,7 +10,8 @@ import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
 import classes from './NavbarSimple.module.css';
 import User from './User'; 
 import Roles from './Roles'; 
-// import System from './System'; 
+import System from './System'; 
+// import Permission from './Permission'; 
 // import Users from './Users'; 
 // import ListProject from './ListProject'; 
 // import UserProject from './UserPoject'; 
@@ -56,7 +57,7 @@ export default function PageAdmin() {
       case 'project':
         return <Roles/>;
       case 'permission':
-        return <div>Đây là trang dự án</div>;
+        return <System/>;
       case 'project-list':
         return <div>Đây là trang dự án</div>;
       case 'project-1':

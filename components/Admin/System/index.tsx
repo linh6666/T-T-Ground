@@ -7,7 +7,7 @@ import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
 
 import { modals } from "@mantine/modals";
-import { getListRoles } from "../../../api/getlistrole";
+import { getListRoles } from "../../../api/apigetlistsystym";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
@@ -17,7 +17,7 @@ import DeleteView from "./DeleteView";
 interface DataType {
   id: string; // ✅ thêm id để dùng cho chỉnh sửa
   name: string;
-  rank: number;
+  rank_total: number;
   description_vi: string;
   description_en: string;
 }
@@ -44,7 +44,8 @@ export default function LargeFixedTable() {
       const users = result.data.map((user: DataType) => ({
         id: user.id, // ✅ map thêm id
         name: user.name,
-        rank: user.rank,
+        rank_total: user.
+rank_total,
         description_vi: user.description_vi,
         description_en: user.description_en,
       }));
@@ -61,7 +62,7 @@ export default function LargeFixedTable() {
     fetchData();
   }, [fetchData]);
 
-  // ✅ Hàm mở modal chỉnh sửa
+//   ✅ Hàm mở modal chỉnh sửa
   const openEditUserModal = (role: DataType) => {
     modals.openConfirmModal({
       title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa người dùng</div>,
@@ -74,7 +75,7 @@ export default function LargeFixedTable() {
   // ✅ Định nghĩa cột bảng
   const columns: ColumnsType<DataType> = [
     { title: "Tên", dataIndex: "name", key: "name", width: 30 },
-    { title: "Cấp Bậc", dataIndex: "rank", key: "rank", width: 90 },
+    { title: "Cấp Bậc", dataIndex: "rank_total", key: "rank_total", width: 90 },
     { title: "Mô Tả (Tiếng Việt)", dataIndex: "description_vi", key: "description_vi", width: 100 },
     { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
     {
@@ -88,8 +89,7 @@ export default function LargeFixedTable() {
             <EuiButtonIcon
               iconType="documentEdit"
               aria-label="Chỉnh sửa"
-              color="success"
-              onClick={() => openEditUserModal(user)}
+              color="success"onClick={() => openEditUserModal(user)}
             />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
