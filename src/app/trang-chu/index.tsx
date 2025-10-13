@@ -1,7 +1,7 @@
 // import Home from "@/feature/home/index";
 import { Loader } from "@mantine/core";
 import { Suspense } from "react";
-// import Home from "../../../feature";
+import Home from "../../../feature/index";
 
 const HomePage = () => {
   return (
@@ -22,7 +22,7 @@ const HomePage = () => {
           </div>
         }
       >
-        {/* <Home /> */}
+         <Home /> 
       </Suspense>
     </div>
   );

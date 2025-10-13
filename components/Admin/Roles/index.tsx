@@ -5,53 +5,31 @@ import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
-import dayjs from "dayjs";
+
 import { modals } from "@mantine/modals";
-import { getListRoles } from "../../../api/apigetlistuse";
+import { getListRoles } from "../../../api/getlistrole";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
 
 interface DataType {
-  key: string;
-  full_name: string;
-  email: string;
-  phone: string;
-  is_active: boolean;
-  is_superuser: boolean;
-  area_id: string;
-  province_id: string;
-  ward_id: string;
-  introducer_id: string;
-  id: string;
-  creation_time: string;
-  last_login: string;
-  last_logout: string;
+  name: string;
+  rank: number;
+  description_vi: string;
+  description_en: string;
+   
+      
 }
 
 const columns: ColumnsType<DataType> = [
-  { title: "Họ và Tên", dataIndex: "full_name", key: "full_name", width: 150, fixed: "left" },
-  { title: "Email", dataIndex: "email", key: "email", width: 130 },
-  { title: "Điện Thoại", dataIndex: "phone", key: "phone", width: 130 },
-  { title: "Kích Hoạt", dataIndex: "is_active", key: "is_active", width: 80, render: (text) => (text ? "Có" : "Không") },
-  { title: "Quản Trị Viên", dataIndex: "is_superuser", key: "is_superuser", width: 100, render: (text) => (text ? "Có" : "Không") },
-  { title: "Mã Khu Vực", dataIndex: "area_id", key: "area_id", width: 80 },
-  { title: "Mã Tỉnh", dataIndex: "province_id", key: "province_id", width: 100 },
-  { title: "Mã Phường", dataIndex: "ward_id", key: "ward_id", width: 100 },
-  { title: "Mã Người Giới Thiệu", dataIndex: "introducer_id", key: "introducer_id", width: 120 },
-  {
-    title: "Thời Gian Tạo",
-    dataIndex: "creation_time",
-    key: "creation_time",
-    width: 140,
-    render: (text: string) => dayjs(text).format("DD/MM/YYYY HH:mm"),
-  },
-  { title: "Lần Đăng Nhập Cuối", dataIndex: "last_login", key: "last_login", width: 140 },
-  { title: "Lần Đăng Xuất Cuối", dataIndex: "last_logout", key: "last_logout", width: 140 },
+  { title: "Tên", dataIndex: "name", key: "name", width: 30, },
+  { title: "Cấp Bậc", dataIndex: "rank", key: "rank", width: 90 },
+  { title: "Mô Tả(Tiếng Việt)", dataIndex: "description_vi", key: "description_vi", width: 100 },
+    { title: "Mô Tả(Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
   {
     title: "Hành Động",
-    width: 100,
-    fixed: "right",
+    width: 30,
+    // fixed: "right",
     // render: (user: DataType) => (
     //   <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
     //     <EuiFlexItem grow={false}>
@@ -103,20 +81,10 @@ export default function LargeFixedTable() {
     try {
       const result = await getListRoles({ token, skip: 0, limit: 100 });
       const users = result.data.map((user: DataType) => ({
-        key: user.id,
-        full_name: user.full_name,
-        email: user.email,
-        phone: user.phone,
-        is_active: user.is_active,
-        is_superuser: user.is_superuser,
-        area_id: user.area_id,
-        province_id: user.province_id,
-        ward_id: user.ward_id,
-        introducer_id: user.introducer_id,
-        id: user.id,
-        creation_time: user.creation_time,
-        last_login: user.last_login,
-        last_logout: user.last_logout,
+        name: user.name,
+        rank: user.rank,
+        description_vi: user.description_vi,
+        description_en: user.description_en,
       }));
       setData(users);
     } catch (err: unknown) {
@@ -153,7 +121,7 @@ export default function LargeFixedTable() {
         columns={columns}
         dataSource={data}
         loading={loading}
-        scroll={{ x: 2000 }}
+        // scroll={{ x: 2000 }}
         pagination={false}
         bordered
       />

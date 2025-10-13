@@ -9,6 +9,7 @@ import { ScrollArea } from '@mantine/core';
 import { LinksGroup } from '../NavbarLinksGroup/NavbarLinksGroup';
 import classes from './NavbarSimple.module.css';
 import User from './User'; 
+import Roles from './Roles'; 
 // import System from './System'; 
 // import Users from './Users'; 
 // import ListProject from './ListProject'; 
@@ -53,7 +54,7 @@ export default function PageAdmin() {
       case 'user':
         return <User/>;
       case 'project':
-        return <div>Đây là trang dự án</div>;
+        return <Roles/>;
       case 'permission':
         return <div>Đây là trang dự án</div>;
       case 'project-list':
@@ -73,7 +74,7 @@ export default function PageAdmin() {
       style={{
         display: 'flex',
         width: '100%',
-        maxWidth: '1200px',
+        maxWidth: '1500px',
         margin: '0px auto 10px auto',
         border:
           '1px solid light-dark(var(--mantine-color-gray-3), var(--mantine-color-dark-4))',
