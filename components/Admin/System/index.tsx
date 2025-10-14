@@ -8,6 +8,7 @@ import AppAction from "../../../common/AppAction";
 
 import { modals } from "@mantine/modals";
 import { getListRoles } from "../../../api/apigetlistsystym";
+import CommonPagination from "../../../common/Pagination";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
@@ -26,7 +27,11 @@ export default function LargeFixedTable() {
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-
+useEffect(() => {
+  if (error) {
+    console.log("Current error:", error);
+  }
+}, [error]);
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
 
   const fetchData = useCallback(async () => {
@@ -136,8 +141,11 @@ rank_total,
         bordered
         rowKey="id" // ✅ thêm key cho mỗi hàng
       />
+       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+    <CommonPagination />
+  </div>
 
-      {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
+      
     </>
   );
 }
