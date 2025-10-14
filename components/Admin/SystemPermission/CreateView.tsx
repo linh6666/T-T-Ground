@@ -12,7 +12,7 @@ import { isNotEmpty,  useForm } from "@mantine/form";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
 import { useDisclosure } from "@mantine/hooks";
-import { createUser } from "../../../api/apicreatePermissions"; // 🔁 sửa đường dẫn nếu cần
+import { createUser } from "../../../api/apicreateSystemPermission"; // 🔁 sửa đường dẫn nếu cần
 
 
 interface CreateViewProps {
@@ -24,15 +24,16 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
 
   const form = useForm({
     initialValues: {
-     code: "",
+      system_id: "",
+      permission_id: "",
       description_vi: "",
       description_en: "",
      
  
     },
     validate: {
-      code: isNotEmpty("Mã không được để trống"),
-    
+      system_id: isNotEmpty("Mã không được để trống"),
+      permission_id: isNotEmpty("Mã không được để trống"),
       description_vi: isNotEmpty("Mô tả không được để trống"),
       description_en: isNotEmpty("Mô tả không được để trống"),
      
@@ -43,7 +44,8 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     open();
     try {
       const userData = {
-        code: values.code,
+        system_id: values.system_id,
+           permission_id: values.permission_id, 
           description_vi: values.description_vi,
         description_en: values.description_en,
        
@@ -73,14 +75,20 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       />
 
       <TextInput
-        label="Mã Chức Năng"
-        placeholder="Nhập mã chức năng"
+        label="Mã hệ thống"
+        placeholder="Nhập Mã hệ thống"
         withAsterisk
         mt="md"
-        {...form.getInputProps("code")}
+        {...form.getInputProps("system_id")}
       />
 
-      
+      <TextInput
+        label="Mã Quyền"
+        placeholder="Nhập Mã Quyền"
+        withAsterisk
+        mt="md"
+        {...form.getInputProps("permission_id")}
+      />
 <Textarea
   label="Mô tả (Tiếng Việt)"
   placeholder="Nhập mô tả tiếng Việt"

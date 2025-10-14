@@ -8,7 +8,7 @@ import {
 import { ScrollArea } from '@mantine/core';
 import { LinksGroup } from './NavbarLinksGroup/NavbarLinksGroup';
 import classes from './NavbarSimple.module.css';
-// import Project from './Project'; 
+import Project from './Project'; 
 // import System from './System'; 
 // import Users from './Users'; 
 // import ListProject from './ListProject'; 
@@ -23,9 +23,9 @@ const mockdata = [
     icon: IconNotes,
     initiallyOpened: true,
     links: [
-      { label: 'Danh sách dự án', link: 'project-list' },
+      { label: 'Danh sách dự án', link: 'project' },
       { label: 'Dự án MILLENNIA', link: 'project-1' },
-      { label: 'Dự án khu Dân Cư Phước Thọ', link: 'project' },
+      { label: 'Dự án khu Dân Cư Phước Thọ', link: 'project-list' },
     ],
   },
   {
@@ -49,7 +49,7 @@ export function ProjectManagement() {
   const renderContent = () => {
     switch (active) {
       case 'project':
-        return <div>Đây là trang dự án</div>;
+        return <Project/>;
       case 'user-role-project':
         return <div>Đây là trang dự án</div>;
       case 'permission':

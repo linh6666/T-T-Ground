@@ -12,7 +12,7 @@ import { isNotEmpty,  useForm } from "@mantine/form";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
 import { useDisclosure } from "@mantine/hooks";
-import { createUser } from "../../../api/apicreatePermissions"; // 🔁 sửa đường dẫn nếu cần
+import { createUser } from "../../../api/apicreaterole"; // 🔁 sửa đường dẫn nếu cần
 
 
 interface CreateViewProps {
@@ -24,15 +24,16 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
 
   const form = useForm({
     initialValues: {
-     code: "",
+      name: "",
+      rank: "",
       description_vi: "",
       description_en: "",
      
  
     },
     validate: {
-      code: isNotEmpty("Mã không được để trống"),
-    
+      name: isNotEmpty("Tên không được để trống"),
+      rank: isNotEmpty("Cấp bậc không được để trống"),
       description_vi: isNotEmpty("Mô tả không được để trống"),
       description_en: isNotEmpty("Mô tả không được để trống"),
      
@@ -43,7 +44,8 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     open();
     try {
       const userData = {
-        code: values.code,
+        name: values.name,
+           rank: Number(values.rank), 
           description_vi: values.description_vi,
         description_en: values.description_en,
        
@@ -73,14 +75,20 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       />
 
       <TextInput
-        label="Mã Chức Năng"
-        placeholder="Nhập mã chức năng"
+        label="Tên"
+        placeholder="Nhập Tên"
         withAsterisk
         mt="md"
-        {...form.getInputProps("code")}
+        {...form.getInputProps("name")}
       />
 
-      
+      <TextInput
+        label="Cấp Bậc"
+        placeholder="Nhập cấp bậc"
+        withAsterisk
+        mt="md"
+        {...form.getInputProps("rank")}
+      />
 <Textarea
   label="Mô tả (Tiếng Việt)"
   placeholder="Nhập mô tả tiếng Việt"

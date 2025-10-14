@@ -5,6 +5,9 @@ export const API_ROUTE = {
     LOGIN_USERNAME:"/api/v1/users/me",
     GET_LIST_USER:"/api/v1/users/", 
     CREATE_USERNAME:"/api/v1/users",
+    UPDATE_USERNAME:"/api/v1/users/{user_id}",
+    DELETE_USERNAME:"/api/v1/users/{user_id}",
+
   
     //Roles
     GET_LIST_ROLES:"/api/v1/roles/",
@@ -22,7 +25,25 @@ export const API_ROUTE = {
   //Permission
   GET_LIST_PERMISSION:"/api/v1/permission/",
   CREATE_PERMISSION:"/api/v1/permission",
-  UPDATE_PERMISSION:"/api/v1/permission/{permission_id}",
-  DELETE_PERMISSION:"/api/v1/permission/{permission_id}",
-    
+  UPDATE_PERMISSION:"/api/v1/permission/{Permission_id}",
+  DELETE_PERMISSION:"/api/v1/permission/{Permission_id}",
+
+    //Projects
+    GET_LIST_PROJECTS:"/api/v1/projects/",
+    CREATE_PROJECTS:"/api/v1/projects",
+    UPDATE_PROJECTS:"/api/v1/projects/{project_id}",
+    DELETE_PROJECTS:"/api/v1/projects/{project_id}",
+
+//RolePermission
+    GET_LIST_ROLEPERMISSION:"/api/v1/RolePermission/permission",
+    CREATE_ROLEPERMISSION:"/api/v1/RolePermission/permission",
+    UPDATE_ROLEPERMISSION:"/api/v1/RolePermission/permission/{role_permission_id}",
+    DELETE_ROLEPERMISSION:"/api/v1/RolePermission/permission/{role_permission_id}",
+
+    //SystemPermission
+
+    GET_LIST_SYSTEMPERMISSION:"/api/v1/SystemPermission/permission",
+    CREATE_SYSTEMPERMISSION:"/api/v1/SystemPermission/permission",
+    UPDATE_SYSTEMPERMISSION:"/api/v1/SystemPermission/permission/{system_permission_id}",
+    DELETE_SYSTEMPERMISSION:"/api/v1/SystemPermission/permission/{system_permission_id}",
   };

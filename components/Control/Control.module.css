@@ -1,6 +1,5 @@
 .box {
   max-width: 1320px;
-  /* height: 750px; */
   padding: 10px;
   margin: auto;
   display: flex;
@@ -13,10 +12,8 @@
 
 /* Cột phải (text) */
 .right {
-   width: 240px;     
-  background-color:#FFFAEE;
-  /* display: flex; */
-  /* align-items: center; */
+  width: 240px;
+  background-color: #fffaee;
   justify-content: center;
   color: #762f0b;
   font-size: 18px;
@@ -26,23 +23,46 @@
 
 /* Ảnh full kích thước */
 .img {
-   /* width: 900px; */
-  /* height: 100%;  */
-  object-fit: cover; /* ✅ không méo, ảnh được crop cho vừa khung */
+  object-fit: cover;
   display: block;
 }
 
-/* 📱 Mobile responsive */
+/* 💊 Tablet responsive (768px - 1023px) */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .box {
+    flex-direction: row;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .left {
+    flex: 2;
+  }
+
+  .right {
+    width: 200px;
+    font-size: 17px;
+    padding: 15px;
+  }
+
+  .img {
+    height: auto;
+    max-height: 500px;
+    border-radius: 8px;
+  }
+}
+
+/* 📱 Mobile responsive (≤768px) */
 @media (max-width: 768px) {
   .box {
-    flex-direction: column; /* đổi từ hàng ngang sang hàng dọc */
-    height: auto; /* cho phép chiều cao co dãn */
+    flex-direction: column;
+    height: auto;
   }
 
   .left {
     flex: none;
     width: 100%;
-    height: 300px; /* chiều cao ảnh khi mobile */
+    height: 300px;
   }
 
   .right {
@@ -57,9 +77,10 @@
   }
 }
 
+/* 📱 Điện thoại nhỏ (≤480px) */
 @media (max-width: 480px) {
   .left {
-    height: 220px; /* ảnh nhỏ hơn cho điện thoại nhỏ */
+    height: 220px;
   }
 
   .right {
@@ -68,4 +89,5 @@
     margin-top: 10px;
   }
 }
+
 /* logo ô thao tác nhé */

@@ -11,10 +11,10 @@ import classes from './NavbarSimple.module.css';
 import User from './User'; 
 import Roles from './Roles'; 
 import System from './System'; 
-// import Permission from './Permission'; 
-// import Users from './Users'; 
-// import ListProject from './ListProject'; 
-// import UserProject from './UserPoject'; 
+import Permission from './Permission'; 
+// import Projects from './Projects'; 
+import RolePermission from './RolePermission'; 
+import SystemPermission from './SystemPermission'; 
 // import ProjectManagere from './ProjectManagere'; 
 import HomeAdmin from '../HomeAdmin/index'; 
 
@@ -25,7 +25,7 @@ const mockdata = [
     icon: IconNotes,
     initiallyOpened: true,
     links: [
-      { label: 'Định danh vai trò trong hệ thống', link: 'user' },
+      { label: 'Định danh vai trò trong hệ thống', link: 'System' },
       { label: 'Định danh vai trò trong dự án', link: 'project' },
     ],
   },
@@ -34,10 +34,10 @@ const mockdata = [
     icon: IconUser,
     initiallyOpened: true,
     links: [{ label: 'Quản lý vai trò người dùng trong hệ thống', link: 'permission' },
-      { label: 'Quản lý vai trò ,quyền', link: 'role_permission' },
-      { label: 'Quản lý quyền trong hệ thống', link: 'system_permission' },
-      { label: 'Quản lý người dùng trong dự án', link: 'user_project_role' },
-      { label: 'Yều cầu cấp quyền trong dự dự án ', link: 'join_project' },
+      { label: 'Quản lý Permission', link: 'role_permission' },
+      { label: 'Quản lý projects', link: 'system_permission' },
+      { label: 'Quản lý RolePermission', link: 'user_project_role' },
+      { label: 'Yều cầu SystemPermission ', link: 'join_project' },
     ],
   },
 ];
@@ -52,18 +52,21 @@ export default function PageAdmin() {
   // Hàm render nội dung tương ứng với menu
   const renderContent = () => {
     switch (active) {
-      case 'user':
-        return <User/>;
+      case 'System':
+        return <System/>;
       case 'project':
         return <Roles/>;
       case 'permission':
-        return <System/>;
-      case 'project-list':
-        return <div>Đây là trang dự án</div>;
-      case 'project-1':
-        return <div>Đây là trang dự án</div>;
-      case 'user-list':
-        return <div>Đây là trang dự án</div>;
+        return <User/>;
+      case 'role_permission':
+        return <Permission/>;
+      case 'system_permission':
+        return <h1>xin chòa</h1>
+        // <Projects/>;
+      case 'user_project_role':
+        return <RolePermission/>;
+          case 'join_project':
+        return <SystemPermission/>;
          
       default:
         return <HomeAdmin/>;

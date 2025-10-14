@@ -162,7 +162,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       />
 
       <Checkbox
-        label="Là quản trị viên"
+        label="Quản trị viên"
         mt="xs"
         {...form.getInputProps("is_superuser", { type: "checkbox" })}
       />

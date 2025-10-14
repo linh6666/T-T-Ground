@@ -5,9 +5,6 @@ import { API_ROUTE } from "../const/apiRouter"; // ✅ import đúng object ch�
 export interface CreateUserPayload {
   email: string;
   full_name: string;
-  // password: string;
-  // confirm_password: string;
-
   phone: string;
   is_active: boolean;
   is_superuser: boolean;
