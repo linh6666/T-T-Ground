@@ -46,4 +46,20 @@ export const API_ROUTE = {
     CREATE_SYSTEMPERMISSION:"/api/v1/SystemPermission/permission",
     UPDATE_SYSTEMPERMISSION:"/api/v1/SystemPermission/permission/{system_permission_id}",
     DELETE_SYSTEMPERMISSION:"/api/v1/SystemPermission/permission/{system_permission_id}",
-  };
+  
+  
+    //UserProjectRole}
+    GET_LIST_USERPROJECTROLE:"/api/v1/UserProjectRole/assignments",
+    CREATE_USERPROJECTROLE:"/api/v1/UserProjectRole/{project_id}",
+    UPDATE_USERPROJECTROLE:"/api/v1/UserProjectRole/{user_project_role_id}",
+    DELETE_USERPROJECTROLE:"/api/v1/UserProjectRole/{user_id}/{project_id}/{old_role_id}",
+
+///Attributes
+    GET_LIST_ATTRIBUTES:"/api/v1/attributes/",
+    CREATE_ATTRIBUTES:"/api/v1/attributes/",
+    UPDATE_ATTRIBUTES:"/api/v1/attributes/{attribute_id}",
+    DELETE_ATTRIBUTES:"/api/v1/attributes/{attribute_id}",
+
+
+
+}

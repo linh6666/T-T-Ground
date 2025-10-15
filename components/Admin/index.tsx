@@ -12,9 +12,10 @@ import User from './User';
 import Roles from './Roles'; 
 import System from './System'; 
 import Permission from './Permission'; 
-// import Projects from './Projects'; 
+import Project from './Project'; 
 import RolePermission from './RolePermission'; 
 import SystemPermission from './SystemPermission'; 
+import Attributes from './Attributes'; 
 // import ProjectManagere from './ProjectManagere'; 
 import HomeAdmin from '../HomeAdmin/index'; 
 
@@ -39,6 +40,17 @@ const mockdata = [
       { label: 'Quản lý projects', link: 'system_permission' },
       { label: 'Quản lý RolePermission', link: 'user_project_role' },
       { label: 'Yều cầu SystemPermission ', link: 'join_project' },
+    ],
+  },
+    {
+    label: 'Dự án',
+    icon: IconNotes,
+    initiallyOpened: true,
+    links: [{ label: 'Tạo loại thuộc tính', link: 'Attributes' },
+      { label: 'Tạo loại dự án', link: 'Project_Templates' },
+      { label: 'Cấu hình loại dự án', link: 'Template_Attributes_Link' },
+      { label: 'Tạo dự án', link: 'project' },
+      { label: 'Tạo dữ liệu điều khiển ', link: 'Node_Attribute' },
     ],
   },
 ];
@@ -70,6 +82,16 @@ export default function PageAdmin() {
         return <SystemPermission/>;
           case 'role configuration':
         return <SystemPermission/>;
+         case 'Attributes':
+        return <Attributes/>;
+         case 'Project_Templates':
+        return <h1>xin chòa</h1>
+         case 'Template_Attributes_Link':
+        return <h1>xin chòa</h1>
+         case 'project':
+        return <Project/>;
+         case 'Node_Attribute':
+        return <h1>xin chòa</h1>
          
       default:
         return <HomeAdmin/>;

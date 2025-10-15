@@ -132,41 +132,41 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       />
 
       <TextInput
-        label="Mã khu vực (area_id)"
-        placeholder="Nhập area_id"
+        label="Mã khu vực "
+        placeholder="Nhập khu vực"
         mt="md"
         {...form.getInputProps("area_id")}
       />
 
       <TextInput
-        label="Tỉnh (province_id)"
-        placeholder="Nhập province_id"
+        label="Tỉnh "
+        placeholder="Nhập tỉnh"
         mt="md"
         {...form.getInputProps("province_id")}
       />
 
       <TextInput
-        label="Phường (ward_id)"
-        placeholder="Nhập ward_id"
+        label="Phường "
+        placeholder="Nhập phường"
         mt="md"
         {...form.getInputProps("ward_id")}
       />
 
       <TextInput
-        label="Người giới thiệu (introducer_id)"
-        placeholder="Nhập introducer_id"
+        label="Người giới thiệu "
+        placeholder="Nhập người giới thiệu"
         mt="md"
         {...form.getInputProps("introducer_id")}
       />
 
       <Switch
-        label="Kích hoạt tài khoản (is_active)"
+        label="Kích hoạt tài khoản "
         mt="md"
         {...form.getInputProps("is_active", { type: "checkbox" })}
       />
 
       <Switch
-        label="Quyền quản trị (is_superuser)"
+        label="Quyền quản trị "
         mt="md"
         {...form.getInputProps("is_superuser", { type: "checkbox" })}
       />
