@@ -26,7 +26,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     initialValues: {
      code: "",
       description_vi: "",
-      description_en: "",
+      // description_en: "",
      
  
     },
@@ -34,7 +34,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       code: isNotEmpty("Mã không được để trống"),
     
       description_vi: isNotEmpty("Mô tả không được để trống"),
-      description_en: isNotEmpty("Mô tả không được để trống"),
+      // description_en: isNotEmpty("Mô tả không được để trống"),
      
     },
   });
@@ -45,7 +45,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       const userData = {
         code: values.code,
           description_vi: values.description_vi,
-        description_en: values.description_en,
+        // description_en: values.description_en,
        
       };
       await createUser(userData);
@@ -82,22 +82,22 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
 
       
 <Textarea
-  label="Mô tả (Tiếng Việt)"
-  placeholder="Nhập mô tả tiếng Việt"
+  label="Mô tả "
+  placeholder="Nhập mô tả "
   autosize
   minRows={3}
   mt="md"
   {...form.getInputProps("description_vi")}
 />
 
-<Textarea
+{/* <Textarea
   label="Mô tả (Tiếng Anh)"
   placeholder="Enter English description"
   autosize
   minRows={3}
   mt="md"
   {...form.getInputProps("description_en")}
-/>
+/> */}
      
 
    

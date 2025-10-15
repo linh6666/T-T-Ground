@@ -18,7 +18,7 @@ interface DataType {
   id: string; // ✅ thêm id để dùng cho chỉnh sửa
   code: string;
   description_vi: string;
-  description_en: string;
+  // description_en: string;
 }
 
 export default function LargeFixedTable() {
@@ -45,7 +45,7 @@ export default function LargeFixedTable() {
         code: user.code,
        
         description_vi: user.description_vi,
-        description_en: user.description_en,
+        // description_en: user.description_en,
       }));
       setData(users);
     } catch (err: unknown) {
@@ -73,8 +73,8 @@ export default function LargeFixedTable() {
   // ✅ Định nghĩa cột bảng
   const columns: ColumnsType<DataType> = [
     { title: "Mã Chức năng", dataIndex: "code", key: "code", width: 90 },
-    { title: "Mô Tả (Tiếng Việt)", dataIndex: "description_vi", key: "description_vi", width: 100 },
-    { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
+    { title: "Mô Tả", dataIndex: "description_vi", key: "description_vi", width: 100 },
+    // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
     {
       title: "Hành Động",
       width: 30,

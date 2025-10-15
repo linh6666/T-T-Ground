@@ -15,7 +15,7 @@ import { IconCheck,  IconX } from "@tabler/icons-react";
 import { useEffect, useCallback, useRef,  } from "react";
 import { API_ROUTE } from "../../../const/apiRouter";
 import { api } from "../../../libray/axios";
-import { CreateUserPayload } from "../../../api/apiEditsystem";
+import { CreateUserPayload } from "../../../api/apiEditPermissions";
 
 interface EditViewProps {
   onSearch: () => Promise<void>;
@@ -35,15 +35,14 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
 
   const form = useForm<CreateUserPayload>({
     initialValues: {
-      name: "",
-      rank_total: "",
+     
+      code: "",
       description_vi: "",
       // description_en: "",
     },
     validate: {
-      name: (value) => (value ? null : "Tên không được để trống"),
-      rank_total: (value) => (value ? null : "Cấp bậckhông được để trống"),
-      // description_en: (value) => (value ? null : "Mô tả thoại không được để trống"),
+      code: (value) => (value ? null : "Mã chức năng không được để trống"),
+    
       description_vi: (value) => (value ? null : "Mô tả không được để trống"),
     },
   });
@@ -54,7 +53,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   const handleSubmit = async (values: CreateUserPayload) => {
     open();
     try {
-      const url = API_ROUTE.UPDATE_SYSTEM.replace("{system_id}", id);
+      const url = API_ROUTE.  UPDATE_PERMISSION.replace("{Permission_id}", id);
       await api.put(url, values);
       await onSearch();
       modals.closeAll();
@@ -71,14 +70,13 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
     if (!id) return;
     open();
     try {
-      const url = API_ROUTE.UPDATE_SYSTEM.replace("{system_id}", id);
+      const url = API_ROUTE.UPDATE_PERMISSION.replace("{Permission_id}", id);
       const response = await api.get(url);
       const userData = response.data;
 
       formRef.current.setValues({
-        name: userData.name || "",
-        rank_total: userData.rank_total|| "",
-    
+        code: userData.code || "",
+       
         description_vi: userData.description_vi || "",
         // description_en: userData.description_en || "",
       });
@@ -124,38 +122,25 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
         overlayProps={{ radius: "sm", blur: 2 }}
       />
 
-      <TextInput
-        label="Tên"
-        placeholder="Nhập Tên"
-        withAsterisk
-        mt="md"
-        {...form.getInputProps("name")}
-      />
+     
 
       <TextInput
-        label="Cấp bậc"
-        placeholder="Nhập Cấp bậc"
+        label="Mã Chức Năng"
+        placeholder="Nhập mã chức năng"
         withAsterisk
         mt="md"
-        {...form.getInputProps("rank_total")}
+        {...form.getInputProps("code")}
       />
 <Textarea
-  label="Mô tả (Tiếng Việt)"
-  placeholder="Nhập mô tả tiếng Việt"
+  label="Mô tả"
+  placeholder="Nhập mô tả"
   autosize
   minRows={3}
   mt="md"
   {...form.getInputProps("description_vi")}
 />
 
-<Textarea
-  label="Mô tả (Tiếng Anh)"
-  placeholder="Enter English description"
-  autosize
-  minRows={3}
-  mt="md"
-  {...form.getInputProps("description_en")}
-/>
+
        
 
       <Group justify="flex-end" mt="lg">
