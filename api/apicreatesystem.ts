@@ -7,7 +7,7 @@ id?: string; // ✅ thêm id để dùng cho chỉnh sửa
   name: string;
   rank_total: number;
   description_vi: string;
-  description_en: string;
+  // description_en: string;
 
 }
 

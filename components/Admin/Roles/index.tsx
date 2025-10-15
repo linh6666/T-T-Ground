@@ -19,7 +19,7 @@ interface DataType {
   name: string;
   rank: number;
   description_vi: string;
-  description_en: string;
+  // description_en: string;
 }
 
 export default function LargeFixedTable() {
@@ -46,7 +46,7 @@ export default function LargeFixedTable() {
         name: user.name,
         rank: user.rank,
         description_vi: user.description_vi,
-        description_en: user.description_en,
+        // description_en: user.description_en,
       }));
       setData(users);
     } catch (err: unknown) {
@@ -75,8 +75,8 @@ export default function LargeFixedTable() {
   const columns: ColumnsType<DataType> = [
     { title: "Tên", dataIndex: "name", key: "name", width: 30 },
     { title: "Cấp Bậc", dataIndex: "rank", key: "rank", width: 90 },
-    { title: "Mô Tả (Tiếng Việt)", dataIndex: "description_vi", key: "description_vi", width: 100 },
-    { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
+    { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
+    // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
     {
       title: "Hành Động",
       width: 30,

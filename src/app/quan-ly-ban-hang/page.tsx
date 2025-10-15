@@ -3,8 +3,8 @@ import { Metadata } from "next";
 
 import PageAdmin from "../../../components/AdminSell";
 export const metadata: Metadata = {
-  title: "Quản lý bán hàng T&T Groud",
-  description: "Quản lý bán hàng  về T&T Groud",
+  title: "Quản lý bán hàng T&T Group",
+  description: "Quản lý bán hàng  về T&T Group",
 };
 
 export default function quanlybanhang() {

@@ -27,7 +27,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       name: "",
       rank_total: "",
       description_vi: "",
-      description_en: "",
+      // description_en: "",
      
  
     },
@@ -35,7 +35,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       name: isNotEmpty("Tên không được để trống"),
       rank_total: isNotEmpty("Cấp bậc không được để trống"),
       description_vi: isNotEmpty("Mô tả không được để trống"),
-      description_en: isNotEmpty("Mô tả không được để trống"),
+      // description_en: isNotEmpty("Mô tả không được để trống"),
      
     },
   });
@@ -47,7 +47,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         name: values.name,
            rank_total: Number(values.rank_total), 
           description_vi: values.description_vi,
-        description_en: values.description_en,
+        // description_en: values.description_en,
        
       };
       await createUser(userData);

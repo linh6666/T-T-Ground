@@ -5,7 +5,7 @@ export interface CreateUserPayload {
   name: string;
   rank_total: string;
     description_vi: string;
-    description_en: string;
+    // description_en: string;
 }
 
 export const createUser = async (payload: CreateUserPayload) => {

@@ -40,12 +40,12 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       name: "",
       rank: "",
       description_vi: "",
-      description_en: "",
+      // description_en: "",
     },
     validate: {
       name: (value) => (value ? null : "Tên không được để trống"),
       rank: (value) => (value ? null : "Cấp bậckhông được để trống"),
-      description_en: (value) => (value ? null : "Mô tả thoại không được để trống"),
+      // description_en: (value) => (value ? null : "Mô tả thoại không được để trống"),
       description_vi: (value) => (value ? null : "Mô tả không được để trống"),
     },
   });
@@ -82,7 +82,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
         rank: userData.rank || "",
     
         description_vi: userData.description_vi || "",
-        description_en: userData.description_en || "",
+        // description_en: userData.description_en || "",
       });
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu user:", error);

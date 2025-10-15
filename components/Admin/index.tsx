@@ -25,7 +25,7 @@ const mockdata = [
     icon: IconNotes,
     initiallyOpened: true,
     links: [
-        { label: 'Cấu hình vai trò', link: 'role configuration' },
+        { label: 'Cấu hình vai trò hệ thống', link: 'role configuration' },
       { label: 'Định danh vai trò trong hệ thống', link: 'System' },
       { label: 'Định danh vai trò trong dự án', link: 'project' },
     ],

@@ -6,7 +6,7 @@ import { Suspense } from "react";
 
 
 export const metadata: Metadata = {
-  title: "Lấy lại mật khẩu - T&T Groud",
+  title: "Lấy lại mật khẩu - T&T Group",
   description: "lấy lại mật khẩu với email đã đăng ký",
 };
 
