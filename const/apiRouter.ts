@@ -1,3 +1,5 @@
+import { get } from "http";
+
 export const API_ROUTE = {
   LOGIN: "/api/v1/login/access-token",
   REGISTER:"/api/v1/users/signup",
@@ -60,6 +62,9 @@ export const API_ROUTE = {
     UPDATE_ATTRIBUTES:"/api/v1/attributes/{attribute_id}",
     DELETE_ATTRIBUTES:"/api/v1/attributes/{attribute_id}",
 
-
-
+///ProjectTemplates
+GET_LIST_PROJECTTEMPLATES:"/api/v1/project_templates/",
+CREATE_PROJECTTEMPLATES:"/api/v1/project_templates/",
+UPDATE_PROJECTTEMPLATES:"/api/v1/project_templates/{template_id}",
+DELETE_PROJECTTEMPLATES:"/api/v1/project_templates/{template_id}",
 }

@@ -16,7 +16,8 @@ import Project from './Project';
 import RolePermission from './RolePermission'; 
 import SystemPermission from './SystemPermission'; 
 import Attributes from './Attributes'; 
-// import ProjectManagere from './ProjectManagere'; 
+import ProjectTemplates from './ProjectTemplates'; 
+import UserProjectRole from './UserProjectRole'; 
 import HomeAdmin from '../HomeAdmin/index'; 
 
 const mockdata = [
@@ -26,20 +27,21 @@ const mockdata = [
     icon: IconNotes,
     initiallyOpened: true,
     links: [
-        { label: 'Cấu hình vai trò hệ thống', link: 'role configuration' },
+        { label: 'Cấu hình chức năng trong hệ thống', link: 'permission' },
       { label: 'Định danh vai trò trong hệ thống', link: 'System' },
-      { label: 'Định danh vai trò trong dự án', link: 'project' },
+      { label: 'Cấu hình vai trò trong hệ thống', link: 'SystemPermission' },
+      { label: 'Phân Quyền người dùng trong hệ thống', link: 'User' },
     ],
   },
   {
-    label: 'Phân quyền',
+    label: 'Cấu hình dự án',
     icon: IconUser,
     initiallyOpened: true,
-    links: [{ label: 'Quản lý vai trò người dùng trong hệ thống', link: 'permission' },
-      { label: 'Quản lý Permission', link: 'role_permission' },
-      { label: 'Quản lý projects', link: 'system_permission' },
-      { label: 'Quản lý RolePermission', link: 'user_project_role' },
-      { label: 'Yều cầu SystemPermission ', link: 'join_project' },
+    links: [{ label: 'Định danh vai trò người trong dự án', link: 'Roles' },
+      { label: 'Cấu hình vai trò trong dự án', link: 'RolePermission' },
+      { label: 'Phân quyền người dùng trong dự án', link: 'UserProjectRole' },
+      // { label: 'Quản lý RolePermission', link: 'user_project_role' },
+      // { label: 'Yều cầu SystemPermission ', link: 'join_project' },
     ],
   },
     {
@@ -67,25 +69,25 @@ export default function PageAdmin() {
     switch (active) {
       case 'System':
         return <System/>;
-      case 'project':
+      case 'Roles':
         return <Roles/>;
-      case 'permission':
+      case 'User':
         return <User/>;
-      case 'role_permission':
+      case 'permission':
         return <Permission/>;
       case 'system_permission':
         return <h1>xin chòa</h1>
         // <Projects/>;
-      case 'user_project_role':
+      case 'RolePermission':
         return <RolePermission/>;
-          case 'join_project':
+          case 'SystemPermission':
         return <SystemPermission/>;
-          case 'role configuration':
-        return <SystemPermission/>;
+          case 'UserProjectRole':
+        return <UserProjectRole/>;
          case 'Attributes':
         return <Attributes/>;
          case 'Project_Templates':
-        return <h1>xin chòa</h1>
+        return <ProjectTemplates/>;
          case 'Template_Attributes_Link':
         return <h1>xin chòa</h1>
          case 'project':
