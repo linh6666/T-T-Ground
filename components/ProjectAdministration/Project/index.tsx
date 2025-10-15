@@ -7,7 +7,7 @@ import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
 
 import { modals } from "@mantine/modals";
-import { getListRoles } from "../../../api/getlistrole";
+import { getListRoles } from "../../../api/apigetlistProject";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
@@ -17,8 +17,11 @@ import DeleteView from "./DeleteView";
 interface DataType {
   id: string; // ✅ thêm id để dùng cho chỉnh sửa
   name: string;
+  type: string;
+  address: string;
+  investor: string;
+  image_url: string;
   rank: number;
-  description_vi: string;
 //   description_en: string;
 }
 
@@ -45,7 +48,10 @@ export default function LargeFixedTable() {
         id: user.id, // ✅ map thêm id
         name: user.name,
         rank: user.rank,
-        description_vi: user.description_vi,
+        type: user.type,
+        address: user.address,
+        investor: user.investor,
+        image_url: user.image_url,
         // description_en: user.description_en,
       }));
       setData(users);
@@ -64,7 +70,7 @@ export default function LargeFixedTable() {
   // ✅ Hàm mở modal chỉnh sửa
   const openEditUserModal = (role: DataType) => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa người dùng</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa dự án</div>,
       children: <EditView id={role.id} onSearch={fetchData} />, // ✅ đổi fetchRoles → fetchData
       confirmProps: { display: "none" },
       cancelProps: { display: "none" },
@@ -73,13 +79,18 @@ export default function LargeFixedTable() {
 
   // ✅ Định nghĩa cột bảng
   const columns: ColumnsType<DataType> = [
-    { title: "Tên", dataIndex: "name", key: "name", width: 30 },
-    { title: "Cấp Bậc", dataIndex: "rank", key: "rank", width: 90 },
-    { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
+    { title: "Tên dự án", dataIndex: "name", key: "name", width: 20 ,fixed: "left"},
+    { title: "Loại dự án", dataIndex: "type", key: "type", width: 20 },
+    { title: "Địa chỉ", dataIndex: "address", key: "address", width: 20 },
+    { title: "Chủ đầu tư", dataIndex: "investor", key: "investor", width: 50 },
+    { title: "Hình ảnh", dataIndex: "image_url", key: "image_url", width: 20 },
+    { title: "Cấp bậc", dataIndex: "rank", key: "rank", width: 15 },
     // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
+   
+   
     {
       title: "Hành Động",
-      width: 30,
+      width: 15,
       fixed: "right",
       render: (user: DataType) => (
         <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
@@ -103,7 +114,7 @@ export default function LargeFixedTable() {
   // ✅ Modal thêm người dùng
   const openModal = () => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm người dùng mới</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm dự án mới</div>,
       children: <CreateView onSearch={fetchData} />,
       size: "lg",
       radius: "md",
@@ -114,7 +125,7 @@ export default function LargeFixedTable() {
 
     const openDeleteUserModal = (role: DataType) => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa dự án</div>,
       children: <DeleteView idItem={[role.id]} onSearch={fetchData} />,
       confirmProps: { display: 'none' },
       cancelProps: { display: 'none' },
@@ -132,6 +143,7 @@ export default function LargeFixedTable() {
         columns={columns}
         dataSource={data}
         loading={loading}
+         scroll={{ x: 2000 }}
         pagination={false}
         bordered
         rowKey="id" // ✅ thêm key cho mỗi hàng

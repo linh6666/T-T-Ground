@@ -2,7 +2,7 @@ import { Button, Group, Text } from "@mantine/core";
 import { modals } from "@mantine/modals";
 import { notifications } from "@mantine/notifications";
 import { IconCheck, IconX } from "@tabler/icons-react";
-import { deleteUserManagement } from "../../../api/apidetelerole";
+import { deleteUserManagement } from "../../../api/apideleteproject";
 
 type DeleteProductProps = {
   idItem: string[]; // UUID dưới dạng chuỗi
@@ -19,7 +19,7 @@ const DeleteView = ({ idItem, onSearch }: DeleteProductProps) => {
       // Hiển thị thông báo thành côngs
       notifications.show({
         title: "Thành công",
-        message: `${idItem.length} người dùng đã được xoá`,
+        message: `${idItem.length} Dự án đã xóa thành công.`,
         color: "green",
         icon: <IconCheck size={20} />,
       });
@@ -42,7 +42,7 @@ const DeleteView = ({ idItem, onSearch }: DeleteProductProps) => {
   return (
     <div>
       <Text size="lg" fw={500} mb="md">
-        Bạn có chắc chắn muốn xóa {idItem.length} người dùng đã chọn?
+        Bạn có chắc chắn muốn xóa {idItem.length} dự án đã chọn?
       </Text>
 
       <Group justify="center" mt="lg">

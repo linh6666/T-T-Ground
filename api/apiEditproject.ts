@@ -1,16 +1,18 @@
-// /api/userApi.ts
 import { api } from "../libray/axios";
 import { API_ROUTE } from "../const/apiRouter"; // ✅ import đúng object chứa hằng số
 
 export interface CreateUserPayload {
-  role_id: string;
-  permission_id: string;
-description_vi: string;
-// description_en: string;
- 
+  
+  name: string;
+  type: string;
+  address: string;
+  investor: string;
+  image_url: string;
+  rank: string;
+    
 }
 
 export const createUser = async (payload: CreateUserPayload) => {
-  const response = await api.post(API_ROUTE.CREATE_ROLEPERMISSION, payload); // ✅ dùng đúng key từ object
+  const response = await api.post(API_ROUTE.CREATE_PROJECTS, payload); // ✅ dùng đúng key từ object
   return response.data;
 };

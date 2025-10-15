@@ -17,7 +17,7 @@ import { IconCheck, IconX } from "@tabler/icons-react";
 import { useEffect, useCallback, useRef,  } from "react";
 import { API_ROUTE } from "../../../const/apiRouter";
 import { api } from "../../../libray/axios";
-import { CreateUserPayload } from "../../../api/apEditrole";
+import { CreateUserPayload } from "../../../api/apicreateRolePermission";
 
 interface EditViewProps {
   onSearch: () => Promise<void>;
@@ -37,14 +37,14 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
 
   const form = useForm<CreateUserPayload>({
     initialValues: {
-      name: "",
-      rank: "",
+       role_id: "",
+      permission_id: "",
       description_vi: "",
-      // description_en: "",
+     
     },
     validate: {
-      name: (value) => (value ? null : "Tên không được để trống"),
-      rank: (value) => (value ? null : "Cấp bậckhông được để trống"),
+      role_id: (value) => (value ? null : "Tên không được để trống"),
+      permission_id: (value) => (value ? null : "Cấp bậckhông được để trống"),
       // description_en: (value) => (value ? null : "Mô tả thoại không được để trống"),
       description_vi: (value) => (value ? null : "Mô tả không được để trống"),
     },
@@ -56,7 +56,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   const handleSubmit = async (values: CreateUserPayload) => {
     open();
     try {
-      const url = API_ROUTE.UPDATE_ROLES.replace("{role_id}", id);
+      const url = API_ROUTE.UPDATE_ROLEPERMISSION.replace("{role_permission_id}", id);
       await api.put(url, values);
       await onSearch();
       modals.closeAll();
@@ -73,13 +73,13 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
     if (!id) return;
     open();
     try {
-      const url = API_ROUTE.UPDATE_ROLES.replace("{role_id}", id);
+      const url = API_ROUTE.UPDATE_ROLEPERMISSION.replace("{role_permission_id}", id);
       const response = await api.get(url);
       const userData = response.data;
 
       formRef.current.setValues({
-        name: userData.name || "",
-        rank: userData.rank || "",
+         role_id: userData.role_id || "",
+        permission_id: userData.permission_id || "",
     
         description_vi: userData.description_vi || "",
         // description_en: userData.description_en || "",
@@ -126,37 +126,28 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
         overlayProps={{ radius: "sm", blur: 2 }}
       />
 
-      <TextInput
-        label="Tên"
-        placeholder="Nhập Tên"
+         <TextInput
+        label="Mã Vai Trò"
+        placeholder="Nhập Mã Vai Trò"
         withAsterisk
         mt="md"
-        {...form.getInputProps("name")}
+        {...form.getInputProps("role_id")}
       />
 
       <TextInput
-        label="Cấp bậc"
-        placeholder="Nhập Cấp bậc"
+        label="Mã Quyền"
+        placeholder="Nhập Mã Quyền"
         withAsterisk
         mt="md"
-        {...form.getInputProps("rank")}
+        {...form.getInputProps("permission_id")}
       />
 <Textarea
-  label="Mô tả (Tiếng Việt)"
-  placeholder="Nhập mô tả tiếng Việt"
+  label="Mô tả "
+  placeholder="Nhập mô tả "
   autosize
   minRows={3}
   mt="md"
   {...form.getInputProps("description_vi")}
-/>
-
-<Textarea
-  label="Mô tả (Tiếng Anh)"
-  placeholder="Enter English description"
-  autosize
-  minRows={3}
-  mt="md"
-  {...form.getInputProps("description_en")}
 />
        
 

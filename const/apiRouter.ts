@@ -30,7 +30,7 @@ export const API_ROUTE = {
 
     //Projects
     GET_LIST_PROJECTS:"/api/v1/projects/",
-    CREATE_PROJECTS:"/api/v1/projects",
+    CREATE_PROJECTS:"/api/v1/projects/",
     UPDATE_PROJECTS:"/api/v1/projects/{project_id}",
     DELETE_PROJECTS:"/api/v1/projects/{project_id}",
 

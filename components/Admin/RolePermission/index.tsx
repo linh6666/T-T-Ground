@@ -19,7 +19,7 @@ interface DataType {
   role_id: number;
   permission_id: number;
   description_vi: string;
-  description_en: string;
+  // description_en: string;
 }
 
 export default function LargeFixedTable() {
@@ -46,7 +46,7 @@ export default function LargeFixedTable() {
         role_id: user.role_id,
         permission_id: user.permission_id,
         description_vi: user.description_vi,
-        description_en: user.description_en,
+        // description_en: user.description_en,
       }));
       setData(users);
     } catch (err: unknown) {
@@ -75,8 +75,8 @@ export default function LargeFixedTable() {
   const columns: ColumnsType<DataType> = [
     { title: "Mã Vai Trò", dataIndex: "role_id", key: "role_id", width: 30 },
     { title: "Mã Quyền", dataIndex: "permission_id", key: "permission_id", width: 90 },
-    { title: "Mô Tả (Tiếng Việt)", dataIndex: "description_vi", key: "description_vi", width: 100 },
-    { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
+    { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
+    // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
     {
       title: "Hành Động",
       width: 30,
