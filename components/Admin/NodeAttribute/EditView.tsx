@@ -3,9 +3,11 @@
 import {
   Box,
   Button,
+
   Group,
   LoadingOverlay,
 
+  Textarea,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -15,7 +17,7 @@ import { IconCheck, IconX } from "@tabler/icons-react";
 import { useEffect, useCallback, useRef,  } from "react";
 import { API_ROUTE } from "../../../const/apiRouter";
 import { api } from "../../../libray/axios";
-import { CreateUserPayload } from "../../../api/apiEditproject";
+import { CreateUserPayload } from "../../../api/apEditrole";
 
 interface EditViewProps {
   onSearch: () => Promise<void>;
@@ -36,21 +38,15 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   const form = useForm<CreateUserPayload>({
     initialValues: {
       name: "",
-  type: "",
-  address: "",
-  investor: "",
-  image_url: "",
-  rank: "",
+      rank: "",
+      description_vi: "",
+      // description_en: "",
     },
     validate: {
       name: (value) => (value ? null : "Tên không được để trống"),
       rank: (value) => (value ? null : "Cấp bậckhông được để trống"),
-      type: (value) => (value ? null : "Loại không được để trống"),
-      address: (value) => (value ? null : "Địa chỉ không được để trống"),
-      investor: (value) => (value ? null : "Chủ đầu tư không được để trống"),
-      image_url: (value) => (value ? null : "Hình ảnh không được để trống"),
-     
-      
+      // description_en: (value) => (value ? null : "Mô tả thoại không được để trống"),
+      description_vi: (value) => (value ? null : "Mô tả không được để trống"),
     },
   });
 
@@ -60,7 +56,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   const handleSubmit = async (values: CreateUserPayload) => {
     open();
     try {
-      const url = API_ROUTE.UPDATE_PROJECTS.replace("{project_id}", id);
+      const url = API_ROUTE.UPDATE_ROLES.replace("{role_id}", id);
       await api.put(url, values);
       await onSearch();
       modals.closeAll();
@@ -77,21 +73,16 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
     if (!id) return;
     open();
     try {
-      const url = API_ROUTE. UPDATE_PROJECTS.replace("{project_id}", id);
+      const url = API_ROUTE.UPDATE_ROLES.replace("{role_id}", id);
       const response = await api.get(url);
       const userData = response.data;
 
       formRef.current.setValues({
         name: userData.name || "",
         rank: userData.rank || "",
-  type: userData.type || "",
-  address: userData.address || "",
-  investor: userData.investor || "",
-  image_url: userData.image_url || "",
- 
-       
     
-      
+        description_vi: userData.description_vi || "",
+        // description_en: userData.description_en || "",
       });
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu user:", error);
@@ -123,92 +114,73 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   }, [fetchUserDetail, fetchSystemOptions]);
 
   return (
-   <Box
-  component="form"
-  miw={320}
-  mx="auto"
-  onSubmit={form.onSubmit(handleSubmit)}
->
-  <LoadingOverlay
-    visible={visible}
-    zIndex={1000}
-    overlayProps={{ radius: "sm", blur: 2 }}
-  />
-  <TextInput
-  label="Tên loại dự án"
-  placeholder="Nhập loại dự án"
+    <Box
+      component="form"
+      miw={320}
+      mx="auto"
+      onSubmit={form.onSubmit(handleSubmit)}
+    >
+      <LoadingOverlay
+        visible={visible}
+        zIndex={1000}
+        overlayProps={{ radius: "sm", blur: 2 }}
+      />
 
+      <TextInput
+        label="Tên"
+        placeholder="Nhập Tên"
+        withAsterisk
+        mt="md"
+        {...form.getInputProps("name")}
+      />
+
+      <TextInput
+        label="Cấp bậc"
+        placeholder="Nhập Cấp bậc"
+        withAsterisk
+        mt="md"
+        {...form.getInputProps("rank")}
+      />
+<Textarea
+  label="Mô tả (Tiếng Việt)"
+  placeholder="Nhập mô tả tiếng Việt"
+  autosize
+  minRows={3}
   mt="md"
-  {...form.getInputProps("project_template_id")}
+  {...form.getInputProps("description_vi")}
 />
 
-  <TextInput
-    label="Tên dự án"
-    placeholder="Nhập Tên dự án"
-    withAsterisk
-    mt="md"
-    {...form.getInputProps("name")}
-  />
+<Textarea
+  label="Mô tả (Tiếng Anh)"
+  placeholder="Enter English description"
+  autosize
+  minRows={3}
+  mt="md"
+  {...form.getInputProps("description_en")}
+/>
+       
 
-  <TextInput
-    label="Cấp bậc"
-    placeholder="Nhập Cấp bậc"
-    withAsterisk
-    mt="md"
-    {...form.getInputProps("rank")}
-  />
-
-  <TextInput
-    label="Loại dự án"
-    placeholder="Nhập loại dự án"
-    withAsterisk
-    mt="md"
-    {...form.getInputProps("type")}
-  />
-
-  <TextInput
-    label="Địa chỉ"
-    placeholder="Nhập địa chỉ"
-    mt="md"
-    {...form.getInputProps("address")}
-  />
-
-  <TextInput
-    label="Chủ đầu tư"
-    placeholder="Nhập tên chủ đầu tư"
-    mt="md"
-    {...form.getInputProps("investor")}
-  />
-
-  <TextInput
-    label="Đường dẫn hình ảnh"
-    placeholder="Nhập URL hình ảnh"
-    mt="md"
-    {...form.getInputProps("image_url")}
-  />
-
-  <Group justify="flex-end" mt="lg">
-    <Button
-      type="submit"
-      color="#3598dc"
-      loading={visible}
-      leftSection={<IconCheck size={18} />}
-    >
-      Lưu
-    </Button>
-
-    <Button
-      variant="outline"
-      color="black"
-      type="button"
-      loading={visible}
-      onClick={() => modals.closeAll()}
-      leftSection={<IconX size={18} />}
-    >
-      Đóng
-    </Button>
-  </Group>
-</Box>
+      <Group justify="flex-end" mt="lg">
+        <Button
+          type="submit"
+          color="#3598dc"
+          loading={visible}
+          leftSection={<IconCheck size={18} />}
+        >
+          Lưu
+        </Button>
+        <Button
+          variant="outline"
+          color="black"
+          type="button"
+          loading={visible}
+          onClick={() => modals.closeAll()}
+          leftSection={<IconX size={18} />}
+        >
+          Đóng
+        </Button>
+      </Group>
+    </Box>
   );
 };
 

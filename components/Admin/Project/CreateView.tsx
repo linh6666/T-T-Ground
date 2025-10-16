@@ -37,21 +37,14 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
 
   const form = useForm({
     initialValues: {
-      name: "",
-      type: "",
-      address: "",
-      investor: "",
-      image_url: "",
-      rank: "",
+      name_vi: "",
+     
+     
       project_template_id: "",
     },
     validate: {
-      name: isNotEmpty("Tên không được để trống"),
-      type: isNotEmpty("Loại không được để trống"),
-      address: isNotEmpty("Địa chỉ không được để trống"),
-      investor: isNotEmpty("Chủ đầu tư không được để trống"),
-      image_url: isNotEmpty("Hình ảnh không được để trống"),
-      rank: isNotEmpty("Cấp bậc không được để trống"),
+      name_vi: isNotEmpty("Tên không được để trống"),
+     
       project_template_id: isNotEmpty("Loại dự án không được để trống"),
     },
   });
@@ -87,12 +80,8 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     open();
     try {
       const projectData = {
-        name: values.name,
-        type: values.type,
-        address: values.address,
-        investor: values.investor,
-        image_url: values.image_url,
-        rank: values.rank,
+        name_vi: values.name_vi,
+    
         project_template_id: values.project_template_id,
       };
 

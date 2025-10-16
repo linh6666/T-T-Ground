@@ -18,7 +18,8 @@ import SystemPermission from './SystemPermission';
 import Attributes from './Attributes'; 
 import ProjectTemplates from './ProjectTemplates'; 
 import UserProjectRole from './UserProjectRole';
-import TemplateAttributesLink from './TemplateAttributesLink';  
+import TemplateAttributesLink from './TemplateAttributesLink'; 
+import NodeAttribute from './NodeAttribute';   
 import HomeAdmin from '../HomeAdmin/index'; 
 
 const mockdata = [
@@ -94,7 +95,7 @@ export default function PageAdmin() {
          case 'project':
         return <Project/>;
          case 'Node_Attribute':
-        return <h1>xin chòa</h1>
+        return <NodeAttribute/>
          
       default:
         return <HomeAdmin/>;
