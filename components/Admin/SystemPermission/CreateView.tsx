@@ -5,50 +5,67 @@ import {
   Button,
   Group,
   LoadingOverlay,
+  Select,
   Textarea,
-  TextInput,
 } from "@mantine/core";
-import { isNotEmpty,  useForm } from "@mantine/form";
-import { IconCheck, IconX } from "@tabler/icons-react";
+import { isNotEmpty, useForm } from "@mantine/form";
+import { IconCheck, IconChevronDown, IconX } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
 import { useDisclosure } from "@mantine/hooks";
-import { createUser } from "../../../api/apicreateSystemPermission"; // 🔁 sửa đường dẫn nếu cần
+import { useEffect, useState } from "react";
 
+import { createUser } from "../../../api/apicreateSystemPermission";
+import { getListSystem } from "../../../api/apigetlistsystym";
+import { getListPermisson } from "../../../api/apigetlistpermission";
 
 interface CreateViewProps {
   onSearch: () => Promise<void>;
 }
+interface System {
+  id: number | string;
+  name?: string;
+}
+
+interface Permission {
+  id: number | string;
+  code?: string;
+  permission_name?: string;
+}
+
 
 const CreateView = ({ onSearch }: CreateViewProps) => {
   const [visible, { open, close }] = useDisclosure(false);
 
+  // 🔹 State lưu dữ liệu dropdown
+  const [systemOptions, setSystemOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [permissionOptions, setPermissionOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+
+  // 🔹 Form setup
   const form = useForm({
     initialValues: {
       system_id: "",
       permission_id: "",
       description_vi: "",
-     
-     
- 
     },
     validate: {
-      system_id: isNotEmpty("Mã không được để trống"),
-      permission_id: isNotEmpty("Mã không được để trống"),
+      system_id: isNotEmpty("Tên hệ thống không được để trống"),
+      permission_id: isNotEmpty("Mã chức năng không được để trống"),
       description_vi: isNotEmpty("Mô tả không được để trống"),
-      
-     
     },
   });
 
+  // 🔹 Submit form
   const handleSubmit = async (values: typeof form.values) => {
     open();
     try {
       const userData = {
         system_id: values.system_id,
-           permission_id: values.permission_id, 
-          description_vi: values.description_vi,
-      
-       
+        permission_id: values.permission_id,
+        description_vi: values.description_vi,
       };
       await createUser(userData);
       await onSearch();
@@ -60,6 +77,46 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       close();
     }
   };
+
+  // 🔹 Lấy danh sách hệ thống & quyền
+  useEffect(() => {
+    const fetchSystems = async () => {
+      try {
+        const res = await getListSystem({
+          token: localStorage.getItem("accessToken") || "",
+        });
+        const data = res?.data || [];
+        setSystemOptions(
+          data.map((item: System) => ({
+            value: item.id?.toString(),
+            label: item.name ||  "Không có tên",
+          }))
+        );
+      } catch (error) {
+        console.error("Lỗi khi load danh sách hệ thống:", error);
+      }
+    };
+
+    const fetchPermissions = async () => {
+      try {
+        const res = await getListPermisson({
+          token: localStorage.getItem("accessToken") || "",
+        });
+        const data = res?.data || [];
+        setPermissionOptions(
+          data.map((item: Permission) => ({
+            value: item.id?.toString(),
+            label: item.code || item.permission_name || "Không có tên",
+          }))
+        );
+      } catch (error) {
+        console.error("Lỗi khi load danh sách quyền:", error);
+      }
+    };
+
+    fetchSystems();
+    fetchPermissions();
+  }, []);
 
   return (
     <Box
@@ -74,29 +131,39 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         overlayProps={{ radius: "sm", blur: 2 }}
       />
 
-      <TextInput
-        label="Mã hệ thống"
-        placeholder="Nhập Mã hệ thống"
-        withAsterisk
+      {/* 🔹 Dropdown chọn hệ thống */}
+      <Select
+        label="Tên định danh"
+        placeholder="Chọn hệ thống"
+        data={systemOptions}
+        rightSection={<IconChevronDown size={16} />}
         mt="md"
+        withAsterisk
         {...form.getInputProps("system_id")}
       />
 
-      <TextInput
-        label="Mã Quyền"
-        placeholder="Nhập Mã Quyền"
-        withAsterisk
+      {/* 🔹 Dropdown chọn quyền */}
+      <Select
+        label="Mã chức năng"
+        placeholder="Chọn mã chức năng"
+        data={permissionOptions}
+        rightSection={<IconChevronDown size={16} />}
         mt="md"
+        withAsterisk
         {...form.getInputProps("permission_id")}
       />
-<Textarea
-  label="Mô tả "
-  placeholder="Nhập mô tả "
-  autosize
-  minRows={3}
-  mt="md"
-  {...form.getInputProps("description_vi")}
-/>
+
+      {/* 🔹 Mô tả */}
+      <Textarea
+        label="Mô tả"
+        placeholder="Nhập mô tả"
+        autosize
+        minRows={3}
+        mt="md"
+        {...form.getInputProps("description_vi")}
+      />
+
+      {/* 🔹 Nút hành động */}
       <Group justify="flex-end" mt="lg">
         <Button
           type="submit"

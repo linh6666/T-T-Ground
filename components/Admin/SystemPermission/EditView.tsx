@@ -3,49 +3,55 @@
 import {
   Box,
   Button,
-
   Group,
   LoadingOverlay,
-
+  Select,
   Textarea,
-  TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
-import { IconCheck, IconX } from "@tabler/icons-react";
-import { useEffect, useCallback, useRef,  } from "react";
+import { IconCheck, IconChevronDown, IconX } from "@tabler/icons-react";
+import { useEffect, useState, useCallback, useRef } from "react";
+
 import { API_ROUTE } from "../../../const/apiRouter";
 import { api } from "../../../libray/axios";
 import { CreateUserPayload } from "../../../api/apiEditSystemPermission";
+import { getListSystem } from "../../../api/apigetlistsystym";
+import { getListPermisson } from "../../../api/apigetlistpermission";
 
 interface EditViewProps {
   onSearch: () => Promise<void>;
   id: string;
 }
+interface System {
+  id: number | string;
+  name?: string;
+}
 
-// interface SystemOption {
-//   id: number; // hoặc string, tùy thuộc vào API của bạn
-//   name: string;
-// }
+interface Permission {
+  id: number | string;
+  code?: string;
+  permission_name?: string;
+}
+
 
 const EditView = ({ onSearch, id }: EditViewProps) => {
   const [visible, { open, close }] = useDisclosure(false);
-  // const [systemOptions, setSystemOptions] = useState<
-  //   { value: string; label: string }[]
-  // >([]);
+
+  // 🔹 State lưu dropdown options
+  const [systemOptions, setSystemOptions] = useState<{ value: string; label: string }[]>([]);
+  const [permissionOptions, setPermissionOptions] = useState<{ value: string; label: string }[]>([]);
 
   const form = useForm<CreateUserPayload>({
     initialValues: {
-    system_id: "",
+      system_id: "",
       permission_id: "",
       description_vi: "",
-     
     },
     validate: {
       system_id: (value) => (value ? null : "Mã không được để trống"),
       permission_id: (value) => (value ? null : "Mã không được để trống"),
-      // description_en: (value) => (value ? null : "Mô tả thoại không được để trống"),
       description_vi: (value) => (value ? null : "Mô tả không được để trống"),
     },
   });
@@ -80,9 +86,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       formRef.current.setValues({
         system_id: userData.system_id || "",
         permission_id: userData.permission_id || "",
-    
         description_vi: userData.description_vi || "",
-        // description_en: userData.description_en || "",
       });
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu user:", error);
@@ -93,71 +97,82 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
     }
   }, [id, open, close]);
 
-  /** Lấy danh sách chức vụ hệ thống */
-  const fetchSystemOptions = useCallback(async () => {
-    try {
-      // const res = await api.get(API_ROUTE.GET_LIST_ROLES);
-      // const rawData = Array.isArray(res.data) ? res.data : res.data.data;
-      // const options = rawData.map((item: SystemOption) => ({
-      //   value: item.id.toString(),
-      //   label: item.name,
-      // }));
-      // setSystemOptions(options);
-    } catch (error) {
-      console.error("Lỗi khi load system options:", error);
-    }
-  }, []);
-
+  /** Load dropdown options */
   useEffect(() => {
+    const fetchSystems = async () => {
+      try {
+        const res = await getListSystem({ token: localStorage.getItem("accessToken") || "" });
+        const data = res?.data || [];
+        setSystemOptions(
+          data.map((item: System) => ({
+            value: item.id?.toString(),
+            label: item.name ||  "Không có tên",
+          }))
+        );
+      } catch (error) {
+        console.error("Lỗi khi load danh sách hệ thống:", error);
+      }
+    };
+
+    const fetchPermissions = async () => {
+      try {
+        const res = await getListPermisson({ token: localStorage.getItem("accessToken") || "" });
+        const data = res?.data || [];
+        setPermissionOptions(
+          data.map((item: Permission) => ({
+            value: item.id?.toString(),
+            label: item.code || item.permission_name || "Không có tên",
+          }))
+        );
+      } catch (error) {
+        console.error("Lỗi khi load danh sách quyền:", error);
+      }
+    };
+
     fetchUserDetail();
-    fetchSystemOptions();
-  }, [fetchUserDetail, fetchSystemOptions]);
+    fetchSystems();
+    fetchPermissions();
+  }, [fetchUserDetail]);
 
   return (
-    <Box
-      component="form"
-      miw={320}
-      mx="auto"
-      onSubmit={form.onSubmit(handleSubmit)}
-    >
-      <LoadingOverlay
-        visible={visible}
-        zIndex={1000}
-        overlayProps={{ radius: "sm", blur: 2 }}
-      />
+    <Box component="form" miw={320} mx="auto" onSubmit={form.onSubmit(handleSubmit)}>
+      <LoadingOverlay visible={visible} zIndex={1000} overlayProps={{ radius: "sm", blur: 2 }} />
 
-     <TextInput
-        label="Mã hệ thống"
-        placeholder="Nhập Mã hệ thống"
-        withAsterisk
+      {/* 🔹 Dropdown chọn hệ thống */}
+      <Select
+        label="Tên định danh"
+        placeholder="Chọn hệ thống"
+        data={systemOptions}
+        rightSection={<IconChevronDown size={16} />}
         mt="md"
+        withAsterisk
         {...form.getInputProps("system_id")}
       />
 
-      <TextInput
-        label="Mã Quyền"
-        placeholder="Nhập Mã Quyền"
-        withAsterisk
+      {/* 🔹 Dropdown chọn quyền */}
+      <Select
+        label="Mã chức năng"
+        placeholder="Chọn mã chức năng"
+        data={permissionOptions}
+        rightSection={<IconChevronDown size={16} />}
         mt="md"
+        withAsterisk
         {...form.getInputProps("permission_id")}
       />
-<Textarea
-  label="Mô tả "
-  placeholder="Nhập mô tả "
-  autosize
-  minRows={3}
-  mt="md"
-  {...form.getInputProps("description_vi")}
-/>
-       
 
+      {/* 🔹 Textarea mô tả */}
+      <Textarea
+        label="Mô tả"
+        placeholder="Nhập mô tả"
+        autosize
+        minRows={3}
+        mt="md"
+        {...form.getInputProps("description_vi")}
+      />
+
+      {/* 🔹 Nút hành động */}
       <Group justify="flex-end" mt="lg">
-        <Button
-          type="submit"
-          color="#3598dc"
-          loading={visible}
-          leftSection={<IconCheck size={18} />}
-        >
+        <Button type="submit" color="#3598dc" loading={visible} leftSection={<IconCheck size={18} />}>
           Lưu
         </Button>
         <Button

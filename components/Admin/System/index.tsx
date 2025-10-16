@@ -19,7 +19,7 @@ interface DataType {
   name: string;
   rank_total: number;
   description_vi: string;
-  description_en: string;
+ 
 }
 
 export default function LargeFixedTable() {
@@ -53,7 +53,7 @@ export default function LargeFixedTable() {
         name: user.name,
         rank_total: user.rank_total,
         description_vi: user.description_vi,
-        description_en: user.description_en,
+        
       }));
       setData(users);
 

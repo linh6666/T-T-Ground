@@ -7,7 +7,7 @@ import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
 
 import { modals } from "@mantine/modals";
-import { getListRoles } from "../../../api/apigetlistpermission";
+import { getListPermisson } from "../../../api/apigetlistpermission";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
@@ -39,7 +39,7 @@ export default function LargeFixedTable() {
     }
 
     try {
-      const result = await getListRoles({ token, skip: 0, limit: 100 });
+      const result = await getListPermisson({ token, skip: 0, limit: 100 });
       const users = result.data.map((user: DataType) => ({
         id: user.id, // ✅ map thêm id
         code: user.code,

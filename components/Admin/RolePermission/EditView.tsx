@@ -3,56 +3,58 @@
 import {
   Box,
   Button,
-
   Group,
   LoadingOverlay,
-
+  Select,
   Textarea,
-  TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
-import { IconCheck, IconX } from "@tabler/icons-react";
-import { useEffect, useCallback, useRef,  } from "react";
+import { IconCheck, IconChevronDown, IconX } from "@tabler/icons-react";
+import { useEffect, useCallback, useRef, useState } from "react";
 import { API_ROUTE } from "../../../const/apiRouter";
 import { api } from "../../../libray/axios";
 import { CreateUserPayload } from "../../../api/apicreateRolePermission";
+import { getListPermisson } from "../../../api/apigetlistpermission";
+import { getListRoles } from "../../../api/getlistrole";
 
 interface EditViewProps {
   onSearch: () => Promise<void>;
   id: string;
 }
+interface Role {
+  id: number | string;
+  name?: string;
+}
 
-// interface SystemOption {
-//   id: number; // hoặc string, tùy thuộc vào API của bạn
-//   name: string;
-// }
+interface Permission {
+  id: number | string;
+  code?: string;
+  permission_name?: string;
+}
 
 const EditView = ({ onSearch, id }: EditViewProps) => {
   const [visible, { open, close }] = useDisclosure(false);
-  // const [systemOptions, setSystemOptions] = useState<
-  //   { value: string; label: string }[]
-  // >([]);
+  const [roleOptions, setRoleOptions] = useState<{ value: string; label: string }[]>([]);
+  const [permissionOptions, setPermissionOptions] = useState<{ value: string; label: string }[]>([]);
 
   const form = useForm<CreateUserPayload>({
     initialValues: {
-       role_id: "",
+      role_id: "",
       permission_id: "",
       description_vi: "",
-     
     },
     validate: {
-      role_id: (value) => (value ? null : "Tên không được để trống"),
-      permission_id: (value) => (value ? null : "Cấp bậckhông được để trống"),
-      // description_en: (value) => (value ? null : "Mô tả thoại không được để trống"),
+      role_id: (value) => (value ? null : "Vai trò không được để trống"),
+      permission_id: (value) => (value ? null : "Mã chức năng không được để trống"),
       description_vi: (value) => (value ? null : "Mô tả không được để trống"),
     },
   });
 
   const formRef = useRef(form);
 
-  /** Submit cập nhật user */
+  /** 🔹 Submit cập nhật */
   const handleSubmit = async (values: CreateUserPayload) => {
     open();
     try {
@@ -61,57 +63,67 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       await onSearch();
       modals.closeAll();
     } catch (error) {
-      console.error("Lỗi khi cập nhật user:", error);
-      alert("Đã xảy ra lỗi khi cập nhật người dùng.");
+      console.error("Lỗi khi cập nhật:", error);
+      alert("Đã xảy ra lỗi khi cập nhật dữ liệu.");
     } finally {
       close();
     }
   };
 
-  /** Lấy dữ liệu chi tiết user */
-  const fetchUserDetail = useCallback(async () => {
+  /** 🔹 Lấy dữ liệu chi tiết bản ghi */
+  const fetchDetail = useCallback(async () => {
     if (!id) return;
     open();
     try {
       const url = API_ROUTE.UPDATE_ROLEPERMISSION.replace("{role_permission_id}", id);
       const response = await api.get(url);
-      const userData = response.data;
+      const data = response.data;
 
       formRef.current.setValues({
-         role_id: userData.role_id || "",
-        permission_id: userData.permission_id || "",
-    
-        description_vi: userData.description_vi || "",
-        // description_en: userData.description_en || "",
+        role_id: data.role_id || "",
+        permission_id: data.permission_id || "",
+        description_vi: data.description_vi || "",
       });
     } catch (error) {
-      console.error("Lỗi khi lấy dữ liệu user:", error);
-      alert("Không thể tải thông tin người dùng.");
-      modals.closeAll();
+      console.error("Lỗi khi lấy dữ liệu chi tiết:", error);
+      alert("Không thể tải thông tin chi tiết.");
     } finally {
       close();
     }
   }, [id, open, close]);
 
-  /** Lấy danh sách chức vụ hệ thống */
-  const fetchSystemOptions = useCallback(async () => {
+  /** 🔹 Lấy danh sách Vai trò và Mã chức năng */
+  const fetchOptions = useCallback(async () => {
     try {
-      // const res = await api.get(API_ROUTE.GET_LIST_ROLES);
-      // const rawData = Array.isArray(res.data) ? res.data : res.data.data;
-      // const options = rawData.map((item: SystemOption) => ({
-      //   value: item.id.toString(),
-      //   label: item.name,
-      // }));
-      // setSystemOptions(options);
+      const token = localStorage.getItem("accessToken") || "";
+
+      const [roles, permissions] = await Promise.all([
+        getListRoles({ token }),
+        getListPermisson({ token }),
+      ]);
+
+      setRoleOptions(
+        roles?.data?.map((item: Role) => ({
+          value: item.id?.toString(),
+          label: item.name || item.name || "Không có tên",
+        })) || []
+      );
+
+      setPermissionOptions(
+        permissions?.data?.map((item: Permission) => ({
+          value: item.id?.toString(),
+          label: item.code || item.permission_name || "Không có tên",
+        })) || []
+      );
     } catch (error) {
-      console.error("Lỗi khi load system options:", error);
+      console.error("Lỗi khi load danh sách vai trò/quyền:", error);
     }
   }, []);
 
   useEffect(() => {
-    fetchUserDetail();
-    fetchSystemOptions();
-  }, [fetchUserDetail, fetchSystemOptions]);
+    fetchDetail();
+    fetchOptions();
+  }, [fetchDetail, fetchOptions]);
 
   return (
     <Box
@@ -126,30 +138,37 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
         overlayProps={{ radius: "sm", blur: 2 }}
       />
 
-         <TextInput
-        label="Mã Vai Trò"
-        placeholder="Nhập Mã Vai Trò"
-        withAsterisk
+      {/* 🔹 Dropdown Vai trò */}
+      <Select
+        label="Vai trò"
+        placeholder="Chọn vai trò"
+        data={roleOptions}
+        rightSection={<IconChevronDown size={16} />}
         mt="md"
+        withAsterisk
         {...form.getInputProps("role_id")}
       />
 
-      <TextInput
-        label="Mã Quyền"
-        placeholder="Nhập Mã Quyền"
-        withAsterisk
+      {/* 🔹 Dropdown Mã chức năng */}
+      <Select
+        label="Mã chức năng"
+        placeholder="Chọn mã chức năng"
+        data={permissionOptions}
+        rightSection={<IconChevronDown size={16} />}
         mt="md"
+        withAsterisk
         {...form.getInputProps("permission_id")}
       />
-<Textarea
-  label="Mô tả "
-  placeholder="Nhập mô tả "
-  autosize
-  minRows={3}
-  mt="md"
-  {...form.getInputProps("description_vi")}
-/>
-       
+
+      {/* 🔹 Textarea mô tả */}
+      <Textarea
+        label="Mô tả"
+        placeholder="Nhập mô tả"
+        autosize
+        minRows={3}
+        mt="md"
+        {...form.getInputProps("description_vi")}
+      />
 
       <Group justify="flex-end" mt="lg">
         <Button
@@ -164,7 +183,6 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
           variant="outline"
           color="black"
           type="button"
-          loading={visible}
           onClick={() => modals.closeAll()}
           leftSection={<IconX size={18} />}
         >

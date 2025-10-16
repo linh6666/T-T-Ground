@@ -17,7 +17,8 @@ import RolePermission from './RolePermission';
 import SystemPermission from './SystemPermission'; 
 import Attributes from './Attributes'; 
 import ProjectTemplates from './ProjectTemplates'; 
-import UserProjectRole from './UserProjectRole'; 
+import UserProjectRole from './UserProjectRole';
+import TemplateAttributesLink from './TemplateAttributesLink';  
 import HomeAdmin from '../HomeAdmin/index'; 
 
 const mockdata = [
@@ -89,7 +90,7 @@ export default function PageAdmin() {
          case 'Project_Templates':
         return <ProjectTemplates/>;
          case 'Template_Attributes_Link':
-        return <h1>xin chòa</h1>
+        return <TemplateAttributesLink/>
          case 'project':
         return <Project/>;
          case 'Node_Attribute':
