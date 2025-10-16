@@ -57,6 +57,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
   address: values.address,
   investor: values.investor,
   image_url: values.image_url,
+   project_template_id:values. project_template_id
        
       };
       await createUser(userData);

@@ -134,6 +134,13 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
     zIndex={1000}
     overlayProps={{ radius: "sm", blur: 2 }}
   />
+  <TextInput
+  label="Tên loại dự án"
+  placeholder="Nhập loại dự án"
+
+  mt="md"
+  {...form.getInputProps("project_template_id")}
+/>
 
   <TextInput
     label="Tên dự án"

@@ -12,7 +12,7 @@ import Project from './Project';
 // import System from './System'; 
 // import Users from './Users'; 
 // import ListProject from './ListProject'; 
-import UserProjectRole from './UserProjectRole';
+// import UserProjectRole from './UserProjectRole';
 // import HomeAdmin from '../HomeAdmin/index';  
 // import ProjectManagere from './ProjectManagere'; 
 
@@ -58,8 +58,8 @@ export function ProjectManagement() {
         return <div>Đây là trang dự án</div>;
       case 'project-1':
        return <div>Đây là trang dự án</div>;
-      case 'user-list':
-        return <UserProjectRole/>;
+      // case 'user-list':
+      //   return <UserProjectRole/>;
          
       default:
          return<div>Đây là trang dự án</div>;

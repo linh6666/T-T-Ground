@@ -7,7 +7,7 @@ import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
 
 import { modals } from "@mantine/modals";
-import { getListRoles } from "../../../api/apigetlistProject";
+import { getListProject } from "../../../api/apigetlistProject";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
@@ -15,13 +15,14 @@ import EditView from "./EditView";
 import DeleteView from "./DeleteView";
 
 interface DataType {
-  id: string; // ✅ thêm id để dùng cho chỉnh sửa
+    id: string; // ✅ thêm id để dùng cho chỉnh sửa
   name: string;
   type: string;
   address: string;
   investor: string;
   image_url: string;
   rank: number;
+
 //   description_en: string;
 }
 
@@ -43,10 +44,10 @@ export default function LargeFixedTable() {
     }
 
     try {
-      const result = await getListRoles({ token, skip: 0, limit: 100 });
+      const result = await getListProject({ token, skip: 0, limit: 100 });
       const users = result.data.map((user: DataType) => ({
         id: user.id, // ✅ map thêm id
-        name: user.name,
+name: user.name,
         rank: user.rank,
         type: user.type,
         address: user.address,
@@ -79,12 +80,13 @@ export default function LargeFixedTable() {
 
   // ✅ Định nghĩa cột bảng
   const columns: ColumnsType<DataType> = [
-    { title: "Tên dự án", dataIndex: "name", key: "name", width: 20 ,fixed: "left"},
+       { title: "Tên dự án", dataIndex: "name", key: "name", width: 20 ,fixed: "left"},
     { title: "Loại dự án", dataIndex: "type", key: "type", width: 20 },
     { title: "Địa chỉ", dataIndex: "address", key: "address", width: 20 },
     { title: "Chủ đầu tư", dataIndex: "investor", key: "investor", width: 50 },
     { title: "Hình ảnh", dataIndex: "image_url", key: "image_url", width: 20 },
     { title: "Cấp bậc", dataIndex: "rank", key: "rank", width: 15 },
+   
     // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
    
    

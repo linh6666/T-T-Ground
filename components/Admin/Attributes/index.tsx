@@ -27,6 +27,7 @@ export default function LargeFixedTable() {
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+   console.error("Lỗi khi tải dữ liệu:", error); // ✅ thêm console.error(error)
 
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
 
@@ -140,7 +141,7 @@ export default function LargeFixedTable() {
         rowKey="id" // ✅ thêm key cho mỗi hàng
       />
 
-      {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
+    
     </>
   );
 }

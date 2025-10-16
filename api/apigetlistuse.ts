@@ -8,7 +8,7 @@ interface GetListRolesParams {
   limit?: number;
 }
 
-export const getListRoles = async ({
+export const getListUser = async ({
   token,
   skip,
   limit,

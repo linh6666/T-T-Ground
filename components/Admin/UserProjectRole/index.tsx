@@ -7,7 +7,7 @@ import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
 
 import { modals } from "@mantine/modals";
-import { getListRoles } from "../../../api/getlistrole";
+import { getListRoles } from "../../../api/apiUserProjectRole";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
@@ -15,10 +15,11 @@ import EditView from "./EditView";
 import DeleteView from "./DeleteView";
 
 interface DataType {
-  id: string; // ✅ thêm id để dùng cho chỉnh sửa
-  name: string;
-  rank: number;
-  description_vi: string;
+  id:string;
+     system_id: string;
+      project_id:string;
+  user_id?: string;
+  role_id?: string;
   // description_en: string;
 }
 
@@ -26,6 +27,7 @@ export default function LargeFixedTable() {
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+   console.error("Lỗi khi tải dữ liệu:", error); // ✅ thêm console.error(error)
 
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
 
@@ -42,10 +44,12 @@ export default function LargeFixedTable() {
     try {
       const result = await getListRoles({ token, skip: 0, limit: 100 });
       const users = result.data.map((user: DataType) => ({
-        id: user.id, // ✅ map thêm id
-        name: user.name,
-        rank: user.rank,
-        description_vi: user.description_vi,
+   // ✅ map thêm id
+   id:user.id,
+        system_id: user.system_id,
+        project_id: user.project_id,
+        user_id: user.user_id,
+        role_id:user.role_id,
         // description_en: user.description_en,
       }));
       setData(users);
@@ -73,9 +77,10 @@ export default function LargeFixedTable() {
 
   // ✅ Định nghĩa cột bảng
   const columns: ColumnsType<DataType> = [
-    { title: "Tên", dataIndex: "name", key: "name", width: 30 },
-    { title: "Cấp Bậc", dataIndex: "rank", key: "rank", width: 90 },
-    { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
+      { title: "Tên hệ thống", dataIndex: "system_id", key: "system_id", width: 30 },
+    { title: "Dự án", dataIndex: "project_id", key: "project_id", width: 30 },
+    { title: "Email người dùng", dataIndex: "user_id", key: "user_id", width: 90 },
+    { title: "Vai trò", dataIndex: "role_id", key: "role_id", width: 100 },
     // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
     {
       title: "Hành Động",
@@ -137,7 +142,7 @@ export default function LargeFixedTable() {
         rowKey="id" // ✅ thêm key cho mỗi hàng
       />
 
-      {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
+     
     </>
   );
 }

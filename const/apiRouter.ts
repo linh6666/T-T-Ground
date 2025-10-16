@@ -50,11 +50,11 @@ export const API_ROUTE = {
     DELETE_SYSTEMPERMISSION:"/api/v1/SystemPermission/permission/{system_permission_id}",
   
   
-    //UserProjectRole}
+    //UserProjectRole
     GET_LIST_USERPROJECTROLE:"/api/v1/UserProjectRole/assignments",
     CREATE_USERPROJECTROLE:"/api/v1/UserProjectRole/{project_id}",
-    UPDATE_USERPROJECTROLE:"/api/v1/UserProjectRole/{user_project_role_id}",
-    DELETE_USERPROJECTROLE:"/api/v1/UserProjectRole/{user_id}/{project_id}/{old_role_id}",
+   DELETE_USERPROJECTROLE:"/api/v1/UserProjectRole/{user_project_role_id}",
+    UPDATE_USERPROJECTROLE:"/api/v1/UserProjectRole/{user_id}/{project_id}/{old_role_id}",
 
 ///Attributes
     GET_LIST_ATTRIBUTES:"/api/v1/attributes/",
@@ -67,4 +67,7 @@ GET_LIST_PROJECTTEMPLATES:"/api/v1/project_templates/",
 CREATE_PROJECTTEMPLATES:"/api/v1/project_templates/",
 UPDATE_PROJECTTEMPLATES:"/api/v1/project_templates/{template_id}",
 DELETE_PROJECTTEMPLATES:"/api/v1/project_templates/{template_id}",
+
+
+
 }

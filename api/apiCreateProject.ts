@@ -3,13 +3,15 @@ import { api } from "../libray/axios";
 import { API_ROUTE } from "../const/apiRouter"; // ✅ import đúng object chứa hằng số
 
 export interface CreateUserPayload {
-name: string;
+ name: string;
   type: string;
   address: string;
   investor: string;
   image_url: string;
   rank: string;
-  project_template_id?: number;
+  project_template_id:string;
+
+
  
 }
 

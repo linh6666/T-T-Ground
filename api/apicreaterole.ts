@@ -6,7 +6,7 @@ export interface CreateUserPayload {
   name: string;
   rank: number;
 description_vi: string;
-description_en: string;
+
  
 }
 

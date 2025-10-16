@@ -7,7 +7,7 @@ import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
 import dayjs from "dayjs";
 import { modals } from "@mantine/modals";
-import { getListRoles } from "../../../api/apigetlistuse";
+import { getListUser  } from "../../../api/apigetlistuse";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
@@ -49,7 +49,7 @@ export default function LargeFixedTable() {
     }
 
     try {
-      const result = await getListRoles({ token, skip: 0, limit: 100 });
+      const result = await getListUser ({ token, skip: 0, limit: 100 });
       const users = result.data.map((user: DataType) => ({
         key: user.id,
         full_name: user.full_name,

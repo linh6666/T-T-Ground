@@ -90,22 +90,15 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         {...form.getInputProps("rank_total")}
       />
 <Textarea
-  label="Mô tả (Tiếng Việt)"
-  placeholder="Nhập mô tả tiếng Việt"
+  label="Mô tả "
+  placeholder="Nhập mô tả "
   autosize
   minRows={3}
   mt="md"
   {...form.getInputProps("description_vi")}
 />
 
-<Textarea
-  label="Mô tả (Tiếng Anh)"
-  placeholder="Enter English description"
-  autosize
-  minRows={3}
-  mt="md"
-  {...form.getInputProps("description_en")}
-/>
+
      
 
    

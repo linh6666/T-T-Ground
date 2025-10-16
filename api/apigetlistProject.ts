@@ -8,7 +8,7 @@ interface GetListRolesParams {
    lang?: string;
 }
 
-export const getListRoles = async ({
+export const getListProject = async ({
   token,
   skip,
   limit,
