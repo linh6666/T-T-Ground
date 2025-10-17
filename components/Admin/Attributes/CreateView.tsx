@@ -85,21 +85,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         {...form.getInputProps("label")}
       />
 
-    <Select
-  label="Kiểu dữ liệu"
-  placeholder="Chọn kiểu dữ liệu"
-  data={[
-    { value: "bigint_value", label: "Số nguyên (bigint_value)" },
-    { value: "float_value", label: "Số thực (float_value)" },
-    { value: "text_vi_value", label: "Văn bản Tiếng Việt (text_vi_value)" },
-    { value: "text_en_value", label: "Văn bản Tiếng Anh (text_en_value)" },
-    { value: "boolean_Value", label: "Giá trị đúng/sai (boolean_Value)" },
-    { value: "time_value", label: "Thời gian (time_value)" },
-  ]}
-  withAsterisk
-  mt="md"
-  {...form.getInputProps("data_type")}
-/>
+ 
  <TextInput
         label="Tên hiển thị "
         placeholder="Nhập tên hiển thị "
@@ -116,6 +102,20 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       />
 
 
+<Select
+  label="Kiểu dữ liệu"
+  placeholder="Chọn kiểu dữ liệu"
+  data={[
+    { value: "bigint", label: "Số nguyên (bigint)" },
+    { value: "float", label: "Số thực (float)" },
+    { value: "text", label: "Văn bản (text)" },
+    { value: "boolean", label: "Đúng/Sai (boolean)" },
+    { value: "time", label: "Thời gian (time)" },
+  ]}
+  withAsterisk
+  mt="md"
+  {...form.getInputProps("data_type")}
+/>
 
      
 

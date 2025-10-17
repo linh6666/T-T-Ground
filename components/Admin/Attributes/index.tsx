@@ -17,7 +17,7 @@ import DeleteView from "./DeleteView";
 interface DataType {
   id: string; // ✅ thêm id để dùng cho chỉnh sửa
  label:string;
- date_type:string;
+ data_type:string;
  display_label_vi:string;
  parent_attribute_id:string|null;
   
@@ -46,7 +46,7 @@ export default function LargeFixedTable() {
       const users = result.data.map((user: DataType) => ({
         id: user.id, // ✅ map thêm id
         label: user.label,
-        date_type: user.date_type,
+        data_type: user.data_type,
         display_label_vi: user.display_label_vi,
         parent_attribute_id: user.parent_attribute_id,
         // description_en: user.description_en,
