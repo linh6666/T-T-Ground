@@ -5,17 +5,17 @@ import {
   Button,
   Group,
   LoadingOverlay,
-  Textarea,
-  TextInput,
+  // Textarea,
+  // TextInput,
 } from "@mantine/core";
 import { isNotEmpty,  useForm } from "@mantine/form";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
 import { useDisclosure } from "@mantine/hooks";
-import { createUser } from "../../../api/apiNodeAttribute"; 
-import { getListRoles } from "../../../api/apigetlistAttributes";// 🔁 sửa đường dẫn nếu cần
-import { getListProject } from "../../../api/apigetlistProject";
-import { Select } from "antd";
+// import { createProjectTemplate } from "../../../api/apiNodeAttribute"; 
+// import { getListRoles } from "../../../api/apigetlistAttributes";// 🔁 sửa đường dẫn nếu cần
+// import { getListProject } from "../../../api/apigetlistProject";
+// import { Select } from "antd";
 
 interface CreateViewProps {
   onSearch: () => Promise<void>;
@@ -54,7 +54,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       
        
       };
-      await createUser(userData);
+      await (userData);
       await onSearch();
       modals.closeAll();
     } catch (error) {

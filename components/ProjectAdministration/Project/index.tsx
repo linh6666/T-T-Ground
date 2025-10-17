@@ -4,13 +4,13 @@ import React, { useEffect, useState, useCallback } from "react";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import AppSearch from "../../../common/AppSearch";
-import AppAction from "../../../common/AppAction";
+// import AppAction from "../../../common/AppAction";
 
 import { modals } from "@mantine/modals";
 import {  getListProject } from "../../../api/apigetlistProject";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
-import CreateView from "./CreateView";
+// import CreateView from "./CreateView";
 import EditView from "./EditView";
 import DeleteView from "./DeleteView";
 
@@ -112,16 +112,16 @@ export default function LargeFixedTable() {
   ];
 
   // ✅ Modal thêm người dùng
-  const openModal = () => {
-    modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm dự án mới</div>,
-      children: <CreateView onSearch={fetchData} />,
-      size: "lg",
-      radius: "md",
-      confirmProps: { display: "none" },
-      cancelProps: { display: "none" },
-    });
-  };
+  // const openModal = () => {
+  //   modals.openConfirmModal({
+  //     title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm dự án mới</div>,
+  //     children: <CreateView onSearch={fetchData} />,
+  //     size: "lg",
+  //     radius: "md",
+  //     confirmProps: { display: "none" },
+  //     cancelProps: { display: "none" },
+  //   });
+  // };
 
     const openDeleteUserModal = (role: DataType) => {
     modals.openConfirmModal({
@@ -136,7 +136,7 @@ export default function LargeFixedTable() {
     <>
       <Group style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <AppSearch />
-        <AppAction openModal={openModal} />
+        {/* <AppAction openModal={openModal} /> */}
       </Group>
 
       <Table

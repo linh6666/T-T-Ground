@@ -41,8 +41,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     try {
       const userData = {
         template_vi: values.template_vi,
-         
-       
+           
       };
       await createUser(userData);
       await onSearch();

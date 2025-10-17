@@ -3,7 +3,7 @@
 import {
   Box,
   Button,
-  FileInput,
+
   Group,
   LoadingOverlay,
   Select,
@@ -28,6 +28,7 @@ interface Option {
 interface ProjectTemplate {
   id: number;
   template_vi: string;
+  
 }
 const CreateView = ({ onSearch }: CreateViewProps) => {
   const [visible, { open, close }] = useDisclosure(false);
@@ -37,14 +38,14 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
 
   const form = useForm({
     initialValues: {
-      name_vi: "",
-     
-     
+      id:"",
+     name_vi:"",
+    timeout_minutes:"",
       project_template_id: "",
     },
     validate: {
-      name_vi: isNotEmpty("Tên không được để trống"),
-     
+      name_vi: isNotEmpty("không được để trống"),
+     timeout_minutes:isNotEmpty("không được để trống"),
       project_template_id: isNotEmpty("Loại dự án không được để trống"),
     },
   });
@@ -63,7 +64,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
      setSystemOptions(
   (res.data as ProjectTemplate[]).map((item) => ({
     value: item.id.toString(),
-    label: item.template_vi || `Loại dự án ${item.id}`,
+    label: item.template_vi || "không có",
   })) || []
 );
 
@@ -80,8 +81,9 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     open();
     try {
       const projectData = {
-        name_vi: values.name_vi,
-    
+          id:values.id,
+         name_vi: values.name_vi,
+         timeout_minutes: values.timeout_minutes,         
         project_template_id: values.project_template_id,
       };
 
@@ -127,46 +129,25 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         placeholder="Nhập Tên dự án"
         withAsterisk
         mt="md"
-        {...form.getInputProps("name")}
+        {...form.getInputProps("name_vi")}
       />
 
-      <TextInput
-        label="Cấp bậc"
-        placeholder="Nhập Cấp bậc"
-        withAsterisk
-        mt="md"
-        {...form.getInputProps("rank")}
-      />
+     <TextInput
+  label="Thời gian chờ (phút)"
+  placeholder="Nhập số phút"
+  withAsterisk
+  mt="md"
+  type="number" // ✅ chỉ cho nhập số
+  min={1} // ✅ có thể thêm giới hạn tối thiểu
+  {...form.getInputProps("timeout_minutes")} // ✅ bỏ khoảng trắng
+/>
 
-      <TextInput
-        label="Loại dự án"
-        placeholder="Nhập loại dự án"
-        withAsterisk
-        mt="md"
-        {...form.getInputProps("type")}
-      />
+     
+     
 
-      <TextInput
-        label="Địa chỉ"
-        placeholder="Nhập địa chỉ"
-        mt="md"
-        {...form.getInputProps("address")}
-      />
+    
 
-      <TextInput
-        label="Chủ đầu tư"
-        placeholder="Nhập tên chủ đầu tư"
-        mt="md"
-        {...form.getInputProps("investor")}
-      />
-
-      <FileInput
-        label="Hình ảnh"
-        placeholder="Chọn file hình ảnh"
-        mt="md"
-        {...form.getInputProps("image_url")}
-      />
-
+      
       <Group justify="flex-end" mt="lg">
         <Button
           type="submit"

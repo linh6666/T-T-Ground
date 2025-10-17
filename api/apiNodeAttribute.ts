@@ -4,58 +4,33 @@ import { API_ROUTE } from "../const/apiRouter";
 // ==========================
 // 📌 Interface & Type
 // ==========================
-export interface GetListRolesParams {
-  token: string;
-  skip?: number;
-  limit?: number;
+export interface CreateProjectTemplatePayload {
+  project_id: string;
+  attribute_id: string;
+//   parent_node_attributes_id: string;
+  values: { value: string }[];
 }
 
-export interface CreateUserPayload {
-   project_id: string;
-   attribute_id:string;
-   parent_node_attributes_id:string;
-   values:string;
-  
-}
-
-
-export const getListProjectTemplates = async ({ token, skip, limit }: GetListRolesParams) => {
-  const response = await api.get(API_ROUTE.GET_LIST_PROJECTTEMPLATES, {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    params: {
-      skip,
-      limit,
-    },
-  });
-
-  return {
-    data: response.data.data,
-    total: response.data.count,
-  };
-};
-
-// 🔹 Tạo mới Role
-export const createUser = async (payload: CreateUserPayload) => {
-  const response = await api.post(API_ROUTE.CREATE_PROJECTTEMPLATES, payload);
-  return response.data;
-};
-
-export const rolesApi = {
-  getListProjectTemplates,
-  createUser,
-};
-
-export default rolesApi;
-export const deleteUserManagement = async (userId: string) => {
+// ==========================
+// 📌 API: Tạo Project Template Node Attribute
+// ==========================
+export const createProjectTemplate = async (payload: CreateProjectTemplatePayload) => {
   try {
-    const url = API_ROUTE.DELETE_PROJECTTEMPLATES.replace("{template_id}", userId);
-    console.log("Đang gửi DELETE tới:", url); // kiểm tra trước khi gửi
-    const res = await api.delete(url);
-    return res.data;
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("access_token") || "" : "";
+
+    console.log("🔹 Gửi dữ liệu tạo Project Template:", payload);
+
+    const response = await api.post(API_ROUTE.CREATE_NODEATTRIBUTE, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    console.log("✅ Kết quả API:", response.data);
+    return response.data;
   } catch (error) {
-    console.error("Lỗi xoá người dùng:", error);
+    console.error("❌ Lỗi khi gọi API tạo Project Template:", error);
     throw error;
   }
 };

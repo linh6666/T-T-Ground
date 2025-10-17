@@ -3,8 +3,9 @@ import { api } from "../libray/axios";
 import { API_ROUTE } from "../const/apiRouter"; // ✅ import đúng object chứa hằng số
 
 export interface CreateUserPayload {
- name_vi: string;
-  
+  id:string;
+ name_vi:string;
+timeout_minutes:string;
   project_template_id:string;
 
 
