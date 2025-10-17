@@ -16,6 +16,7 @@ interface ProjectTemplate {
 interface SelectNode {
   id: string;
   value: string;
+  quantity?: number;
   children: SelectNode[];
 }
 
@@ -27,8 +28,7 @@ export default function RecursiveSelect() {
   ]);
   const [loading, setLoading] = useState(false);
 
-  const token =
-    typeof window !== "undefined" ? localStorage.getItem("access_token") || "" : "";
+  const token = typeof window !== "undefined" ? localStorage.getItem("access_token") || "" : "";
 
   // 🧠 Lấy danh sách project (lớp 1)
   const fetchTemplateList = useCallback(async () => {
@@ -79,19 +79,42 @@ export default function RecursiveSelect() {
     setSelectTree((prev) => updateNode(prev));
   }, []);
 
+  // ✅ Cập nhật số lượng node (cho phép undefined)
+  const updateNodeQuantity = useCallback((id: string, newQty: number | undefined) => {
+    const updateQty = (nodes: SelectNode[]): SelectNode[] =>
+      nodes.map((node) => {
+        if (node.id === id) return { ...node, quantity: newQty };
+        if (node.children.length > 0) return { ...node, children: updateQty(node.children) };
+        return node;
+      });
+
+    setSelectTree((prev) => updateQty(prev));
+  }, []);
+
   // ✅ Thêm lớp con
   const handleAddChild = useCallback((id: string) => {
     const addChild = (nodes: SelectNode[]): SelectNode[] =>
       nodes.map((node) => {
         if (node.id === id) {
-          const newChild: SelectNode = {
-            id: `${id}-${node.children.length + 1}`,
-            value: "",
-            children: [],
-          };
-          return { ...node, children: [...node.children, newChild] };
+          const quantity = node.quantity && node.quantity > 0 ? node.quantity : 1;
+
+          const newChildren: SelectNode[] = [];
+          for (let i = 0; i < quantity; i++) {
+            newChildren.push({
+              id: `${id}-${node.children.length + i + 1}`,
+              value: "",
+              quantity: 1, // luôn có quantity
+              children: [],
+            });
+          }
+
+          return { ...node, children: [...node.children, ...newChildren] };
         }
-        if (node.children.length > 0) return { ...node, children: addChild(node.children) };
+
+        if (node.children.length > 0) {
+          return { ...node, children: addChild(node.children) };
+        }
+
         return node;
       });
 
@@ -112,12 +135,11 @@ export default function RecursiveSelect() {
     setSelectTree((prev) => deleteNode(prev));
   }, []);
 
-  // ✅ Lấy tất cả các giá trị nhập (lớp 3 trở đi)
+  // ✅ Lấy tất cả giá trị cuối (lớp 3 trở đi)
   const collectAllValues = (nodes: SelectNode[]): { value: string }[] => {
     let result: { value: string }[] = [];
     for (const node of nodes) {
       if (node.children.length === 0 && node.value.trim() !== "") {
-        // Đây là node cuối (TextInput)
         result.push({ value: node.value });
       } else if (node.children.length > 0) {
         result = result.concat(collectAllValues(node.children));
@@ -126,13 +148,12 @@ export default function RecursiveSelect() {
     return result;
   };
 
-  // ✅ Gửi API tạo user
+  // ✅ Gửi API tạo dữ liệu
   const handleCreateUser = async () => {
     setLoading(true);
     try {
       const project_id = selectTree[0]?.value || "";
       const attribute_id = selectTree[0]?.children?.[0]?.value || "";
-    //   const parent_node_attributes_id = selectTree[0]?.id || "";
 
       const values = collectAllValues(selectTree);
 
@@ -145,14 +166,17 @@ export default function RecursiveSelect() {
       const payload = {
         project_id,
         attribute_id,
-        // parent_node_attributes_id,
         values,
       };
 
       console.log("📦 Payload gửi API:", payload);
       const res = await createProjectTemplate(payload);
-      alert("✅ Tạo dữ liệu thành công!");
       console.log("Kết quả trả về:", res);
+
+      alert("✅ Tạo dữ liệu thành công!");
+
+      // ✅ Reset form
+      setSelectTree([{ id: "root", value: "", quantity: 1, children: [] }]);
     } catch (err) {
       console.error("❌ Lỗi khi tạo dữ liệu:", err);
       alert("❌ Có lỗi khi tạo, xem console để biết thêm chi tiết.");
@@ -195,13 +219,27 @@ export default function RecursiveSelect() {
           )}
 
           {level >= 2 && (
-            <TextInput
-              label={`Giá trị lớp ${level + 1}`}
-              placeholder="Nhập giá trị..."
-              value={node.value}
-              onChange={(e) => updateNodeValue(node.id, e.currentTarget.value)}
-              mb="xs"
-            />
+            <Group align="flex-end">
+              <TextInput
+                label={`Giá trị lớp ${level + 1}`}
+                placeholder="Nhập giá trị..."
+                value={node.value}
+                onChange={(e) => updateNodeValue(node.id, e.currentTarget.value)}
+                style={{ flex: 2 }}
+              />
+              <TextInput
+                label="Số lượng"
+                type="number"
+                placeholder="nhập số lượng"
+                value={node.quantity !== undefined ? node.quantity.toString() : ""}
+                onChange={(e) => {
+                  const val = e.currentTarget.value;
+                  const qty = val === "" ? undefined : parseInt(val, 10);
+                  updateNodeQuantity(node.id, qty); // input có thể trống
+                }}
+                style={{ width: "100px" }}
+              />
+            </Group>
           )}
 
           {node.id !== "root" && (
@@ -211,12 +249,14 @@ export default function RecursiveSelect() {
           )}
         </Group>
 
-        <Group mb="sm" mt="xs">
-          <ActionIcon color="blue" variant="filled" onClick={() => handleAddChild(node.id)}>
-            <IconPlus size={16} />
-          </ActionIcon>
-          <span>Thêm lớp con</span>
-        </Group>
+        {node.value && (
+          <Group mb="sm" mt="xs">
+            <ActionIcon color="blue" variant="filled" onClick={() => handleAddChild(node.id)}>
+              <IconPlus size={16} />
+            </ActionIcon>
+            <span>Thêm lớp con</span>
+          </Group>
+        )}
 
         {node.children.length > 0 && renderSelects(node.children, level + 1)}
       </Box>
