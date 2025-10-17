@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { Table } from "antd";
+import { Table, Pagination } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
@@ -15,19 +15,28 @@ import EditView from "./EditView";
 import DeleteView from "./DeleteView";
 
 interface DataType {
-  id: string; // ✅ thêm id để dùng cho chỉnh sửa
- label:string;
- data_type:string;
- display_label_vi:string;
- parent_attribute_id:string|null;
-  
+  id: string;
+  label: string;
+  data_type: string;
+  display_label_vi: string;
+  parent_attribute_id: string | null;
+}
+
+// Interface API trả về, dùng total thay vì count
+interface ListRolesResponse {
+  data: DataType[];
+  total: number; // tổng số record
 }
 
 export default function LargeFixedTable() {
   const [data, setData] = useState<DataType[]>([]);
+  const [total, setTotal] = useState<number>(0); // tổng số record từ server
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-   console.error("Lỗi khi tải dữ liệu:", error); // ✅ thêm console.error(error)
+   console.error("Lỗi khi tải dữ liệu:", error);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageSize = 10; // số item mỗi trang
 
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
 
@@ -42,69 +51,51 @@ export default function LargeFixedTable() {
     }
 
     try {
-      const result = await getListRoles({ token, skip: 0, limit: 100 });
+      const skip = (currentPage - 1) * pageSize;
+      // Ép kiểu API về ListRolesResponse
+      const result: ListRolesResponse = await getListRoles({ token, skip, limit: pageSize });
+
       const users = result.data.map((user: DataType) => ({
-        id: user.id, // ✅ map thêm id
+        id: user.id,
         label: user.label,
         data_type: user.data_type,
         display_label_vi: user.display_label_vi,
         parent_attribute_id: user.parent_attribute_id,
-        // description_en: user.description_en,
-        
       }));
+
       setData(users);
+      setTotal(result.total); // dùng total thay vì count
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("Đã xảy ra lỗi khi tải dữ liệu.");
+      console.error("Lỗi khi tải dữ liệu:", err);
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [token, currentPage]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
-  // ✅ Hàm mở modal chỉnh sửa
   const openEditUserModal = (role: DataType) => {
     modals.openConfirmModal({
       title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa người dùng</div>,
-      children: <EditView id={role.id} onSearch={fetchData} />, // ✅ đổi fetchRoles → fetchData
+      children: <EditView id={role.id} onSearch={fetchData} />,
       confirmProps: { display: "none" },
       cancelProps: { display: "none" },
     });
   };
 
-  // ✅ Định nghĩa cột bảng
-  const columns: ColumnsType<DataType> = [
-    { title: "Định danh thuộc tính", dataIndex: "label", key: "lable", width: 30 },
-    { title: "Kiểu dữ liệu", dataIndex: "data_type", key: "data_type", width: 90 },
-    { title: "Tên hiển thị ", dataIndex: "display_label_vi", key: "display_label_vi", width: 100 },
-    { title: "Tên dữ liệu cha", dataIndex: "parent_attributes_id", key: "parent_attributes_id", width: 100 },
-    {
-      title: "Hành Động",
-      width: 30,
-      fixed: "right",
-      render: (user: DataType) => (
-        <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
-          <EuiFlexItem grow={false}>
-            {/* ✅ truyền đúng user vào onClick */}
-            <EuiButtonIcon
-              iconType="documentEdit"
-              aria-label="Chỉnh sửa"
-              color="success"
-              onClick={() => openEditUserModal(user)}
-            />
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <EuiButtonIcon iconType="trash" aria-label="Xóa" color="danger" onClick={() => openDeleteUserModal(user)} />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      ),
-    },
-  ];
+  const openDeleteUserModal = (role: DataType) => {
+    modals.openConfirmModal({
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
+      children: <DeleteView idItem={[role.id]} onSearch={fetchData} />,
+      confirmProps: { display: 'none' },
+      cancelProps: { display: 'none' },
+    });
+  };
 
-  // ✅ Modal thêm người dùng
   const openModal = () => {
     modals.openConfirmModal({
       title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm người dùng mới</div>,
@@ -116,14 +107,37 @@ export default function LargeFixedTable() {
     });
   };
 
-    const openDeleteUserModal = (role: DataType) => {
-    modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
-      children: <DeleteView idItem={[role.id]} onSearch={fetchData} />,
-      confirmProps: { display: 'none' },
-      cancelProps: { display: 'none' },
-    });
-  };
+  const columns: ColumnsType<DataType> = [
+    { title: "Định danh thuộc tính", dataIndex: "label", key: "label", width: 30 },
+    { title: "Kiểu dữ liệu", dataIndex: "data_type", key: "data_type", width: 90 },
+    { title: "Tên hiển thị", dataIndex: "display_label_vi", key: "display_label_vi", width: 100 },
+    { title: "Tên dữ liệu cha", dataIndex: "parent_attribute_id", key: "parent_attribute_id", width: 100 },
+    {
+      title: "Hành Động",
+      width: 30,
+      fixed: "right",
+      render: (user: DataType) => (
+        <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
+          <EuiFlexItem grow={false}>
+            <EuiButtonIcon
+              iconType="documentEdit"
+              aria-label="Chỉnh sửa"
+              color="success"
+              onClick={() => openEditUserModal(user)}
+            />
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <EuiButtonIcon
+              iconType="trash"
+              aria-label="Xóa"
+              color="danger"
+              onClick={() => openDeleteUserModal(user)}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      ),
+    },
+  ];
 
   return (
     <>
@@ -136,12 +150,22 @@ export default function LargeFixedTable() {
         columns={columns}
         dataSource={data}
         loading={loading}
-        pagination={false}
+        pagination={false} // tắt pagination mặc định của Table
         bordered
-        rowKey="id" // ✅ thêm key cho mỗi hàng
+        rowKey="id"
       />
 
-    
+      {/* Pagination riêng */}
+      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+        <Pagination
+          total={total} // dùng total từ API
+          current={currentPage}
+          pageSize={pageSize}
+          onChange={(page) => setCurrentPage(page)}
+          showSizeChanger={false}
+          showQuickJumper={false}
+        />
+      </div>
     </>
   );
 }

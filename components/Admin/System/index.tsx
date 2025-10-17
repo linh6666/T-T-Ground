@@ -19,20 +19,23 @@ interface DataType {
   name: string;
   rank_total: number;
   description_vi: string;
- 
 }
+
+// Interface API trả về
+// interface ListSystemResponse {
+//   data: DataType[];
+//   count: number; // property count từ API
+// }
 
 export default function LargeFixedTable() {
   const [data, setData] = useState<DataType[]>([]);
+  const [total, setTotal] = useState<number>(0); // tổng số record từ server
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+   console.error("Lỗi khi tải dữ liệu:", error);
 
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10;
-
-  useEffect(() => {
-    if (error) console.log("Current error:", error);
-  }, [error]);
 
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
 
@@ -47,19 +50,12 @@ export default function LargeFixedTable() {
     }
 
     try {
-      const result = await getListSystem({ token, skip: 0, limit: 100 });
-      const users = result.data.map((user: DataType) => ({
-        id: user.id,
-        name: user.name,
-        rank_total: user.rank_total,
-        description_vi: user.description_vi,
-        
-      }));
-      setData(users);
+      const skip = (currentPage - 1) * pageSize;
+      const result = await getListSystem({ token, skip, limit: pageSize });
 
-      // Reset page nếu currentPage vượt quá số trang mới
-      const totalPages = Math.ceil(users.length / pageSize);
-      if (currentPage > totalPages) setCurrentPage(1);
+      // Cập nhật dữ liệu và tổng số record
+      setData(result.data);
+    setTotal(result.total); 
 
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
@@ -110,7 +106,6 @@ export default function LargeFixedTable() {
     { title: "Tên", dataIndex: "name", key: "name", width: 30 },
     { title: "Cấp Bậc", dataIndex: "rank_total", key: "rank_total", width: 90 },
     { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
-    // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
     {
       title: "Hành Động",
       width: 30,
@@ -138,12 +133,6 @@ export default function LargeFixedTable() {
     },
   ];
 
-  // Dữ liệu phân trang
-  const paginatedData = data.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
-
   return (
     <>
       <Group style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -153,7 +142,7 @@ export default function LargeFixedTable() {
 
       <Table
         columns={columns}
-        dataSource={paginatedData}
+        dataSource={data}
         loading={loading}
         pagination={false}
         bordered
@@ -162,15 +151,14 @@ export default function LargeFixedTable() {
 
       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
         <Pagination
-          total={data.length}
+          total={total} // dùng count từ server
           current={currentPage}
           pageSize={pageSize}
           onChange={(page) => setCurrentPage(page)}
-          showSizeChanger={false} // ẩn chọn số item mỗi trang
-          showQuickJumper={false} // ẩn ô nhập số trang
+          showSizeChanger={false}
+          showQuickJumper={false}
         />
       </div>
     </>
   );
 }
-
