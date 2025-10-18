@@ -19,11 +19,11 @@ export default function DetailInteractive () {
           <Stack gap="xs" p="md" style={{ flexGrow: 1 }}>
             <Text fw={500}>Millenia City</Text>
             <Text size="sm" c="dimmed">Huyện Cần Giuộc-Tỉnh Long An</Text>
-            <Text size="sm" c="dimmed">100%</Text>
+            <Text size="sm" c="dimmed"></Text>
           </Stack>
           <Button 
                component="a"
-   href="/Dieu-khien"
+   href=""
           className={`${styles.baseButton} ${styles.primaryButton}`}>
             Đi tới dự án
           </Button>
@@ -60,7 +60,7 @@ export default function DetailInteractive () {
           <Stack gap="xs" p="md" style={{ flexGrow: 1 }}>
             <Text fw={500}>Times Square Đà Nẵng</Text>
             <Text size="sm" c="dimmed">Đà Nẵng</Text>
-            <Text size="sm" c="dimmed">100%</Text>
+            <Text size="sm" c="dimmed"></Text>
           </Stack>
           {/* <Button disabled className={`${styles.baseButton} ${styles.disabledButton}`}>
            
@@ -84,7 +84,7 @@ xin phê duyệt
           <Stack gap="xs" p="md" style={{ flexGrow: 1 }}>
             <Text fw={500}>Khu đô thị mới Cà Mau</Text>
             <Text size="sm" c="dimmed">Cà Mau</Text>
-            <Text size="sm" c="dimmed">100%</Text>
+            <Text size="sm" c="dimmed"></Text>
           </Stack>
           {/* <Button disabled className={`${styles.baseButton} ${styles.disabledButton}`}>           
 Chờ phê duyệt

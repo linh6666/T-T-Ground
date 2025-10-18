@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import {  IconUser } from "@tabler/icons-react";
-import { Menu, Text } from "@mantine/core";
+import {  Text } from "@mantine/core";
 import useAuth from "../../../hook/useAuth";
 // import styles from "./ButtonLogin.module.css";
 import Link from "next/link";
@@ -13,22 +13,21 @@ import ButtonsCollection from "../../../common/ButtonsCollection";
 // } from "@mantine/hooks";// ✅ import modal hồ sơ
 
 export default function LoginButton() {
-  const { user, isLoggedIn, logout, error } = useAuth();
+  const { user, isLoggedIn, error } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   //  const widthView = useViewportSize().width;
 
-  const handleLogout = async () => {
-    await logout();
-    window.alert("Đăng xuất thành công");
-    window.location.href = "/";
-  };
+  // const handleLogout = async () => {
+  //   await logout();
+  //   window.alert("Đăng xuất thành công");
+  //   window.location.href = "/";
+  // };
 
   return (
     <>
       {isLoggedIn && user ? (
-        <Menu shadow="md" width={200} withinPortal>
-          <Menu.Target>
-          
+      
+         <Link href="/Tai-khoan" style={{ textDecoration: "none" }}>
               <ButtonsCollection
                 background
                 hover
@@ -40,17 +39,10 @@ export default function LoginButton() {
                   </Text>
                 
               </ButtonsCollection>
-          </Menu.Target>
+     </Link>
 
-          <Menu.Dropdown>
-            <Menu.Item onClick={() => setIsProfileOpen(true)}>
-              Hồ sơ cá nhân
-            </Menu.Item>
-            <Menu.Item onClick={handleLogout} color="red">
-              Đăng xuất
-            </Menu.Item>
-          </Menu.Dropdown>
-        </Menu>
+         
+       
       ) : (
         // <ButtonsCollection background hover>
                 <Link
