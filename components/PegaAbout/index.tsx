@@ -1,5 +1,6 @@
 import { Card, Image, Stack, Text, Button} from "@mantine/core";
 import styles from "./Interact.module.css";
+import Link from "next/link";
 // import AppContainer from "../../common/AppContainer";
 export default function DetailInteractive () {
   return (
@@ -97,6 +98,23 @@ Chờ phê duyệt
     </Button>
         </Card>       
       </div>
+
+          <div className={styles.footerwrapper}>
+            <p className={styles.footerline}>
+              <span>Website được phát triển và hoàn thiện bởi</span>
+              <Link href="https://www.mohinhviet.com/" target="_blank">
+                <Image
+                  src="/MHV_VN_SOLOGAN_H.png"
+                  alt="Mô Hình Việt"
+                  className={styles.footerlogo}
+                 
+                />
+              </Link>
+            </p>
+            <p className={styles.footersubtex}>
+              Đơn vị tiên phong trong lĩnh vực mô hình và giải pháp trình bày dự án bất động sản.
+            </p>
+          </div>
     </div>
 </div>  
   );

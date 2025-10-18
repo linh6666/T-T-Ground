@@ -1,98 +1,109 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Image } from "@mantine/core";
-// import LoginButton from "../../components/LoginButton/LoginButton";
-import styles from "./Header.module.css";
-import LoginButton from "./ButtonLogin/index";
+import { jwtDecode } from "jwt-decode";
 import { IconPhoneCall, IconShoppingCart } from "@tabler/icons-react";
-// menu mặc định
+import LoginButton from "./ButtonLogin/index";
+import styles from "./Header.module.css";
+
+// 🧭 Danh sách menu gốc
 const baseLinks = [
   { label: "TRANG CHỦ", href: "/", highlight: true },
   { label: "GIỚI THIỆU", href: "/gioi-thieu" },
   { label: "MÔ HÌNH TƯƠNG TÁC", href: "/Tuong-tac" },
   { label: "QUẢN LÝ BÁN HÀNG", href: "/quan-ly-ban-hang" },
-   { label: "QUẢN TRỊ DỰ ÁN", href: "/quan-tri-du-an" },
+  { label: "QUẢN TRỊ DỰ ÁN", href: "/quan-tri-du-an" },
   { label: "QUẢN TRỊ HỆ THỐNG", href: "/quan-ly-he-thong" },
- 
 ];
+
+// 🧩 Interface cho token
+interface DecodedToken {
+  is_superuser?: boolean;
+  exp?: number;
+  iat?: number;
+  [key: string]: unknown; // Cho phép thêm field khác nếu token có
+}
 
 export default function Header() {
   const pathname = usePathname();
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [isFlagDropdownOpen, setIsFlagDropdownOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isSuperUser, setIsSuperUser] = useState(false);
+
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
-      ) {
-        setIsFlagDropdownOpen(false);
-      }
-    };
-    if (isFlagDropdownOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+    // ✅ thử đọc cả hai tên token
+    const token =
+      localStorage.getItem("token") || localStorage.getItem("access_token");
+
+    if (!token) {
+      setIsLoggedIn(false);
+      setIsSuperUser(false);
+      return;
     }
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isFlagDropdownOpen]);
+
+    try {
+      // ✅ Giải mã token có kiểu rõ ràng
+      const decoded = jwtDecode<DecodedToken>(token);
+      console.log("🔍 Giải mã token:", decoded);
+
+      setIsLoggedIn(true);
+      setIsSuperUser(decoded?.is_superuser === true);
+    } catch (err) {
+      console.error("❌ Token không hợp lệ:", err);
+      setIsLoggedIn(false);
+      setIsSuperUser(false);
+    }
+  }, []);
+
+  // 🔎 Hiển thị menu theo trạng thái đăng nhập
+  const visibleLinks = baseLinks.filter((link) => {
+    if (!isLoggedIn) {
+      // ❌ Chưa đăng nhập → chỉ hiển thị 4 mục public
+      return [
+        "TRANG CHỦ",
+        "GIỚI THIỆU",
+        "MÔ HÌNH TƯƠNG TÁC",
+        "QUẢN LÝ BÁN HÀNG",
+      ].includes(link.label);
+    } else if (isSuperUser) {
+      // ✅ Admin → hiển thị tất cả
+      return true;
+    } else {
+      // 👤 User thường → chỉ 4 trang public
+      return [
+        "TRANG CHỦ",
+        "GIỚI THIỆU",
+        "MÔ HÌNH TƯƠNG TÁC",
+        "QUẢN LÝ BÁN HÀNG",
+      ].includes(link.label);
+    }
+  });
+
   const isActive = (href: string, highlight?: boolean) => {
     if (pathname === href) return styles.navActive;
     if (highlight) return styles.navHighlight;
     return styles.navNormal;
   };
+
   return (
     <nav className={styles.navbar}>
       <div className={styles.container}>
-        {/* Logo + Flags + Menu Icon */}
-      <div className={styles.mobileHeader}>
-            <Link href="/" className="flex items-center space-x-3">
-              <Image src="/Logo/Logo_của_Tập_đoàn_T&T_Group.png" alt="Logo" className={styles.logo} />
-            </Link>
-          <button
-            onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-            className={styles.mobileToggle}
-            aria-label="Toggle menu"
-            aria-expanded={isMobileMenuOpen}
-          >
-            {isMobileMenuOpen ? (
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            ) : (
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth={2}
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M4 6h16M4 12h16M4 18h16"
-                />
-              </svg>
-            )}
-          </button>
+        <div className={styles.mobileHeader}>
+          <Link href="/" className="flex items-center space-x-3">
+            <Image
+              src="/Logo/Logo_của_Tập_đoàn_T&T_Group.png"
+              alt="Logo"
+              className={styles.logo}
+            />
+          </Link>
         </div>
+
+        {/* 🧭 MENU */}
         <div className={styles.desktopNav}>
           <ul className={styles.navList}>
-            {baseLinks.map(({ label, href, highlight }) => (
+            {visibleLinks.map(({ label, href, highlight }) => (
               <li key={label}>
                 <Link href={href}>
                   <span
@@ -101,72 +112,45 @@ export default function Header() {
                     {label}
                   </span>
                 </Link>
-                
               </li>
             ))}
           </ul>
-        
         </div>
-        
-         <div className={`hidden md:flex ${styles.loginLangBlock}`} style={{ display: "flex", gap: "20px" }}>
-            <div
-      style={{
-        border: "1px solid #752E0B",
-        borderRadius: "50%",
-        width: 26,
-        height: 26,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <IconPhoneCall size={17} color="#752E0B" stroke={1.5} />
-    </div>
-     <div
-      style={{
-        border: "1px solid #752E0B",
-        borderRadius: "50%",
-        width: 26,
-        height: 26,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <IconShoppingCart size={17} color="#752E0B" stroke={1.5} />
-    </div>
-  <LoginButton/>
-</div>
-      </div>
-{/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className={styles.mobileMenu}>
-          <div className={styles.mobileMenuContainer}>
-            <ul className="text-white font-medium text-base">
-              {baseLinks.map(({ label, href, highlight }) => (
-                <li key={label} className={styles.mobileMenuItem}>
-                  <Link href={href} onClick={() => setIsMobileMenuOpen(false)}>
-                    <span
-                      className={`${styles.mobileLink} ${isActive(
-                        href,
-                        highlight
-                      )}`}
-                    >
-                      {label}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
 
-            {/* Login in Mobile */}
-            <div className="flex items-center justify-between pt-2">
-              {/* <LoginButton isMobile /> */}
-             <LoginButton/>
-            </div>
+        {/* 📞 ICON + LOGIN */}
+        <div
+          className={`hidden md:flex ${styles.loginLangBlock}`}
+          style={{ display: "flex", gap: "20px" }}
+        >
+          <div
+            style={{
+              border: "1px solid #752E0B",
+              borderRadius: "50%",
+              width: 26,
+              height: 26,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <IconPhoneCall size={17} color="#752E0B" stroke={1.5} />
           </div>
+          <div
+            style={{
+              border: "1px solid #752E0B",
+              borderRadius: "50%",
+              width: 26,
+              height: 26,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <IconShoppingCart size={17} color="#752E0B" stroke={1.5} />
+          </div>
+          <LoginButton />
         </div>
-      )}
+      </div>
     </nav>
   );
 }
