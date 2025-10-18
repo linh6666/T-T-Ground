@@ -8,6 +8,11 @@ export async function registerUser(
   email: string,
     phone:string,
   password: string,
+  area_id:string,
+  province_id:string,
+  ward_id:string,
+  introducer_id:string,
+  detal_address:string,
 
 ) {
   const payload = {
@@ -16,6 +21,12 @@ export async function registerUser(
      email,
     phone,
     password,
+    area_id,
+    province_id,
+    ward_id,
+    introducer_id,
+    detal_address,
+    
     
  
   };

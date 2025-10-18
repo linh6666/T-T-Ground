@@ -100,3 +100,48 @@
   cursor: not-allowed;
   border: none;
 }
+.footerwrapper {
+  text-align: center;
+  padding: 130px;
+  /* padding: 24px 0; */
+  color: #808894; /* text-gray-600 */
+  font-size: 14px; /* text-sm */
+}
+   
+.footerline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* khoảng cách giữa chữ và logo */
+  margin-bottom: 4px;
+}
+
+/* .footerlogo {
+  width: 120px;
+  height: 25px;
+  display: inline-block;
+  margin-top: 2px; 
+} */
+
+.footersubtext {
+  color: #6b7280; /* text-gray-500 */
+}
+
+.footerline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* khoảng cách giữa chữ và logo */
+  margin-bottom: 4px;
+}
+
+.footerlogo {
+  /* width: 120px; */
+  height: 33px;
+  display: inline-block;
+  margin-top: 2px; /* tinh chỉnh nhẹ để logo ngang hàng chữ */
+}
+
+.footersubtext {
+  color: #6b7280; /* text-gray-500 */
+}

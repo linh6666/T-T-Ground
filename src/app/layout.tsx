@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-// import Footer from "../../components/Footer";
+import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
@@ -36,10 +36,10 @@ export default function RootLayout({
               }}
             >
               <Header />
-              <main style={{ flex: 1, marginTop: "80px" }}>
+             <main style={{ flex: 1, marginTop: "80px", padding: "40px 0" }}>
                 <AppContainer>{children}</AppContainer>
               </main>
-              {/* <Footer /> */}
+              <Footer />
             </div>
           </ModalsProvider>
         </MantineProvider>
