@@ -7,21 +7,20 @@ import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
-// ✅ Kiểu prop nhận vào
+// Kiểu prop nhận vào
 interface MenuProps {
   project_id: string | null;
 }
 
-// ✅ Kiểu dữ liệu item trong menu
+// Kiểu dữ liệu item trong menu
 interface MenuItem {
   label: string;
-  link: string;
 }
 
-// ✅ Kiểu dữ liệu trả về từ API createNodeAttribute
+// Kiểu dữ liệu trả về từ API createNodeAttribute
 interface NodeAttributeItem {
   zone_vi?: string;
-  [key: string]: unknown; // các trường khác nếu chưa biết rõ
+  [key: string]: unknown;
 }
 
 export default function Menu({ project_id }: MenuProps) {
@@ -29,7 +28,6 @@ export default function Menu({ project_id }: MenuProps) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Gọi API khi có project_id
   useEffect(() => {
     const fetchData = async () => {
       if (!project_id) return;
@@ -44,19 +42,18 @@ export default function Menu({ project_id }: MenuProps) {
         const data = await createNodeAttribute(body);
 
         if (data?.data && Array.isArray(data.data)) {
-          // 🔹 Tách các zone_vi (có thể có nhiều zone cách nhau bằng ;)
+          // Tách zone_vi và loại trùng
           const allZones: string[] = data.data
             .flatMap((item: NodeAttributeItem) =>
               String(item.zone_vi || "")
                 .split(";")
                 .map((z) => z.trim())
-                .filter((z) => z !== "")
+                .filter(Boolean)
             );
 
-          // 🔹 Loại trùng
           const uniqueZones = Array.from(new Set(allZones));
 
-          // 🔹 Sắp xếp thứ tự alphabet hoặc theo số
+          // Sắp xếp
           const sortedZones = uniqueZones.sort((a, b) => {
             const numA = a.match(/\d+/)?.[0];
             const numB = b.match(/\d+/)?.[0];
@@ -64,12 +61,8 @@ export default function Menu({ project_id }: MenuProps) {
             return a.localeCompare(b, "vi", { sensitivity: "base" });
           });
 
-          // 🔹 Tạo danh sách menu
-          const items: MenuItem[] = sortedZones.map((zone) => ({
-            label: zone,
-            link: `zone/${encodeURIComponent(zone)}`,
-          }));
-
+          // Chỉ giữ label
+          const items: MenuItem[] = sortedZones.map((zone) => ({ label: zone }));
           setMenuItems(items);
         } else {
           console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
@@ -84,30 +77,20 @@ export default function Menu({ project_id }: MenuProps) {
     fetchData();
   }, [project_id]);
 
-  // ✅ Hàm điều hướng khi click vào nút phân khu
-  const handleNavigate = (zoneLabel: string, path: string) => {
-    if (!project_id) {
-      console.warn("⚠️ Thiếu project_id, không thể điều hướng đúng.");
-      return;
-    }
-
-    router.push(
-      `/chi-tiet${path}?id=${project_id}&zone_vi=${encodeURIComponent(zoneLabel)}`
-    );
+  // Điều hướng với zone_vi
+  const handleNavigate = (zone: string) => {
+    if (!project_id) return;
+    // Truyền zone_vi sang trang chi-tiet
+    router.push(`/chi-tiet?id=${project_id}&zone=${encodeURIComponent(zone)}`);
   };
 
-  // ✅ Hàm quay lại trang trước (nút mũi tên)
   const handleBack = () => {
-    if (!project_id) {
-      console.warn("⚠️ Thiếu project_id khi quay lại trang điều khiển.");
-      return;
-    }
+    if (!project_id) return;
     router.push(`/Dieu-khien?id=${project_id}`);
   };
 
   return (
     <div className={styles.box}>
-      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/logo-tt-city-millennia.png"
@@ -116,12 +99,10 @@ export default function Menu({ project_id }: MenuProps) {
         />
       </div>
 
-      {/* Tiêu đề */}
       <div className={styles.title}>
         <h1>Phân Khu</h1>
       </div>
 
-      {/* Danh sách nút */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -131,7 +112,7 @@ export default function Menu({ project_id }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label, item.link)}
+                onClick={() => handleNavigate(item.label)} // truyền zone_vi
                 variant="outline"
               >
                 {item.label}
@@ -145,7 +126,6 @@ export default function Menu({ project_id }: MenuProps) {
         )}
       </div>
 
-      {/* Footer */}
       <div className={styles.footer}>
         <Group gap="xs">
           <Button
@@ -166,12 +146,11 @@ export default function Menu({ project_id }: MenuProps) {
               border: "1.5px solid #752E0B",
             }}
           >
-            <Group gap={0} align="center">
-              <IconArrowLeft size={18} color="#752E0B" />
-            </Group>
+            <IconArrowLeft size={18} color="#752E0B" />
           </Button>
         </Group>
       </div>
     </div>
   );
 }
+

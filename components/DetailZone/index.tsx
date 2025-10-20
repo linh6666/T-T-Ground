@@ -8,9 +8,10 @@ import { pathsData } from "./Data";
 
 interface ZoningSystemProps {
   project_id: string | null;
+  zone?: string | null; // ← thêm prop zone
 }
 
-export default function ZoningSystem({ project_id }: ZoningSystemProps) {
+export default function ZoningSystem({ project_id, zone }: ZoningSystemProps) {
   return (
     <div className={styles.box}>
       <div className={styles.left}>
@@ -32,8 +33,8 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
       </div>
 
       <div className={styles.right}>
-        {/* 👇 Truyền project_id sang Menu */}
-        <Menu project_id={project_id} />
+        {/* 👇 Truyền cả project_id và zone xuống Menu */}
+        <Menu project_id={project_id} initialZone={zone} />
       </div>
     </div>
   );

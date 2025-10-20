@@ -2,107 +2,99 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
-import { Button, Group, Image, Stack, Loader, Text } from "@mantine/core";
-import { useRouter } from "next/navigation";
+import { Button, Group, Image, Loader, Text } from "@mantine/core";
+import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
-// ✅ Kiểu prop nhận vào
+// Props nhận vào
 interface MenuProps {
   project_id: string | null;
+  initialZone?: string | null; // thêm dòng này
 }
 
-// ✅ Kiểu dữ liệu item trong menu
+// Kiểu menu item
 interface MenuItem {
-  label: string;
-  link: string;
+  label: string;       // hiển thị phase_vi
+  zone_vi: string;     // navigate
 }
 
-// ✅ Kiểu dữ liệu trả về từ API createNodeAttribute
+// Kiểu dữ liệu trả về từ API, thay cho any
 interface NodeAttributeItem {
-  zone_vi?: string;
-  [key: string]: unknown; // các trường khác nếu chưa biết rõ
+  subzone_vi?: string;
+  [key: string]: unknown; // các trường khác không quan trọng
 }
 
-export default function Menu({ project_id }: MenuProps) {
+export default function Menu({ project_id, initialZone }: MenuProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const zoneFromQuery = searchParams.get("zone") || initialZone; // ưu tiên URL, fallback initialZone
+
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // ✅ Gọi API khi có project_id
   useEffect(() => {
     const fetchData = async () => {
-      if (!project_id) return;
+      if (!project_id || !zoneFromQuery) return;
 
       setLoading(true);
       try {
-        const body = {
+        const data = await createNodeAttribute({
           project_id,
-          filters: [{ label: "group", values: ["ct", "zone_vi"] }],
-        };
+          filters: [
+            { label: "group", values: ["ct", "zone_vi"] },
+            { label: "zone_vi", values: [zoneFromQuery] },
+          ],
+        });
 
-        const data = await createNodeAttribute(body);
+        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+          const uniquePhaseMap = new Map<string, MenuItem>();
 
-        if (data?.data && Array.isArray(data.data)) {
-          // 🔹 Tách các zone_vi (có thể có nhiều zone cách nhau bằng ;)
-          const allZones: string[] = data.data
-            .flatMap((item: NodeAttributeItem) =>
-              String(item.zone_vi || "")
-                .split(";")
-                .map((z) => z.trim())
-                .filter((z) => z !== "")
-            );
+          // ✅ Chỉ sửa chỗ này: item: any → item: NodeAttributeItem
+          data.data.forEach((item: NodeAttributeItem) => {
+            const phaseStr: string = item.subzone_vi || zoneFromQuery;
 
-          // 🔹 Loại trùng
-          const uniqueZones = Array.from(new Set(allZones));
+            const phases: string[] = phaseStr
+              .split(";")
+              .map(p => p.trim())
+              .filter(Boolean);
 
-          // 🔹 Sắp xếp thứ tự alphabet hoặc theo số
-          const sortedZones = uniqueZones.sort((a, b) => {
-            const numA = a.match(/\d+/)?.[0];
-            const numB = b.match(/\d+/)?.[0];
-            if (numA && numB) return Number(numA) - Number(numB);
-            return a.localeCompare(b, "vi", { sensitivity: "base" });
+            phases.forEach((phaseLabel: string) => {
+              // Nếu đã có trong Map thì bỏ qua → gộp dữ liệu giống nhau
+              if (!uniquePhaseMap.has(phaseLabel)) {
+                uniquePhaseMap.set(phaseLabel, {
+                  label: phaseLabel,
+                  zone_vi: zoneFromQuery,
+                });
+              }
+            });
           });
 
-          // 🔹 Tạo danh sách menu
-          const items: MenuItem[] = sortedZones.map((zone) => ({
-            label: zone,
-            link: `zone/${encodeURIComponent(zone)}`,
-          }));
-
-          setMenuItems(items);
+          setMenuItems(Array.from(uniquePhaseMap.values()));
         } else {
-          console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
+          setMenuItems([]);
         }
       } catch (error) {
         console.error("❌ Lỗi khi gọi API:", error);
+        setMenuItems([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [project_id]);
+  }, [project_id, zoneFromQuery]);
 
-  // ✅ Hàm điều hướng khi click vào nút phân khu
-  const handleNavigate = (zoneLabel: string, path: string) => {
-    if (!project_id) {
-      console.warn("⚠️ Thiếu project_id, không thể điều hướng đúng.");
-      return;
-    }
-
-    router.push(
-      `/chi-tiet${path}?id=${project_id}&zone_vi=${encodeURIComponent(zoneLabel)}`
-    );
+  // Click nút navigate
+  const handleNavigate = (zone: string) => {
+    if (!project_id) return;
+    router.push(`/chi-tiet?id=${project_id}&zone=${encodeURIComponent(zone)}`);
   };
 
-  // ✅ Hàm quay lại trang trước (nút mũi tên)
+  // Nút back
   const handleBack = () => {
-    if (!project_id) {
-      console.warn("⚠️ Thiếu project_id khi quay lại trang điều khiển.");
-      return;
-    }
-    router.push(`/Dieu-khien?id=${project_id}`);
+    if (!project_id) return;
+    router.push(`/Phan-khu?id=${project_id}`);
   };
 
   return (
@@ -116,28 +108,30 @@ export default function Menu({ project_id }: MenuProps) {
         />
       </div>
 
-      {/* Tiêu đề */}
+      {/* Title */}
       <div className={styles.title}>
-        <h1>Phân Khu</h1>
+        <h1>phân khu nhỏ</h1>
       </div>
 
-      {/* Danh sách nút */}
+      {/* Menu Buttons */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
         ) : menuItems.length > 0 ? (
-          <Stack align="center" style={{ gap: "20px", marginTop: "30px" }}>
+          <div className={styles.scroll} style={{ marginTop: "5px" }}>
             {menuItems.map((item, index) => (
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label, item.link)}
-                variant="outline"
+                onClick={() => handleNavigate(item.zone_vi)}
+                variant="filled"
+                color="orange"
+                style={{ marginBottom: "10px" }} // cách nhau nút
               >
-                {item.label}
+                {item.label} {/* hiển thị phase_vi */}
               </Button>
             ))}
-          </Stack>
+          </div>
         ) : (
           <Text mt="md" c="dimmed">
             Không có dữ liệu hiển thị
@@ -145,7 +139,7 @@ export default function Menu({ project_id }: MenuProps) {
         )}
       </div>
 
-      {/* Footer */}
+      {/* Footer Back Button */}
       <div className={styles.footer}>
         <Group gap="xs">
           <Button
@@ -166,9 +160,7 @@ export default function Menu({ project_id }: MenuProps) {
               border: "1.5px solid #752E0B",
             }}
           >
-            <Group gap={0} align="center">
-              <IconArrowLeft size={18} color="#752E0B" />
-            </Group>
+            <IconArrowLeft size={18} color="#752E0B" />
           </Button>
         </Group>
       </div>
