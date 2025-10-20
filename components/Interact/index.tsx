@@ -88,7 +88,7 @@ export default function DetailInteractive() {
                 </Stack>
                 <Button
                   component="a"
-                  href={`/Dieu-khien`}
+                href={`/Dieu-khien?id=${project.id}`}
                   className={`${styles.baseButton} ${styles.primaryButton}`}
                 >
                   Đi tới dự án
