@@ -96,12 +96,14 @@ export default function Menu({
   };
 
   // 🔙 Nút quay lại
-  const handleBack = () => {
-    if (!project_id || !phaseFromQuery) return;
-    router.push(
-      `/chi-tiet-khu?id=${project_id}&phase=${encodeURIComponent(phaseFromQuery)}`
-    );
-  };
+const handleBack = () => {
+  if (!project_id || !phaseFromQuery) return;
+
+  // 🔹 Sửa path từ /chi-tiet-khu → /chi-tiet
+  router.push(
+    `/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phaseFromQuery)}`
+  );
+};
 
   return (
     <div className={styles.box}>
