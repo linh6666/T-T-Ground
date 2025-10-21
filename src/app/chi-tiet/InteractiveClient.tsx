@@ -3,7 +3,7 @@
 
 import React from "react";
 import { useSearchParams } from "next/navigation";
-import ZoningSystem from "../../../components/DetailZone";
+import ZoningSystem from "../../../components/Detail";
 
 export default function InteractiveClient() {
   // Lấy project_id và zone từ URL query

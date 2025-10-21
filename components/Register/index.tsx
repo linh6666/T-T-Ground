@@ -5,7 +5,6 @@ import {
   Box,
   Button,
   PasswordInput,
-
   Text,
   TextInput,
 } from "@mantine/core";
@@ -21,10 +20,10 @@ interface Register {
   email: string;
   phone: string;
   password: string;
-  area_id: string;
-  province_id: string;
-  ward_id: string;
-  introducer_id: string;
+  area: string;
+  province: string;
+  ward: string;
+  introducer: string;
   detal_address: string;
 }
 
@@ -37,10 +36,10 @@ const RegisterForm = () => {
       email: "",
       phone: "",
       password: "",
-      area_id: "",
-      province_id: "",
-      ward_id: "",
-      introducer_id: "",
+      area: "",
+      province: "",
+      ward: "",
+      introducer: "",
       detal_address: "",
     },
     validate: {
@@ -54,13 +53,10 @@ const RegisterForm = () => {
           : "Mật khẩu phải chứa từ 5 đến 100 kí tự",
       email: (value) =>
         /^\S+@\S+\.\S+$/.test(value) ? null : "Email không hợp lệ",
-      area_id: (value) =>
-        value && value.trim() ? null : "Vui lòng nhập khu vực",
-      province_id: (value) =>
-        value && value.trim() ? null : "Vui lòng nhập tỉnh/thành",
-      ward_id: (value) =>
-        value && value.trim() ? null : "Vui lòng nhập phường/xã",
-      introducer_id: (value) =>
+      area: (value) => (value && value.trim() ? null : "Vui lòng nhập khu vực"),
+      province: (value) => (value && value.trim() ? null : "Vui lòng nhập tỉnh/thành"),
+      ward: (value) => (value && value.trim() ? null : "Vui lòng nhập phường/xã"),
+      introducer: (value) =>
         value && value.trim() ? null : "Vui lòng nhập mã người giới thiệu",
       detal_address: (value) =>
         value && value.trim() ? null : "Vui lòng nhập địa chỉ chi tiết",
@@ -81,13 +77,13 @@ const RegisterForm = () => {
   const [clickEmail, setClickEmail] = useState(false);
   const floatingEmail = clickEmail || form.values.email.length > 0 || undefined;
   const [clickArea, setClickArea] = useState(false);
-  const floatingArea = clickArea || form.values.area_id.length > 0 || undefined;
+  const floatingArea = clickArea || form.values.area.length > 0 || undefined;
   const [clickProvince, setClickProvince] = useState(false);
-  const floatingProvince = clickProvince || form.values.province_id.length > 0 || undefined;
+  const floatingProvince = clickProvince || form.values.province.length > 0 || undefined;
   const [clickWard, setClickWard] = useState(false);
-  const floatingWard = clickWard || form.values.ward_id.length > 0 || undefined;
+  const floatingWard = clickWard || form.values.ward.length > 0 || undefined;
   const [clickIntroducer, setClickIntroducer] = useState(false);
-  const floatingIntroducer = clickIntroducer || form.values.introducer_id.length > 0 || undefined;
+  const floatingIntroducer = clickIntroducer || form.values.introducer.length > 0 || undefined;
   const [clickDetail, setClickDetail] = useState(false);
   const floatingDetail = clickDetail || form.values.detal_address.length > 0 || undefined;
 
@@ -112,10 +108,10 @@ const RegisterForm = () => {
         values.email,
         values.phone,
         values.password,
-        values.area_id,
-        values.province_id,
-        values.ward_id,
-        values.introducer_id,
+        values.area,
+        values.province,
+        values.ward,
+        values.introducer,
         values.detal_address
       );
 
@@ -150,8 +146,6 @@ const RegisterForm = () => {
             </Box>
           </Box>
         </Box>
-{/* 
-        <Space h="xl" /> */}
 
         <Box className={style.loginForm}>
           <Box className={style.formGroup}>
@@ -200,7 +194,18 @@ const RegisterForm = () => {
             </div>
 
             {/* Password */}
-            
+            <div className={style.inputBox}>
+              <PasswordInput
+                label="Mật khẩu"
+                labelProps={{ "data-floating": floatingPassword }}
+                withAsterisk
+                mt="md"
+                classNames={{ root: style.root, input: style.input, label: style.label }}
+                onFocus={() => setClickPassword(true)}
+                onBlur={() => setClickPassword(false)}
+                {...form.getInputProps("password")}
+              />
+            </div>
 
             {/* Area */}
             <div className={style.inputBox}>
@@ -212,7 +217,7 @@ const RegisterForm = () => {
                 classNames={{ root: style.root, input: style.input, label: style.label }}
                 onFocus={() => setClickArea(true)}
                 onBlur={() => setClickArea(false)}
-                {...form.getInputProps("area_id")}
+                {...form.getInputProps("area")}
               />
             </div>
 
@@ -226,7 +231,7 @@ const RegisterForm = () => {
                 classNames={{ root: style.root, input: style.input, label: style.label }}
                 onFocus={() => setClickProvince(true)}
                 onBlur={() => setClickProvince(false)}
-                {...form.getInputProps("province_id")}
+                {...form.getInputProps("province")}
               />
             </div>
 
@@ -240,11 +245,11 @@ const RegisterForm = () => {
                 classNames={{ root: style.root, input: style.input, label: style.label }}
                 onFocus={() => setClickWard(true)}
                 onBlur={() => setClickWard(false)}
-                {...form.getInputProps("ward_id")}
+                {...form.getInputProps("ward")}
               />
             </div>
 
-            {/* Introducer ID */}
+            {/* Introducer */}
             <div className={style.inputBox}>
               <TextInput
                 label="Mã người giới thiệu"
@@ -254,7 +259,7 @@ const RegisterForm = () => {
                 classNames={{ root: style.root, input: style.input, label: style.label }}
                 onFocus={() => setClickIntroducer(true)}
                 onBlur={() => setClickIntroducer(false)}
-                {...form.getInputProps("introducer_id")}
+                {...form.getInputProps("introducer")}
               />
             </div>
 
@@ -269,18 +274,6 @@ const RegisterForm = () => {
                 onFocus={() => setClickDetail(true)}
                 onBlur={() => setClickDetail(false)}
                 {...form.getInputProps("detal_address")}
-              />
-            </div>
-            <div className={style.inputBox}>
-              <PasswordInput
-                label="Mật khẩu"
-                labelProps={{ "data-floating": floatingPassword }}
-                withAsterisk
-                mt="md"
-                classNames={{ root: style.root, input: style.input, label: style.label }}
-                onFocus={() => setClickPassword(true)}
-                onBlur={() => setClickPassword(false)}
-                {...form.getInputProps("password")}
               />
             </div>
           </Box>
@@ -305,5 +298,6 @@ const RegisterForm = () => {
 };
 
 export default RegisterForm;
+
 
 

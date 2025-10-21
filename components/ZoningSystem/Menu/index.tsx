@@ -36,7 +36,7 @@ export default function Menu({ project_id }: MenuProps) {
       try {
         const body = {
           project_id,
-          filters: [{ label: "group", values: ["ct", "zone_vi"] }],
+          filters: [{ label: "group", values: ["ct", "phase_vi"] }],
         };
 
         const data = await createNodeAttribute(body);
