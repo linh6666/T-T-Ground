@@ -20,9 +20,8 @@ export default function Menu({ project_id }: MenuProps) {
     // { label: "GIỚI THIỆU DỰ ÁN", link: `/gioi-thieu${project_id ? `?id=${project_id}` : ""}` },
     // { label: "PHÂN KỲ ĐẦU TƯ", link: `/He-thong-phan-ky${project_id ? `?id=${project_id}` : ""}` },
       { label: "GIỚI THIỆU DỰ ÁN", link: "/gioi-thieu" },
-    { label: "PHÂN KỲ ĐẦU TƯ", link: "/He-thong-phan-ky" },
     { label: "HỆ THỐNG PHÂN KHU", link: `/Phan-khu${project_id ? `?id=${project_id}` : ""}` },
-     { label: "HỆ THỐNG TIỆN ÍCH", link: "/tien-ich" },
+     { label: "HỆ THỐNG TIỆN ÍCH", link: `/tien-ich${project_id ? `?id=${project_id}` : ""}` } ,
     { label: "HIỆU ỨNG ÁNH SÁNG", link: "/hieu-ung-anh-sang" },
     { label: "THƯ VIỆN", link: "/thu-vien" },
     { label: "MÔ HÌNH", link: "/mo-hinh" },
@@ -31,15 +30,7 @@ export default function Menu({ project_id }: MenuProps) {
     // { label: "THƯ VIỆN", link: `/thu-vien${project_id ? `?id=${project_id}` : ""}` },
     // { label: "MÔ HÌNH", link: `/mo-hinh${project_id ? `?id=${project_id}` : ""}` },
   ];
-  //   const menuItems = [
-  //   { label: "GIỚI THIỆU DỰ ÁN", link: "/gioi-thieu" },
-  //   { label: "PHÂN KỲ ĐẦU TƯ", link: "/He-thong-phan-ky" },
-  //   { label: "HỆ THỐNG PHÂN KHU", link: "/He-thong-phan-khu" },
-  //   { label: "HỆ THỐNG TIỆN ÍCH", link: "/tien-ich" },
-  //   { label: "HIỆU ỨNG ÁNH SÁNG", link: "/hieu-ung-anh-sang" },
-  //   { label: "THƯ VIỆN", link: "/thu-vien" },
-  //   { label: "MÔ HÌNH", link: "/mo-hinh" },
-  // ];
+
 
   return (
     <div className={styles.box}>
@@ -61,7 +52,7 @@ export default function Menu({ project_id }: MenuProps) {
       <div className={styles.Function}>
         <Stack align="center" style={{ gap: "20px", marginTop: "30px" }}>
           {/* 5 nút đầu */}
-          {menuItems.slice(0, 5).map((item) => (
+          {menuItems.slice(0, 4).map((item) => (
             <Button
               key={item.link}
               className={styles.menuBtn}
@@ -74,7 +65,7 @@ export default function Menu({ project_id }: MenuProps) {
 
           {/* 2 nút cuối */}
           <div className={styles.bottomTwo}>
-            {menuItems.slice(5).map((item) => (
+            {menuItems.slice(4).map((item) => (
               <Button
                 key={item.link}
                 className={styles.menuBtnSmall}

@@ -3,15 +3,23 @@
 import { Image } from "@mantine/core";
 import React from "react";
 import styles from "./ZoningSystem.module.css";
-import Menu from "./Menu/index"; 
+import Menu from "./Menu/index";
 import { pathsData } from "./Data";
 
+// ✅ Interface mở rộng nhận thêm building_type
 interface ZoningSystemProps {
   project_id: string | null;
-  phase?: string | null; // ← thêm prop zone
+  zone?: string | null;
+  subzone?: string | null;
+  building_type?: string | null; // 👈 thêm prop building_type_vi
 }
 
-export default function ZoningSystem({ project_id, phase }: ZoningSystemProps) {
+export default function ZoningSystem({
+  project_id,
+  zone,
+  subzone,
+  building_type,
+}: ZoningSystemProps) {
   return (
     <div className={styles.box}>
       <div className={styles.left}>
@@ -33,8 +41,13 @@ export default function ZoningSystem({ project_id, phase }: ZoningSystemProps) {
       </div>
 
       <div className={styles.right}>
-        {/* 👇 Truyền cả project_id và zone xuống Menu */}
-        <Menu project_id={project_id}   initialPhase={phase} />
+        {/* 👇 Truyền toàn bộ props cần thiết sang Menu */}
+        <Menu
+          project_id={project_id}
+          initialZone={zone}
+          initialSubzone={subzone}
+          initialBuildingType={building_type} // 👈 truyền thêm building_type
+        />
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ interface MenuItem {
 
 // Kiểu dữ liệu trả về từ API createNodeAttribute
 interface NodeAttributeItem {
-  phase_vi?: string;
+  zone_vi?: string;
   [key: string]: unknown;
 }
 
@@ -36,25 +36,25 @@ export default function Menu({ project_id }: MenuProps) {
       try {
         const body = {
           project_id,
-          filters: [{ label: "group", values: ["ct"] }],
+          filters: [{ label: "group", values: [ "ti"] }],
         };
 
         const data = await createNodeAttribute(body);
 
         if (data?.data && Array.isArray(data.data)) {
-          // Tách phase_vi và loại trùng
-          const allPhases: string[] = data.data
+          // Tách zone_vi và loại trùng
+          const allZones: string[] = data.data
             .flatMap((item: NodeAttributeItem) =>
-              String(item.phase_vi || "")
+              String(item.building_type_vi || "")
                 .split(";")
                 .map((z) => z.trim())
                 .filter(Boolean)
             );
 
-          const uniquePhases = Array.from(new Set(allPhases));
+          const uniqueZones = Array.from(new Set(allZones));
 
           // Sắp xếp
-          const sortedPhases = uniquePhases.sort((a, b) => {
+          const sortedZones = uniqueZones.sort((a, b) => {
             const numA = a.match(/\d+/)?.[0];
             const numB = b.match(/\d+/)?.[0];
             if (numA && numB) return Number(numA) - Number(numB);
@@ -62,9 +62,7 @@ export default function Menu({ project_id }: MenuProps) {
           });
 
           // Chỉ giữ label
-          const items: MenuItem[] = sortedPhases.map((phase) => ({
-            label: phase,
-          }));
+          const items: MenuItem[] = sortedZones.map((zone) => ({ label: zone }));
           setMenuItems(items);
         } else {
           console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
@@ -79,11 +77,11 @@ export default function Menu({ project_id }: MenuProps) {
     fetchData();
   }, [project_id]);
 
-  // Điều hướng với phase_vi
-  const handleNavigate = (phase: string) => {
+  // Điều hướng với zone_vi
+  const handleNavigate = (zone: string) => {
     if (!project_id) return;
-    // Truyền phase_vi sang trang chi-tiet
-    router.push(`/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phase)}`);
+    // Truyền zone_vi sang trang chi-tiet
+    router.push(`/chi-tiet-tien-ich?id=${project_id}&zone=${encodeURIComponent(zone)}`);
   };
 
   const handleBack = () => {
@@ -109,12 +107,12 @@ export default function Menu({ project_id }: MenuProps) {
         {loading ? (
           <Loader color="orange" />
         ) : menuItems.length > 0 ? (
-          <Stack align="center" style={{ gap: "20px", marginTop: "30px" }}>
+         <Stack className={styles.scroll} style={{ marginTop: "5px" }}>
             {menuItems.map((item, index) => (
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label)} // truyền phase_vi
+                onClick={() => handleNavigate(item.label)} // truyền zone_vi
                 variant="outline"
               >
                 {item.label}

@@ -7,70 +7,70 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
-// ⚙️ Props
+// Props nhận vào
 interface MenuProps {
   project_id: string | null;
-  initialPhase?: string | null;
-  initialBuildingType?: string | null;
+  initialZone?: string | null; // thêm dòng này
 }
 
-// ⚙️ Kiểu item hiển thị
+// Kiểu menu item
 interface MenuItem {
-  building_type_vi: string;
-  phase_vi: string;
+  label: string;       // hiển thị phase_vi
+  zone_vi: string;     // navigate
 }
 
-// ⚙️ Kiểu dữ liệu API trả về
+// Kiểu dữ liệu trả về từ API, thay cho any
 interface NodeAttributeItem {
-  building_type_vi?: string;
-  [key: string]: unknown;
+  subzone_vi?: string;
+  [key: string]: unknown; // các trường khác không quan trọng
 }
 
-export default function Menu({
-  project_id,
-  initialPhase,
-  initialBuildingType,
-}: MenuProps) {
+export default function Menu({ project_id, initialZone }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-
-  // 🔎 Lấy từ URL hoặc prop truyền xuống
-  const phaseFromQuery = searchParams.get("phase") || initialPhase;
-  const buildingTypeFromQuery = searchParams.get("subzone_vi") || initialBuildingType;
+  const zoneFromQuery = searchParams.get("zone") || initialZone; // ưu tiên URL, fallback initialZone
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 🛰️ Fetch dữ liệu từ API
   useEffect(() => {
     const fetchData = async () => {
-      if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
+      if (!project_id || !zoneFromQuery) return;
 
       setLoading(true);
       try {
         const data = await createNodeAttribute({
           project_id,
           filters: [
-            { label: "group", values: ["ct", "phase_vi"] },
-            { label: "phase_vi", values: [phaseFromQuery] },
-            { label: "subzone_vi", values: [buildingTypeFromQuery] },
+            { label: "group", values: ["ct", "ti"] },
+            { label: "zone_vi", values: [zoneFromQuery] },
           ],
         });
 
-        if (data?.data && Array.isArray(data.data)) {
-          const uniqueMap = new Map<string, MenuItem>();
+        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+          const uniquePhaseMap = new Map<string, MenuItem>();
 
+          // ✅ Chỉ sửa chỗ này: item: any → item: NodeAttributeItem
           data.data.forEach((item: NodeAttributeItem) => {
-            const typeLabel = item.building_type_vi;
-            if (typeLabel && !uniqueMap.has(typeLabel)) {
-              uniqueMap.set(typeLabel, {
-                building_type_vi: typeLabel,
-                phase_vi: phaseFromQuery!,
-              });
-            }
+            const phaseStr: string = item.subzone_vi || zoneFromQuery;
+
+            const phases: string[] = phaseStr
+              .split(";")
+              .map(p => p.trim())
+              .filter(Boolean);
+
+            phases.forEach((phaseLabel: string) => {
+              // Nếu đã có trong Map thì bỏ qua → gộp dữ liệu giống nhau
+              if (!uniquePhaseMap.has(phaseLabel)) {
+                uniquePhaseMap.set(phaseLabel, {
+                  label: phaseLabel,
+                  zone_vi: zoneFromQuery,
+                });
+              }
+            });
           });
 
-          setMenuItems(Array.from(uniqueMap.values()));
+          setMenuItems(Array.from(uniquePhaseMap.values()));
         } else {
           setMenuItems([]);
         }
@@ -83,24 +83,22 @@ export default function Menu({
     };
 
     fetchData();
-  }, [project_id, phaseFromQuery, buildingTypeFromQuery]);
+  }, [project_id, zoneFromQuery]);
 
-  // 🧭 Xử lý điều hướng khi click nút loại nhà
-  const handleNavigate = (phase: string, building_type: string) => {
-    if (!project_id) return;
-    router.push(
-      `/chi-tiet-nha?id=${project_id}&phase=${encodeURIComponent(
-        phase
-      )}&subzone_vi=${encodeURIComponent(building_type)}`
-    );
-  };
+  // Click nút navigate
+const handleNavigate = (zone: string, subzone: string) => {
+  if (!project_id) return;
+  router.push(
+    `/chi-tiet-tien-ich-khu?id=${project_id}&zone=${encodeURIComponent(
+      zone
+    )}&subzone=${encodeURIComponent(subzone)}`
+  );
+};
 
-  // 🔙 Nút quay lại
+  // Nút back
   const handleBack = () => {
-    if (!project_id || !phaseFromQuery) return;
-    router.push(
-      `/chi-tiet-khu?id=${project_id}&phase=${encodeURIComponent(phaseFromQuery)}`
-    );
+    if (!project_id) return;
+    router.push(`/tien-ich?id=${project_id}`);
   };
 
   return (
@@ -116,7 +114,7 @@ export default function Menu({
 
       {/* Title */}
       <div className={styles.title}>
-        <h1>Loại nhà</h1>
+        <h1>Tiểu khu</h1>
       </div>
 
       {/* Menu Buttons */}
@@ -127,15 +125,15 @@ export default function Menu({
           <div className={styles.scroll} style={{ marginTop: "5px" }}>
             {menuItems.map((item, index) => (
               <Button
-                key={index}
-                className={styles.menuBtn}
-                onClick={() => handleNavigate(item.phase_vi, item.building_type_vi)}
-                variant="filled"
-                color="orange"
-                style={{ marginBottom: "10px" }}
-              >
-                {item.building_type_vi}
-              </Button>
+  key={index}
+  className={styles.menuBtn}
+  onClick={() => handleNavigate(item.zone_vi, item.label)} // 👈 thêm subzone_vi
+  variant="filled"
+  color="orange"
+  style={{ marginBottom: "10px" }}
+>
+  {item.label}
+</Button>
             ))}
           </div>
         ) : (
