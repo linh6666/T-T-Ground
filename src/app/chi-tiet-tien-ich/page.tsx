@@ -1,4 +1,3 @@
-// src/app/chi-tiet/page.tsx
 import React, { Suspense } from "react";
 import InteractiveClient from "./InteractiveClient";
 

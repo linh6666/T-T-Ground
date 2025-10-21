@@ -1,3 +1,4 @@
+
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -10,67 +11,63 @@ import { createNodeAttribute } from "../../../api/apifilter";
 // Props nhận vào
 interface MenuProps {
   project_id: string | null;
-  initialZone?: string | null; // thêm dòng này
+  initialBuildingType?: string | null;
 }
 
 // Kiểu menu item
 interface MenuItem {
-  label: string;       // hiển thị phase_vi
-  zone_vi: string;     // navigate
+  label: string;       // hiển thị trên nút
+  phase_vi: string;    // dùng để navigate
+  subzone_vi: string;  // dùng để truyền query
 }
 
-// Kiểu dữ liệu trả về từ API, thay cho any
+// Kiểu dữ liệu trả về từ API
 interface NodeAttributeItem {
-  subzone_vi?: string;
-  [key: string]: unknown; // các trường khác không quan trọng
+  model_building_vi?: string;
+  [key: string]: unknown;
 }
 
-export default function Menu({ project_id, initialZone }: MenuProps) {
+export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const zoneFromQuery = searchParams.get("zone") || initialZone; // ưu tiên URL, fallback initialZone
+  const phaseFromQuery = searchParams.get("building") || initialBuildingType;
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
+  // 🛰️ Gọi API lấy danh sách building_type/subzone
   useEffect(() => {
     const fetchData = async () => {
-      if (!project_id || !zoneFromQuery) return;
+      if (!project_id || !phaseFromQuery) return;
 
       setLoading(true);
       try {
         const data = await createNodeAttribute({
           project_id,
           filters: [
-            { label: "group", values: ["ct", "ti"] },
-            { label: "zone_vi", values: [zoneFromQuery] },
+            { label: "group", values: ["ti"] },
+            { label: "building_type_vi", values: [phaseFromQuery] },
           ],
         });
 
         if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-          const uniquePhaseMap = new Map<string, MenuItem>();
+          const uniqueMap = new Map<string, MenuItem>();
 
-          // ✅ Chỉ sửa chỗ này: item: any → item: NodeAttributeItem
           data.data.forEach((item: NodeAttributeItem) => {
-            const phaseStr: string = item.subzone_vi || zoneFromQuery;
+            const subzone: string = item.model_building_vi || "";
 
-            const phases: string[] = phaseStr
-              .split(";")
-              .map(p => p.trim())
-              .filter(Boolean);
-
-            phases.forEach((phaseLabel: string) => {
-              // Nếu đã có trong Map thì bỏ qua → gộp dữ liệu giống nhau
-              if (!uniquePhaseMap.has(phaseLabel)) {
-                uniquePhaseMap.set(phaseLabel, {
-                  label: phaseLabel,
-                  zone_vi: zoneFromQuery,
-                });
-              }
-            });
+            // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
+            if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
+              uniqueMap.set(subzone, {
+                label: subzone,       // hiển thị trên nút
+                phase_vi: phaseFromQuery,
+                subzone_vi: subzone,  // truyền query param
+              });
+            }
           });
 
-          setMenuItems(Array.from(uniquePhaseMap.values()));
+          const finalItems = Array.from(uniqueMap.values());
+          setMenuItems(finalItems);
         } else {
           setMenuItems([]);
         }
@@ -83,24 +80,18 @@ export default function Menu({ project_id, initialZone }: MenuProps) {
     };
 
     fetchData();
-  }, [project_id, zoneFromQuery]);
+  }, [project_id, phaseFromQuery]);
 
-  // Click nút navigate
-const handleNavigate = (zone: string, subzone: string) => {
-  if (!project_id) return;
-  router.push(
-    `/chi-tiet-tien-ich-khu?id=${project_id}&zone=${encodeURIComponent(
-      zone
-    )}&subzone=${encodeURIComponent(subzone)}`
-  );
-};
+  // ✅ Click navigate
 
-  // Nút back
+
+  // ⬅️ Nút quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/tien-ich?id=${project_id}`);
   };
 
+  // 🎨 Render giao diện
   return (
     <div className={styles.box}>
       {/* Logo */}
@@ -114,7 +105,7 @@ const handleNavigate = (zone: string, subzone: string) => {
 
       {/* Title */}
       <div className={styles.title}>
-        <h1>Tiểu khu</h1>
+        <h1>Loại tiện ích</h1>
       </div>
 
       {/* Menu Buttons */}
@@ -125,15 +116,15 @@ const handleNavigate = (zone: string, subzone: string) => {
           <div className={styles.scroll} style={{ marginTop: "5px" }}>
             {menuItems.map((item, index) => (
               <Button
-  key={index}
-  className={styles.menuBtn}
-  onClick={() => handleNavigate(item.zone_vi, item.label)} // 👈 thêm subzone_vi
-  variant="filled"
-  color="orange"
-  style={{ marginBottom: "10px" }}
->
-  {item.label}
-</Button>
+                key={index}
+                className={styles.menuBtn}
+                
+                variant="filled"
+                color="orange"
+                style={{ marginBottom: "10px" }}
+              >
+                {item.label}
+              </Button>
             ))}
           </div>
         ) : (

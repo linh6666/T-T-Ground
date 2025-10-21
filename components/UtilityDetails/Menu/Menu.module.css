@@ -41,7 +41,6 @@ border-radius: 15px;
   /* 🟠 Căn giữa theo chiều dọc */
   
 }
-
 .scroll {
   height: 375px; /* Chiều cao cố định */
   overflow-y: scroll; /* Cho phép scroll dọc */
@@ -53,6 +52,7 @@ border-radius: 15px;
 .scroll::-webkit-scrollbar {
   display: none; /* Ẩn thanh cuộn */
 }
+
 .btn {
   background-color: #fff;
   color:#762f0b ;

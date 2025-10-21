@@ -7,19 +7,16 @@ import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
-// Kiểu prop nhận vào
 interface MenuProps {
   project_id: string | null;
 }
 
-// Kiểu dữ liệu item trong menu
 interface MenuItem {
   label: string;
 }
 
-// Kiểu dữ liệu trả về từ API createNodeAttribute
 interface NodeAttributeItem {
-  zone_vi?: string;
+  building_type_vi?: string;
   [key: string]: unknown;
 }
 
@@ -36,13 +33,12 @@ export default function Menu({ project_id }: MenuProps) {
       try {
         const body = {
           project_id,
-          filters: [{ label: "group", values: [ "ti"] }],
+          filters: [{ label: "group", values: ["ti"] }],
         };
 
         const data = await createNodeAttribute(body);
 
         if (data?.data && Array.isArray(data.data)) {
-          // Tách zone_vi và loại trùng
           const allZones: string[] = data.data
             .flatMap((item: NodeAttributeItem) =>
               String(item.building_type_vi || "")
@@ -53,7 +49,6 @@ export default function Menu({ project_id }: MenuProps) {
 
           const uniqueZones = Array.from(new Set(allZones));
 
-          // Sắp xếp
           const sortedZones = uniqueZones.sort((a, b) => {
             const numA = a.match(/\d+/)?.[0];
             const numB = b.match(/\d+/)?.[0];
@@ -61,7 +56,6 @@ export default function Menu({ project_id }: MenuProps) {
             return a.localeCompare(b, "vi", { sensitivity: "base" });
           });
 
-          // Chỉ giữ label
           const items: MenuItem[] = sortedZones.map((zone) => ({ label: zone }));
           setMenuItems(items);
         } else {
@@ -77,11 +71,10 @@ export default function Menu({ project_id }: MenuProps) {
     fetchData();
   }, [project_id]);
 
-  // Điều hướng với zone_vi
-  const handleNavigate = (zone: string) => {
+  // Điều hướng với building_type_vi
+  const handleNavigate = (building_type_vi: string) => {
     if (!project_id) return;
-    // Truyền zone_vi sang trang chi-tiet
-    router.push(`/chi-tiet-tien-ich?id=${project_id}&zone=${encodeURIComponent(zone)}`);
+    router.push(`/chi-tiet-tien-ich?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}`);
   };
 
   const handleBack = () => {
@@ -100,19 +93,19 @@ export default function Menu({ project_id }: MenuProps) {
       </div>
 
       <div className={styles.title}>
-        <h1>Phân Khu</h1>
+        <h1>Tiện ích</h1>
       </div>
 
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
         ) : menuItems.length > 0 ? (
-         <Stack className={styles.scroll} style={{ marginTop: "5px" }}>
+          <Stack className={styles.scroll} style={{ marginTop: "5px" }}>
             {menuItems.map((item, index) => (
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label)} // truyền zone_vi
+                onClick={() => handleNavigate(item.label)} // truyền building_type_vi
                 variant="outline"
               >
                 {item.label}
@@ -153,4 +146,3 @@ export default function Menu({ project_id }: MenuProps) {
     </div>
   );
 }
-
