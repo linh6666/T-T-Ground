@@ -40,9 +40,9 @@ export default function DetailInteractive() {
         // Gán link riêng cho từng dự án, vẫn truyền project.id
         const dataWithLink = data.map((project: Project, index: number) => {
           let baseLink = "";
-          if (index === 0) baseLink = "/Dieu-khien-2";
-          else if (index === 1) baseLink = "/Dieu-khien";
-          else if (index === 2) baseLink = "/Dieu-khien-1";
+          if (index === 0) baseLink = "/Dieu-khien";
+          else if (index === 1) baseLink = "/Dieu-khien-1";
+          else if (index === 2) baseLink = "/Dieu-khien";
           else baseLink = `/Dieu-khien-${index}`;
 
           const link = `${baseLink}?id=${project.id}`;
