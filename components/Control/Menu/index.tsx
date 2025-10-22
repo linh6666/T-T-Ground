@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import styles from "./Menu.module.css";
 import { Button, Group, Image, Stack } from "@mantine/core";
 import { useRouter } from "next/navigation";
@@ -13,22 +13,18 @@ interface MenuProps {
 
 export default function Menu({ project_id }: MenuProps) {
   const router = useRouter();
-  const [active, setActive] = useState(false);
+  // const [active, setActive] = useState(false);
 
   // 🧠 Tạo sẵn link kèm project_id (nếu có)
   const menuItems = [
-    // { label: "GIỚI THIỆU DỰ ÁN", link: `/gioi-thieu${project_id ? `?id=${project_id}` : ""}` },
-    // { label: "PHÂN KỲ ĐẦU TƯ", link: `/He-thong-phan-ky${project_id ? `?id=${project_id}` : ""}` },
+   
       { label: "GIỚI THIỆU DỰ ÁN", link: "/gioi-thieu" },
     { label: "HỆ THỐNG PHÂN KHU", link: `/Phan-khu${project_id ? `?id=${project_id}` : ""}` },
      { label: "HỆ THỐNG TIỆN ÍCH", link: `/tien-ich${project_id ? `?id=${project_id}` : ""}` } ,
     { label: "HIỆU ỨNG ÁNH SÁNG", link: "/hieu-ung-anh-sang" },
     { label: "THƯ VIỆN", link: "/thu-vien" },
     { label: "MÔ HÌNH", link: "/mo-hinh" },
-    // { label: "HỆ THỐNG TIỆN ÍCH", link: `/tien-ich${project_id ? `?id=${project_id}` : ""}` },
-    // { label: "HIỆU ỨNG ÁNH SÁNG", link: `/hieu-ung-anh-sang${project_id ? `?id=${project_id}` : ""}` },
-    // { label: "THƯ VIỆN", link: `/thu-vien${project_id ? `?id=${project_id}` : ""}` },
-    // { label: "MÔ HÌNH", link: `/mo-hinh${project_id ? `?id=${project_id}` : ""}` },
+  
   ];
 
 
@@ -85,30 +81,28 @@ export default function Menu({ project_id }: MenuProps) {
       <div className={styles.footer}>
         <Group gap="xs">
           <Sun />
-          <Button
-            onClick={() => setActive((prev) => !prev)}
-            variant="filled"
-            style={{
-              width: 30,
-              height: 30,
-              padding: 0,
-              borderRadius: 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              transition: "background 0.3s",
-              background: active
-                ? "linear-gradient(to top, #FFE09A, #FFF1D2)"
-                : "#FFFAEE",
-              color: "#752E0B",
-              border: "1.5px solid #752E0B",
-            }}
-          >
-            <Group gap={0} align="center">
-              <IconArrowLeft size={18} color="#752E0B" />
-            </Group>
-          </Button>
+         <Button
+  onClick={() => router.push("/Tuong-tac")} // ← Quay về trang /Tuong-tac
+  variant="filled"
+  style={{
+    width: 30,
+    height: 30,
+    padding: 0,
+    borderRadius: 40,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    transition: "background 0.3s",
+    background: "#FFFAEE",
+    color: "#752E0B",
+    border: "1.5px solid #752E0B",
+  }}
+>
+  <Group gap={0} align="center">
+    <IconArrowLeft size={18} color="#752E0B" />
+  </Group>
+</Button>
         </Group>
       </div>
     </div>

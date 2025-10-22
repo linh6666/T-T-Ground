@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Card, Image, Stack, Text, Button, Loader, Modal } from "@mantine/core";
 import styles from "./Interact.module.css";
-import { getListProject } from "../../api/apigetlistProject"; // import API helper
+import { getListProject } from "../../api/apigetlistProject";
 import Link from "next/link";
 
 interface Project {
@@ -16,6 +16,7 @@ interface Project {
   rank?: number;
   timeout_minutes?: number;
   type?: string | null;
+  link?: string;
 }
 
 export default function DetailInteractive() {
@@ -24,27 +25,40 @@ export default function DetailInteractive() {
   const [showLoginModal, setShowLoginModal] = useState(false);
 
   useEffect(() => {
-  const token = localStorage.getItem("access_token") ?? "";
+    const token = localStorage.getItem("access_token") ?? "";
 
-  if (!token) {
-    setShowLoginModal(true);
-    setLoading(false);
-    return;
-  }
-
-  async function fetchProjects() {
-    try {
-      const { data } = await getListProject({ token, skip: 0, limit: 20 });
-      setProjects(data);
-    } catch (error) {
-      console.error("Failed to fetch projects:", error);
-    } finally {
+    if (!token) {
+      setShowLoginModal(true);
       setLoading(false);
+      return;
     }
-  }
 
-  fetchProjects();
-}, []);
+    async function fetchProjects() {
+      try {
+        const { data } = await getListProject({ token, skip: 0, limit: 20 });
+
+        // Gán link riêng cho từng dự án, vẫn truyền project.id
+        const dataWithLink = data.map((project: Project, index: number) => {
+          let baseLink = "";
+          if (index === 0) baseLink = "/Dieu-khien-1";
+          else if (index === 1) baseLink = "/Dieu-khien";
+          else if (index === 2) baseLink = "/Dieu-khien-2";
+          else baseLink = `/Dieu-khien-${index}`;
+
+          const link = `${baseLink}?id=${project.id}`;
+          return { ...project, link };
+        });
+
+        setProjects(dataWithLink);
+      } catch (error) {
+        console.error("Failed to fetch projects:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchProjects();
+  }, []);
 
   if (loading) {
     return (
@@ -88,7 +102,7 @@ export default function DetailInteractive() {
                 </Stack>
                 <Button
                   component="a"
-                href={`/Dieu-khien?id=${project.id}`}
+                  href={project.link} // link riêng + project.id
                   className={`${styles.baseButton} ${styles.primaryButton}`}
                 >
                   Đi tới dự án
@@ -105,7 +119,6 @@ export default function DetailInteractive() {
                   src="/MHV_VN_SOLOGAN_H.png"
                   alt="Mô Hình Việt"
                   className={styles.footerlogo}
-                 
                 />
               </Link>
             </p>
@@ -116,27 +129,26 @@ export default function DetailInteractive() {
         </div>
       </div>
 
-      {/* 🔒 Modal thông báo đăng nhập */}
+      {/* Modal thông báo đăng nhập */}
       <Modal
         opened={showLoginModal}
         onClose={() => setShowLoginModal(false)}
         title="Thông báo"
         centered
-          // withCloseButton={false}
       >
         <Text>Bạn cần đăng nhập để xem danh sách dự án.</Text>
-      <Button
-  mt="md"
-  fullWidth
-  onClick={() => (window.location.href = "/dang-nhap")}
-  style={{
-    backgroundColor: "#ffbe00",
-    color: "#762f0b",
-    fontWeight: 600,
-  }}
->
-  Đăng nhập ngay
-</Button>
+        <Button
+          mt="md"
+          fullWidth
+          onClick={() => (window.location.href = "/dang-nhap")}
+          style={{
+            backgroundColor: "#ffbe00",
+            color: "#762f0b",
+            fontWeight: 600,
+          }}
+        >
+          Đăng nhập ngay
+        </Button>
       </Modal>
     </>
   );

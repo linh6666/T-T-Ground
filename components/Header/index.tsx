@@ -93,7 +93,7 @@ export default function Header() {
         <div className={styles.mobileHeader}>
           <Link href="/" className="flex items-center space-x-3">
             <Image
-              src="/Logo/Logo_của_Tập_đoàn_T&T_Group.png"
+              src="/Logo/TTHOMES logo-01.png"
               alt="Logo"
               className={styles.logo}
             />
