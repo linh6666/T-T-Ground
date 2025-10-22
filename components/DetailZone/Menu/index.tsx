@@ -125,7 +125,7 @@ export default function Menu({
 
       {/* Title */}
       <div className={styles.title}>
-        <h1>Loại nhà</h1>
+        <h1> KHU</h1>
       </div>
 
       {/* Menu Buttons */}

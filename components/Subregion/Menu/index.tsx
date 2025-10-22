@@ -112,7 +112,7 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
 
       {/* Title */}
       <div className={styles.title}>
-        <h1>Loại nhà</h1>
+        <h1>KHU</h1>
       </div>
 
       {/* Danh sách nút */}

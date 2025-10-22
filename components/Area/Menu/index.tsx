@@ -111,7 +111,7 @@ export default function Menu({ project_id }: MenuProps) {
 
       {/* Tiêu đề */}
       <div className={styles.title}>
-        <h1>Phân Khu</h1>
+        <h1>PHÂN KHU</h1>
       </div>
 
       {/* Danh sách nút */}

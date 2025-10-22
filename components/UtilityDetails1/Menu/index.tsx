@@ -103,7 +103,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
 
       {/* Title */}
       <div className={styles.title}>
-        <h1>Loại tiện ích</h1>
+        <h1>LOẠI TIỆN ÍCH</h1>
       </div>
 
       {/* Menu Buttons */}

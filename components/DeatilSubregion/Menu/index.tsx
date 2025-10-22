@@ -116,7 +116,7 @@ const handleBack = () => {
       </div>
 
       <div className={styles.title}>
-        <h1>Loại nhà</h1>
+        <h1>LOẠI KHU</h1>
       </div>
 
       <div className={styles.Function}>
