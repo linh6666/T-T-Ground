@@ -71,10 +71,10 @@ export default function Menu({ project_id }: MenuProps) {
     fetchData();
   }, [project_id]);
 
-  // Điều hướng với building_type_vi
+  // Điều hướng với building_type_v
   const handleNavigate = (building_type_vi: string) => {
     if (!project_id) return;
-    router.push(`/chi-tiet-tien-ich?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}`);
+    router.push(`/chi-tiet-tien-ich-1?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}`);
   };
 
   const handleBack = () => {
