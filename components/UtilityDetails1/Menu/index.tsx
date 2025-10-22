@@ -16,13 +16,13 @@ interface MenuProps {
 // Kiểu menu item
 interface MenuItem {
   label: string;       // hiển thị trên nút
-  // dùng để navigate
   subzone_vi: string;  // dùng để truyền query
 }
 
 // Kiểu dữ liệu trả về từ API
 interface NodeAttributeItem {
   building_code?: string;
+  group?: string;
   [key: string]: unknown;
 }
 
@@ -33,7 +33,6 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
- 
 
   // 🛰️ Gọi API lấy danh sách building_type/subzone
   useEffect(() => {
@@ -54,9 +53,12 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
           const uniqueMap = new Map<string, MenuItem>();
 
           data.data.forEach((item: NodeAttributeItem) => {
+            // 🔹 Loại bỏ item có group = "ct;ti"
+            if (item.group === "ct;ti") return;
+
             const subzone: string = item.building_code || "";
 
-            // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
+            // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua, đồng thời đảm bảo duy nhất
             if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
               uniqueMap.set(subzone, {
                 label: subzone,
@@ -81,15 +83,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     fetchData();
   }, [project_id, phaseFromQuery]);
 
-  // ✅ Khi click từng nút → gọi API chi tiết, không mất nút
-// const handleNavigate = (building_type_vi: string, model_building_vi: string) => {
-//   if (!project_id) return;
-//   router.push(
-//     `/loai-tien-ich?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}&model_building_vi=${encodeURIComponent(model_building_vi)}`
-//   );
-// };
-
-  // ⬅️ Nút quay lại
+  // 🔙 Nút quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/tien-ich-1?id=${project_id}`);
@@ -118,18 +112,17 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
           <Loader color="orange" />
         ) : menuItems.length > 0 ? (
           <div className={styles.scroll} style={{ marginTop: "5px" }}>
-           {menuItems.map((item, index) => (
-  <Button
-    key={index}
-    className={styles.menuBtn}
-    variant="filled"
-    color="orange"
-    style={{ marginBottom: "10px" }}
-    // onClick={() => handleNavigate(phaseFromQuery || "", item.label)}
-  >
-    {item.label}
-  </Button>
-))}
+            {menuItems.map((item, index) => (
+              <Button
+                key={index}
+                className={styles.menuBtn}
+                variant="filled"
+                color="orange"
+                style={{ marginBottom: "10px" }}
+              >
+                {item.label}
+              </Button>
+            ))}
           </div>
         ) : (
           <Text mt="md" c="dimmed">

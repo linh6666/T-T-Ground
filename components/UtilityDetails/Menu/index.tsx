@@ -23,6 +23,7 @@ interface MenuItem {
 // Kiểu dữ liệu trả về từ API
 interface NodeAttributeItem {
   model_building_vi?: string;
+  group?: string;
   [key: string]: unknown;
 }
 
@@ -33,7 +34,6 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
- 
 
   // 🛰️ Gọi API lấy danh sách building_type/subzone
   useEffect(() => {
@@ -53,7 +53,12 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
           const uniqueMap = new Map<string, MenuItem>();
 
-          data.data.forEach((item: NodeAttributeItem) => {
+          // 🔹 Lọc bỏ các item có group = "ct;ti"
+          const filteredData = data.data.filter(
+            (item: NodeAttributeItem) => item.group !== "ct;ti"
+          );
+
+          filteredData.forEach((item: NodeAttributeItem) => {
             const subzone: string = item.model_building_vi || "";
 
             // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
@@ -83,26 +88,27 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   }, [project_id, phaseFromQuery]);
 
   // ✅ Khi click từng nút → gọi API chi tiết, không mất nút
-const handleMenuClick = async (subzoneLabel: string) => {
-  if (!project_id || !phaseFromQuery) return;
+  const handleMenuClick = async (subzoneLabel: string) => {
+    if (!project_id || !phaseFromQuery) return;
 
-  try {
-    // 🔸 Gọi API
-    const data = await createNodeAttribute({
-      project_id,
-      filters: [
-        { label: "group", values: ["ti"] },
-        { label: "building_type_vi", values: [phaseFromQuery] },
-        { label: "model_building_vi", values: [subzoneLabel] },
-      ],
-    });
+    try {
+      // 🔸 Gọi API
+      const data = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ti"] },
+          { label: "building_type_vi", values: [phaseFromQuery] },
+          { label: "model_building_vi", values: [subzoneLabel] },
+        ],
+      });
 
-    // 🔹 Chỉ xử lý kết quả, không thay đổi UI
-    console.log("✅ API trả về cho", subzoneLabel, data);
-  } catch (error) {
-    console.error("❌ Lỗi khi gọi API:", error);
-  }
-};
+      // 🔹 Chỉ xử lý kết quả, không thay đổi UI
+      console.log("✅ API trả về cho", subzoneLabel, data);
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API:", error);
+    }
+  };
+
   // ⬅️ Nút quay lại
   const handleBack = () => {
     if (!project_id) return;
@@ -140,7 +146,6 @@ const handleMenuClick = async (subzoneLabel: string) => {
                 color="orange"
                 style={{ marginBottom: "10px" }}
                 onClick={() => handleMenuClick(item.label)}
-            // 👈 loading riêng từng nút
               >
                 {item.label}
               </Button>
