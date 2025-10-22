@@ -71,17 +71,19 @@ export default function Menu({
         if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
           const uniqueMap = new Map<string, MenuItem>();
 
-          data.data.forEach((item: NodeAttributeItem) => {
-            const type_vi = item.building_code as string || "";
-            if (type_vi.trim() && !uniqueMap.has(type_vi)) {
-              uniqueMap.set(type_vi, {
-                label: type_vi,
-                subzone_vi: subzoneFromQuery,
-                building_type_vi: buildingTypeViFromQuery,
-                model_building_vi: type_vi
-              });
-            }
-          });
+      data.data.forEach((item: NodeAttributeItem) => {
+  const type_vi = item.building_code as string || "";
+
+  // 🔹 Bỏ những item có "Cảnh quan"
+  if (type_vi.trim() && !uniqueMap.has(type_vi) && !type_vi.includes("Cảnh quan")) {
+    uniqueMap.set(type_vi, {
+      label: type_vi,
+      subzone_vi: subzoneFromQuery,
+      building_type_vi: buildingTypeViFromQuery,
+      model_building_vi: type_vi
+    });
+  }
+});
 
           setMenuItems(Array.from(uniqueMap.values()));
         } else {

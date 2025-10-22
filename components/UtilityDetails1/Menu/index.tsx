@@ -52,21 +52,22 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
           const uniqueMap = new Map<string, MenuItem>();
 
-          data.data.forEach((item: NodeAttributeItem) => {
-            // 🔹 Loại bỏ item có group = "ct;ti"
-            if (item.group === "ct;ti") return;
+        data.data.forEach((item: NodeAttributeItem) => {
+  const subzone: string = item.building_code || "";
 
-            const subzone: string = item.building_code || "";
-
-            // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua, đồng thời đảm bảo duy nhất
-            if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
-              uniqueMap.set(subzone, {
-                label: subzone,
-                subzone_vi: subzone,
-              });
-            }
-          });
-
+  // ⚡ Nếu rỗng, chứa ';', chứa "Cảnh quan", hoặc đã có thì bỏ qua
+  if (
+    subzone.trim() &&
+    !subzone.includes(";") &&
+    !subzone.includes("Cảnh quan") &&  // 🔹 Loại bỏ "Cảnh quan"
+    !uniqueMap.has(subzone)
+  ) {
+    uniqueMap.set(subzone, {
+      label: subzone,
+      subzone_vi: subzone,
+    });
+  }
+});
           const finalItems = Array.from(uniqueMap.values());
           setMenuItems(finalItems);
         } else {

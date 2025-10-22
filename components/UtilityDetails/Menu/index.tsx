@@ -36,56 +36,58 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   const [loading, setLoading] = useState(false);
 
   // 🛰️ Gọi API lấy danh sách building_type/subzone
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!project_id || !phaseFromQuery) return;
+ useEffect(() => {
+  const fetchData = async () => {
+    if (!project_id || !phaseFromQuery) return;
 
-      setLoading(true);
-      try {
-        const data = await createNodeAttribute({
-          project_id,
-          filters: [
-            { label: "group", values: ["ti"] },
-            { label: "building_type_vi", values: [phaseFromQuery] },
-          ],
-        });
+    setLoading(true);
+    try {
+      const data = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ti"] },
+          { label: "building_type_vi", values: [phaseFromQuery] },
+        ],
+      });
 
-        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-          const uniqueMap = new Map<string, MenuItem>();
+      if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+        const uniqueMap = new Map<string, MenuItem>();
 
-          // 🔹 Lọc bỏ các item có group = "ct;ti"
-          const filteredData = data.data.filter(
-            (item: NodeAttributeItem) => item.group !== "ct;ti"
-          );
+     
+      data.data.forEach((item: NodeAttributeItem) => {
+  const subzone: string = item.model_building_vi || "";
 
-          filteredData.forEach((item: NodeAttributeItem) => {
-            const subzone: string = item.model_building_vi || "";
+  // ⚡ Nếu rỗng, chứa ';', hoặc chứa "Cảnh quan" thì bỏ qua
+  if (
+    subzone.trim() && 
+    !subzone.includes(";") && 
+    !subzone.includes("Cảnh quan") &&  // 🔹 Bỏ các model có "Cảnh quan"
+    !uniqueMap.has(subzone)
+  ) {
+    uniqueMap.set(subzone, {
+      label: subzone,
+      phase_vi: phaseFromQuery,
+      subzone_vi: subzone,
+    });
+  }
+});
 
-            // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
-            if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
-              uniqueMap.set(subzone, {
-                label: subzone,
-                phase_vi: phaseFromQuery,
-                subzone_vi: subzone,
-              });
-            }
-          });
-
-          const finalItems = Array.from(uniqueMap.values());
-          setMenuItems(finalItems);
-        } else {
-          setMenuItems([]);
-        }
-      } catch (error) {
-        console.error("❌ Lỗi khi gọi API:", error);
+        const finalItems = Array.from(uniqueMap.values());
+        setMenuItems(finalItems);
+      } else {
         setMenuItems([]);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API:", error);
+      setMenuItems([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [project_id, phaseFromQuery]);
+  fetchData();
+}, [project_id, phaseFromQuery]);
+
 
   // ✅ Khi click từng nút → gọi API chi tiết, không mất nút
   const handleMenuClick = async (subzoneLabel: string) => {

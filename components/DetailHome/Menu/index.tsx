@@ -62,25 +62,29 @@ export default function Menu({
           ],
         });
 
-        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-          const uniqueMap = new Map<string, MenuItem>();
+     if (data?.data && Array.isArray(data.data)) {
+  const uniqueMap = new Map<string, MenuItem>();
+  
+  data.data.forEach((item: NodeAttributeItem) => {
+    const modelLabel = item.model_building_vi;
+    if (
+      modelLabel &&
+      !uniqueMap.has(modelLabel) &&
+      !modelLabel.includes("Cảnh quan") // 🔹 Lọc bỏ những model có "Cảnh quan"
+    ) {
+      uniqueMap.set(modelLabel, {
+        model_building_vi: modelLabel,
+        building_type_vi: item.building_type_vi || "",
+        zone_vi: zoneFromQuery!, 
+        subzone_vi: subzoneFromQuery!,
+      });
+    }
+  });
 
-          data.data.forEach((item: NodeAttributeItem) => {
-            const modelLabel = item.model_building_vi;
-            if (modelLabel && !uniqueMap.has(modelLabel)) {
-              uniqueMap.set(modelLabel, {
-                model_building_vi: modelLabel,
-                building_type_vi: item.building_type_vi || "",
-                zone_vi: zoneFromQuery!, 
-                subzone_vi: subzoneFromQuery!,
-              });
-            }
-          });
-
-          setMenuItems(Array.from(uniqueMap.values()));
-        } else {
-          setMenuItems([]);
-        }
+  setMenuItems(Array.from(uniqueMap.values()));
+} else {
+  setMenuItems([]);
+}
       } catch (error) {
         console.error("❌ Lỗi khi gọi API:", error);
         setMenuItems([]);
