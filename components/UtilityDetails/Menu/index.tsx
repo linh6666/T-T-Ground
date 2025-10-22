@@ -1,4 +1,3 @@
-
 "use client";
 
 import React, { useEffect, useState } from "react";
@@ -34,6 +33,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
+ 
 
   // 🛰️ Gọi API lấy danh sách building_type/subzone
   useEffect(() => {
@@ -59,9 +59,9 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
             // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
             if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
               uniqueMap.set(subzone, {
-                label: subzone,       // hiển thị trên nút
+                label: subzone,
                 phase_vi: phaseFromQuery,
-                subzone_vi: subzone,  // truyền query param
+                subzone_vi: subzone,
               });
             }
           });
@@ -82,9 +82,27 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     fetchData();
   }, [project_id, phaseFromQuery]);
 
-  // ✅ Click navigate
+  // ✅ Khi click từng nút → gọi API chi tiết, không mất nút
+const handleMenuClick = async (subzoneLabel: string) => {
+  if (!project_id || !phaseFromQuery) return;
 
+  try {
+    // 🔸 Gọi API
+    const data = await createNodeAttribute({
+      project_id,
+      filters: [
+        { label: "group", values: ["ti"] },
+        { label: "building_type_vi", values: [phaseFromQuery] },
+        { label: "model_building_vi", values: [subzoneLabel] },
+      ],
+    });
 
+    // 🔹 Chỉ xử lý kết quả, không thay đổi UI
+    console.log("✅ API trả về cho", subzoneLabel, data);
+  } catch (error) {
+    console.error("❌ Lỗi khi gọi API:", error);
+  }
+};
   // ⬅️ Nút quay lại
   const handleBack = () => {
     if (!project_id) return;
@@ -118,10 +136,11 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                
                 variant="filled"
                 color="orange"
                 style={{ marginBottom: "10px" }}
+                onClick={() => handleMenuClick(item.label)}
+            // 👈 loading riêng từng nút
               >
                 {item.label}
               </Button>
