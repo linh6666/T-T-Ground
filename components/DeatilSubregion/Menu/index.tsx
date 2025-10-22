@@ -11,13 +11,15 @@ import { createNodeAttribute } from "../../../api/apifilter";
 interface MenuProps {
   project_id: string | null;
   initialSubzone?: string | null;
+  initialBuildingTypeVi?: string | null; // ✅ thêm props
 }
 
 // 🧱 Kiểu menu item
 interface MenuItem {
-  label: string; // hiển thị trên nút
+  label: string;
   subzone_vi: string;
   building_type_vi: string;
+  model_building_vi: string;
 }
 
 // 🧩 Kiểu dữ liệu trả về từ API
@@ -26,10 +28,18 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id, initialSubzone }: MenuProps) {
+export default function Menu({
+  project_id,
+  initialSubzone,
+  initialBuildingTypeVi,
+}: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const subzoneFromQuery = searchParams.get("subzone_vi") || initialSubzone;
+
+  // ✅ Ưu tiên lấy từ URL, fallback sang props
+  const subzoneFromQuery = searchParams.get("subzone_vi") || initialSubzone || "";
+  const buildingTypeViFromQuery =
+    searchParams.get("building_type_vi") || initialBuildingTypeVi || "";
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -46,6 +56,7 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
           filters: [
             { label: "group", values: ["ct"] },
             { label: "subzone_vi", values: [subzoneFromQuery] },
+            { label: "building_type_vi", values: [buildingTypeViFromQuery] }, // ✅ luôn truyền thẳng vào filter
           ],
         });
 
@@ -55,14 +66,13 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
           const uniqueMap = new Map<string, MenuItem>();
 
           data.data.forEach((item: NodeAttributeItem) => {
-            const type_vi = (item.building_type_vi as string) || "";
-
-            // ⚡ Bỏ trống hoặc trùng
+            const type_vi = (item. model_building_vi as string) || "";
             if (type_vi.trim() && !uniqueMap.has(type_vi)) {
               uniqueMap.set(type_vi, {
-                label: type_vi, // ✅ hiển thị ra nút
+                label: type_vi,
                 subzone_vi: subzoneFromQuery,
-                building_type_vi: type_vi,
+                building_type_vi:buildingTypeViFromQuery ,
+                  model_building_vi: type_vi
               });
             }
           });
@@ -80,28 +90,23 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
     };
 
     fetchData();
-  }, [project_id, subzoneFromQuery]);
+  }, [project_id, subzoneFromQuery, buildingTypeViFromQuery]);
 
-  // ✅ Click navigate — chỉ truyền building_type_vi
-  const handleNavigate = (subzone: string, building_type_vi: string) => {
-    if (!project_id) return;
-    router.push(
-      `/chi-tiet-tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(
-        subzone
-      )}&building_type_vi=${encodeURIComponent(building_type_vi)}`
-    );
-  };
-
+  // ✅ Click navigate
+const handleNavigate = (subzone: string, building_type_vi: string, model_building_vi: string) => {
+  if (!project_id) return;
+  router.push(
+    `/chi-tiet-xay-dung?id=${project_id}&subzone_vi=${encodeURIComponent(subzone)}&building_type_vi=${encodeURIComponent(building_type_vi)}&model_building_vi=${encodeURIComponent(model_building_vi)}` // Thêm model_building_vi vào URL
+  );
+};
   // ⬅️ Nút quay lại
-  const handleBack = () => {
-    if (!project_id) return;
-    router.push(`/khu-vuc?id=${project_id}`);
-  };
-
-  // 🎨 Render giao diện
+const handleBack = () => {
+  if (!project_id) return;
+  router.push(`/tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(subzoneFromQuery)}`); // Cập nhật đường dẫn
+};
+  // 🎨 Giao diện
   return (
     <div className={styles.box}>
-      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/TTHOMES logo-01.png"
@@ -110,12 +115,10 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
         />
       </div>
 
-      {/* Title */}
       <div className={styles.title}>
         <h1>Loại nhà</h1>
       </div>
 
-      {/* Danh sách nút */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -125,9 +128,9 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() =>
-                  handleNavigate(item.subzone_vi, item.building_type_vi)
-                }
+              onClick={() =>
+    handleNavigate(item.subzone_vi, item.building_type_vi, item.model_building_vi) // Cập nhật đây
+  }
                 variant="filled"
                 color="orange"
                 style={{ marginBottom: "10px" }}
@@ -143,7 +146,6 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
         )}
       </div>
 
-      {/* Nút quay lại */}
       <div className={styles.footer}>
         <Group gap="xs">
           <Button
