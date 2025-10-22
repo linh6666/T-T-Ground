@@ -1,4 +1,5 @@
 .box {
+   width: 100%;   
   max-width: 1320px;
   padding: 10px;
   margin: auto;
