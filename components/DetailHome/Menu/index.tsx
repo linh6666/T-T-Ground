@@ -10,8 +10,8 @@ import { createNodeAttribute } from "../../../api/apifilter";
 // Props nhận vào
 interface MenuProps {
   project_id: string | null;
-  initialZone?: string | null;
-  initialSubzone?: string | null;
+  initialPhase?: string | null; 
+    initialSubzone?: string | null;      
   initialBuildingType?: string | null;
 }
 
@@ -33,14 +33,14 @@ interface NodeAttributeItem {
 
 export default function Menu({
   project_id,
-  initialZone,
+ initialPhase,
   initialSubzone,
   initialBuildingType,
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const zoneFromQuery = searchParams.get("zone") || initialZone;
+  const zoneFromQuery = searchParams.get("phase") || initialPhase;
   const subzoneFromQuery = searchParams.get("subzone") || initialSubzone;
   const buildingTypeFromQuery =
     searchParams.get("type") || initialBuildingType;
@@ -64,8 +64,8 @@ export default function Menu({
         const data = await createNodeAttribute({
           project_id,
           filters: [
-            { label: "group", values: ["ct", "phase_vi"] },
-            { label: "zone_vi", values: [zoneFromQuery] },
+            { label: "group", values: ["ct"] },
+            { label: "phase_vi", values: [zoneFromQuery] },
             { label: "subzone_vi", values: [subzoneFromQuery] },
             { label: "building_type_vi", values: [buildingTypeFromQuery] },
           ],
@@ -124,11 +124,11 @@ export default function Menu({
   const handleBack = () => {
   if (!project_id || !zoneFromQuery || !subzoneFromQuery) return;
 
-  router.push(
-    `/chi-tiet-khu?id=${encodeURIComponent(project_id)}&zone=${encodeURIComponent(
-      zoneFromQuery
-    )}&subzone=${encodeURIComponent(subzoneFromQuery)}`
-  );
+router.push(
+  `/chi-tiet-khu?id=${encodeURIComponent(project_id)}&phase=${encodeURIComponent(
+    zoneFromQuery
+  )}&subzone_vi=${encodeURIComponent(subzoneFromQuery)}`
+);
 };
 
 

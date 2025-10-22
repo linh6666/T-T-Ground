@@ -10,13 +10,13 @@ import styles from "./ZoningSystem.module.css";
 interface ZoningSystemProps {
   project_id: string | null;
   initialPhase?: string | null;
-   initialBuildingType?: string | null; // Đây là prop bên ngoài
+  initialSuzone?: string | null; // Đây là prop bên ngoài
 }
 
 export default function ZoningSystem({
   project_id,
   initialPhase,
-  initialBuildingType,
+initialSuzone,
 }: ZoningSystemProps) {
   return (
     <div className={styles.box}>
@@ -47,7 +47,7 @@ export default function ZoningSystem({
         <Menu
           project_id={project_id}
           initialPhase={initialPhase}
-          initialBuildingType={ initialBuildingType} // Chuyển sang prop Menu đúng
+          initialSuzone={ initialSuzone} // Chuyển sang prop Menu đúng
         />
       </div>
     </div>

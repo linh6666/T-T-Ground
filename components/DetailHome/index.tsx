@@ -1,31 +1,35 @@
 "use client";
 
-import { Image } from "@mantine/core";
 import React from "react";
-import styles from "./ZoningSystem.module.css";
+import { Image } from "@mantine/core";
 import Menu from "./Menu/index";
 import { pathsData } from "./Data";
+import styles from "./ZoningSystem.module.css";
 
-// ✅ Interface mở rộng nhận thêm building_type
+// ⚙️ Props ZoningSystem
 interface ZoningSystemProps {
   project_id: string | null;
-  zone?: string | null;
-  subzone?: string | null;
-  building_type?: string | null; // 👈 thêm prop building_type_vi
+  initialPhase?: string | null;  
+  initialSuzone?: string | null;
+  initialBuildingType?: string | null; // ✅ thêm prop
 }
 
 export default function ZoningSystem({
   project_id,
-  zone,
-  subzone,
-  building_type,
+  initialPhase,
+  initialSuzone,
+  initialBuildingType, // ✅ nhận prop mới
 }: ZoningSystemProps) {
   return (
     <div className={styles.box}>
+      {/* Hình bên trái */}
       <div className={styles.left}>
         <div className={styles.imageWrapper}>
-          <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
-
+          <Image
+            src="/image/home_bg.png"
+            alt="Ảnh"
+            className={styles.img}
+          />
           {pathsData.map((item) => (
             <div
               key={item.id}
@@ -40,14 +44,14 @@ export default function ZoningSystem({
         </div>
       </div>
 
+      {/* Menu bên phải */}
       <div className={styles.right}>
-        {/* 👇 Truyền toàn bộ props cần thiết sang Menu */}
-        <Menu
-          project_id={project_id}
-          initialZone={zone}
-          initialSubzone={subzone}
-          initialBuildingType={building_type} // 👈 truyền thêm building_type
-        />
+      <Menu
+  project_id={project_id}
+  initialPhase={initialPhase}
+  initialSubzone={initialSuzone}        // ✅ sửa lại
+  initialBuildingType={initialBuildingType}
+/>
       </div>
     </div>
   );

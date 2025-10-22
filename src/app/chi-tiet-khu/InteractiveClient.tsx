@@ -18,7 +18,7 @@ export default function InteractiveClient() {
     <ZoningSystem
       project_id={project_id}
       initialPhase={phase_vi}
-      initialBuildingType={subzone_vi}
+      initialSuzone={subzone_vi}
     />
   );
 }
