@@ -77,7 +77,7 @@ UPDATE_TEMPLATEATTRIBUTESLINK:"/api/v1/template_attributes/{link_id}",
 DELETE_TEMPLATEATTRIBUTESLINK:"/api/v1/template_attributes/{link_id}",
 
 ///NodeAttribute
-CREATE_NODEATTRIBUTE:"/api/v1/node_attribute/filter/control/1/0",
+CREATE_NODEATTRIBUTE:"/api/v1/node_attribute/filter/one/1/0",
 
 //filter
 

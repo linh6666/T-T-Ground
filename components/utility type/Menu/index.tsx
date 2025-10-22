@@ -2,116 +2,115 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
-import { Button, Group, Image, Stack, Loader, Text } from "@mantine/core";
-import { useRouter } from "next/navigation";
+import { Button, Group, Image, Loader, Text } from "@mantine/core";
+import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
 interface MenuProps {
   project_id: string | null;
+  initialBuildingType?: string | null;
+  initialModelBuilding?: string | null;
 }
 
 interface MenuItem {
   label: string;
+  subzone_vi: string;
 }
 
 interface NodeAttributeItem {
-  building_type_vi?: string;
+  building_code?: string;
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id }: MenuProps) {
+export default function Menu({ project_id, initialBuildingType, initialModelBuilding }: MenuProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
+ const phaseFromQuery = searchParams.get("building") || initialBuildingType || "";
+const modelFromQuery = searchParams.get("model_building_vi") || initialModelBuilding || "";
+
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!project_id) return;
+      if (!project_id || !phaseFromQuery !) return;
 
       setLoading(true);
       try {
-        const body = {
+        const data = await createNodeAttribute({
           project_id,
-          filters: [{ label: "group", values: ["ti"] }],
-        };
+          filters: [
+            { label: "group", values: ["ti"] },
+            { label: "building_type_vi", values: [phaseFromQuery] },
+            { label: "model_building_vi", values: [modelFromQuery] },
+          ],
+        });
 
-        const data = await createNodeAttribute(body);
+        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+          const uniqueMap = new Map<string, MenuItem>();
 
-        if (data?.data && Array.isArray(data.data)) {
-          const allZones: string[] = data.data
-            .flatMap((item: NodeAttributeItem) =>
-              String(item.model_building_vi || "")
-                .split(";")
-                .map((z) => z.trim())
-                .filter(Boolean)
-            );
+          data.data.forEach((item: NodeAttributeItem) => {
+            const subzone: string = item.building_code || "";
 
-          const uniqueZones = Array.from(new Set(allZones));
-
-          const sortedZones = uniqueZones.sort((a, b) => {
-            const numA = a.match(/\d+/)?.[0];
-            const numB = b.match(/\d+/)?.[0];
-            if (numA && numB) return Number(numA) - Number(numB);
-            return a.localeCompare(b, "vi", { sensitivity: "base" });
+            if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
+              uniqueMap.set(subzone, {
+                label: subzone,
+                subzone_vi: subzone,
+              });
+            }
           });
 
-          const items: MenuItem[] = sortedZones.map((zone) => ({ label: zone }));
-          setMenuItems(items);
+          setMenuItems(Array.from(uniqueMap.values()));
         } else {
-          console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
+          setMenuItems([]);
         }
       } catch (error) {
         console.error("❌ Lỗi khi gọi API:", error);
+        setMenuItems([]);
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [project_id]);
+  }, [project_id, phaseFromQuery,modelFromQuery]);
 
-  // Điều hướng với building_type_v
-  const handleNavigate = (model_building_vi: string) => {
-    if (!project_id) return;
-    router.push(`/chi-tiet-tien-ich-1?id=${project_id}&model_building_vi=${encodeURIComponent(model_building_vi)}`);
-  };
+ 
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/Dieu-khien-1?id=${project_id}`);
+    router.push(`/tien-ich-1?id=${project_id}`);
   };
 
   return (
     <div className={styles.box}>
       <div className={styles.logo}>
-        <Image
-          src="/Logo/TTHOMES logo-01.png"
-          alt="Logo"
-          className={styles.imgea}
-        />
+        <Image src="/Logo/TTHOMES logo-01.png" alt="Logo" className={styles.imgea} />
       </div>
 
       <div className={styles.title}>
-        <h1>Tiện ích</h1>
+        <h1>Chi tiết tiện ích</h1>
       </div>
 
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
         ) : menuItems.length > 0 ? (
-          <Stack className={styles.scroll} style={{ marginTop: "5px" }}>
+          <div className={styles.scroll} style={{ marginTop: "5px" }}>
             {menuItems.map((item, index) => (
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label)} // truyền building_type_vi
-                variant="outline"
+                variant="filled"
+                color="orange"
+                style={{ marginBottom: "10px" }}
+              
               >
                 {item.label}
               </Button>
             ))}
-          </Stack>
+          </div>
         ) : (
           <Text mt="md" c="dimmed">
             Không có dữ liệu hiển thị

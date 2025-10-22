@@ -16,20 +16,20 @@ interface MenuProps {
 // Kiểu menu item
 interface MenuItem {
   label: string;       // hiển thị trên nút
-  phase_vi: string;    // dùng để navigate
+  // dùng để navigate
   subzone_vi: string;  // dùng để truyền query
 }
 
 // Kiểu dữ liệu trả về từ API
 interface NodeAttributeItem {
-  model_building_vi?: string;
+  building_code?: string;
   [key: string]: unknown;
 }
 
 export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const phaseFromQuery = searchParams.get("building") || initialBuildingType;
+  const phaseFromQuery = searchParams.get("model") || initialBuildingType;
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -46,7 +46,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
           project_id,
           filters: [
             { label: "group", values: ["ti"] },
-            { label: "building_type_vi", values: [phaseFromQuery] },
+            { label: "model_building_vi", values: [phaseFromQuery] },
           ],
         });
 
@@ -54,13 +54,12 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
           const uniqueMap = new Map<string, MenuItem>();
 
           data.data.forEach((item: NodeAttributeItem) => {
-            const subzone: string = item.model_building_vi || "";
+            const subzone: string = item.building_code || "";
 
             // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
             if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
               uniqueMap.set(subzone, {
                 label: subzone,
-                phase_vi: phaseFromQuery,
                 subzone_vi: subzone,
               });
             }
@@ -83,26 +82,13 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   }, [project_id, phaseFromQuery]);
 
   // ✅ Khi click từng nút → gọi API chi tiết, không mất nút
-const handleMenuClick = async (subzoneLabel: string) => {
-  if (!project_id || !phaseFromQuery) return;
+// const handleNavigate = (building_type_vi: string, model_building_vi: string) => {
+//   if (!project_id) return;
+//   router.push(
+//     `/loai-tien-ich?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}&model_building_vi=${encodeURIComponent(model_building_vi)}`
+//   );
+// };
 
-  try {
-    // 🔸 Gọi API
-    const data = await createNodeAttribute({
-      project_id,
-      filters: [
-        { label: "group", values: ["ti"] },
-        { label: "building_type_vi", values: [phaseFromQuery] },
-        { label: "model_building_vi", values: [subzoneLabel] },
-      ],
-    });
-
-    // 🔹 Chỉ xử lý kết quả, không thay đổi UI
-    console.log("✅ API trả về cho", subzoneLabel, data);
-  } catch (error) {
-    console.error("❌ Lỗi khi gọi API:", error);
-  }
-};
   // ⬅️ Nút quay lại
   const handleBack = () => {
     if (!project_id) return;
@@ -132,19 +118,18 @@ const handleMenuClick = async (subzoneLabel: string) => {
           <Loader color="orange" />
         ) : menuItems.length > 0 ? (
           <div className={styles.scroll} style={{ marginTop: "5px" }}>
-            {menuItems.map((item, index) => (
-              <Button
-                key={index}
-                className={styles.menuBtn}
-                variant="filled"
-                color="orange"
-                style={{ marginBottom: "10px" }}
-                onClick={() => handleMenuClick(item.label)}
-            // 👈 loading riêng từng nút
-              >
-                {item.label}
-              </Button>
-            ))}
+           {menuItems.map((item, index) => (
+  <Button
+    key={index}
+    className={styles.menuBtn}
+    variant="filled"
+    color="orange"
+    style={{ marginBottom: "10px" }}
+    // onClick={() => handleNavigate(phaseFromQuery || "", item.label)}
+  >
+    {item.label}
+  </Button>
+))}
           </div>
         ) : (
           <Text mt="md" c="dimmed">
