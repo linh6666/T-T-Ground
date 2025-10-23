@@ -219,10 +219,10 @@ import {
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { loginUser } from "../../api/apiLogin"; // ✅ API login
+import { loginUser } from "../../api/apiLogin";
 import ForgotPasswordModal from "./ForgotPasswordModal/index";
 import { NotificationExtension } from "../../extension/NotificationExtension";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "./login.module.css";
 
 interface Register {
@@ -231,6 +231,7 @@ interface Register {
 }
 
 const Login = () => {
+  // ✅ Khai báo toàn bộ hooks trước
   const form = useForm<Register>({
     initialValues: {
       username: "",
@@ -247,61 +248,72 @@ const Login = () => {
   });
 
   const [opened, setOpened] = useState(false);
-  const [loading, setLoading] = useState(false); // ✅ trạng thái loading
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-useEffect(() => {
-  if (error) {
-    console.log("❌ Current error state:", error);
-  }
-}, [error]);
-  // floating labels
   const [clickPassword, setClickPassword] = useState(false);
-  const floatingPassword =
-    clickPassword || form.values.password.length > 0 || undefined;
   const [clickRePassword, setClickRePassword] = useState(false);
-  const floatingEmail =
-    clickRePassword || form.values.username.length > 0 || undefined;
+
+  // ✅ useEffect kiểm tra token, tránh vi phạm quy tắc hook
   useEffect(() => {
-    const token = localStorage.getItem("access_token");
-    if (token) {
-      window.location.href = "/";
+    if (typeof window !== "undefined") {
+      const token = localStorage.getItem("access_token");
+      if (token) {
+        window.location.href = "/";
+      }
     }
   }, []);
-  // ✅ Hàm xử lý submit
- const handleSubmit = async (values: Register) => {
-  setLoading(true);
-  setError(null);
-  try {
-    const data = await loginUser(values.username, values.password);
-    console.log("Login success:", data);
 
-    // ✅ Thông báo thành công
-    NotificationExtension.Success("Đăng nhập thành công!");
-
-    // Ví dụ: điều hướng sang trang admin sau khi login thành công
-    window.location.href = "/";
-  } catch (err: unknown) {
-    console.error("Login error:", err);
-
-    if (err instanceof Error) {
-      setError(err.message);
-      NotificationExtension.Fails(err.message || "Đăng nhập thất bại");
-    } else {
-      setError("Đăng nhập thất bại");
-      NotificationExtension.Fails("Đăng nhập thất bại");
+  // ✅ Theo dõi lỗi
+  useEffect(() => {
+    if (error) {
+      console.log("❌ Current error state:", error);
     }
-  } finally {
-    setLoading(false);
-  }
-};
+  }, [error]);
 
+  // Floating labels logic
+  const floatingPassword =
+    clickPassword || form.values.password.length > 0 || undefined;
+  const floatingEmail =
+    clickRePassword || form.values.username.length > 0 || undefined;
+
+  // ✅ Xử lý submit form
+  const handleSubmit = async (values: Register) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const data = await loginUser(values.username, values.password);
+      console.log("Login success:", data);
+
+      if (!data.access_token) {
+        throw new Error("Không nhận được token hợp lệ");
+      }
+
+      NotificationExtension.Success("Đăng nhập thành công!");
+      window.location.href = "/";
+    } catch (err: unknown) {
+      console.error("Login error:", err);
+
+      if (err instanceof Error) {
+        setError(err.message);
+        NotificationExtension.Fails(err.message || "Đăng nhập thất bại");
+      } else {
+        setError("Đăng nhập thất bại");
+        NotificationExtension.Fails("Đăng nhập thất bại");
+      }
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // ✅ Giao diện chính
   return (
     <>
       <ForgotPasswordModal opened={opened} onClose={() => setOpened(false)} />
       <Box
         className={style.registerPage}
         component="form"
-        onSubmit={form.onSubmit(handleSubmit)} // ✅ call API
+        onSubmit={form.onSubmit(handleSubmit)}
       >
         <Box className={style.container}>
           {/* Header */}
@@ -364,12 +376,16 @@ useEffect(() => {
             </Anchor>
           </Group>
 
-          {/* Hiển thị lỗi */}
-       
+          {error && (
+            <Text c="red" size="sm" ta="center" mb="sm">
+              {error}
+            </Text>
+          )}
+
           <Button
             className={style.btn}
             type="submit"
-            loading={loading} // ✅ nút loading khi call API
+            loading={loading}
             fullWidth
           >
             Đăng nhập
