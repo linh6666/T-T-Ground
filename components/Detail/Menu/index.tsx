@@ -35,51 +35,56 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
   const [loading, setLoading] = useState(false);
 
   // 🛰️ Gọi API lấy danh sách building_type/subzone
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!project_id || !phaseFromQuery) return;
+// 🛰️ Gọi API lấy danh sách building_type/subzone
+useEffect(() => {
+  const fetchData = async () => {
+    if (!project_id || !phaseFromQuery) return;
 
-      setLoading(true);
-      try {
-        const data = await createNodeAttribute({
-          project_id,
-          filters: [
-            { label: "group", values: ["ct"] },
-            { label: "phase_vi", values: [phaseFromQuery] },
-          ],
+    setLoading(true);
+    try {
+      const data = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ct"] },
+          { label: "phase_vi", values: [phaseFromQuery] },
+        ],
+      });
+
+      if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+        const uniqueMap = new Map<string, MenuItem>();
+
+        data.data.forEach((item: NodeAttributeItem) => {
+          const subzone: string = item.subzone_vi || "";
+
+          // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
+          if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
+            uniqueMap.set(subzone, {
+              label: subzone,       // hiển thị trên nút
+              phase_vi: phaseFromQuery,
+              subzone_vi: subzone,  // truyền query param
+            });
+          }
         });
 
-        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-          const uniqueMap = new Map<string, MenuItem>();
+        // Sort the items alphabetically by label
+        const finalItems = Array.from(uniqueMap.values()).sort((a, b) => {
+          return a.label.localeCompare(b.label);
+        });
 
-          data.data.forEach((item: NodeAttributeItem) => {
-            const subzone: string = item.subzone_vi || "";
-
-            // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
-            if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
-              uniqueMap.set(subzone, {
-                label: subzone,       // hiển thị trên nút
-                phase_vi: phaseFromQuery,
-                subzone_vi: subzone,  // truyền query param
-              });
-            }
-          });
-
-          const finalItems = Array.from(uniqueMap.values());
-          setMenuItems(finalItems);
-        } else {
-          setMenuItems([]);
-        }
-      } catch (error) {
-        console.error("❌ Lỗi khi gọi API:", error);
+        setMenuItems(finalItems);
+      } else {
         setMenuItems([]);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API:", error);
+      setMenuItems([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [project_id, phaseFromQuery]);
+  fetchData();
+}, [project_id, phaseFromQuery]);
 
   // ✅ Click navigate
   const handleNavigate = (phase: string, subzone: string) => {

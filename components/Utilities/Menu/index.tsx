@@ -49,17 +49,14 @@ export default function Menu({ project_id }: MenuProps) {
 
           const uniqueZones = Array.from(new Set(allZones));
 
-          const sortedZones = uniqueZones.sort((a, b) => {
-            const numA = a.match(/\d+/)?.[0];
-            const numB = b.match(/\d+/)?.[0];
-            if (numA && numB) return Number(numA) - Number(numB);
-            return a.localeCompare(b, "vi", { sensitivity: "base" });
-          });
+          // --- Sắp xếp fix cứng ---
+          const fixedOrder = ["Trung tâm thương mại", "Trường học", "Giao thông","Thể dục thể thao","Hạ tầng kỹ thuật","Đài phun nước"];
+          const sortedZones = fixedOrder.filter(z => uniqueZones.includes(z));
+          const remainingZones = uniqueZones.filter(z => !fixedOrder.includes(z));
+          const finalZones = [...sortedZones, ...remainingZones];
 
-          const items: MenuItem[] = sortedZones.map((zone) => ({ label: zone }));
+          const items: MenuItem[] = finalZones.map((zone) => ({ label: zone }));
           setMenuItems(items);
-        } else {
-          console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
         }
       } catch (error) {
         console.error("❌ Lỗi khi gọi API:", error);
@@ -71,10 +68,11 @@ export default function Menu({ project_id }: MenuProps) {
     fetchData();
   }, [project_id]);
 
-  // Điều hướng với building_type_vi
   const handleNavigate = (building_type_vi: string) => {
     if (!project_id) return;
-    router.push(`/chi-tiet-tien-ich?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}`);
+    router.push(
+      `/chi-tiet-tien-ich?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}`
+    );
   };
 
   const handleBack = () => {
@@ -105,7 +103,7 @@ export default function Menu({ project_id }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label)} // truyền building_type_vi
+                onClick={() => handleNavigate(item.label)}
                 variant="outline"
               >
                 {item.label}
@@ -133,7 +131,6 @@ export default function Menu({ project_id }: MenuProps) {
               alignItems: "center",
               justifyContent: "center",
               overflow: "hidden",
-              transition: "background 0.3s",
               background: "#FFFAEE",
               color: "#752E0B",
               border: "1.5px solid #752E0B",

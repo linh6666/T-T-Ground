@@ -16,7 +16,7 @@ interface MenuItem {
 }
 
 interface NodeAttributeItem {
-  building_type_vi?: string;
+  model_building_vi?: string;
   [key: string]: unknown;
 }
 
@@ -39,6 +39,7 @@ export default function Menu({ project_id }: MenuProps) {
         const data = await createNodeAttribute(body);
 
         if (data?.data && Array.isArray(data.data)) {
+          // Lấy tất cả item từ API
           const allZones: string[] = data.data
             .flatMap((item: NodeAttributeItem) =>
               String(item.model_building_vi || "")
@@ -47,19 +48,22 @@ export default function Menu({ project_id }: MenuProps) {
                 .filter(Boolean)
             );
 
+          // Loại bỏ trùng lặp
           const uniqueZones = Array.from(new Set(allZones));
 
-          const sortedZones = uniqueZones.sort((a, b) => {
-            const numA = a.match(/\d+/)?.[0];
-            const numB = b.match(/\d+/)?.[0];
-            if (numA && numB) return Number(numA) - Number(numB);
-            return a.localeCompare(b, "vi", { sensitivity: "base" });
-          });
+          // --- Ẩn các item không muốn hiển thị ---
+          const hiddenItems = ["Shophouse 01"];
+          const filteredZones = uniqueZones.filter(z => !hiddenItems.includes(z));
 
-          const items: MenuItem[] = sortedZones.map((zone) => ({ label: zone }));
+          // --- Sắp xếp fix cứng ---
+          const fixedOrder = ["Thương mại", "Trường học", "Giao thông"];
+          const sortedZones = fixedOrder.filter(z => filteredZones.includes(z));
+          const remainingZones = filteredZones.filter(z => !fixedOrder.includes(z));
+          const finalZones = [...sortedZones, ...remainingZones];
+
+          // Chuyển thành menu items
+          const items: MenuItem[] = finalZones.map((zone) => ({ label: zone }));
           setMenuItems(items);
-        } else {
-          console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
         }
       } catch (error) {
         console.error("❌ Lỗi khi gọi API:", error);
@@ -71,10 +75,11 @@ export default function Menu({ project_id }: MenuProps) {
     fetchData();
   }, [project_id]);
 
-  // Điều hướng với building_type_v
   const handleNavigate = (model_building_vi: string) => {
     if (!project_id) return;
-    router.push(`/chi-tiet-tien-ich-1?id=${project_id}&model_building_vi=${encodeURIComponent(model_building_vi)}`);
+    router.push(
+      `/chi-tiet-tien-ich-1?id=${project_id}&model_building_vi=${encodeURIComponent(model_building_vi)}`
+    );
   };
 
   const handleBack = () => {
@@ -105,7 +110,7 @@ export default function Menu({ project_id }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label)} // truyền building_type_vi
+                onClick={() => handleNavigate(item.label)}
                 variant="outline"
               >
                 {item.label}
@@ -133,7 +138,6 @@ export default function Menu({ project_id }: MenuProps) {
               alignItems: "center",
               justifyContent: "center",
               overflow: "hidden",
-              transition: "background 0.3s",
               background: "#FFFAEE",
               color: "#752E0B",
               border: "1.5px solid #752E0B",
