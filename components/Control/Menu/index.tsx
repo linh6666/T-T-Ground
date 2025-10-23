@@ -18,7 +18,7 @@ export default function Menu({ project_id }: MenuProps) {
   // 🧠 Tạo sẵn link kèm project_id (nếu có)
   const menuItems = [
    
-      { label: "GIỚI THIỆU DỰ ÁN", link: "/gioi-thieu" },
+      { label: "GIỚI THIỆU DỰ ÁN", link: `/gioi-thieu-du-an${project_id ? `?id=${project_id}` : ""}` },
     { label: "HỆ THỐNG PHÂN KHU", link: `/Phan-khu${project_id ? `?id=${project_id}` : ""}` },
      { label: "HỆ THỐNG TIỆN ÍCH", link: `/tien-ich${project_id ? `?id=${project_id}` : ""}` } ,
     { label: "HIỆU ỨNG ÁNH SÁNG", link: "/hieu-ung-anh-sang" },
