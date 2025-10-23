@@ -36,9 +36,9 @@ export default function RootLayout({
               }}
             >
               <Header />
-             <main style={{ flex: 1, marginTop: "50px", padding: "40px 0" }}>
-                <AppContainer>{children}</AppContainer>
-              </main>
+            <main style={{ flex: 1, marginTop: "3%", padding: "1% 0" }}>
+  <AppContainer>{children}</AppContainer>
+</main>
               <Footer />
             </div>
           </ModalsProvider>
