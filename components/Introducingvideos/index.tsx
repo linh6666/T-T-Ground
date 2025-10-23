@@ -2,6 +2,7 @@
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Button, Container } from '@mantine/core';
 import { IconArrowLeft } from '@tabler/icons-react';
+import styles from './VideoPage.module.css'; // Import CSS module
 
 export default function VideoPage() {
   const router = useRouter();
@@ -14,41 +15,19 @@ export default function VideoPage() {
   };
 
   return (
-    <Container style={{ textAlign: "center", padding: "20px 0" }}>
-      <div style={{ position: 'relative', paddingBottom: '56.25%', height: 0, marginBottom: 20 }}>
-        <iframe
-          src="/video/MILLENNIA_new 16x9_0819.mp4" // hoặc link YouTube/Vimeo
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            border: 'none',
-            borderRadius: 10,
-          }}
-          allow="autoplay; fullscreen"
-          allowFullScreen
-        ></iframe>
-      </div>
-
+    <Container className={styles.videoContainer}>
+     <iframe
+  className={styles.videoIframe}
+  src="https://www.youtube.com/embed/KwxqLtMP4jk?autoplay=1&mute=1"
+  title="Video giới thiệu"
+  frameBorder="0"
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+  allowFullScreen
+></iframe>
       <Button
+        className={styles.backButton}
         onClick={handleBack}
         variant="filled"
-        style={{
-          width: 40,
-          height: 40,
-          padding: 0,
-          borderRadius: 40,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          overflow: "hidden",
-          transition: "background 0.3s",
-          background: "#FFFAEE",
-          color: "#752E0B",
-          border: "1.5px solid #752E0B",
-        }}
       >
         <IconArrowLeft size={18} color="#752E0B" />
       </Button>
