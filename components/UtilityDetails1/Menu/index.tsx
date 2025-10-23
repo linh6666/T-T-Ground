@@ -7,19 +7,16 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
-// Props nhận vào
 interface MenuProps {
   project_id: string | null;
   initialBuildingType?: string | null;
 }
 
-// Kiểu menu item
 interface MenuItem {
-  label: string;       // hiển thị trên nút
-  subzone_vi: string;  // dùng để truyền query
+  label: string;
+  subzone_vi: string;
 }
 
-// Kiểu dữ liệu trả về từ API
 interface NodeAttributeItem {
   building_code?: string;
   group?: string;
@@ -34,7 +31,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 🛰️ Gọi API lấy danh sách building_type/subzone
+  // 🛰️ Gọi API lấy danh sách
   useEffect(() => {
     const fetchData = async () => {
       if (!project_id || !phaseFromQuery) return;
@@ -52,22 +49,21 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
           const uniqueMap = new Map<string, MenuItem>();
 
-        data.data.forEach((item: NodeAttributeItem) => {
-  const subzone: string = item.building_code || "";
+          data.data.forEach((item: NodeAttributeItem) => {
+            const subzone: string = item.building_code || "";
+            if (
+              subzone.trim() &&
+              !subzone.includes(";") &&
+              !subzone.includes("Cảnh quan") &&
+              !uniqueMap.has(subzone)
+            ) {
+              uniqueMap.set(subzone, {
+                label: subzone,
+                subzone_vi: subzone,
+              });
+            }
+          });
 
-  // ⚡ Nếu rỗng, chứa ';', chứa "Cảnh quan", hoặc đã có thì bỏ qua
-  if (
-    subzone.trim() &&
-    !subzone.includes(";") &&
-    !subzone.includes("Cảnh quan") &&  // 🔹 Loại bỏ "Cảnh quan"
-    !uniqueMap.has(subzone)
-  ) {
-    uniqueMap.set(subzone, {
-      label: subzone,
-      subzone_vi: subzone,
-    });
-  }
-});
           const finalItems = Array.from(uniqueMap.values());
           setMenuItems(finalItems);
         } else {
@@ -84,16 +80,41 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     fetchData();
   }, [project_id, phaseFromQuery]);
 
+  // ✅ Hàm gọi lại API khi click nút (call tĩnh)
+  const handleMenuClick = async (subzoneLabel: string) => {
+    if (!project_id || !phaseFromQuery) return;
+
+    try {
+      console.log("🧩 Gọi lại API với:", {
+        project_id,
+        model_building_vi: phaseFromQuery,
+        building_code: subzoneLabel,
+      });
+
+      const data = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ti"] },
+          { label: "model_building_vi", values: [phaseFromQuery] },
+          { label: "building_code", values: [subzoneLabel] },
+        ],
+      });
+
+      console.log("✅ API trả về:", data);
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi lại API:", error);
+    }
+  };
+
   // 🔙 Nút quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/tien-ich-1?id=${project_id}`);
   };
 
-  // 🎨 Render giao diện
+  // 🎨 Giao diện
   return (
     <div className={styles.box}>
-      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/TTHOMES logo-01.png"
@@ -102,12 +123,10 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         />
       </div>
 
-      {/* Title */}
       <div className={styles.title}>
         <h1>LOẠI TIỆN ÍCH</h1>
       </div>
 
-      {/* Menu Buttons */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -120,6 +139,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
                 variant="filled"
                 color="orange"
                 style={{ marginBottom: "10px" }}
+                onClick={() => handleMenuClick(item.label)} // ✅ Thêm click call API
               >
                 {item.label}
               </Button>
@@ -132,7 +152,6 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         )}
       </div>
 
-      {/* Footer Back Button */}
       <div className={styles.footer}>
         <Group gap="xs">
           <Button
