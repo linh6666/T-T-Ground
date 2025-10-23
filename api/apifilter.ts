@@ -14,7 +14,14 @@ interface CreateNodeAttributeBody {
 // 🧩 Hàm call API POST
 export const createNodeAttribute = async (body: CreateNodeAttributeBody) => {
   try {
-    const response = await api.post(API_ROUTE.CREATE_NODEATTRIBUTE, body);
+   const response = await api.post(API_ROUTE.CREATE_NODEATTRIBUTE, body, {
+  params: {
+    type_control: "eff",
+    value: 1,
+    rs: 0,
+  },
+});
+
     console.log("✅ API response:", response.data);
     return response.data;
   } catch (error: any) {
