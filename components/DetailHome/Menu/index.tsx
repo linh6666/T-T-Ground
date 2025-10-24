@@ -147,7 +147,7 @@ const handleMenuClick = async (modelLabel: string) => {
 
       {/* Title */}
       <div className={styles.title}>
-        <h1>CHI TIẾT KHU</h1>
+        <h1>MẪU CÔNG TRÌNH</h1>
       </div>
 
       {/* Menu Buttons */}

@@ -2,76 +2,67 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
-import { Button, Group, Image, Loader, Text } from "@mantine/core";
+import { Button, Group, Image, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
-// ⚙️ Props
 interface MenuProps {
   project_id: string | null;
   initialPhase?: string | null;
-  initialSuzone?: string | null;
+  initialBuildingType?: string | null;
 }
 
-// ⚙️ Kiểu item hiển thị
 interface MenuItem {
-  building_type_vi: string;
+  model_building_vi: string;
   phase_vi: string;
-  subzone_vi: string;  
 }
 
-// ⚙️ Kiểu dữ liệu API trả về
 interface NodeAttributeItem {
-  building_type_vi?: string;
+  model_building_vi?: string;
   [key: string]: unknown;
 }
 
 export default function Menu({
   project_id,
   initialPhase,
-  initialSuzone,
+  initialBuildingType,
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // 🔎 Lấy từ URL hoặc prop truyền xuống
   const phaseFromQuery = searchParams.get("phase") || initialPhase;
-  const SubzoneTypeFromQuery = searchParams.get("subzone_vi") || initialSuzone;
+  const buildingTypeFromQuery =
+    searchParams.get("building_type_vi") || initialBuildingType;
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [loading, setLoading] = useState(false);
 
-  // 🛰️ Fetch dữ liệu từ API
+  // 🛰️ Lấy danh sách mẫu nhà ban đầu
   useEffect(() => {
     const fetchData = async () => {
-      if (!project_id || !phaseFromQuery || !SubzoneTypeFromQuery) return;
+      if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
 
-      setLoading(true);
       try {
         const data = await createNodeAttribute({
           project_id,
           filters: [
             { label: "group", values: ["ct", "phase_vi"] },
             { label: "phase_vi", values: [phaseFromQuery] },
-            { label: "subzone_vi", values: [SubzoneTypeFromQuery] },
+            { label: "building_type_vi", values: [buildingTypeFromQuery] },
           ],
         });
 
         if (data?.data && Array.isArray(data.data)) {
           const uniqueMap = new Map<string, MenuItem>();
-
           data.data.forEach((item: NodeAttributeItem) => {
-            const typeLabel = item.building_type_vi;
-            if (typeLabel && !uniqueMap.has(typeLabel)) {
-              uniqueMap.set(typeLabel, {
-                building_type_vi: typeLabel,
+            const modelLabel = item.model_building_vi as string;
+            if (modelLabel && !uniqueMap.has(modelLabel)) {
+              uniqueMap.set(modelLabel, {
+                model_building_vi: modelLabel,
                 phase_vi: phaseFromQuery!,
-                subzone_vi: SubzoneTypeFromQuery, // ✅ lưu subzone
               });
             }
           });
-
           setMenuItems(Array.from(uniqueMap.values()));
         } else {
           setMenuItems([]);
@@ -79,34 +70,37 @@ export default function Menu({
       } catch (error) {
         console.error("❌ Lỗi khi gọi API:", error);
         setMenuItems([]);
-      } finally {
-        setLoading(false);
       }
     };
 
     fetchData();
-  }, [project_id, phaseFromQuery, SubzoneTypeFromQuery]);
+  }, [project_id, phaseFromQuery, buildingTypeFromQuery]);
 
-  // 🧭 Xử lý điều hướng khi click nút loại nhà
-  const handleNavigate = (
-    phase: string,
-    subzone: string,
-    buildingType: string
-  ) => {
-    if (!project_id) return;
-    router.push(
-      `/chi-tiet-nha?id=${project_id}&phase=${encodeURIComponent(
-        phase
-      )}&subzone_vi=${encodeURIComponent(subzone)}&building_type_vi=${encodeURIComponent(
-        buildingType
-      )}`
-    );
+  // 🧭 Khi click vào model cụ thể → gọi lại API theo model_building_vi
+  const handleSelectModel = async (modelName: string) => {
+    if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
+
+    try {
+      const result = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ct", "phase_vi"] },
+          { label: "phase_vi", values: [phaseFromQuery] },
+          { label: "building_type_vi", values: [buildingTypeFromQuery] },
+          { label: "model_building_vi", values: [modelName] },
+        ],
+      });
+
+      console.log("📦 Dữ liệu model cụ thể:", result);
+      // router.push(`/chi-tiet-nha?id=${project_id}&model=${encodeURIComponent(modelName)}`);
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi lại API model:", error);
+    }
   };
 
   // 🔙 Nút quay lại
   const handleBack = () => {
     if (!project_id || !phaseFromQuery) return;
-
     router.push(
       `/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phaseFromQuery)}`
     );
@@ -125,31 +119,23 @@ export default function Menu({
 
       {/* Title */}
       <div className={styles.title}>
-        <h1> KHU</h1>
+        <h1>MẪU CÔNG TRÌNH</h1>
       </div>
 
       {/* Menu Buttons */}
       <div className={styles.Function}>
-        {loading ? (
-          <Loader color="orange" />
-        ) : menuItems.length > 0 ? (
+        {menuItems.length > 0 ? (
           <div className={styles.scroll} style={{ marginTop: "5px" }}>
             {menuItems.map((item, index) => (
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() =>
-                  handleNavigate(
-                    item.phase_vi,
-                    item.subzone_vi,
-                    item.building_type_vi
-                  )
-                }
+                onClick={() => handleSelectModel(item.model_building_vi)}
                 variant="filled"
                 color="orange"
                 style={{ marginBottom: "10px" }}
               >
-                {item.building_type_vi}
+                {item.model_building_vi}
               </Button>
             ))}
           </div>
@@ -188,3 +174,4 @@ export default function Menu({
     </div>
   );
 }
+

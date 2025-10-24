@@ -7,22 +7,19 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
-// Props nhận vào
 interface MenuProps {
   project_id: string | null;
   initialPhase?: string | null;
 }
 
-// Kiểu menu item
 interface MenuItem {
-  label: string;       // hiển thị trên nút
-  phase_vi: string;    // dùng để navigate
-  subzone_vi: string;  // dùng để truyền query
+  label: string;
+  phase_vi: string;
+  building_type_vi: string;
 }
 
-// Kiểu dữ liệu trả về từ API
 interface NodeAttributeItem {
-  subzone_vi?: string;
+  building_type_vi?: string;
   [key: string]: unknown;
 }
 
@@ -34,73 +31,91 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 🛰️ Gọi API lấy danh sách building_type/subzone
-// 🛰️ Gọi API lấy danh sách building_type/subzone
-useEffect(() => {
-  const fetchData = async () => {
-    if (!project_id || !phaseFromQuery) return;
+  // 🛰️ Gọi API
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!project_id || !phaseFromQuery) return;
 
-    setLoading(true);
-    try {
-      const data = await createNodeAttribute({
-        project_id,
-        filters: [
-          { label: "group", values: ["ct"] },
-          { label: "phase_vi", values: [phaseFromQuery] },
-        ],
-      });
-
-      if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-        const uniqueMap = new Map<string, MenuItem>();
-
-        data.data.forEach((item: NodeAttributeItem) => {
-          const subzone: string = item.subzone_vi || "";
-
-          // ⚡ Nếu rỗng hoặc chứa ';' thì bỏ qua
-          if (subzone.trim() && !subzone.includes(";") && !uniqueMap.has(subzone)) {
-            uniqueMap.set(subzone, {
-              label: subzone,       // hiển thị trên nút
-              phase_vi: phaseFromQuery,
-              subzone_vi: subzone,  // truyền query param
-            });
-          }
+      setLoading(true);
+      try {
+        const data = await createNodeAttribute({
+          project_id,
+          filters: [
+            { label: "group", values: ["ct"] },
+            { label: "phase_vi", values: [phaseFromQuery] },
+          ],
         });
 
-        // Sort the items alphabetically by label
-        const finalItems = Array.from(uniqueMap.values()).sort((a, b) => {
-          return a.label.localeCompare(b.label);
-        });
+        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+          const uniqueMap = new Map<string, MenuItem>();
 
-        setMenuItems(finalItems);
-      } else {
+          data.data.forEach((item: NodeAttributeItem) => {
+            const buildingType = item.building_type_vi || "";
+
+            if (buildingType.trim() && !buildingType.includes(";") && !uniqueMap.has(buildingType)) {
+              uniqueMap.set(buildingType, {
+                label: buildingType,
+                phase_vi: phaseFromQuery,
+                building_type_vi: buildingType,
+              });
+            }
+          });
+
+          const finalItems = Array.from(uniqueMap.values());
+
+          // 🔥 Sắp xếp ưu tiên 3 loại công trình cố định trước
+          const priorityOrder = ["Trung tâm thương mại", "Trường học", "Giao thông","Thể dục thể thao","Đài phun nước","Cảnh quan","Sông"];
+
+          finalItems.sort((a, b) => {
+            const indexA = priorityOrder.indexOf(a.label);
+            const indexB = priorityOrder.indexOf(b.label);
+
+            if (indexA !== -1 && indexB !== -1) {
+              // Cả hai đều trong danh sách ưu tiên → theo thứ tự trong mảng
+              return indexA - indexB;
+            } else if (indexA !== -1) {
+              // a là loại ưu tiên → lên đầu
+              return -1;
+            } else if (indexB !== -1) {
+              // b là loại ưu tiên → lên đầu
+              return 1;
+            } else {
+              // Cả hai không trong danh sách → sắp xếp alphabet
+              return a.label.localeCompare(b.label);
+            }
+          });
+
+          setMenuItems(finalItems);
+        } else {
+          setMenuItems([]);
+        }
+      } catch (error) {
+        console.error("❌ Lỗi khi gọi API:", error);
         setMenuItems([]);
+      } finally {
+        setLoading(false);
       }
-    } catch (error) {
-      console.error("❌ Lỗi khi gọi API:", error);
-      setMenuItems([]);
-    } finally {
-      setLoading(false);
-    }
-  };
+    };
 
-  fetchData();
-}, [project_id, phaseFromQuery]);
+    fetchData();
+  }, [project_id, phaseFromQuery]);
 
   // ✅ Click navigate
-  const handleNavigate = (phase: string, subzone: string) => {
+  const handleNavigate = (phase: string, buildingType: string) => {
     if (!project_id) return;
     router.push(
-      `/chi-tiet-khu?id=${project_id}&phase=${encodeURIComponent(phase)}&subzone_vi=${encodeURIComponent(subzone)}`
+      `/chi-tiet-khu?id=${project_id}&phase=${encodeURIComponent(
+        phase
+      )}&building_type_vi=${encodeURIComponent(buildingType)}`
     );
   };
 
-  // ⬅️ Nút quay lại
+  // ⬅️ Quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/Phan-khu?id=${project_id}`);
   };
 
-  // 🎨 Render giao diện
   return (
     <div className={styles.box}>
       {/* Logo */}
@@ -114,7 +129,7 @@ useEffect(() => {
 
       {/* Title */}
       <div className={styles.title}>
-        <h1>LOẠI KHU</h1>
+        <h1>LOẠI CÔNG TRÌNH</h1>
       </div>
 
       {/* Menu Buttons */}
@@ -127,7 +142,7 @@ useEffect(() => {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.phase_vi, item.subzone_vi)}
+                onClick={() => handleNavigate(item.phase_vi, item.building_type_vi)}
                 variant="filled"
                 color="orange"
                 style={{ marginBottom: "10px" }}
