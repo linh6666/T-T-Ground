@@ -12,7 +12,7 @@ interface MenuProps {
   project_id: string | null;
   initialSubzone?: string | null;
   initialBuildingTypeVi?: string | null;
-  initialModelBuildingVi?: string | null; // ✅ thêm prop này
+  initialModelBuildingVi?: string | null; 
 }
 
 // 🧱 Kiểu menu item
@@ -27,6 +27,7 @@ interface MenuItem {
 interface NodeAttributeItem {
   building_type_vi?: string;
   model_building_vi?: string;
+  building_code?: string;
   [key: string]: unknown;
 }
 
@@ -49,7 +50,7 @@ export default function Menu({
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 🛰️ Gọi API
+  // 🛰️ Gọi API ban đầu
   useEffect(() => {
     const fetchData = async () => {
       if (!project_id || !subzoneFromQuery) return;
@@ -62,29 +63,23 @@ export default function Menu({
             { label: "group", values: ["ct"] },
             { label: "subzone_vi", values: [subzoneFromQuery] },
             { label: "building_type_vi", values: [buildingTypeViFromQuery] },
-            { label: "model_building_vi", values: [modelBuildingViFromQuery] }, // ✅ luôn truyền thẳng
+            { label: "model_building_vi", values: [modelBuildingViFromQuery] },
           ],
         });
 
-        console.log("📦 Dữ liệu trả về:", data);
-
         if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
           const uniqueMap = new Map<string, MenuItem>();
-
-      data.data.forEach((item: NodeAttributeItem) => {
-  const type_vi = item.building_code as string || "";
-
-  // 🔹 Bỏ những item có "Cảnh quan"
-  if (type_vi.trim() && !uniqueMap.has(type_vi) && !type_vi.includes("Cảnh quan")) {
-    uniqueMap.set(type_vi, {
-      label: type_vi,
-      subzone_vi: subzoneFromQuery,
-      building_type_vi: buildingTypeViFromQuery,
-      model_building_vi: type_vi
-    });
-  }
-});
-
+          data.data.forEach((item: NodeAttributeItem) => {
+            const type_vi = item.building_code as string || "";
+            if (type_vi.trim() && !uniqueMap.has(type_vi) && !type_vi.includes("Cảnh quan")) {
+              uniqueMap.set(type_vi, {
+                label: type_vi,
+                subzone_vi: subzoneFromQuery,
+                building_type_vi: buildingTypeViFromQuery,
+                model_building_vi: type_vi,
+              });
+            }
+          });
           setMenuItems(Array.from(uniqueMap.values()));
         } else {
           setMenuItems([]);
@@ -101,12 +96,36 @@ export default function Menu({
   }, [project_id, subzoneFromQuery, buildingTypeViFromQuery, modelBuildingViFromQuery]);
 
   // ✅ Click navigate
+  const handleBack = () => {
+    if (!project_id) return;
+    router.push(
+      `/chi-tiet-tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(
+        subzoneFromQuery
+      )}&building_type_vi=${encodeURIComponent(buildingTypeViFromQuery)}`
+    );
+  };
 
+  // 🔹 Click vào nút menu để call API theo chính nút đó
+ const handleItemClick = async (modelBuildingVi: string) => {
+  if (!project_id || !subzoneFromQuery || !buildingTypeViFromQuery) return;
 
-  // ⬅️ Nút quay lại
-const handleBack = () => {
-  if (!project_id) return;
-  router.push(`/chi-tiet-tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(subzoneFromQuery)}&building_type_vi=${encodeURIComponent(buildingTypeViFromQuery)}`);
+  try {
+    // Gọi API mà không cập nhật menu items, không cần loading
+    await createNodeAttribute({
+      project_id,
+      filters: [
+        { label: "group", values: ["ct"] },
+        { label: "subzone_vi", values: [subzoneFromQuery] },
+        { label: "building_type_vi", values: [buildingTypeViFromQuery] },
+        { label: "model_building_vi", values: [modelBuildingViFromQuery] },
+        { label: "building_code", values: [modelBuildingVi] },
+      ],
+    });
+
+    // Thêm logic xử lý phản hồi từ API nếu cần
+  } catch (error) {
+    console.error("❌ Lỗi khi click nút:", error);
+  }
 };
 
   // 🎨 Giao diện
@@ -133,10 +152,10 @@ const handleBack = () => {
               <Button
                 key={index}
                 className={styles.menuBtn}
-              
                 variant="filled"
                 color="orange"
                 style={{ marginBottom: "10px" }}
+                onClick={() => handleItemClick(item.model_building_vi)} // 🔹 click nút
               >
                 {item.label}
               </Button>
@@ -176,4 +195,3 @@ const handleBack = () => {
     </div>
   );
 }
-
