@@ -25,11 +25,11 @@ export default function Menu({ project_id }: MenuProps) {
   // 🧩 Khởi tạo danh sách menu (cứng 5 nút)
   useEffect(() => {
     setMenuItems([
-      { id: 1, label: "Hiệu Ứng 1" },
-      { id: 2, label: "Hiệu Ứng 2" },
-      { id: 3, label: "Hiệu Ứng 3" },
-      { id: 4, label: "Hiệu Ứng 4" },
-      { id: 5, label: "Hiệu Ứng 5" },
+      { id: 1, label: "Hiệu ứng ánh sáng 1" },
+      { id: 2, label: "Hiệu ứng ánh sáng 2" },
+      { id: 3, label: "Hiệu ứng ánh sáng 3" },
+      { id: 4, label: "Hiệu ứng ánh sáng 4" },
+      { id: 5, label: "Hiệu ứng ánh sáng 5" },
     ]);
   }, []);
 
