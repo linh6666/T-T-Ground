@@ -18,12 +18,12 @@ export default function Menu({ project_id }: MenuProps) {
   // 🧠 Tạo sẵn link kèm project_id (nếu có)
   const menuItems = [
    
-      { label: "GIỚI THIỆU DỰ ÁN", link: "/gioi-thieu" },
+      { label: "GIỚI THIỆU DỰ ÁN", link: "" },
     { label: "HỆ THỐNG PHÂN KHU", link: `/khu-vuc${project_id ? `?id=${project_id}` : ""}` },
      { label: "HỆ THỐNG TIỆN ÍCH", link: `/tien-ich-1${project_id ? `?id=${project_id}` : ""}` } ,
     { label: "HIỆU ỨNG ÁNH SÁNG", link: `/hieu-ung-anh-sang-1${project_id ? `?id=${project_id}` : ""}` },
-    { label: "THƯ VIỆN", link: "/thu-vien" },
-    { label: "MÔ HÌNH", link: "/mo-hinh" },
+    { label: "THƯ VIỆN", link: "" },
+    { label: "MÔ HÌNH", link: "" },
   
   ];
 

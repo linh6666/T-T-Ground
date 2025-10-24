@@ -2,10 +2,10 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
-import { Button, Group, Image, Stack, Loader, Text } from "@mantine/core";
+import { Button, Group, Image, Stack, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { createNodeAttribute } from "../../../api/apiLighting"; // ✅ Gọi đúng file API bạn gửi
+import { createNodeAttribute } from "../../../api/apiLighting"; // ✅ Gọi đúng file API
 
 // 🧩 Kiểu prop nhận vào
 interface MenuProps {
@@ -21,22 +21,16 @@ interface MenuItem {
 export default function Menu({ project_id }: MenuProps) {
   const router = useRouter();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [buttonLoading, setButtonLoading] = useState<number | null>(null); // ⚙️ loading cho từng nút
 
-  // 🧩 Khởi tạo danh sách menu
+  // 🧩 Khởi tạo danh sách menu (cứng 5 nút)
   useEffect(() => {
-    setLoading(true);
-    setTimeout(() => {
-      setMenuItems([
-        { id: 1, label: "Hiệu Ứng 1" },
-        { id: 2, label: "Hiệu Ứng 2" },
-        { id: 3, label: "Hiệu Ứng 3" },
-        { id: 4, label: "Hiệu Ứng 4" },
-        { id: 5, label: "Hiệu Ứng 5" },
-      ]);
-      setLoading(false);
-    }, 1000);
+    setMenuItems([
+      { id: 1, label: "Hiệu Ứng 1" },
+      { id: 2, label: "Hiệu Ứng 2" },
+      { id: 3, label: "Hiệu Ứng 3" },
+      { id: 4, label: "Hiệu Ứng 4" },
+      { id: 5, label: "Hiệu Ứng 5" },
+    ]);
   }, []);
 
   // 🧭 Quay lại trang điều khiển
@@ -53,25 +47,17 @@ export default function Menu({ project_id }: MenuProps) {
     }
 
     try {
-      setButtonLoading(id); // bật loading riêng nút được nhấn
-
-      const body = {
-        project_id, // Chỉ giữ lại project_id
-      };
-
-      // Gọi API với params, bao gồm id
+      const body = { project_id };
       const response = await createNodeAttribute(body, {
         type_control: "eff",
         value: 1,
         rs: 0,
-        id: id, // Truyền id vào params
+        id: id,
       });
 
       console.log(`✅ Đã gửi hiệu ứng ${label} (ID: ${id})`, response);
     } catch (error) {
       console.error(`❌ Lỗi khi gọi hiệu ứng ${label}:`, error);
-    } finally {
-      setButtonLoading(null);
     }
   };
 
@@ -93,9 +79,7 @@ export default function Menu({ project_id }: MenuProps) {
 
       {/* Các nút chức năng */}
       <div className={styles.Function}>
-        {loading ? (
-          <Loader color="orange" />
-        ) : menuItems.length > 0 ? (
+        {menuItems.length > 0 ? (
           <Stack align="center" style={{ gap: "20px", marginTop: "30px" }}>
             {menuItems.map((item) => (
               <Button
@@ -104,7 +88,6 @@ export default function Menu({ project_id }: MenuProps) {
                 className={styles.menuBtn}
                 variant="outline"
                 onClick={() => handleClick(item.id, item.label)}
-                loading={buttonLoading === item.id} // ⏳ loading riêng nút
               >
                 {item.label}
               </Button>

@@ -43,7 +43,7 @@ export default function DetailInteractive () {
           </Stack>
             <Button
       component="a"
-   href="/Detail"
+   href=""
       className={`${styles.baseButton} ${styles.primaryButton}`}
     >
       Đi tới dự án
@@ -68,7 +68,7 @@ xin phê duyệt
           </Button> */}
             <Button
       component="a"
-   href="/Detail"
+   href=""
       className={`${styles.baseButton} ${styles.primaryButton}`}
     >
       Đi tới dự án
@@ -91,7 +91,7 @@ Chờ phê duyệt
           </Button> */}
             <Button
       component="a"
-   href="/Detail"
+   href=""
       className={`${styles.baseButton} ${styles.primaryButton}`}
     >
       Đi tới dự án

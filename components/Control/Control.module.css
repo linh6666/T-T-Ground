@@ -1,10 +1,8 @@
-/* 🧱 Khung chính */
 .box {
-  width: min(90%, 1320px); /* ✅ Giữ layout đẹp, không phóng to trên màn hình lớn */
+  max-width: 1320px;
   padding: 10px;
   margin: auto;
   display: flex;
-  justify-content: center;
 }
 
 /* Cột trái (ảnh) */
@@ -12,7 +10,7 @@
   flex: 3;
 }
 
-/* Cột phải (menu/text) */
+/* Cột phải (text) */
 .right {
   width: 240px;
   background-color: #fffaee;
@@ -21,14 +19,12 @@
   font-size: 18px;
   text-align: center;
   padding: 10px;
-  border-radius: 8px;
 }
 
 /* Ảnh full kích thước */
 .img {
   object-fit: cover;
   display: block;
-  border-radius: 8px;
 }
 
 /* 💊 Tablet responsive (768px - 1023px) */
@@ -52,6 +48,7 @@
   .img {
     height: auto;
     max-height: 500px;
+    border-radius: 8px;
   }
 }
 
@@ -93,46 +90,4 @@
   }
 }
 
-/* 💻 Màn hình lớn hơn desktop nhưng nhỏ hơn 4K (2300px - 2559px, thường là 32 inch) */
-@media (min-width: 2300px) and (max-width: 2559px) {
-  .box {
-    max-width: 1800px;
-    padding: 20px 40px;
-    gap: 30px;
-  }
-
-  .left {
-    flex: 3;
-  }
-
-  .right {
-    width: 340px;
-    font-size: 22px;
-    padding: 30px;
-    border-radius: 12px;
-  }
-
-  .img {
-    border-radius: 12px;
-    max-height: 900px;
-    object-fit: contain;
-  }
-}
-
-/* 🖥️ Màn hình siêu lớn (≥2560px, thường là 4K 32"+) */
-@media (min-width: 2560px) {
-  .box {
-    max-width: 2000px;
-    padding: 30px 60px;
-  }
-
-  .right {
-    width: 400px;
-    font-size: 24px;
-    padding: 40px;
-  }
-
-  .img {
-    max-height: 1000px;
-  }
-}
+/* logo ô thao tác nhé */
