@@ -21,7 +21,7 @@ export default function Menu({ project_id }: MenuProps) {
       { label: "GIỚI THIỆU DỰ ÁN", link: `/gioi-thieu-du-an${project_id ? `?id=${project_id}` : ""}` },
     { label: "HỆ THỐNG PHÂN KHU", link: `/Phan-khu${project_id ? `?id=${project_id}` : ""}` },
      { label: "HỆ THỐNG TIỆN ÍCH", link: `/tien-ich${project_id ? `?id=${project_id}` : ""}` } ,
-    { label: "HIỆU ỨNG ÁNH SÁNG", link: "/hieu-ung-anh-sang" },
+    { label: "HIỆU ỨNG ÁNH SÁNG", link: `/hieu-ung-anh-sang${project_id ? `?id=${project_id}` : ""}` },
     { label: "THƯ VIỆN", link: "/thu-vien" },
     { label: "MÔ HÌNH", link: "/mo-hinh" },
   

@@ -49,18 +49,24 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
         if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
           const uniqueMap = new Map<string, MenuItem>();
 
-          data.data.forEach((item: NodeAttributeItem) => {
-            const buildingType = item.building_type_vi || "";
+       data.data.forEach((item: NodeAttributeItem) => {
+  const buildingType = item.building_type_vi || "";
+  const groupValue = item.group as string | undefined;
 
-            if (buildingType.trim() && !buildingType.includes(";") && !uniqueMap.has(buildingType)) {
-              uniqueMap.set(buildingType, {
-                label: buildingType,
-                phase_vi: phaseFromQuery,
-                building_type_vi: buildingType,
-              });
-            }
-          });
-
+  // ✅ Lọc bỏ các item rỗng, chứa ';', hoặc group là "ct;ti"
+  if (
+    buildingType.trim() &&
+    !buildingType.includes(";") &&
+    groupValue !== "ct;ti" &&
+    !uniqueMap.has(buildingType)
+  ) {
+    uniqueMap.set(buildingType, {
+      label: buildingType,
+      phase_vi: phaseFromQuery,
+      building_type_vi: buildingType,
+    });
+  }
+});
           const finalItems = Array.from(uniqueMap.values());
 
           // 🔥 Sắp xếp ưu tiên 3 loại công trình cố định trước
