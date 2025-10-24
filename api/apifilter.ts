@@ -16,7 +16,7 @@ export const createNodeAttribute = async (body: CreateNodeAttributeBody) => {
   try {
    const response = await api.post(API_ROUTE.CREATE_NODEATTRIBUTE, body, {
   params: {
-    type_control: "eff",
+    type_control: "one",
     value: 1,
     rs: 0,
   },
