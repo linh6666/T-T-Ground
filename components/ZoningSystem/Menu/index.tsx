@@ -6,7 +6,7 @@ import { Button, Group, Image, Stack, Loader, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
-import Function from "./Function";
+
 
 // Kiểu prop nhận vào
 interface MenuProps {
@@ -28,7 +28,7 @@ export default function Menu({ project_id }: MenuProps) {
   const router = useRouter();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [active, setActive] = useState<"on" | "off" | null>(null); // ✅ trạng thái active cho ON/OFF
+// ✅ trạng thái active cho ON/OFF
 
   useEffect(() => {
     const fetchData = async () => {
@@ -93,20 +93,20 @@ export default function Menu({ project_id }: MenuProps) {
   };
 
   // ✅ Hàm tạo style cho nút ON/OFF
-  const getButtonStyle = (isActive: boolean) => ({
-    width: 30,
-    height: 30,
-    padding: 0,
-    borderRadius: 40,
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-    transition: "background 0.3s",
-    background: isActive ? "linear-gradient(to top, #FFE09A,#FFF1D2)" : "#FFFAEE",
-    color: isActive ? "#752E0B" : "#752E0B",
-    border: "1.5px solid #752E0B",
-  });
+  // const getButtonStyle = (isActive: boolean) => ({
+  //   width: 30,
+  //   height: 30,
+  //   padding: 0,
+  //   borderRadius: 40,
+  //   display: "flex",
+  //   alignItems: "center",
+  //   justifyContent: "center",
+  //   overflow: "hidden",
+  //   transition: "background 0.3s",
+  //   background: isActive ? "linear-gradient(to top, #FFE09A,#FFF1D2)" : "#FFFAEE",
+  //   color: isActive ? "#752E0B" : "#752E0B",
+  //   border: "1.5px solid #752E0B",
+  // });
 
   return (
     <div className={styles.box}>
@@ -147,27 +147,11 @@ export default function Menu({ project_id }: MenuProps) {
 
       {/* ✅ Footer có ON/OFF có trạng thái */}
       <div className={styles.footer}>
-        <Stack align="center" gap="xs">
-          <Function />
+      
+       
           <Group gap="xs">
             {/* Nút ON */}
-            <Button
-              variant="filled"
-              style={getButtonStyle(active === "on")}
-             onClick={() => setActive(active === "on" ? null : "on")} 
-            >
-              <Text style={{ fontSize: "13px" }}>ON</Text>
-            </Button>
-
-            {/* Nút OFF */}
-            <Button
-              variant="filled"
-              style={getButtonStyle(active === "off")}
-             onClick={() => setActive(active === "off" ? null : "off")} 
-            >
-              <Text style={{ fontSize: "12px" }}>OFF</Text>
-            </Button>
-
+          
             {/* Nút quay lại */}
             <Button
               onClick={handleBack}
@@ -190,7 +174,7 @@ export default function Menu({ project_id }: MenuProps) {
               <IconArrowLeft size={18} color="#752E0B" />
             </Button>
           </Group>
-        </Stack>
+   
       </div>
     </div>
   );

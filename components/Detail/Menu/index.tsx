@@ -2,10 +2,12 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
-import { Button, Group, Image, Loader, Text } from "@mantine/core";
+import { Button, Group, Image, Loader, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { createNodeAttribute } from "../../../api/apifilter";
+import { createNodeAttribute  } from "../../../api/apifilter";
+import { createON  } from "../../../api/apiON"; // ✅ import thêm createON
+import Function from "./Function";
 
 interface MenuProps {
   project_id: string | null;
@@ -27,11 +29,13 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const phaseFromQuery = searchParams.get("phase") || initialPhase;
+  const [active, setActive] = useState<"on" | "off" | null>(null);
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [loadingOn, setLoadingOn] = useState(false); // ⏳ loader cho nút ON
 
-  // 🛰️ Gọi API
+  // 🛰️ Gọi API danh sách loại công trình
   useEffect(() => {
     const fetchData = async () => {
       if (!project_id || !phaseFromQuery) return;
@@ -49,46 +53,46 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
         if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
           const uniqueMap = new Map<string, MenuItem>();
 
-       data.data.forEach((item: NodeAttributeItem) => {
-  const buildingType = item.building_type_vi || "";
-  const groupValue = item.group as string | undefined;
+          data.data.forEach((item: NodeAttributeItem) => {
+            const buildingType = item.building_type_vi || "";
+            const groupValue = item.group as string | undefined;
 
-  // ✅ Lọc bỏ các item rỗng, chứa ';', hoặc group là "ct;ti"
-  if (
-    buildingType.trim() &&
-    !buildingType.includes(";") &&
-    groupValue !== "ct;ti" &&
-    !uniqueMap.has(buildingType)
-  ) {
-    uniqueMap.set(buildingType, {
-      label: buildingType,
-      phase_vi: phaseFromQuery,
-      building_type_vi: buildingType,
-    });
-  }
-});
+            // ✅ Lọc bỏ item rỗng, chứa ';', hoặc group là "ct;ti"
+            if (
+              buildingType.trim() &&
+              !buildingType.includes(";") &&
+              groupValue !== "ct;ti" &&
+              !uniqueMap.has(buildingType)
+            ) {
+              uniqueMap.set(buildingType, {
+                label: buildingType,
+                phase_vi: phaseFromQuery,
+                building_type_vi: buildingType,
+              });
+            }
+          });
+
           const finalItems = Array.from(uniqueMap.values());
 
-          // 🔥 Sắp xếp ưu tiên 3 loại công trình cố định trước
-          const priorityOrder = ["Trung tâm thương mại", "Trường học", "Giao thông","Thể dục thể thao","Đài phun nước","Cảnh quan","Sông"];
+          // 🔥 Sắp xếp ưu tiên các loại công trình cố định
+          const priorityOrder = [
+            "Trung tâm thương mại",
+            "Trường học",
+            "Giao thông",
+            "Thể dục thể thao",
+            "Đài phun nước",
+            "Cảnh quan",
+            "Sông",
+          ];
 
           finalItems.sort((a, b) => {
             const indexA = priorityOrder.indexOf(a.label);
             const indexB = priorityOrder.indexOf(b.label);
 
-            if (indexA !== -1 && indexB !== -1) {
-              // Cả hai đều trong danh sách ưu tiên → theo thứ tự trong mảng
-              return indexA - indexB;
-            } else if (indexA !== -1) {
-              // a là loại ưu tiên → lên đầu
-              return -1;
-            } else if (indexB !== -1) {
-              // b là loại ưu tiên → lên đầu
-              return 1;
-            } else {
-              // Cả hai không trong danh sách → sắp xếp alphabet
-              return a.label.localeCompare(b.label);
-            }
+            if (indexA !== -1 && indexB !== -1) return indexA - indexB;
+            if (indexA !== -1) return -1;
+            if (indexB !== -1) return 1;
+            return a.label.localeCompare(b.label);
           });
 
           setMenuItems(finalItems);
@@ -116,11 +120,44 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
     );
   };
 
-  // ⬅️ Quay lại
+  // ✅ Click quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/Phan-khu?id=${project_id}`);
   };
+
+  // ✅ Hàm xử lý khi click ON
+  const handleClickOn = async () => {
+    if (!project_id) return;
+    setActive("on");
+    setLoadingOn(true);
+    try {
+      const res = await createON({ project_id });
+      console.log("✅ API ON result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API ON:", err);
+    } finally {
+      setLoadingOn(false);
+    }
+  };
+
+  // 🎨 Style cho nút
+  const getButtonStyle = (isActive: boolean) => ({
+    width: 30,
+    height: 30,
+    padding: 0,
+    borderRadius: 40,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    transition: "background 0.3s",
+    background: isActive
+      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+      : "#FFFAEE",
+    color: "#752E0B",
+    border: "1.5px solid #752E0B",
+  });
 
   return (
     <div className={styles.box}>
@@ -148,7 +185,9 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.phase_vi, item.building_type_vi)}
+                onClick={() =>
+                  handleNavigate(item.phase_vi, item.building_type_vi)
+                }
                 variant="filled"
                 color="orange"
                 style={{ marginBottom: "10px" }}
@@ -164,30 +203,57 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
         )}
       </div>
 
-      {/* Footer Back Button */}
+      {/* Footer */}
       <div className={styles.footer}>
-        <Group gap="xs">
-          <Button
-            onClick={handleBack}
-            variant="filled"
-            style={{
-              width: 30,
-              height: 30,
-              padding: 0,
-              borderRadius: 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              transition: "background 0.3s",
-              background: "#FFFAEE",
-              color: "#752E0B",
-              border: "1.5px solid #752E0B",
-            }}
-          >
-            <IconArrowLeft size={18} color="#752E0B" />
-          </Button>
-        </Group>
+        <Stack align="center" gap="xs">
+          <Function />
+          <Group gap="xs">
+            {/* ✅ Nút ON có gọi API */}
+            <Button
+              variant="filled"
+              style={getButtonStyle(active === "on")}
+              onClick={handleClickOn}
+              disabled={loadingOn}
+            >
+              {loadingOn ? (
+                <Loader size={14} color="orange" />
+              ) : (
+                <Text style={{ fontSize: "13px" }}>ON</Text>
+              )}
+            </Button>
+
+            {/* Nút OFF */}
+            <Button
+              variant="filled"
+              style={getButtonStyle(active === "off")}
+              onClick={() => setActive(active === "off" ? null : "off")}
+            >
+              <Text style={{ fontSize: "12px" }}>OFF</Text>
+            </Button>
+
+            {/* Nút quay lại */}
+            <Button
+              onClick={handleBack}
+              variant="filled"
+              style={{
+                width: 30,
+                height: 30,
+                padding: 0,
+                borderRadius: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                transition: "background 0.3s",
+                background: "#FFFAEE",
+                color: "#752E0B",
+                border: "1.5px solid #752E0B",
+              }}
+            >
+              <IconArrowLeft size={18} color="#752E0B" />
+            </Button>
+          </Group>
+        </Stack>
       </div>
     </div>
   );
