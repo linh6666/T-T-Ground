@@ -82,7 +82,9 @@ CREATE_NODEATTRIBUTE:"/api/v1/node_attribute/filter",
 //filter
 
 
-
+//Address
+GET_LIST_ADDRESS:"/api/v1/address/provinces",
+GET_LIST_ADDRESS_DEATIL:"/api/v1/address/provinces/{province_code}/wards",
 
 
 }

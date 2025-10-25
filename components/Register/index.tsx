@@ -76,8 +76,7 @@ const RegisterForm = () => {
   const floatingPassword = clickPassword || form.values.password.length > 0 || undefined;
   const [clickEmail, setClickEmail] = useState(false);
   const floatingEmail = clickEmail || form.values.email.length > 0 || undefined;
-  const [clickArea, setClickArea] = useState(false);
-  const floatingArea = clickArea || form.values.area.length > 0 || undefined;
+
   const [clickProvince, setClickProvince] = useState(false);
   const floatingProvince = clickProvince || form.values.province.length > 0 || undefined;
   const [clickWard, setClickWard] = useState(false);
@@ -108,7 +107,7 @@ const RegisterForm = () => {
         values.email,
         values.phone,
         values.password,
-        values.area,
+
         values.province,
         values.ward,
         values.introducer,
@@ -208,19 +207,7 @@ const RegisterForm = () => {
             </div>
 
             {/* Area */}
-            <div className={style.inputBox}>
-              <TextInput
-                label="Khu vực"
-                labelProps={{ "data-floating": floatingArea }}
-                withAsterisk
-                mt="md"
-                classNames={{ root: style.root, input: style.input, label: style.label }}
-                onFocus={() => setClickArea(true)}
-                onBlur={() => setClickArea(false)}
-                {...form.getInputProps("area")}
-              />
-            </div>
-
+           
             {/* Province */}
             <div className={style.inputBox}>
               <TextInput
