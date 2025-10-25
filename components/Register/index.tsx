@@ -4,12 +4,15 @@ import {
   Anchor,
   Box,
   Button,
+  MultiSelect,
   PasswordInput,
   Text,
   TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { registerUser } from "../../api/apiRegister";
+import { getListProvinces } from "../../api/apigetlistaddress";
+import { getWardsByProvince } from "../../api/apigetlistProvinces";
 import { NotificationExtension } from "../../extension/NotificationExtension";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; 
@@ -20,11 +23,20 @@ interface Register {
   email: string;
   phone: string;
   password: string;
-  area: string;
-  province: string;
-  ward: string;
+   province: string[]; 
+  ward: string[];
   introducer: string;
   detal_address: string;
+}
+interface Province {
+  code: string;
+  full_name_vi: string;
+  // Nếu có thêm trường khác, bạn có thể thêm vào đây
+}
+interface Ward {
+  code: string;
+  full_name_vi: string;
+  // Nếu có thêm trường khác, bạn có thể thêm vào đây
 }
 
 const RegisterForm = () => {
@@ -36,9 +48,8 @@ const RegisterForm = () => {
       email: "",
       phone: "",
       password: "",
-      area: "",
-      province: "",
-      ward: "",
+     province: [],
+      ward: [],
       introducer: "",
       detal_address: "",
     },
@@ -53,11 +64,11 @@ const RegisterForm = () => {
           : "Mật khẩu phải chứa từ 5 đến 100 kí tự",
       email: (value) =>
         /^\S+@\S+\.\S+$/.test(value) ? null : "Email không hợp lệ",
-      area: (value) => (value && value.trim() ? null : "Vui lòng nhập khu vực"),
-      province: (value) => (value && value.trim() ? null : "Vui lòng nhập tỉnh/thành"),
-      ward: (value) => (value && value.trim() ? null : "Vui lòng nhập phường/xã"),
-      introducer: (value) =>
-        value && value.trim() ? null : "Vui lòng nhập mã người giới thiệu",
+    
+      // province: (value) => (value && value.trim() ? null : "Vui lòng nhập tỉnh/thành"),
+    
+      // introducer: (value) =>
+      //   value && value.trim() ? null : "Vui lòng nhập mã người giới thiệu",
       detal_address: (value) =>
         value && value.trim() ? null : "Vui lòng nhập địa chỉ chi tiết",
     },
@@ -66,6 +77,9 @@ const RegisterForm = () => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
+  const [provinceOptions, setProvinceOptions] = useState<{ value: string; label: string }[]>([]);
+  const [wardOptions, setWardOptions] = useState<{ value: string; label: string }[]>([]);
+
 
   // Floating labels
   const [clickName, setClickName] = useState(false);
@@ -76,7 +90,6 @@ const RegisterForm = () => {
   const floatingPassword = clickPassword || form.values.password.length > 0 || undefined;
   const [clickEmail, setClickEmail] = useState(false);
   const floatingEmail = clickEmail || form.values.email.length > 0 || undefined;
-
   const [clickProvince, setClickProvince] = useState(false);
   const floatingProvince = clickProvince || form.values.province.length > 0 || undefined;
   const [clickWard, setClickWard] = useState(false);
@@ -85,6 +98,56 @@ const RegisterForm = () => {
   const floatingIntroducer = clickIntroducer || form.values.introducer.length > 0 || undefined;
   const [clickDetail, setClickDetail] = useState(false);
   const floatingDetail = clickDetail || form.values.detal_address.length > 0 || undefined;
+
+
+useEffect(() => {
+  const selectedProvinceCode = Array.isArray(form.values.province)
+    ? form.values.province[0]
+    : form.values.province;
+
+  if (selectedProvinceCode) {
+    const fetchWards = async () => {
+      try {
+        const data: Ward[] = await getWardsByProvince(selectedProvinceCode); // ✅ gán kiểu rõ ràng
+
+        const formatted = data.map((item) => ({
+          value: item.code,
+          label: item.full_name_vi,
+        }));
+
+        setWardOptions(formatted);
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách phường/xã:", error);
+        setWardOptions([]);
+      }
+    };
+
+    fetchWards();
+  } else {
+    setWardOptions([]);
+  }
+}, [form.values.province]);
+
+
+useEffect(() => {
+  const fetchProvinces = async () => {
+    try {
+      const data: Province[] = await getListProvinces(); // ✅ gán kiểu rõ ràng
+
+      const formatted = data.map((item) => ({
+        value: item.code,
+        label: item.full_name_vi, // hoặc item.name_vi nếu bạn muốn ngắn gọn
+      }));
+
+      setProvinceOptions(formatted);
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách tỉnh/thành:", error);
+    }
+  };
+
+  fetchProvinces();
+}, []);
+
 
   // Redirect after success
   useEffect(() => {
@@ -107,9 +170,8 @@ const RegisterForm = () => {
         values.email,
         values.phone,
         values.password,
-
-        values.province,
-        values.ward,
+      values.province[0],
+        values.ward[0],
         values.introducer,
         values.detal_address
       );
@@ -210,11 +272,12 @@ const RegisterForm = () => {
            
             {/* Province */}
             <div className={style.inputBox}>
-              <TextInput
+              <MultiSelect
                 label="Tỉnh/Thành phố"
                 labelProps={{ "data-floating": floatingProvince }}
                 withAsterisk
                 mt="md"
+                data={provinceOptions} // <-- dữ liệu từ API
                 classNames={{ root: style.root, input: style.input, label: style.label }}
                 onFocus={() => setClickProvince(true)}
                 onBlur={() => setClickProvince(false)}
@@ -223,18 +286,17 @@ const RegisterForm = () => {
             </div>
 
             {/* Ward */}
-            <div className={style.inputBox}>
-              <TextInput
-                label="Phường/Xã"
-                labelProps={{ "data-floating": floatingWard }}
-                withAsterisk
-                mt="md"
-                classNames={{ root: style.root, input: style.input, label: style.label }}
-                onFocus={() => setClickWard(true)}
-                onBlur={() => setClickWard(false)}
-                {...form.getInputProps("ward")}
-              />
-            </div>
+        <MultiSelect
+  label="Phường/Xã"
+  labelProps={{ "data-floating": floatingWard }}
+  withAsterisk
+  mt="md"
+  data={wardOptions} // <-- dữ liệu từ API
+  classNames={{ root: style.root, input: style.input, label: style.label }}
+  onFocus={() => setClickWard(true)}
+  onBlur={() => setClickWard(false)}
+  {...form.getInputProps("ward")}
+/>
 
             {/* Introducer */}
             <div className={style.inputBox}>

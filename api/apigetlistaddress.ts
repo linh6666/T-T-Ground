@@ -8,19 +8,15 @@ import { API_ROUTE } from "../const/apiRouter";
 interface GetListProvincesParams {
   skip?: number;
   limit?: number;
-  province?: string[]; // Thay đổi từ Province[] thành string[] nếu bạn chỉ cần id
+  // Thay đổi từ Province[] thành string[] nếu bạn chỉ cần id
 }
 
 export const getListProvinces = async (params: GetListProvincesParams = {}) => {
-  const { skip, limit, province } = params; // Destructure params
+  const { skip, limit } = params;
 
   const response = await api.get(API_ROUTE.GET_LIST_ADDRESS, {
-    params: { skip, limit, province },
+    params: { skip, limit },
   });
-  console.log("API Response:", response.data);
 
-  return {
-    data: response.data.data,
-    total: response.data.count,
-  };
+ return response.data;
 };

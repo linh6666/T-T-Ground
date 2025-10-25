@@ -6,7 +6,8 @@ import { Button, Group, Image, Loader, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute  } from "../../../api/apifilter";
-import { createON  } from "../../../api/apiON"; // ✅ import thêm createON
+import { createON  } from "../../../api/apiON"; 
+import { createOFF  } from "../../../api/apiOFF";// ✅ import thêm createON
 import Function from "./Function";
 
 interface MenuProps {
@@ -140,6 +141,19 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
       setLoadingOn(false);
     }
   };
+   const handleClickOFF = async () => {
+    if (!project_id) return;
+    setActive("off");
+    setLoadingOn(true);
+    try {
+      const res = await createOFF({ project_id });
+      console.log("✅ API ON result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API ON:", err);
+    } finally {
+      setLoadingOn(false);
+    }
+  };
 
   // 🎨 Style cho nút
   const getButtonStyle = (isActive: boolean) => ({
@@ -209,27 +223,35 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
           <Function />
           <Group gap="xs">
             {/* ✅ Nút ON có gọi API */}
-            <Button
-              variant="filled"
-              style={getButtonStyle(active === "on")}
-              onClick={handleClickOn}
-              disabled={loadingOn}
-            >
-              {loadingOn ? (
-                <Loader size={14} color="orange" />
-              ) : (
-                <Text style={{ fontSize: "13px" }}>ON</Text>
-              )}
-            </Button>
+          <Button
+  style={getButtonStyle(active === "on")}
+  onClick={() => {
+    if (active !== "on") {
+      setActive("on");
+      handleClickOn();
+    } else {
+      setActive(null); // nếu muốn tắt trạng thái ON
+    }
+  }}
+  disabled={loadingOn}
+>
+  <Text style={{ fontSize: "13px" }}>ON</Text>
+</Button>
 
             {/* Nút OFF */}
-            <Button
-              variant="filled"
-              style={getButtonStyle(active === "off")}
-              onClick={() => setActive(active === "off" ? null : "off")}
-            >
-              <Text style={{ fontSize: "12px" }}>OFF</Text>
-            </Button>
+          <Button
+  style={getButtonStyle(active === "off")}
+  onClick={() => {
+    if (active !== "off") {
+      setActive("off");
+      handleClickOFF();
+    } else {
+      setActive(null); // nếu muốn tắt trạng thái OFF
+    }
+  }}
+>
+  <Text style={{ fontSize: "12px" }}>OFF</Text>
+</Button>
 
             {/* Nút quay lại */}
             <Button
