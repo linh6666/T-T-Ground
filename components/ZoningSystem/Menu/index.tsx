@@ -6,6 +6,7 @@ import { Button, Group, Image, Stack, Loader, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
+import Function from "./Function";
 
 // Kiểu prop nhận vào
 interface MenuProps {
@@ -27,6 +28,7 @@ export default function Menu({ project_id }: MenuProps) {
   const router = useRouter();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const [active, setActive] = useState<"on" | "off" | null>(null); // ✅ trạng thái active cho ON/OFF
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,7 +84,6 @@ export default function Menu({ project_id }: MenuProps) {
   // Điều hướng với phase_vi
   const handleNavigate = (phase: string) => {
     if (!project_id) return;
-    // Truyền phase_vi sang trang chi-tiet
     router.push(`/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phase)}`);
   };
 
@@ -90,6 +91,22 @@ export default function Menu({ project_id }: MenuProps) {
     if (!project_id) return;
     router.push(`/Dieu-khien?id=${project_id}`);
   };
+
+  // ✅ Hàm tạo style cho nút ON/OFF
+  const getButtonStyle = (isActive: boolean) => ({
+    width: 30,
+    height: 30,
+    padding: 0,
+    borderRadius: 40,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    transition: "background 0.3s",
+    background: isActive ? "linear-gradient(to top, #FFE09A,#FFF1D2)" : "#FFFAEE",
+    color: isActive ? "#752E0B" : "#752E0B",
+    border: "1.5px solid #752E0B",
+  });
 
   return (
     <div className={styles.box}>
@@ -114,7 +131,7 @@ export default function Menu({ project_id }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label)} // truyền phase_vi
+                onClick={() => handleNavigate(item.label)}
                 variant="outline"
               >
                 {item.label}
@@ -128,29 +145,52 @@ export default function Menu({ project_id }: MenuProps) {
         )}
       </div>
 
+      {/* ✅ Footer có ON/OFF có trạng thái */}
       <div className={styles.footer}>
-        <Group gap="xs">
-          <Button
-            onClick={handleBack}
-            variant="filled"
-            style={{
-              width: 30,
-              height: 30,
-              padding: 0,
-              borderRadius: 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              transition: "background 0.3s",
-              background: "#FFFAEE",
-              color: "#752E0B",
-              border: "1.5px solid #752E0B",
-            }}
-          >
-            <IconArrowLeft size={18} color="#752E0B" />
-          </Button>
-        </Group>
+        <Stack align="center" gap="xs">
+          <Function />
+          <Group gap="xs">
+            {/* Nút ON */}
+            <Button
+              variant="filled"
+              style={getButtonStyle(active === "on")}
+             onClick={() => setActive(active === "on" ? null : "on")} 
+            >
+              <Text style={{ fontSize: "13px" }}>ON</Text>
+            </Button>
+
+            {/* Nút OFF */}
+            <Button
+              variant="filled"
+              style={getButtonStyle(active === "off")}
+             onClick={() => setActive(active === "off" ? null : "off")} 
+            >
+              <Text style={{ fontSize: "12px" }}>OFF</Text>
+            </Button>
+
+            {/* Nút quay lại */}
+            <Button
+              onClick={handleBack}
+              variant="filled"
+              style={{
+                width: 30,
+                height: 30,
+                padding: 0,
+                borderRadius: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                transition: "background 0.3s",
+                background: "#FFFAEE",
+                color: "#752E0B",
+                border: "1.5px solid #752E0B",
+              }}
+            >
+              <IconArrowLeft size={18} color="#752E0B" />
+            </Button>
+          </Group>
+        </Stack>
       </div>
     </div>
   );
