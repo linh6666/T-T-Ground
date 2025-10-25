@@ -2,10 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
-import { Button, Group, Image, Loader, Text } from "@mantine/core";
+import { Button, Group, Image, Loader, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
+import { createON  } from "../../../api/apiON"; 
+import { createOFF  } from "../../../api/apiOFF";
+import Function from "./Function";
 
 // Props nhận vào
 interface MenuProps {
@@ -31,9 +34,11 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const phaseFromQuery = searchParams.get("building") || initialBuildingType;
+    const [active, setActive] = useState<"on" | "off" | null>(null);
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
+    const [loadingOn, setLoadingOn] = useState(false); 
 
   // 🛰️ Gọi API lấy danh sách building_type/subzone
  useEffect(() => {
@@ -116,6 +121,48 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     if (!project_id) return;
     router.push(`/tien-ich?id=${project_id}`);
   };
+   const getButtonStyle = (isActive: boolean) => ({
+    width: 30,
+    height: 30,
+    padding: 0,
+    borderRadius: 40,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    transition: "background 0.3s",
+    background: isActive
+      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+      : "#FFFAEE",
+    color: "#752E0B",
+    border: "1.5px solid #752E0B",
+  });
+  const handleClickOn = async () => {
+      if (!project_id) return;
+      setActive("on");
+      setLoadingOn(true);
+      try {
+        const res = await createON({ project_id });
+        console.log("✅ API ON result:", res);
+      } catch (err) {
+        console.error("❌ Lỗi khi gọi API ON:", err);
+      } finally {
+        setLoadingOn(false);
+      }
+    };
+     const handleClickOFF = async () => {
+      if (!project_id) return;
+      setActive("off");
+      setLoadingOn(true);
+      try {
+        const res = await createOFF({ project_id });
+        console.log("✅ API ON result:", res);
+      } catch (err) {
+        console.error("❌ Lỗi khi gọi API ON:", err);
+      } finally {
+        setLoadingOn(false);
+      }
+    };
 
   // 🎨 Render giao diện
   return (
@@ -162,28 +209,63 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
 
       {/* Footer Back Button */}
       <div className={styles.footer}>
-        <Group gap="xs">
-          <Button
-            onClick={handleBack}
-            variant="filled"
-            style={{
-              width: 30,
-              height: 30,
-              padding: 0,
-              borderRadius: 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              transition: "background 0.3s",
-              background: "#FFFAEE",
-              color: "#752E0B",
-              border: "1.5px solid #752E0B",
-            }}
-          >
-            <IconArrowLeft size={18} color="#752E0B" />
-          </Button>
-        </Group>
+          <Stack align="center" gap="xs">
+                 <Function />
+                 <Group gap="xs">
+                   {/* ✅ Nút ON có gọi API */}
+                 <Button
+         style={getButtonStyle(active === "on")}
+         onClick={() => {
+           if (active !== "on") {
+             setActive("on");
+             handleClickOn();
+           } else {
+             setActive(null); // nếu muốn tắt trạng thái ON
+           }
+         }}
+         disabled={loadingOn}
+       >
+         <Text style={{ fontSize: "13px" }}>ON</Text>
+       </Button>
+       
+                   {/* Nút OFF */}
+                 <Button
+         style={getButtonStyle(active === "off")}
+         onClick={() => {
+           if (active !== "off") {
+             setActive("off");
+             handleClickOFF();
+           } else {
+             setActive(null); // nếu muốn tắt trạng thái OFF
+           }
+         }}
+       >
+         <Text style={{ fontSize: "12px" }}>OFF</Text>
+       </Button>
+       
+                   {/* Nút quay lại */}
+                   <Button
+                     onClick={handleBack}
+                     variant="filled"
+                     style={{
+                       width: 30,
+                       height: 30,
+                       padding: 0,
+                       borderRadius: 40,
+                       display: "flex",
+                       alignItems: "center",
+                       justifyContent: "center",
+                       overflow: "hidden",
+                       transition: "background 0.3s",
+                       background: "#FFFAEE",
+                       color: "#752E0B",
+                       border: "1.5px solid #752E0B",
+                     }}
+                   >
+                     <IconArrowLeft size={18} color="#752E0B" />
+                   </Button>
+                 </Group>
+               </Stack>
       </div>
     </div>
   );

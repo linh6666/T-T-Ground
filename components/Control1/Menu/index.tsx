@@ -80,7 +80,7 @@ export default function Menu({ project_id }: MenuProps) {
       {/* Footer */}
       <div className={styles.footer}>
         <Group gap="xs">
-          <Sun />
+          <Sun project_id={project_id}/>
          <Button
   onClick={() => router.push("/Tuong-tac")} // ← Quay về trang /Tuong-tac
   variant="filled"
