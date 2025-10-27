@@ -164,10 +164,10 @@ export default function Menu({
         />
       </div>
 
-      <div className={styles.title}>
-        <h1>LOẠI CÔNG TRÌNH</h1>
-      </div>
+       <div className={styles.title}>
+        <h1>{phase?.toUpperCase()}</h1>
 
+    </div>
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />

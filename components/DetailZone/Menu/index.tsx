@@ -178,7 +178,7 @@ export default function Menu({
 
       {/* Title */}
       <div className={styles.title}>
-        <h1>MẪU CÔNG TRÌNH</h1>
+     <h1>{buildingTypeFromQuery?.toUpperCase()}</h1>
       </div>
 
       {/* Menu Buttons */}
