@@ -1,10 +1,15 @@
 "use client";
+
 import { Button, Group, Text } from "@mantine/core";
-import React, { useState } from "react";
+import React from "react";
 
-export default function Sun() {
-  const [active, setActive] = useState<"single" | "multi" | null>(null);
+interface SunProps {
+  activeMode: "single" | "multi" | null; // Cho phép null để toggle off
+  setActiveMode: (mode: "single" | "multi" | null) => void; // Cho phép null
+  onMultiModeClick?: () => void;
+}
 
+export default function Sun({ activeMode, setActiveMode, onMultiModeClick }: SunProps) {
   const getButtonStyle = (isActive: boolean) => ({
     width: 83,
     height: 28,
@@ -27,41 +32,31 @@ export default function Sun() {
   });
 
   const handleClick = (mode: "single" | "multi") => {
-    setActive((prev) => (prev === mode ? null : mode));
+    if (activeMode === mode) {
+      // Toggle off nếu nhấn lại nút đang active
+      setActiveMode(null);
+    } else {
+      setActiveMode(mode);
+      if (mode === "multi" && onMultiModeClick) {
+        onMultiModeClick();
+      }
+    }
   };
 
   return (
     <Group gap="md">
       <Button
         variant="filled"
-        style={getButtonStyle(active === "single")}
+        style={getButtonStyle(activeMode === "single")}
         onClick={() => handleClick("single")}
-        onMouseOver={(e) => {
-          if (active !== "single")
-            e.currentTarget.style.background =
-              "linear-gradient(180deg, #FFF4D8 0%, #FFF9EB 100%)";
-        }}
-        onMouseOut={(e) => {
-          if (active !== "single")
-            e.currentTarget.style.background = "#FFFAEE";
-        }}
       >
         <Text style={{ fontSize: "10px" }}>SINGLE MODE</Text>
       </Button>
 
       <Button
         variant="filled"
-        style={getButtonStyle(active === "multi")}
+        style={getButtonStyle(activeMode === "multi")}
         onClick={() => handleClick("multi")}
-        onMouseOver={(e) => {
-          if (active !== "multi")
-            e.currentTarget.style.background =
-              "linear-gradient(180deg, #FFF4D8 0%, #FFF9EB 100%)";
-        }}
-        onMouseOut={(e) => {
-          if (active !== "multi")
-            e.currentTarget.style.background = "#FFFAEE";
-        }}
       >
         <Text style={{ fontSize: "10px" }}>MULTI MODE</Text>
       </Button>
