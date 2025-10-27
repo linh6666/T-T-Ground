@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./Menu.module.css";
 import { Button, Group, Image, Loader, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 import { createON } from "../../../api/apiON";
-import { createOFF } from "../../../api/apiOFF"; // ✅ import thêm createON
+import { createOFF } from "../../../api/apiOFF";
 import Function from "./Function";
 
 interface MenuProps {
@@ -39,90 +39,65 @@ export default function Menu({
   const [phase, setPhase] = useState<string>(phaseValue || "");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [loadingOn, setLoadingOn] = useState(false); // ⏳ loader cho nút ON
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
 
   useEffect(() => {
     if (phaseValue && phaseValue !== phase) {
       setPhase(phaseValue);
       onPhaseChange?.(phaseValue);
     }
-  }, [phaseValue]);
-  // 🛰️ Gọi API danh sách loại công trình
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!project_id || !phase) return;
-      console.log("🚀 Fetching data for phase:", phase);
-      setLoading(true);
-      try {
-        const data = await createNodeAttribute({
-          project_id,
-          filters: [
-            { label: "group", values: ["ct"] },
-            { label: "phase_vi", values: [phase] },
-          ],
+  }, [phaseValue, phase, onPhaseChange]);
+
+  const fetchData = useCallback(async () => {
+    if (!project_id || !phase) return;
+    setLoading(true);
+    try {
+      const data = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ct"] },
+          { label: "phase_vi", values: [phase] },
+        ],
+      });
+
+      if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+        const uniqueMap = new Map<string, MenuItem>();
+
+        data.data.forEach((item: NodeAttributeItem) => {
+          const buildingType = item.building_type_vi || "";
+          const groupValue = item.group as string | undefined;
+
+          if (
+            buildingType.trim() &&
+            !buildingType.includes(";") &&
+            groupValue !== "ct;ti" &&
+            !uniqueMap.has(buildingType)
+          ) {
+            uniqueMap.set(buildingType, {
+              label: buildingType,
+              phase_vi: phase,
+              building_type_vi: buildingType,
+            });
+          }
         });
 
-        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-          const uniqueMap = new Map<string, MenuItem>();
-
-          data.data.forEach((item: NodeAttributeItem) => {
-            const buildingType = item.building_type_vi || "";
-            const groupValue = item.group as string | undefined;
-
-            // ✅ Lọc bỏ item rỗng, chứa ';', hoặc group là "ct;ti"
-            if (
-              buildingType.trim() &&
-              !buildingType.includes(";") &&
-              groupValue !== "ct;ti" &&
-              !uniqueMap.has(buildingType)
-            ) {
-              uniqueMap.set(buildingType, {
-                label: buildingType,
-                phase_vi: phase,
-                building_type_vi: buildingType,
-              });
-            }
-          });
-
-          const finalItems = Array.from(uniqueMap.values());
-
-          // 🔥 Sắp xếp ưu tiên các loại công trình cố định
-          const priorityOrder = [
-            "Trung tâm thương mại",
-            "Trường học",
-            "Giao thông",
-            "Thể dục thể thao",
-            "Đài phun nước",
-            "Cảnh quan",
-            "Sông",
-          ];
-
-          finalItems.sort((a, b) => {
-            const indexA = priorityOrder.indexOf(a.label);
-            const indexB = priorityOrder.indexOf(b.label);
-
-            if (indexA !== -1 && indexB !== -1) return indexA - indexB;
-            if (indexA !== -1) return -1;
-            if (indexB !== -1) return 1;
-            return a.label.localeCompare(b.label);
-          });
-
-          setMenuItems(finalItems);
-        } else {
-          setMenuItems([]);
-        }
-      } catch (error) {
-        console.error("❌ Lỗi khi gọi API:", error);
+        const finalItems = Array.from(uniqueMap.values());
+        setMenuItems(finalItems);
+      } else {
         setMenuItems([]);
-      } finally {
-        setLoading(false);
       }
-    };
-
-    fetchData();
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API:", error);
+      setMenuItems([]);
+    } finally {
+      setLoading(false);
+    }
   }, [project_id, phase]);
 
-  // ✅ Click navigate
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
   const handleNavigate = (phase: string, buildingType: string) => {
     if (!project_id) return;
     router.push(
@@ -132,41 +107,38 @@ export default function Menu({
     );
   };
 
-  // ✅ Click quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/Phan-khu?id=${project_id}`);
   };
 
-  // ✅ Hàm xử lý khi click ON
   const handleClickOn = async () => {
     if (!project_id) return;
     setActive("on");
-    setLoadingOn(true);
     try {
       const res = await createON({ project_id });
       console.log("✅ API ON result:", res);
     } catch (err) {
       console.error("❌ Lỗi khi gọi API ON:", err);
-    } finally {
-      setLoadingOn(false);
-    }
-  };
-  const handleClickOFF = async () => {
-    if (!project_id) return;
-    setActive("off");
-    setLoadingOn(true);
-    try {
-      const res = await createOFF({ project_id });
-      console.log("✅ API ON result:", res);
-    } catch (err) {
-      console.error("❌ Lỗi khi gọi API ON:", err);
-    } finally {
-      setLoadingOn(false);
     }
   };
 
-  // 🎨 Style cho nút
+  const handleClickOFF = async () => {
+    if (!project_id) return;
+    setActive("off");
+    try {
+      const res = await createOFF({ project_id });
+      console.log("✅ API OFF result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API OFF:", err);
+    }
+  };
+
+  const handleMultiModeClick = () => {
+    setIsMultiMode("multi");
+    fetchData();
+  };
+
   const getButtonStyle = (isActive: boolean) => ({
     width: 30,
     height: 30,
@@ -177,16 +149,13 @@ export default function Menu({
     justifyContent: "center",
     overflow: "hidden",
     transition: "background 0.3s",
-    background: isActive
-      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-      : "#FFFAEE",
+    background: isActive ? "linear-gradient(to top, #FFE09A,#FFF1D2)" : "#FFFAEE",
     color: "#752E0B",
     border: "1.5px solid #752E0B",
   });
 
   return (
     <div className={styles.box}>
-      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/logo-tt-city-millennia.png"
@@ -195,12 +164,10 @@ export default function Menu({
         />
       </div>
 
-      {/* Title */}
       <div className={styles.title}>
         <h1>LOẠI CÔNG TRÌNH</h1>
       </div>
 
-      {/* Menu Buttons */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -215,7 +182,12 @@ export default function Menu({
                 }
                 variant="filled"
                 color="orange"
-                style={{ marginBottom: "10px" }}
+                style={{
+                  marginBottom: "10px",
+                  background: isMultiMode === "multi"
+                    ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                    : undefined,
+                }}
               >
                 {item.label}
               </Button>
@@ -228,12 +200,14 @@ export default function Menu({
         )}
       </div>
 
-      {/* Footer */}
       <div className={styles.footer}>
         <Stack align="center" gap="xs">
-          <Function />
+          <Function
+            activeMode={isMultiMode}
+            setActiveMode={setIsMultiMode}
+            onMultiModeClick={handleMultiModeClick}
+          />
           <Group gap="xs">
-            {/* ✅ Nút ON có gọi API */}
             <Button
               style={getButtonStyle(active === "on")}
               onClick={() => {
@@ -241,15 +215,13 @@ export default function Menu({
                   setActive("on");
                   handleClickOn();
                 } else {
-                  setActive(null); // nếu muốn tắt trạng thái ON
+                  setActive(null);
                 }
               }}
-              disabled={loadingOn}
             >
               <Text style={{ fontSize: "13px" }}>ON</Text>
             </Button>
 
-            {/* Nút OFF */}
             <Button
               style={getButtonStyle(active === "off")}
               onClick={() => {
@@ -257,14 +229,13 @@ export default function Menu({
                   setActive("off");
                   handleClickOFF();
                 } else {
-                  setActive(null); // nếu muốn tắt trạng thái OFF
+                  setActive(null);
                 }
               }}
             >
               <Text style={{ fontSize: "12px" }}>OFF</Text>
             </Button>
 
-            {/* Nút quay lại */}
             <Button
               onClick={handleBack}
               variant="filled"
