@@ -6,24 +6,21 @@ import { Button, Group, Image, Loader, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
-import { createON  } from "../../../api/apiON"; 
-import { createOFF  } from "../../../api/apiOFF";
+import { createON } from "../../../api/apiON"; 
+import { createOFF } from "../../../api/apiOFF";
 import Function from "./Function";
 
-// Props nhận vào
 interface MenuProps {
   project_id: string | null;
   initialBuildingType?: string | null;
 }
 
-// Kiểu menu item
 interface MenuItem {
-  label: string;       // hiển thị trên nút
-  phase_vi: string;    // dùng để navigate
-  subzone_vi: string;  // dùng để truyền query
+  label: string;
+  phase_vi: string;
+  subzone_vi: string;
 }
 
-// Kiểu dữ liệu trả về từ API
 interface NodeAttributeItem {
   model_building_vi?: string;
   group?: string;
@@ -34,14 +31,14 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const phaseFromQuery = searchParams.get("building") || initialBuildingType;
-    const [active, setActive] = useState<"on" | "off" | null>(null);
 
+  const [active, setActive] = useState<"on" | "off" | null>(null);
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-    const [loadingOn, setLoadingOn] = useState(false); 
+  const [loadingOn, setLoadingOn] = useState(false);
 
-  // 🛰️ Gọi API lấy danh sách building_type/subzone
- useEffect(() => {
+  // ✅ Di chuyển fetchData ra ngoài để có thể gọi lại
   const fetchData = async () => {
     if (!project_id || !phaseFromQuery) return;
 
@@ -58,27 +55,24 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
         const uniqueMap = new Map<string, MenuItem>();
 
-     
-      data.data.forEach((item: NodeAttributeItem) => {
-  const subzone: string = item.model_building_vi || "";
+        data.data.forEach((item: NodeAttributeItem) => {
+          const subzone: string = item.model_building_vi || "";
 
-  // ⚡ Nếu rỗng, chứa ';', hoặc chứa "Cảnh quan" thì bỏ qua
-  if (
-    subzone.trim() && 
-    !subzone.includes(";") && 
-    !subzone.includes("Cảnh quan") &&  // 🔹 Bỏ các model có "Cảnh quan"
-    !uniqueMap.has(subzone)
-  ) {
-    uniqueMap.set(subzone, {
-      label: subzone,
-      phase_vi: phaseFromQuery,
-      subzone_vi: subzone,
-    });
-  }
-});
+          if (
+            subzone.trim() &&
+            !subzone.includes(";") &&
+            !subzone.includes("Cảnh quan") &&
+            !uniqueMap.has(subzone)
+          ) {
+            uniqueMap.set(subzone, {
+              label: subzone,
+              phase_vi: phaseFromQuery,
+              subzone_vi: subzone,
+            });
+          }
+        });
 
-        const finalItems = Array.from(uniqueMap.values());
-        setMenuItems(finalItems);
+        setMenuItems(Array.from(uniqueMap.values()));
       } else {
         setMenuItems([]);
       }
@@ -90,16 +84,14 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     }
   };
 
-  fetchData();
-}, [project_id, phaseFromQuery]);
+  useEffect(() => {
+    fetchData();
+  }, [project_id, phaseFromQuery]);
 
-
-  // ✅ Khi click từng nút → gọi API chi tiết, không mất nút
   const handleMenuClick = async (subzoneLabel: string) => {
     if (!project_id || !phaseFromQuery) return;
 
     try {
-      // 🔸 Gọi API
       const data = await createNodeAttribute({
         project_id,
         filters: [
@@ -109,19 +101,23 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         ],
       });
 
-      // 🔹 Chỉ xử lý kết quả, không thay đổi UI
       console.log("✅ API trả về cho", subzoneLabel, data);
     } catch (error) {
       console.error("❌ Lỗi khi gọi API:", error);
     }
   };
 
-  // ⬅️ Nút quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/tien-ich?id=${project_id}`);
   };
-   const getButtonStyle = (isActive: boolean) => ({
+
+  const handleMultiModeClick = () => {
+    setIsMultiMode("multi");
+    fetchData(); // ✅ Gọi lại được vì đã đưa ra ngoài
+  };
+
+  const getButtonStyle = (isActive: boolean) => ({
     width: 30,
     height: 30,
     padding: 0,
@@ -137,37 +133,37 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     color: "#752E0B",
     border: "1.5px solid #752E0B",
   });
-  const handleClickOn = async () => {
-      if (!project_id) return;
-      setActive("on");
-      setLoadingOn(true);
-      try {
-        const res = await createON({ project_id });
-        console.log("✅ API ON result:", res);
-      } catch (err) {
-        console.error("❌ Lỗi khi gọi API ON:", err);
-      } finally {
-        setLoadingOn(false);
-      }
-    };
-     const handleClickOFF = async () => {
-      if (!project_id) return;
-      setActive("off");
-      setLoadingOn(true);
-      try {
-        const res = await createOFF({ project_id });
-        console.log("✅ API ON result:", res);
-      } catch (err) {
-        console.error("❌ Lỗi khi gọi API ON:", err);
-      } finally {
-        setLoadingOn(false);
-      }
-    };
 
-  // 🎨 Render giao diện
+  const handleClickOn = async () => {
+    if (!project_id) return;
+    setActive("on");
+    setLoadingOn(true);
+    try {
+      const res = await createON({ project_id });
+      console.log("✅ API ON result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API ON:", err);
+    } finally {
+      setLoadingOn(false);
+    }
+  };
+
+  const handleClickOFF = async () => {
+    if (!project_id) return;
+    setActive("off");
+    setLoadingOn(true);
+    try {
+      const res = await createOFF({ project_id });
+      console.log("✅ API OFF result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API OFF:", err);
+    } finally {
+      setLoadingOn(false);
+    }
+  };
+
   return (
     <div className={styles.box}>
-      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/logo-tt-city-millennia.png"
@@ -176,12 +172,10 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         />
       </div>
 
-      {/* Title */}
       <div className={styles.title}>
-        <h1>LOẠI TIỆN ÍCH</h1>
+        <h1>{phaseFromQuery?.toUpperCase()}</h1>
       </div>
 
-      {/* Menu Buttons */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -191,10 +185,15 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
+                onClick={() => handleMenuClick(item.label)}
                 variant="filled"
                 color="orange"
-                style={{ marginBottom: "10px" }}
-                onClick={() => handleMenuClick(item.label)}
+                style={{
+                  marginBottom: "10px",
+                  background: isMultiMode === "multi"
+                    ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                    : undefined,
+                }}
               >
                 {item.label}
               </Button>
@@ -207,65 +206,65 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         )}
       </div>
 
-      {/* Footer Back Button */}
       <div className={styles.footer}>
-          <Stack align="center" gap="xs">
-                 <Function />
-                 <Group gap="xs">
-                   {/* ✅ Nút ON có gọi API */}
-                 <Button
-         style={getButtonStyle(active === "on")}
-         onClick={() => {
-           if (active !== "on") {
-             setActive("on");
-             handleClickOn();
-           } else {
-             setActive(null); // nếu muốn tắt trạng thái ON
-           }
-         }}
-         disabled={loadingOn}
-       >
-         <Text style={{ fontSize: "13px" }}>ON</Text>
-       </Button>
-       
-                   {/* Nút OFF */}
-                 <Button
-         style={getButtonStyle(active === "off")}
-         onClick={() => {
-           if (active !== "off") {
-             setActive("off");
-             handleClickOFF();
-           } else {
-             setActive(null); // nếu muốn tắt trạng thái OFF
-           }
-         }}
-       >
-         <Text style={{ fontSize: "12px" }}>OFF</Text>
-       </Button>
-       
-                   {/* Nút quay lại */}
-                   <Button
-                     onClick={handleBack}
-                     variant="filled"
-                     style={{
-                       width: 30,
-                       height: 30,
-                       padding: 0,
-                       borderRadius: 40,
-                       display: "flex",
-                       alignItems: "center",
-                       justifyContent: "center",
-                       overflow: "hidden",
-                       transition: "background 0.3s",
-                       background: "#FFFAEE",
-                       color: "#752E0B",
-                       border: "1.5px solid #752E0B",
-                     }}
-                   >
-                     <IconArrowLeft size={18} color="#752E0B" />
-                   </Button>
-                 </Group>
-               </Stack>
+        <Stack align="center" gap="xs">
+          <Function
+            activeMode={isMultiMode}
+            setActiveMode={setIsMultiMode}
+            onMultiModeClick={handleMultiModeClick}
+          />
+          <Group gap="xs">
+            <Button
+              style={getButtonStyle(active === "on")}
+              onClick={() => {
+                if (active !== "on") {
+                  setActive("on");
+                  handleClickOn();
+                } else {
+                  setActive(null);
+                }
+              }}
+              disabled={loadingOn}
+            >
+              <Text style={{ fontSize: "13px" }}>ON</Text>
+            </Button>
+
+            <Button
+              style={getButtonStyle(active === "off")}
+              onClick={() => {
+                if (active !== "off") {
+                  setActive("off");
+                  handleClickOFF();
+                } else {
+                  setActive(null);
+                }
+              }}
+            >
+              <Text style={{ fontSize: "12px" }}>OFF</Text>
+            </Button>
+
+            <Button
+              onClick={handleBack}
+              variant="filled"
+              style={{
+                width: 30,
+                height: 30,
+                padding: 0,
+                borderRadius: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                transition: "background 0.3s",
+                background: "#FFFAEE",
+                color: "#752E0B",
+                border: "1.5px solid #752E0B",
+              }}
+            >
+              <IconArrowLeft size={18} color="#752E0B" />
+            </Button>
+          </Group>
+        </Stack>
       </div>
     </div>
   );
