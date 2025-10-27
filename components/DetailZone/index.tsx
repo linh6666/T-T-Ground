@@ -66,8 +66,9 @@ export default function ZoningSystem({
                     width={rect.width}
                     height={rect.height}
                     transform={rect.transform}
-                  fill={active ? rect.fill : "none"}
-                    stroke={active ? rect.stroke : "none"}
+                 
+                  fill={active ? rect.fill : "none"}        // ✅ Đổi sang màu đỏ khi click
+   stroke={active ? rect.stroke : "none"}
                     strokeWidth={0.5}
                      style={{ cursor: "pointer", transition: "all 0.2s ease" }}
   onClick={() => handleRectClick(rect.id)} // ✅ thêm click đổi màu
