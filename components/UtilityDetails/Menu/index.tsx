@@ -194,6 +194,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
                     ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
                     : undefined,
                 }}
+                   disabled={isMultiMode === "multi"} 
               >
                 {item.label}
               </Button>

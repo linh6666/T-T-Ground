@@ -2,25 +2,25 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
-import { Button, Group, Image, Loader, Text } from "@mantine/core";
+import { Button, Group, Image, Loader, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
+import { createON } from "../../../api/apiON";
+import { createOFF } from "../../../api/apiOFF";
+import Function from "./Function";
 
-// 🧩 Props nhận vào
 interface MenuProps {
   project_id: string | null;
   initialSubzone?: string | null;
 }
 
-// 🧱 Kiểu menu item
 interface MenuItem {
-  label: string; // hiển thị trên nút
+  label: string;
   subzone_vi: string;
   building_type_vi: string;
 }
 
-// 🧩 Kiểu dữ liệu trả về từ API
 interface NodeAttributeItem {
   building_type_vi?: string;
   [key: string]: unknown;
@@ -31,58 +31,58 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
   const searchParams = useSearchParams();
   const subzoneFromQuery = searchParams.get("subzone_vi") || initialSubzone;
 
+  const [active, setActive] = useState<"on" | "off" | null>(null);
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  // 🛰️ Gọi API
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!project_id || !subzoneFromQuery) return;
+  // ✅ Di chuyển fetchData ra ngoài để có thể gọi lại
+  const fetchData = async () => {
+    if (!project_id || !subzoneFromQuery) return;
 
-      setLoading(true);
-      try {
-        const data = await createNodeAttribute({
-          project_id,
-          filters: [
-            { label: "group", values: ["ct"] },
-            { label: "subzone_vi", values: [subzoneFromQuery] },
-          ],
+    setLoading(true);
+    try {
+      const data = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ct"] },
+          { label: "subzone_vi", values: [subzoneFromQuery] },
+        ],
+      });
+
+      console.log("📦 Dữ liệu trả về:", data);
+
+      if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+        const uniqueMap = new Map<string, MenuItem>();
+
+        data.data.forEach((item: NodeAttributeItem) => {
+          const type_vi = (item.building_type_vi as string) || "";
+
+          if (type_vi.trim() && !uniqueMap.has(type_vi)) {
+            uniqueMap.set(type_vi, {
+              label: type_vi,
+              subzone_vi: subzoneFromQuery,
+              building_type_vi: type_vi,
+            });
+          }
         });
 
-        console.log("📦 Dữ liệu trả về:", data);
-
-        if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-          const uniqueMap = new Map<string, MenuItem>();
-
-          data.data.forEach((item: NodeAttributeItem) => {
-            const type_vi = (item.building_type_vi as string) || "";
-
-            // ⚡ Bỏ trống hoặc trùng
-            if (type_vi.trim() && !uniqueMap.has(type_vi)) {
-              uniqueMap.set(type_vi, {
-                label: type_vi, // ✅ hiển thị ra nút
-                subzone_vi: subzoneFromQuery,
-                building_type_vi: type_vi,
-              });
-            }
-          });
-
-          setMenuItems(Array.from(uniqueMap.values()));
-        } else {
-          setMenuItems([]);
-        }
-      } catch (error) {
-        console.error("❌ Lỗi khi gọi API:", error);
+        setMenuItems(Array.from(uniqueMap.values()));
+      } else {
         setMenuItems([]);
-      } finally {
-        setLoading(false);
       }
-    };
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API:", error);
+      setMenuItems([]);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     fetchData();
   }, [project_id, subzoneFromQuery]);
 
-  // ✅ Click navigate — chỉ truyền building_type_vi
   const handleNavigate = (subzone: string, building_type_vi: string) => {
     if (!project_id) return;
     router.push(
@@ -92,16 +92,55 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
     );
   };
 
-  // ⬅️ Nút quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/khu-vuc?id=${project_id}`);
   };
 
-  // 🎨 Render giao diện
+  const handleClickOn = async () => {
+    if (!project_id) return;
+    setActive("on");
+    try {
+      const res = await createON({ project_id });
+      console.log("✅ API ON result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API ON:", err);
+    }
+  };
+
+  const handleClickOFF = async () => {
+    if (!project_id) return;
+    setActive("off");
+    try {
+      const res = await createOFF({ project_id });
+      console.log("✅ API OFF result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API OFF:", err);
+    }
+  };
+
+  const handleMultiModeClick = () => {
+    setIsMultiMode("multi");
+    fetchData(); // ✅ Gọi lại được vì đã đưa ra ngoài
+  };
+
+  const getButtonStyle = (isActive: boolean) => ({
+    width: 30,
+    height: 30,
+    padding: 0,
+    borderRadius: 40,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    transition: "background 0.3s",
+    background: isActive ? "linear-gradient(to top, #FFE09A,#FFF1D2)" : "#FFFAEE",
+    color: "#752E0B",
+    border: "1.5px solid #752E0B",
+  });
+
   return (
     <div className={styles.box}>
-      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/TTHOMES logo-01.png"
@@ -110,12 +149,10 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
         />
       </div>
 
-      {/* Title */}
       <div className={styles.title}>
-        <h1>LOẠI CÔNG TRÌNH</h1>
+       <h1>{subzoneFromQuery?.toUpperCase()}</h1>
       </div>
 
-      {/* Danh sách nút */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -130,7 +167,12 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
                 }
                 variant="filled"
                 color="orange"
-                style={{ marginBottom: "10px" }}
+                style={{
+                  marginBottom: "10px",
+                  background: isMultiMode === "multi"
+                    ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                    : undefined,
+                }}
               >
                 {item.label}
               </Button>
@@ -143,30 +185,64 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
         )}
       </div>
 
-      {/* Nút quay lại */}
       <div className={styles.footer}>
-        <Group gap="xs">
-          <Button
-            onClick={handleBack}
-            variant="filled"
-            style={{
-              width: 30,
-              height: 30,
-              padding: 0,
-              borderRadius: 40,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              overflow: "hidden",
-              transition: "background 0.3s",
-              background: "#FFFAEE",
-              color: "#752E0B",
-              border: "1.5px solid #752E0B",
-            }}
-          >
-            <IconArrowLeft size={18} color="#752E0B" />
-          </Button>
-        </Group>
+        <Stack align="center" gap="xs">
+          <Function
+            activeMode={isMultiMode}
+            setActiveMode={setIsMultiMode}
+            onMultiModeClick={handleMultiModeClick}
+          />
+          <Group gap="xs">
+            <Button
+              style={getButtonStyle(active === "on")}
+              onClick={() => {
+                if (active !== "on") {
+                  setActive("on");
+                  handleClickOn();
+                } else {
+                  setActive(null);
+                }
+              }}
+            >
+              <Text style={{ fontSize: "13px" }}>ON</Text>
+            </Button>
+
+            <Button
+              style={getButtonStyle(active === "off")}
+              onClick={() => {
+                if (active !== "off") {
+                  setActive("off");
+                  handleClickOFF();
+                } else {
+                  setActive(null);
+                }
+              }}
+            >
+              <Text style={{ fontSize: "12px" }}>OFF</Text>
+            </Button>
+
+            <Button
+              onClick={handleBack}
+              variant="filled"
+              style={{
+                width: 30,
+                height: 30,
+                padding: 0,
+                borderRadius: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                transition: "background 0.3s",
+                background: "#FFFAEE",
+                color: "#752E0B",
+                border: "1.5px solid #752E0B",
+              }}
+            >
+              <IconArrowLeft size={18} color="#752E0B" />
+            </Button>
+          </Group>
+        </Stack>
       </div>
     </div>
   );
