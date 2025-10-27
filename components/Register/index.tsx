@@ -172,7 +172,7 @@ useEffect(() => {
         values.password,
       values.province[0],
         values.ward[0],
-        values.introducer,
+        // values.introducer,
         values.detal_address
       );
 

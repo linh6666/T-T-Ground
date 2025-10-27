@@ -11,7 +11,7 @@ export async function registerUser(
 
   province_id:string,
   ward_id:string,
-  introducer_id:string,
+  // introducer_id:string,
   detal_address:string,
 
 ) {
@@ -24,7 +24,7 @@ export async function registerUser(
 
     province_id,
     ward_id,
-    introducer_id,
+    // introducer_id,
     detal_address,
     
     
