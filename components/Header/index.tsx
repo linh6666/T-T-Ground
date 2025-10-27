@@ -46,7 +46,7 @@ export default function Header() {
     try {
       // ✅ Giải mã token có kiểu rõ ràng
       const decoded = jwtDecode<DecodedToken>(token);
-      console.log("🔍 Giải mã token:", decoded);
+      // console.log("🔍 Giải mã token:", decoded);
 
       setIsLoggedIn(true);
       setIsSuperUser(decoded?.is_superuser === true);

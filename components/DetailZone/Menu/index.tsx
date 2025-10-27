@@ -87,26 +87,30 @@ export default function Menu({
     fetchData();
   }, [project_id, phaseFromQuery, buildingTypeFromQuery, onModelsLoaded]);
 
-  const handleSelectModel = async (modelName: string) => {
-    if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
+ const handleSelectModel = async (modelName: string) => {
+  if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
 
-    try {
-      const result = await createNodeAttribute({
-        project_id,
-        filters: [
-          { label: "group", values: ["ct", "phase_vi"] },
-          { label: "phase_vi", values: [phaseFromQuery] },
-          { label: "building_type_vi", values: [buildingTypeFromQuery] },
-          { label: "model_building_vi", values: [modelName] },
-        ],
-      });
+  try {
+    const result = await createNodeAttribute({
+      project_id,
+      filters: [
+        { label: "group", values: ["ct", "phase_vi"] },
+        { label: "phase_vi", values: [phaseFromQuery] },
+        { label: "building_type_vi", values: [buildingTypeFromQuery] },
+        { label: "model_building_vi", values: [modelName] },
+      ],
+    });
 
-      console.log("📦 Dữ liệu model cụ thể:", result);
-      // router.push(`/chi-tiet-nha?id=${project_id}&model=${encodeURIComponent(modelName)}`);
-    } catch (error) {
-      console.error("❌ Lỗi khi gọi lại API model:", error);
-    }
-  };
+    console.log("📦 Dữ liệu model cụ thể:", result);
+
+    // ✅ Gọi lại để cập nhật vùng active
+    onModelsLoaded?.([modelName]);
+
+  } catch (error) {
+    console.error("❌ Lỗi khi gọi lại API model:", error);
+  }
+};
+
 
   const handleBack = () => {
     if (!project_id || !phaseFromQuery) return;

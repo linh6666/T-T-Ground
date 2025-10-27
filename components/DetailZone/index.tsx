@@ -29,6 +29,13 @@ export default function ZoningSystem({
     );
   console.log("Active Set:", activeSet);
   console.log("isActiveRect(D-SH.18):", isActiveRect("D-SH.18"));
+  const handleRectClick = (id: string) => {
+  setActiveModels((prev) => {
+    const isActive = prev.includes(id);
+    // Nếu đang bật thì tắt, nếu tắt thì bật
+    return isActive ? prev.filter((item) => item !== id) : [...prev, id];
+  });
+};
 
   return (
     <div className={styles.box}>
@@ -59,9 +66,11 @@ export default function ZoningSystem({
                     width={rect.width}
                     height={rect.height}
                     transform={rect.transform}
-                    fill={active ? rect.fill : "none"}
+                  fill={active ? rect.fill : "none"}
                     stroke={active ? rect.stroke : "none"}
                     strokeWidth={0.5}
+                     style={{ cursor: "pointer", transition: "all 0.2s ease" }}
+  onClick={() => handleRectClick(rect.id)} // ✅ thêm click đổi màu
                   />
                 );
               })}
