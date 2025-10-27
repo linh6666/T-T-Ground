@@ -6,14 +6,15 @@ import { Button, Group, Image, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
-import { createON  } from "../../../api/apiON"; 
-import { createOFF  } from "../../../api/apiOFF";
+import { createON } from "../../../api/apiON";
+import { createOFF } from "../../../api/apiOFF";
 import Function from "./Function";
 
 interface MenuProps {
   project_id: string | null;
   initialPhase?: string | null;
   initialBuildingType?: string | null;
+  onModelsLoaded?: (models: string[]) => void;
 }
 
 interface MenuItem {
@@ -30,6 +31,7 @@ export default function Menu({
   project_id,
   initialPhase,
   initialBuildingType,
+  onModelsLoaded,
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -37,9 +39,9 @@ export default function Menu({
   const phaseFromQuery = searchParams.get("phase") || initialPhase;
   const buildingTypeFromQuery =
     searchParams.get("building_type_vi") || initialBuildingType;
-      const [active, setActive] = useState<"on" | "off" | null>(null);
-     
-        const [loadingOn, setLoadingOn] = useState(false);
+  const [active, setActive] = useState<"on" | "off" | null>(null);
+
+  const [loadingOn, setLoadingOn] = useState(false);
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
@@ -60,8 +62,15 @@ export default function Menu({
 
         if (data?.data && Array.isArray(data.data)) {
           const uniqueMap = new Map<string, MenuItem>();
+
+          // ✅ Sửa: thay (i: any) bằng (i: NodeAttributeItem)
+          onModelsLoaded?.(
+            data.data.map((i: NodeAttributeItem) => i.model_building_vi)
+          );
+
           data.data.forEach((item: NodeAttributeItem) => {
             const modelLabel = item.model_building_vi as string;
+
             if (modelLabel && !uniqueMap.has(modelLabel)) {
               uniqueMap.set(modelLabel, {
                 model_building_vi: modelLabel,
@@ -69,6 +78,7 @@ export default function Menu({
               });
             }
           });
+
           setMenuItems(Array.from(uniqueMap.values()));
         } else {
           setMenuItems([]);
@@ -80,7 +90,7 @@ export default function Menu({
     };
 
     fetchData();
-  }, [project_id, phaseFromQuery, buildingTypeFromQuery]);
+  }, [project_id, phaseFromQuery, buildingTypeFromQuery, onModelsLoaded]);
 
   // 🧭 Khi click vào model cụ thể → gọi lại API theo model_building_vi
   const handleSelectModel = async (modelName: string) => {
@@ -112,33 +122,32 @@ export default function Menu({
     );
   };
 
-
-    const handleClickOn = async () => {
-      if (!project_id) return;
-      setActive("on");
-      setLoadingOn(true);
-      try {
-        const res = await createON({ project_id });
-        console.log("✅ API ON result:", res);
-      } catch (err) {
-        console.error("❌ Lỗi khi gọi API ON:", err);
-      } finally {
-        setLoadingOn(false);
-      }
-    };
-     const handleClickOFF = async () => {
-      if (!project_id) return;
-      setActive("off");
-      setLoadingOn(true);
-      try {
-        const res = await createOFF({ project_id });
-        console.log("✅ API ON result:", res);
-      } catch (err) {
-        console.error("❌ Lỗi khi gọi API ON:", err);
-      } finally {
-        setLoadingOn(false);
-      }
-    };
+  const handleClickOn = async () => {
+    if (!project_id) return;
+    setActive("on");
+    setLoadingOn(true);
+    try {
+      const res = await createON({ project_id });
+      console.log("✅ API ON result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API ON:", err);
+    } finally {
+      setLoadingOn(false);
+    }
+  };
+  const handleClickOFF = async () => {
+    if (!project_id) return;
+    setActive("off");
+    setLoadingOn(true);
+    try {
+      const res = await createOFF({ project_id });
+      console.log("✅ API ON result:", res);
+    } catch (err) {
+      console.error("❌ Lỗi khi gọi API ON:", err);
+    } finally {
+      setLoadingOn(false);
+    }
+  };
   const getButtonStyle = (isActive: boolean) => ({
     width: 30,
     height: 30,
@@ -198,65 +207,64 @@ export default function Menu({
 
       {/* Footer Back Button */}
       <div className={styles.footer}>
-      <Stack align="center" gap="xs">
-              <Function />
-              <Group gap="xs">
-                {/* ✅ Nút ON có gọi API */}
-              <Button
-      style={getButtonStyle(active === "on")}
-      onClick={() => {
-        if (active !== "on") {
-          setActive("on");
-          handleClickOn();
-        } else {
-          setActive(null); // nếu muốn tắt trạng thái ON
-        }
-      }}
-      disabled={loadingOn}
-    >
-      <Text style={{ fontSize: "13px" }}>ON</Text>
-    </Button>
-    
-                {/* Nút OFF */}
-              <Button
-      style={getButtonStyle(active === "off")}
-      onClick={() => {
-        if (active !== "off") {
-          setActive("off");
-          handleClickOFF();
-        } else {
-          setActive(null); // nếu muốn tắt trạng thái OFF
-        }
-      }}
-    >
-      <Text style={{ fontSize: "12px" }}>OFF</Text>
-    </Button>
-    
-                {/* Nút quay lại */}
-                <Button
-                  onClick={handleBack}
-                  variant="filled"
-                  style={{
-                    width: 30,
-                    height: 30,
-                    padding: 0,
-                    borderRadius: 40,
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    overflow: "hidden",
-                    transition: "background 0.3s",
-                    background: "#FFFAEE",
-                    color: "#752E0B",
-                    border: "1.5px solid #752E0B",
-                  }}
-                >
-                  <IconArrowLeft size={18} color="#752E0B" />
-                </Button>
-              </Group>
-            </Stack>
+        <Stack align="center" gap="xs">
+          <Function />
+          <Group gap="xs">
+            {/* ✅ Nút ON có gọi API */}
+            <Button
+              style={getButtonStyle(active === "on")}
+              onClick={() => {
+                if (active !== "on") {
+                  setActive("on");
+                  handleClickOn();
+                } else {
+                  setActive(null); // nếu muốn tắt trạng thái ON
+                }
+              }}
+              disabled={loadingOn}
+            >
+              <Text style={{ fontSize: "13px" }}>ON</Text>
+            </Button>
+
+            {/* Nút OFF */}
+            <Button
+              style={getButtonStyle(active === "off")}
+              onClick={() => {
+                if (active !== "off") {
+                  setActive("off");
+                  handleClickOFF();
+                } else {
+                  setActive(null); // nếu muốn tắt trạng thái OFF
+                }
+              }}
+            >
+              <Text style={{ fontSize: "12px" }}>OFF</Text>
+            </Button>
+
+            {/* Nút quay lại */}
+            <Button
+              onClick={handleBack}
+              variant="filled"
+              style={{
+                width: 30,
+                height: 30,
+                padding: 0,
+                borderRadius: 40,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                overflow: "hidden",
+                transition: "background 0.3s",
+                background: "#FFFAEE",
+                color: "#752E0B",
+                border: "1.5px solid #752E0B",
+              }}
+            >
+              <IconArrowLeft size={18} color="#752E0B" />
+            </Button>
+          </Group>
+        </Stack>
       </div>
     </div>
   );
 }
-

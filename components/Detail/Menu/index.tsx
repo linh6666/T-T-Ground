@@ -5,14 +5,15 @@ import styles from "./Menu.module.css";
 import { Button, Group, Image, Loader, Stack, Text } from "@mantine/core";
 import { useRouter, useSearchParams } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
-import { createNodeAttribute  } from "../../../api/apifilter";
-import { createON  } from "../../../api/apiON"; 
-import { createOFF  } from "../../../api/apiOFF";// ✅ import thêm createON
+import { createNodeAttribute } from "../../../api/apifilter";
+import { createON } from "../../../api/apiON";
+import { createOFF } from "../../../api/apiOFF"; // ✅ import thêm createON
 import Function from "./Function";
 
 interface MenuProps {
   project_id: string | null;
   initialPhase?: string | null;
+  onPhaseChange?: (phases: string) => void;
 }
 
 interface MenuItem {
@@ -26,28 +27,38 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id, initialPhase }: MenuProps) {
+export default function Menu({
+  project_id,
+  initialPhase,
+  onPhaseChange,
+}: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const phaseFromQuery = searchParams.get("phase") || initialPhase;
+  const phaseValue = searchParams.get("phase") || initialPhase;
   const [active, setActive] = useState<"on" | "off" | null>(null);
-
+  const [phase, setPhase] = useState<string>(phaseValue || "");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingOn, setLoadingOn] = useState(false); // ⏳ loader cho nút ON
 
+  useEffect(() => {
+    if (phaseValue && phaseValue !== phase) {
+      setPhase(phaseValue);
+      onPhaseChange?.(phaseValue);
+    }
+  }, [phaseValue]);
   // 🛰️ Gọi API danh sách loại công trình
   useEffect(() => {
     const fetchData = async () => {
-      if (!project_id || !phaseFromQuery) return;
-
+      if (!project_id || !phase) return;
+      console.log("🚀 Fetching data for phase:", phase);
       setLoading(true);
       try {
         const data = await createNodeAttribute({
           project_id,
           filters: [
             { label: "group", values: ["ct"] },
-            { label: "phase_vi", values: [phaseFromQuery] },
+            { label: "phase_vi", values: [phase] },
           ],
         });
 
@@ -67,7 +78,7 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
             ) {
               uniqueMap.set(buildingType, {
                 label: buildingType,
-                phase_vi: phaseFromQuery,
+                phase_vi: phase,
                 building_type_vi: buildingType,
               });
             }
@@ -109,7 +120,7 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
     };
 
     fetchData();
-  }, [project_id, phaseFromQuery]);
+  }, [project_id, phase]);
 
   // ✅ Click navigate
   const handleNavigate = (phase: string, buildingType: string) => {
@@ -141,7 +152,7 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
       setLoadingOn(false);
     }
   };
-   const handleClickOFF = async () => {
+  const handleClickOFF = async () => {
     if (!project_id) return;
     setActive("off");
     setLoadingOn(true);
@@ -223,35 +234,35 @@ export default function Menu({ project_id, initialPhase }: MenuProps) {
           <Function />
           <Group gap="xs">
             {/* ✅ Nút ON có gọi API */}
-          <Button
-  style={getButtonStyle(active === "on")}
-  onClick={() => {
-    if (active !== "on") {
-      setActive("on");
-      handleClickOn();
-    } else {
-      setActive(null); // nếu muốn tắt trạng thái ON
-    }
-  }}
-  disabled={loadingOn}
->
-  <Text style={{ fontSize: "13px" }}>ON</Text>
-</Button>
+            <Button
+              style={getButtonStyle(active === "on")}
+              onClick={() => {
+                if (active !== "on") {
+                  setActive("on");
+                  handleClickOn();
+                } else {
+                  setActive(null); // nếu muốn tắt trạng thái ON
+                }
+              }}
+              disabled={loadingOn}
+            >
+              <Text style={{ fontSize: "13px" }}>ON</Text>
+            </Button>
 
             {/* Nút OFF */}
-          <Button
-  style={getButtonStyle(active === "off")}
-  onClick={() => {
-    if (active !== "off") {
-      setActive("off");
-      handleClickOFF();
-    } else {
-      setActive(null); // nếu muốn tắt trạng thái OFF
-    }
-  }}
->
-  <Text style={{ fontSize: "12px" }}>OFF</Text>
-</Button>
+            <Button
+              style={getButtonStyle(active === "off")}
+              onClick={() => {
+                if (active !== "off") {
+                  setActive("off");
+                  handleClickOFF();
+                } else {
+                  setActive(null); // nếu muốn tắt trạng thái OFF
+                }
+              }}
+            >
+              <Text style={{ fontSize: "12px" }}>OFF</Text>
+            </Button>
 
             {/* Nút quay lại */}
             <Button

@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 
-
 // Kiểu prop nhận vào
 interface MenuProps {
   project_id: string | null;
@@ -28,7 +27,7 @@ export default function Menu({ project_id }: MenuProps) {
   const router = useRouter();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-// ✅ trạng thái active cho ON/OFF
+  // ✅ trạng thái active cho ON/OFF
 
   useEffect(() => {
     const fetchData = async () => {
@@ -45,13 +44,13 @@ export default function Menu({ project_id }: MenuProps) {
 
         if (data?.data && Array.isArray(data.data)) {
           // Tách phase_vi và loại trùng
-          const allPhases: string[] = data.data
-            .flatMap((item: NodeAttributeItem) =>
+          const allPhases: string[] = data.data.flatMap(
+            (item: NodeAttributeItem) =>
               String(item.phase_vi || "")
                 .split(";")
                 .map((z) => z.trim())
                 .filter(Boolean)
-            );
+          );
 
           const uniquePhases = Array.from(new Set(allPhases));
 
@@ -84,7 +83,9 @@ export default function Menu({ project_id }: MenuProps) {
   // Điều hướng với phase_vi
   const handleNavigate = (phase: string) => {
     if (!project_id) return;
-    router.push(`/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phase)}`);
+    router.push(
+      `/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phase)}`
+    );
   };
 
   const handleBack = () => {
@@ -147,36 +148,32 @@ export default function Menu({ project_id }: MenuProps) {
 
       {/* ✅ Footer có ON/OFF có trạng thái */}
       <div className={styles.footer}>
-      
-       
-          <Group gap="xs">
-            {/* Nút ON */}
-          
-            {/* Nút quay lại */}
-            <Button
-              onClick={handleBack}
-              variant="filled"
-              style={{
-                width: 30,
-                height: 30,
-                padding: 0,
-                borderRadius: 40,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden",
-                transition: "background 0.3s",
-                background: "#FFFAEE",
-                color: "#752E0B",
-                border: "1.5px solid #752E0B",
-              }}
-            >
-              <IconArrowLeft size={18} color="#752E0B" />
-            </Button>
-          </Group>
-   
+        <Group gap="xs">
+          {/* Nút ON */}
+
+          {/* Nút quay lại */}
+          <Button
+            onClick={handleBack}
+            variant="filled"
+            style={{
+              width: 30,
+              height: 30,
+              padding: 0,
+              borderRadius: 40,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              overflow: "hidden",
+              transition: "background 0.3s",
+              background: "#FFFAEE",
+              color: "#752E0B",
+              border: "1.5px solid #752E0B",
+            }}
+          >
+            <IconArrowLeft size={18} color="#752E0B" />
+          </Button>
+        </Group>
       </div>
     </div>
   );
 }
-

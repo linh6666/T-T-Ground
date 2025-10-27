@@ -16,8 +16,6 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
         <div className={styles.imageWrapper}>
           <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
 
-
-
           {/* SVG 1 */}
           <svg
             className={styles.overlaySvg}
@@ -34,7 +32,6 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
               stroke="#fcb814"
               strokeWidth={5}
             />
-           
           </svg>
 
           {/* SVG 2 */}
@@ -46,7 +43,7 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
             viewBox="0 0 1397.691 930.346"
           >
             <path
-            className={styles.hoverablePath2}
+              className={styles.hoverablePath2}
               d="M-17394.336-21897.334s31.068.635,67.391,3.822,57.346,4.307,57.346,4.307l2.451-20.1s9.125-104.734-2.451-141.666c-.295-.939-5.441-9.023-5.742-10.154-10.715-40.312,25.574-47.367,29.314-113.432,3.824-67.551-34.412-126.812-57.99-159.951s-13.383-109.607,12.744-148.48,7.846-36.275-6.371-50.98-36.664-53.768-37.645-85.141-25.186-40.006-25.186-40.006-48.643,11.313-66.742,12.443-72.4-11.311-89.367-38.084-29.789-30.92-72.021,19.607-65.988,31.674-109.729,75.414-54.689,112.729-53.936,122.531,25.643,38.461,32.43,58.447,19.605,92.76,29.787,98.416,94.957,72.141,114.564,96.273,68.438,76.246,80.883,84.166,83.258,65.91,86.273,72.549,16.26,41.328,14,103.922S-17394.336-21897.334-17394.336-21897.334Z"
               transform="translate(17928.861 22706.727)"
               fill="rgba(223,243,79,0.3)"
@@ -90,7 +87,6 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
               strokeWidth={5}
             />
           </svg>
-    
         </div>
       </div>
 
@@ -100,4 +96,3 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
     </div>
   );
 }
-
