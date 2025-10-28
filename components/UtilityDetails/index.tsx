@@ -4,7 +4,7 @@ import { Image } from "@mantine/core";
 import React from "react";
 import styles from "./ZoningSystem.module.css";
 import Menu from "./Menu/index"; 
-import { pathsData } from "./Data";
+// import { pathsData } from "./Data";
 
 interface ZoningSystemProps {
   project_id: string | null;
@@ -18,7 +18,7 @@ export default function ZoningSystem({ project_id, initialBuildingType }: Zoning
         <div className={styles.imageWrapper}>
           <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
 
-          {pathsData.map((item) => (
+          {/* {pathsData.map((item) => (
             <div
               key={item.id}
               className={styles.overlaySvg}
@@ -28,7 +28,7 @@ export default function ZoningSystem({ project_id, initialBuildingType }: Zoning
               }}
               dangerouslySetInnerHTML={{ __html: item.svg }}
             />
-          ))}
+          ))} */}
         </div>
       </div>
 

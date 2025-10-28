@@ -14,7 +14,7 @@ export default function ControlPage({ project_id }: ControlPageProps) {
     <div className={styles.box}>
       <div className={styles.left}>
         <Image
-          src="/image/home_bg2.png"
+          src="/image/home_bg4.png"
           alt="Ảnh trang chủ"
           className={styles.img}
         />
