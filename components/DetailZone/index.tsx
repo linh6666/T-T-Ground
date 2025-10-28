@@ -1,16 +1,15 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { Image } from "@mantine/core";
 import Menu from "./Menu/index";
-import { pathsData } from "./Data";
+import { pathsData, SvgItem } from "./Data";
 import styles from "./ZoningSystem.module.css";
 
-// ⚙️ Props ZoningSystem
 interface ZoningSystemProps {
   project_id: string | null;
   initialPhase?: string | null;
-  initialBuildingType?: string | null; // 🔁 đổi từ initialSuzone → initialBuildingType
+  initialBuildingType?: string | null;
 }
 
 export default function ZoningSystem({
@@ -19,73 +18,84 @@ export default function ZoningSystem({
   initialBuildingType,
 }: ZoningSystemProps) {
   const [activeModels, setActiveModels] = useState<string[]>([]);
-  console.log("Active Models:", activeModels);
-  // 🧩 Hàm check active
-  const activeSet = new Set(activeModels.map((m) => m.trim().toLowerCase()));
 
-  const isActiveRect = (id: string) =>
-    Array.from(activeSet).some((activeId) =>
-      id.trim().toLowerCase().startsWith(activeId.trim().toLowerCase())
-    );
-  console.log("Active Set:", activeSet);
-  console.log("isActiveRect(D-SH.18):", isActiveRect("D-SH.18"));
-  const handleRectClick = (id: string) => {
-  setActiveModels((prev) => {
-    const isActive = prev.includes(id);
-    // Nếu đang bật thì tắt, nếu tắt thì bật
-    return isActive ? prev.filter((item) => item !== id) : [...prev, id];
+  // ✅ Debug: log khi activeModels thay đổi
+  useEffect(() => {
+    // console.log("🟢 activeModels hiện tại:", activeModels);
+  }, [activeModels]);
+
+  // ✅ Lọc SVG theo danh sách vùng được chọn
+  // ✅ Lọc SVG theo danh sách vùng được chọn
+const filteredPaths = useMemo(() => {
+  // console.log("🔹 Bắt đầu lọc SVG, activeModels:", activeModels);
+
+  if (!activeModels || activeModels.length === 0) {
+    // console.log("❌ Không có vùng nào được chọn, không hiển thị SVG");
+    return [];
+  }
+
+  const result = pathsData.map((item: SvgItem) => {
+    // console.log(`➡️ Xử lý SVG id: ${item.id}`);
+
+    const parser = new DOMParser();
+    const svgDoc = parser.parseFromString(item.svg, "image/svg+xml");
+
+    // Ẩn các rect/path không khớp
+    Array.from(svgDoc.querySelectorAll("rect, path")).forEach(el => {
+      const elPrefix = el.id?.split(".").slice(0, 2).join("."); // D-SH.18
+      if (!elPrefix || !activeModels.includes(elPrefix)) {
+        el.setAttribute("style", "display:none");
+        // console.log(`   ❌ Ẩn ${el.tagName} id: ${el.id}`);
+      } else {
+        el.removeAttribute("style"); // đảm bảo hiển thị
+        // console.log(`   ✅ Hiển thị ${el.tagName} id: ${el.id} → so sánh: ${elPrefix}`);
+      }
+    });
+
+    return {
+      ...item,
+      svg: svgDoc.documentElement.outerHTML,
+    };
   });
-};
+
+  // console.log("🔹 Kết quả filteredPaths:", result.map(i => i.id));
+  return result;
+}, [activeModels]);
+
+
+
+
+
 
   return (
     <div className={styles.box}>
-      {/* Hình bên trái */}
       <div className={styles.left}>
         <div className={styles.imageWrapper}>
           <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
-          {pathsData.map((group) => (
-            <svg
-              key={group.id}
-              className={styles.svgOverlay}
-              style={{
-                position: "absolute", // Đảm bảo rằng SVG được định vị tuyệt đối
-                top: `${group.topPercent}%`,
-                left: `${group.leftPercent}%`,
-                zIndex: 2, // Đặt SVG lên trên hình ảnh
-              }}
-              width="874"
-              height="670"
-              viewBox="0 0 1282.928 855.778"
-            >
-              {group.rects.map((rect) => {
-                const active = isActiveRect(rect.id);
-                return (
-                  <rect
-                    key={rect.id}
-                    id={rect.id}
-                    width={rect.width}
-                    height={rect.height}
-                    transform={rect.transform}
-                 
-                  fill={active ? rect.fill : "none"}        // ✅ Đổi sang màu đỏ khi click
-   stroke={active ? rect.stroke : "none"}
-                    strokeWidth={0.5}
-                     style={{ cursor: "pointer", transition: "all 0.2s ease" }}
-  onClick={() => handleRectClick(rect.id)} // ✅ thêm click đổi màu
-                  />
-                );
-              })}
-            </svg>
-          ))}
+
+          {filteredPaths.length > 0 ? (
+            filteredPaths.map((item) => (
+              <div
+                key={item.id}
+                className={styles.overlaySvg}
+                style={{
+                  top: `${item.topPercent}%`,
+                  left: `${item.leftPercent}%`,
+                }}
+                dangerouslySetInnerHTML={{ __html: item.svg }}
+              />
+            ))
+          ) : (
+            <p>Không có SVG nào để hiển thị.</p>
+          )}
         </div>
       </div>
 
-      {/* Menu bên phải */}
       <div className={styles.right}>
         <Menu
           project_id={project_id}
           initialPhase={initialPhase}
-          initialBuildingType={initialBuildingType} // 🔁 truyền prop mới xuống Menu
+          initialBuildingType={initialBuildingType}
           onModelsLoaded={setActiveModels}
         />
       </div>

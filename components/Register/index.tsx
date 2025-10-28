@@ -296,6 +296,7 @@ useEffect(() => {
   onFocus={() => setClickWard(true)}
   onBlur={() => setClickWard(false)}
   {...form.getInputProps("ward")}
+  
 />
 
             {/* Introducer */}
