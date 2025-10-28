@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo } from "react";
 import { Image } from "@mantine/core";
 import Menu from "./Menu/index";
 import { pathsData, SvgItem } from "./Data";
