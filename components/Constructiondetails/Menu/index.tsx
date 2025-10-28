@@ -16,6 +16,7 @@ interface MenuProps {
   initialSubzone?: string | null;
   initialBuildingTypeVi?: string | null;
   initialModelBuildingVi?: string | null;
+   onModelsLoaded?: (models: string[]) => void;
 }
 
 // 🧱 Kiểu menu item
@@ -39,6 +40,7 @@ export default function Menu({
   initialSubzone,
   initialBuildingTypeVi,
   initialModelBuildingVi,
+   onModelsLoaded,
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -71,6 +73,10 @@ export default function Menu({
 
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
         const uniqueMap = new Map<string, MenuItem>();
+ onModelsLoaded?.(
+        data.data.map((i: NodeAttributeItem) => i.building_code)
+      );
+
         data.data.forEach((item: NodeAttributeItem) => {
           const type_vi = item.building_code as string || "";
           if (type_vi.trim() && !uniqueMap.has(type_vi) && !type_vi.includes("Cảnh quan")) {
@@ -96,7 +102,7 @@ export default function Menu({
 
   useEffect(() => {
     fetchData();
-  }, [project_id, subzoneFromQuery, buildingTypeViFromQuery, modelBuildingViFromQuery]);
+  }, [project_id, subzoneFromQuery, buildingTypeViFromQuery, modelBuildingViFromQuery, onModelsLoaded,]);
 
   const handleBack = () => {
     if (!project_id) return;
@@ -107,7 +113,7 @@ export default function Menu({
     );
   };
 
-  const handleItemClick = async (modelBuildingVi: string) => {
+  const handleItemClick = async (modelName: string) => {
     if (!project_id || !subzoneFromQuery || !buildingTypeViFromQuery) return;
 
     try {
@@ -118,9 +124,10 @@ export default function Menu({
           { label: "subzone_vi", values: [subzoneFromQuery] },
           { label: "building_type_vi", values: [buildingTypeViFromQuery] },
           { label: "model_building_vi", values: [modelBuildingViFromQuery] },
-          { label: "building_code", values: [modelBuildingVi] },
+          { label: "building_code", values: [modelName] },
         ],
       });
+       onModelsLoaded?.([modelName]);
     } catch (error) {
       console.error("❌ Lỗi khi click nút:", error);
     }

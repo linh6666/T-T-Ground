@@ -13,6 +13,7 @@ import Function from "./Function";
 interface MenuProps {
   project_id: string | null;
   initialSubzone?: string | null;
+    onModelsLoaded?: (models: string[]) => void;
 }
 
 interface MenuItem {
@@ -26,7 +27,7 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id, initialSubzone }: MenuProps) {
+export default function Menu({ project_id, initialSubzone, onModelsLoaded }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const subzoneFromQuery = searchParams.get("subzone_vi") || initialSubzone;
@@ -55,6 +56,12 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
         const uniqueMap = new Map<string, MenuItem>();
 
+     onModelsLoaded?.(
+        data.data.map((i: NodeAttributeItem) => i.building_code)
+      );
+
+
+
         data.data.forEach((item: NodeAttributeItem) => {
           const type_vi = (item.building_type_vi as string) || "";
 
@@ -81,7 +88,7 @@ export default function Menu({ project_id, initialSubzone }: MenuProps) {
 
   useEffect(() => {
     fetchData();
-  }, [project_id, subzoneFromQuery]);
+  }, [project_id, subzoneFromQuery, onModelsLoaded]);
 
   const handleNavigate = (subzone: string, building_type_vi: string) => {
     if (!project_id) return;

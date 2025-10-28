@@ -14,6 +14,8 @@ interface MenuProps {
   project_id: string | null;
   initialSubzone?: string | null;
   initialBuildingTypeVi?: string | null;
+    onModelsLoaded?: (models: string[]) => void;
+  
 }
 
 interface MenuItem {
@@ -33,6 +35,7 @@ export default function Menu({
   project_id,
   initialSubzone,
   initialBuildingTypeVi,
+  onModelsLoaded
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -62,6 +65,10 @@ export default function Menu({
 
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
         const uniqueMap = new Map<string, MenuItem>();
+  onModelsLoaded?.(
+        data.data.map((i: NodeAttributeItem) => i.building_code)
+      );
+
 
         data.data.forEach((item: NodeAttributeItem) => {
           const type_vi = (item.model_building_vi as string) || "";
@@ -93,7 +100,7 @@ export default function Menu({
 
   useEffect(() => {
     fetchData();
-  }, [project_id, subzoneFromQuery, buildingTypeViFromQuery]);
+  }, [project_id, subzoneFromQuery, buildingTypeViFromQuery,onModelsLoaded]);
 
   const handleNavigate = (subzone: string, building_type_vi: string, model_building_vi: string) => {
     if (!project_id) return;
