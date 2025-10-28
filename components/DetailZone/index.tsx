@@ -5,6 +5,7 @@ import { Image } from "@mantine/core";
 import Menu from "./Menu/index";
 import { pathsData, SvgItem } from "./Data";
 import styles from "./ZoningSystem.module.css";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 interface ZoningSystemProps {
   project_id: string | null;
@@ -19,76 +20,63 @@ export default function ZoningSystem({
 }: ZoningSystemProps) {
   const [activeModels, setActiveModels] = useState<string[]>([]);
 
-  // ✅ Debug: log khi activeModels thay đổi
-  useEffect(() => {
-    // console.log("🟢 activeModels hiện tại:", activeModels);
-  }, [activeModels]);
+  const filteredPaths = useMemo(() => {
+    if (!activeModels || activeModels.length === 0) return [];
 
-  // ✅ Lọc SVG theo danh sách vùng được chọn
-  // ✅ Lọc SVG theo danh sách vùng được chọn
-const filteredPaths = useMemo(() => {
-  // console.log("🔹 Bắt đầu lọc SVG, activeModels:", activeModels);
+    const result = pathsData.map((item: SvgItem) => {
+      const parser = new DOMParser();
+      const svgDoc = parser.parseFromString(item.svg, "image/svg+xml");
 
-  if (!activeModels || activeModels.length === 0) {
-    // console.log("❌ Không có vùng nào được chọn, không hiển thị SVG");
-    return [];
-  }
+      Array.from(svgDoc.querySelectorAll("rect, path")).forEach((el) => {
+        const elPrefix = el.id?.split(".").slice(0, 2).join(".");
+        if (!elPrefix || !activeModels.includes(elPrefix)) {
+          el.setAttribute("style", "display:none");
+        } else {
+          el.removeAttribute("style");
+        }
+      });
 
-  const result = pathsData.map((item: SvgItem) => {
-    // console.log(`➡️ Xử lý SVG id: ${item.id}`);
-
-    const parser = new DOMParser();
-    const svgDoc = parser.parseFromString(item.svg, "image/svg+xml");
-
-    // Ẩn các rect/path không khớp
-    Array.from(svgDoc.querySelectorAll("rect, path")).forEach(el => {
-      const elPrefix = el.id?.split(".").slice(0, 2).join("."); // D-SH.18
-      if (!elPrefix || !activeModels.includes(elPrefix)) {
-        el.setAttribute("style", "display:none");
-        // console.log(`   ❌ Ẩn ${el.tagName} id: ${el.id}`);
-      } else {
-        el.removeAttribute("style"); // đảm bảo hiển thị
-        // console.log(`   ✅ Hiển thị ${el.tagName} id: ${el.id} → so sánh: ${elPrefix}`);
-      }
+      return {
+        ...item,
+        svg: svgDoc.documentElement.outerHTML,
+      };
     });
 
-    return {
-      ...item,
-      svg: svgDoc.documentElement.outerHTML,
-    };
-  });
-
-  // console.log("🔹 Kết quả filteredPaths:", result.map(i => i.id));
-  return result;
-}, [activeModels]);
-
-
-
-
-
+    return result;
+  }, [activeModels]);
 
   return (
     <div className={styles.box}>
       <div className={styles.left}>
-        <div className={styles.imageWrapper}>
-          <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
+        <TransformWrapper
+          initialScale={1}
+     minScale={1} 
+          maxScale={5}
+          wheel={{ step: 0.2 }}
+          doubleClick={{ disabled: true }}
+        >
+          <TransformComponent>
+            <div className={styles.imageWrapper}>
+              <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
 
-          {filteredPaths.length > 0 ? (
-            filteredPaths.map((item) => (
-              <div
-                key={item.id}
-                className={styles.overlaySvg}
-                style={{
-                  top: `${item.topPercent}%`,
-                  left: `${item.leftPercent}%`,
-                }}
-                dangerouslySetInnerHTML={{ __html: item.svg }}
-              />
-            ))
-          ) : (
-            <p>Không có SVG nào để hiển thị.</p>
-          )}
-        </div>
+              {filteredPaths.length > 0 ? (
+                filteredPaths.map((item) => (
+                  <div
+                    key={item.id}
+                    className={styles.overlaySvg}
+                    style={{
+                      top: `${item.topPercent}%`,
+                      left: `${item.leftPercent}%`,
+                    }}
+                    dangerouslySetInnerHTML={{ __html: item.svg }}
+                  />
+                ))
+              ) : (
+                <p>Không có SVG nào để hiển thị.</p>
+              )}
+            </div>
+          </TransformComponent>
+        </TransformWrapper>
       </div>
 
       <div className={styles.right}>

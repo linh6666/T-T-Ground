@@ -42,46 +42,59 @@ export default function Menu({
   const [loadingOn, setLoadingOn] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
-  const fetchData = async () => {
-    if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
+const fetchData = async () => {
+  if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
 
-    try {
-      const data = await createNodeAttribute({
-        project_id,
-        filters: [
-          { label: "group", values: ["ct", "phase_vi"] },
-          { label: "phase_vi", values: [phaseFromQuery] },
-          { label: "building_type_vi", values: [buildingTypeFromQuery] },
-        ],
+  try {
+    const data = await createNodeAttribute({
+      project_id,
+      filters: [
+        { label: "group", values: ["ct", "phase_vi"] },
+        { label: "phase_vi", values: [phaseFromQuery] },
+        { label: "building_type_vi", values: [buildingTypeFromQuery] },
+      ],
+    });
+
+    if (data?.data && Array.isArray(data.data)) {
+      const uniqueMap = new Map<string, MenuItem>();
+
+      // Gọi callback nếu có
+      onModelsLoaded?.(
+        data.data.map((i: NodeAttributeItem) => i.model_building_vi)
+      );
+
+      // Lọc dữ liệu duy nhất theo model_building_vi
+      data.data.forEach((item: NodeAttributeItem) => {
+        const modelLabel = item.model_building_vi as string;
+
+        if (modelLabel && !uniqueMap.has(modelLabel)) {
+          uniqueMap.set(modelLabel, {
+            model_building_vi: modelLabel,
+            phase_vi: phaseFromQuery!,
+          });
+        }
       });
 
-      if (data?.data && Array.isArray(data.data)) {
-        const uniqueMap = new Map<string, MenuItem>();
+      // Sắp xếp theo số trong model_building_vi (ví dụ: C-LK.20 → 20)
+      const sortedItems = Array.from(uniqueMap.values()).sort((a, b) => {
+        const getNumber = (label: string) => {
+          const match = label.match(/\d+/);
+          return match ? parseInt(match[0], 10) : 0;
+        };
 
-        onModelsLoaded?.(
-          data.data.map((i: NodeAttributeItem) => i.model_building_vi)
-        );
+        return getNumber(a.model_building_vi) - getNumber(b.model_building_vi);
+      });
 
-        data.data.forEach((item: NodeAttributeItem) => {
-          const modelLabel = item.model_building_vi as string;
-
-          if (modelLabel && !uniqueMap.has(modelLabel)) {
-            uniqueMap.set(modelLabel, {
-              model_building_vi: modelLabel,
-              phase_vi: phaseFromQuery!,
-            });
-          }
-        });
-
-        setMenuItems(Array.from(uniqueMap.values()));
-      } else {
-        setMenuItems([]);
-      }
-    } catch (error) {
-      console.error("❌ Lỗi khi gọi API:", error);
+      setMenuItems(sortedItems);
+    } else {
       setMenuItems([]);
     }
-  };
+  } catch (error) {
+    console.error("❌ Lỗi khi gọi API:", error);
+    setMenuItems([]);
+  }
+};
+
 
   useEffect(() => {
     fetchData();
