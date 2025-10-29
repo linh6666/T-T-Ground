@@ -20,7 +20,10 @@
   text-align: center;
   padding: 10px;
 }
-
+.imageWrapper {
+  position: relative;
+  width: 100%;
+}
 /* Ảnh full kích thước */
 .img {
   object-fit: cover;

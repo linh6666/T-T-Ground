@@ -110,9 +110,9 @@
   transition: fill 0.3s;
 }
 
-.hoverablePath1:hover,
+/* .hoverablePath1:hover,
 .hoverablePath2:hover,
 .hoverablePath3:hover,
 .hoverablePath4:hover {
   fill: rgba(243, 232, 190, 0.7);
-}
+} */

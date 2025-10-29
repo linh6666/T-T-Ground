@@ -4,6 +4,8 @@ import React from "react";
 import { Image } from "@mantine/core";
 import styles from "./ZoningSystem.module.css";
 import Menu from "./Menu/index";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+
 
 interface ZoningSystemProps {
   project_id: string | null;
@@ -13,6 +15,14 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
   return (
     <div className={styles.box}>
       <div className={styles.left}>
+         <TransformWrapper
+          initialScale={1}
+     minScale={1} 
+          maxScale={5}
+          wheel={{ step: 0.2 }}
+          doubleClick={{ disabled: true }}
+        >
+          <TransformComponent>
         <div className={styles.imageWrapper}>
           <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
 
@@ -88,6 +98,8 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
             />
           </svg>
         </div>
+          </TransformComponent>
+        </TransformWrapper>
       </div>
 
       <div className={styles.right}>
