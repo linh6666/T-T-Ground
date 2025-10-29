@@ -278,33 +278,36 @@ const Login = () => {
 
   // ✅ Xử lý submit form
   const handleSubmit = async (values: Register) => {
-    setLoading(true);
-    setError(null);
+  setLoading(true);
+  setError(null);
 
-    try {
-      const data = await loginUser(values.username, values.password);
-      console.log("Login success:", data);
+  try {
+    const data = await loginUser(values.username, values.password);
+    console.log("Login success:", data);
 
-      if (!data.access_token) {
-        throw new Error("Không nhận được token hợp lệ");
-      }
-
-      NotificationExtension.Success("Đăng nhập thành công!");
-      window.location.href = "/";
-    } catch (err: unknown) {
-      console.error("Login error:", err);
-
-      if (err instanceof Error) {
-        setError(err.message);
-        NotificationExtension.Fails(err.message || "Đăng nhập thất bại");
-      } else {
-        setError("Đăng nhập thất bại");
-        NotificationExtension.Fails("Đăng nhập thất bại");
-      }
-    } finally {
-      setLoading(false);
+    if (!data.access_token) {
+      throw new Error("Không nhận được token hợp lệ");
     }
-  };
+
+    // ✅ Lưu token vào localStorage
+    localStorage.setItem("access_token", data.access_token);
+
+    NotificationExtension.Success("Đăng nhập thành công!");
+    window.location.href = "/";
+  } catch (err: unknown) {
+    console.error("Login error:", err);
+
+    if (err instanceof Error) {
+      setError(err.message);
+      NotificationExtension.Fails(err.message || "Đăng nhập thất bại");
+    } else {
+      setError("Đăng nhập thất bại");
+      NotificationExtension.Fails("Đăng nhập thất bại");
+    }
+  } finally {
+    setLoading(false);
+  }
+};
 
   // ✅ Giao diện chính
   return (

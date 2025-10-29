@@ -1,85 +1,77 @@
 "use client";
 
-import { useState } from "react";
-import {  IconUser } from "@tabler/icons-react";
-import {  Text } from "@mantine/core";
-import useAuth from "../../../hook/useAuth";
-// import styles from "./ButtonLogin.module.css";
+import { useState, useEffect } from "react";
+import { IconUser } from "@tabler/icons-react";
+import { Text } from "@mantine/core";
 import Link from "next/link";
-import ProfileModal from "./Profile/index"; 
+import useAuth from "../../../hook/useAuth";
+import ProfileModal from "./Profile";
 import ButtonsCollection from "../../../common/ButtonsCollection";
-// import {
-//   useViewportSize,
-// } from "@mantine/hooks";// ✅ import modal hồ sơ
 
 export default function LoginButton() {
   const { user, isLoggedIn, error } = useAuth();
   const [isProfileOpen, setIsProfileOpen] = useState(false);
-  //  const widthView = useViewportSize().width;
+  const [mounted, setMounted] = useState(false);
 
-  // const handleLogout = async () => {
-  //   await logout();
-  //   window.alert("Đăng xuất thành công");
-  //   window.location.href = "/";
-  // };
+  // ✅ Fix: tránh lỗi hydration + kiểm tra localStorage token
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
 
   return (
     <>
       {isLoggedIn && user ? (
-      
-         <Link href="/Tai-khoan" style={{ textDecoration: "none" }}>
-              <ButtonsCollection
-                background
-                hover
-                // leftIcon={<IconUserCircle size={widthView < 600 ? 16 : 24} color="#ffbe00" />}
-              >
-                
-                  <Text w={"100%"} fw={"700"} c={"white"} truncate="end">
-                      {user.full_name}
-                  </Text>
-                
-              </ButtonsCollection>
-     </Link>
-
-         
-       
+        <Link
+          href="/Tai-khoan"
+          style={{
+            textDecoration: "none",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <ButtonsCollection background hover>
+            <Text w={"100%"} fw={"700"} c={"white"} truncate="end">
+              {user.full_name || "Tài khoản"}
+            </Text>
+          </ButtonsCollection>
+        </Link>
       ) : (
-        // <ButtonsCollection background hover>
-                <Link
-                  href={"/dang-nhap"}
-                  style={{
-                    textDecoration: "none",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                  }}
-                >
-              
-  <div
-      style={{
-        border: "1px solid #752E0B",
-        borderRadius: "50%",
-        width: 26,
-        height: 26,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <IconUser size={17} color="#752E0B" stroke={1.5} />
-    </div>
-                </Link>
-              // </ButtonsCollection>
+        <Link
+          href="/dang-nhap"
+          style={{
+            textDecoration: "none",
+            color: "white",
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          <div
+            style={{
+              border: "1px solid #752E0B",
+              borderRadius: "50%",
+              width: 26,
+              height: 26,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <IconUser size={17} color="#752E0B" stroke={1.5} />
+          </div>
+        </Link>
       )}
 
-      {/* ✅ Modal hồ sơ cá nhân */}
+      {/* 🔹 Modal hiển thị thông tin tài khoản */}
       <ProfileModal
         opened={isProfileOpen}
         onClose={() => setIsProfileOpen(false)}
       />
 
+      {/* 🔹 Hiển thị lỗi nếu có */}
       {error && (
-        <div className="text-red-500 text-sm mt-2">
+        <div style={{ color: "red", fontSize: 12, marginTop: 8 }}>
           <p>{error}</p>
         </div>
       )}
