@@ -11,7 +11,7 @@ export default function DetailInteractive () {
         {/* Card 3 */}
         <Card shadow="sm" radius="md" withBorder padding="0" className={styles.card}>
           <Image
-            src="https://img.heroui.chat/image/places?w=800&h=400&u=1"
+            src="/image/home_bg.png"
             height={160}
             alt="Highrise Melbourne"
             style={{ borderTopLeftRadius: "var(--mantine-radius-md)", borderTopRightRadius: "var(--mantine-radius-md)" }}
@@ -31,7 +31,7 @@ export default function DetailInteractive () {
 
 <Card shadow="sm" radius="md" withBorder padding="0" className={styles.card}>
           <Image
-            src="https://img.heroui.chat/image/places?w=800&h=400&u=8"
+            src="/image/home_bg4.png"
             height={160}
             alt="HIGHRISE MELBOURNE"
             style={{ borderTopLeftRadius: "var(--mantine-radius-md)", borderTopRightRadius: "var(--mantine-radius-md)" }}
@@ -49,7 +49,7 @@ export default function DetailInteractive () {
       Đi tới dự án
     </Button>
 
-        </Card>
+        {/* </Card>
  <Card shadow="sm" radius="md" withBorder padding="0" className={styles.card}>
           <Image
             src="https://img.heroui.chat/image/places?w=800&h=400&u=2"
@@ -61,20 +61,17 @@ export default function DetailInteractive () {
             <Text fw={500}>Times Square Đà Nẵng</Text>
             <Text size="sm" c="dimmed">Đà Nẵng</Text>
             <Text size="sm" c="dimmed"></Text>
-          </Stack>
-          {/* <Button disabled className={`${styles.baseButton} ${styles.disabledButton}`}>
-           
-xin phê duyệt
-          </Button> */}
-            <Button
+          </Stack> */}
+          
+            {/* <Button
       component="a"
    href=""
       className={`${styles.baseButton} ${styles.primaryButton}`}
     >
       Đi tới dự án
-    </Button>
+    </Button> */}
         </Card>
-    <Card shadow="sm" radius="md" withBorder padding="0" className={styles.card}>
+    {/* <Card shadow="sm" radius="md" withBorder padding="0" className={styles.card}>
           <Image
             src="https://img.heroui.chat/image/places?w=800&h=400&u=5"
             height={160}
@@ -86,9 +83,7 @@ xin phê duyệt
             <Text size="sm" c="dimmed">Cà Mau</Text>
             <Text size="sm" c="dimmed"></Text>
           </Stack>
-          {/* <Button disabled className={`${styles.baseButton} ${styles.disabledButton}`}>           
-Chờ phê duyệt
-          </Button> */}
+         
             <Button
       component="a"
    href=""
@@ -96,7 +91,7 @@ Chờ phê duyệt
     >
       Đi tới dự án
     </Button>
-        </Card>       
+        </Card>        */}
       </div>
 
           <div className={styles.footerwrapper}>
