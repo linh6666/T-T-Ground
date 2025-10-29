@@ -72,7 +72,7 @@ export default function Menu({
 
         data.data.forEach((item: NodeAttributeItem) => {
           const type_vi = (item.model_building_vi as string) || "";
-          if (type_vi.trim() && !uniqueMap.has(type_vi) && type_vi !== "Cảnh quan") {
+          if (type_vi.trim() && !uniqueMap.has(type_vi) && type_vi !== "CẢNH QUAN") {
             uniqueMap.set(type_vi, {
               label: type_vi,
               subzone_vi: subzoneFromQuery,
