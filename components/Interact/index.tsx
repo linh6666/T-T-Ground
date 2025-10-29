@@ -38,16 +38,25 @@ export default function DetailInteractive() {
         const { data } = await getListProject({ token, skip: 0, limit: 20 });
 
         // Gán link riêng cho từng dự án, vẫn truyền project.id
-        const dataWithLink = data.map((project: Project, index: number) => {
-          let baseLink = "";
-          if (index === 0) baseLink = "/Dieu-khien";
-          else if (index === 1) baseLink = "/Dieu-khien-1";
-          else if (index === 2) baseLink = "/Dieu-khien";
-          else baseLink = `/Dieu-khien-${index}`;
+       const dataWithLink = data.map((project: Project, index: number) => {
+  let baseLink = "";
+  if (index === 0) baseLink = "/Dieu-khien";
+  else if (index === 1) baseLink = "/Dieu-khien-1";
+  else if (index === 2) baseLink = "/Dieu-khien";
+  else baseLink = `/Dieu-khien-${index}`;
 
-          const link = `${baseLink}?id=${project.id}`;
-          return { ...project, link };
-        });
+  const link = `${baseLink}?id=${project.id}`;
+
+  // ⚙️ Gán ảnh cố định tạm thời cho 2 dự án đầu tiên
+  let image_url = project.image_url;
+  if (index === 0)
+    image_url = "/image/home_bg.png"; // ảnh local trong /public/images/
+  else if (index === 1)
+    image_url = "/image/home_bg4.png"; // ảnh local khác
+
+  return { ...project, link, image_url };
+});
+
 
         setProjects(dataWithLink);
       } catch (error) {
