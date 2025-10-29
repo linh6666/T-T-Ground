@@ -1,7 +1,9 @@
 // import Home from "@/feature/home/index";
 import { Loader } from "@mantine/core";
 import { Suspense } from "react";
-import Home from "../../../feature/index";
+// import Home from "../../../feature/index";
+import PageAbout from "../../../components/PegaAbout";
+
 
 const HomePage = () => {
   return (
@@ -22,7 +24,8 @@ const HomePage = () => {
           </div>
         }
       >
-         <Home /> 
+          <PageAbout />
+         {/* <Home />  */}
       </Suspense>
     </div>
   );
