@@ -78,28 +78,29 @@ export default function Sun({ project_id }: SunProps) {
     <>
       {/* Nút Sáng */}
       <Button
-        onClick={handleClickMorning}
+      onClick={handleClickNight}
+        // onClick={handleClickMorning}
         variant="filled"
         style={{
-          width: active === "morning" ? 65 : 30,
+          width: active === "night" ? 65 : 30,
           height: 30,
           padding: 0,
           borderRadius: 40,
           display: "flex",
           alignItems: "center",
-          justifyContent: active === "morning" ? "space-around" : "center",
+          justifyContent: active === "night" ? "space-around" : "center",
           overflow: "hidden",
           transition: "width 0.3s, background-color 0.3s",
           background:
-            active === "morning"
+            active === "night"
               ? "linear-gradient(to top, #FFE09A, #FFF1D2)"
               : "#FFFAEE",
           border: "1.5px solid #752E0B",
         }}
       >
-        <Group gap={active === "morning" ? 4 : 0} align="center">
+        <Group gap={active === "night" ? 4 : 0} align="center">
           <IconSunHigh size={18} color="#752E0B" />
-          {active === "morning" && <span style={{ color: "#752E0B" }}>Sáng</span>}
+          {active === "night" && <span style={{ color: "#752E0B" }}>Sáng</span>}
         </Group>
       </Button>
 
@@ -132,28 +133,29 @@ export default function Sun({ project_id }: SunProps) {
 
       {/* Nút Tối */}
       <Button
-        onClick={handleClickNight}
+        // onClick={handleClickNight}
+        onClick={handleClickMorning}
         variant="filled"
         style={{
-          width: active === "night" ? 60 : 30,
+          width: active === "morning" ? 60 : 30,
           height: 30,
           padding: 0,
           borderRadius: 40,
           display: "flex",
           alignItems: "center",
-          justifyContent: active === "night" ? "space-around" : "center",
+          justifyContent: active === "morning" ? "space-around" : "center",
           overflow: "hidden",
           transition: "width 0.3s, background-color 0.3s",
           background:
-            active === "night"
+            active === "morning"
               ? "linear-gradient(to top, #FFE09A, #FFF1D2)"
               : "#FFFAEE",
           border: "1.5px solid #752E0B",
         }}
       >
-        <Group gap={active === "night" ? 4 : 0} align="center">
+        <Group gap={active === "morning" ? 4 : 0} align="center">
           <IconMoonStars size={18} color="#752E0B" />
-          {active === "night" && <span style={{ color: "#752E0B" }}>Tối</span>}
+          {active === "morning" && <span style={{ color: "#752E0B" }}>Tối</span>}
         </Group>
       </Button>
     </>

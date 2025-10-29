@@ -112,10 +112,10 @@
 }
 .footerwrapper {
   text-align: center;
-  padding: 130px;
-  /* padding: 24px 0; */
+  /* padding: 130px; */
+  padding: 70px 0;
   color: #808894; /* text-gray-600 */
-  font-size: 14px; /* text-sm */
+  font-size: 13px; /* text-sm */
 }
    
 .footerline {
@@ -154,4 +154,14 @@
 
 .footersubtext {
   color: #6b7280; /* text-gray-500 */
+}
+.introWrapper {
+  /* max-width: 900px; */
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+.introText {
+  line-height: 1.6;
+  color: #555;
 }
