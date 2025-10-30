@@ -5,12 +5,12 @@ export interface SvgItem {
   topPercent: number; // top theo %
   leftPercent: number; // left theo %
 }
-
+///878 670
 export const pathsData: SvgItem[] = [
   {
     id: "svg_2",
     svg: `
-<svg xmlns="http://www.w3.org/2000/svg" width="874" height="670" viewBox="0 0 1282.928 855.778">
+<svg xmlns="http://www.w3.org/2000/svg" width="930" height="675" viewBox="0 0 1356.342 855.778">
   <g id="shophouse" transform="translate(23.92 223.16)">
     <rect id="D-SH.18.21" width="3.267" height="9.664" transform="matrix(0.992, -0.129, 0.129, 0.992, 101.633, 525.146)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="D-SH.18.20" width="3.267" height="9.664" transform="matrix(0.992, -0.129, 0.129, 0.992, 98.395, 525.568)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
@@ -1030,14 +1030,14 @@ export const pathsData: SvgItem[] = [
     <rect id="C-SH.29.3" width="3.267" height="9.508" transform="translate(799.857 514.611) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.21.4" width="3.267" height="9.508" transform="translate(772.627 509.703) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.21.3" width="3.267" height="9.508" transform="translate(773.582 506.578) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.23.8" width="10.461" height="3.267" transform="translate(674.377 556.793) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-SH.23.9" d="M-2054.789,4191.01l-3.511-.438-1.3,10.38,1.984.247,1.719-1.337Z" transform="translate(2737.217 -3643.752)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.23.1" width="10.461" height="3.267" transform="translate(651.686 553.961) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.23.2" width="10.461" height="3.267" transform="translate(654.928 554.365) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.24.9" width="10.461" height="3.267" transform="translate(644.123 553.016) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.24.8" width="10.461" height="3.267" transform="translate(640.881 552.611) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.24.2" width="10.461" height="3.267" transform="translate(621.432 550.184) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-SH.24.1" d="M-2364.8,4152.2l-3.512-.438-1.1,8.852,1.337,1.72,1.983.247Z" transform="translate(2987.528 -3612.395)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.23.8" width="10.461" height="3.267" transform="translate(668.377 556.079) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-SH.23.9" d="M-2054.789,4191.01l-3.511-.438-1.3,10.38,1.984.247,1.719-1.337Z" transform="translate(2731.217 -3644.466)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.23.1" width="10.461" height="3.267" transform="translate(645.686 553.247) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.23.2" width="10.461" height="3.267" transform="translate(648.928 553.651) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.24.9" width="10.461" height="3.267" transform="translate(640.123 551.822) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.24.8" width="10.461" height="3.267" transform="translate(636.881 551.418) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.24.2" width="10.461" height="3.267" transform="translate(617.432 548.99) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-SH.24.1" d="M-2364.8,4152.2l-3.512-.438-1.1,8.852,1.337,1.72,1.983.247Z" transform="translate(2983.528 -3613.588)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.15.31" width="9.78" height="3.267" transform="matrix(1, -0.03, 0.03, 1, 563.197, 478.379)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-SH.15.32" d="M-2645.036,3849.753l-9.776.289.059,2,1.584,1.494,8.237-.243Z" transform="translate(3218.105 -3368.396)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.15.17" width="9.78" height="3.267" transform="matrix(1, -0.03, 0.03, 1, 561.848, 432.664)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
@@ -1269,16 +1269,16 @@ export const pathsData: SvgItem[] = [
     <rect id="C-SH.20.10" width="3.267" height="9.508" transform="translate(782.02 478.982) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.30.11" width="3.267" height="9.508" transform="translate(807.338 490.141) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.20.11" width="3.267" height="9.508" transform="translate(781.064 482.107) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.23.3" width="10.461" height="3.267" transform="translate(658.17 554.77) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.24.3" width="10.461" height="3.267" transform="translate(624.674 550.588) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.23.4" width="10.461" height="3.267" transform="translate(661.412 555.176) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.24.4" width="10.461" height="3.267" transform="translate(627.914 550.992) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.23.5" width="10.461" height="3.267" transform="translate(664.652 555.58) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.24.5" width="10.461" height="3.267" transform="translate(631.156 551.396) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.23.6" width="10.461" height="3.267" transform="translate(667.895 555.984) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.24.6" width="10.461" height="3.267" transform="translate(634.398 551.801) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.23.7" width="10.461" height="3.267" transform="translate(671.137 556.389) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.24.7" width="10.461" height="3.267" transform="translate(637.639 552.207) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.23.3" width="10.461" height="3.267" transform="translate(652.17 554.056) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.24.3" width="10.461" height="3.267" transform="translate(620.674 549.395) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.23.4" width="10.461" height="3.267" transform="translate(655.412 554.462) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.24.4" width="10.461" height="3.267" transform="translate(623.914 549.799) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.23.5" width="10.461" height="3.267" transform="translate(658.652 554.866) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.24.5" width="10.461" height="3.267" transform="translate(627.156 550.203) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.23.6" width="10.461" height="3.267" transform="translate(661.895 555.271) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.24.6" width="10.461" height="3.267" transform="translate(630.398 550.607) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.23.7" width="10.461" height="3.267" transform="translate(665.137 555.675) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.24.7" width="10.461" height="3.267" transform="translate(633.639 551.014) rotate(-82.882)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.12.11" width="8.691" height="3.267" transform="matrix(0.008, -1, 1, 0.008, 760.762, 378.779)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.12.9" width="8.691" height="3.267" transform="matrix(0.008, -1, 1, 0.008, 754.229, 378.725)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.12.10" width="8.691" height="3.267" transform="matrix(0.008, -1, 1, 0.008, 757.494, 378.752)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
@@ -1497,18 +1497,18 @@ export const pathsData: SvgItem[] = [
     <rect id="B-SH.40.1" width="8.711" height="3.267" transform="translate(921.137 285.523) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.12" width="8.711" height="3.267" transform="translate(955.502 296.029) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.13" width="8.711" height="3.267" transform="translate(958.625 296.984) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <path id="B-SH.02.1-2" data-name="B-SH.02.1" d="M-512.024,2873.452l-1.912-.584-1.923,1.022-2.091,6.839,3.384,1.035Z" transform="translate(1491.68 -2579.146)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.02.2-2" data-name="B-SH.02.2" width="8.691" height="3.267" transform="translate(977.115 302.615) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.2-2" data-name="B-SH.03.2" width="8.711" height="3.267" transform="translate(1007.828 312.027) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.1-2" data-name="B-SH.03.1" width="8.711" height="3.267" transform="translate(1004.705 311.072) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.02.9-2" data-name="B-SH.02.9" width="8.691" height="3.267" transform="translate(998.982 309.301) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.02.8-2" data-name="B-SH.02.8" width="8.691" height="3.267" transform="translate(995.859 308.346) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.14" width="8.575" height="3.267" transform="translate(1046.398 323.678) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.12-2" data-name="B-SH.03.12" width="8.575" height="3.267" transform="translate(1040.15 321.768) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.11-2" data-name="B-SH.03.11" width="8.575" height="3.267" transform="translate(1037.025 320.813) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.10-2" data-name="B-SH.03.10" width="8.575" height="3.267" transform="translate(1033.902 319.857) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.8-2" data-name="B-SH.03.8" width="8.711" height="3.267" transform="translate(1026.572 317.758) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.9-2" data-name="B-SH.03.9" width="8.711" height="3.267" transform="translate(1029.697 318.713) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-SH.02.1" d="M-512.024,2873.452l-1.912-.584-1.923,1.022-2.091,6.839,3.384,1.035Z" transform="translate(1491.68 -2579.146)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.02.2" width="8.691" height="3.267" transform="translate(977.115 302.615) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.2" width="8.711" height="3.267" transform="translate(1007.828 312.027) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.1" width="8.711" height="3.267" transform="translate(1004.705 311.072) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.02.9" width="8.691" height="3.267" transform="translate(998.982 309.301) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.02.8" width="8.691" height="3.267" transform="translate(995.859 308.346) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.14" width="8.575" height="3.267" transform="translate(1046.398 323.678) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.12" width="8.575" height="3.267" transform="translate(1040.15 321.768) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.11" width="8.575" height="3.267" transform="translate(1037.025 320.813) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.10" width="8.575" height="3.267" transform="translate(1033.902 319.857) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.8" width="8.711" height="3.267" transform="translate(1026.572 317.758) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.9" width="8.711" height="3.267" transform="translate(1029.697 318.713) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.15.19" width="8.147" height="3.267" transform="translate(1005.689 131.867) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.16.19" width="8.147" height="3.267" transform="translate(1000.158 149.961) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.15.18" width="8.147" height="3.267" transform="translate(1002.566 130.912) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
@@ -1587,25 +1587,25 @@ export const pathsData: SvgItem[] = [
     <rect id="B-SH.18.3A" width="3.267" height="8.711" transform="translate(905.396 169.404) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.18.3" width="3.267" height="8.711" transform="translate(906.352 166.279) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.3" width="8.711" height="3.267" transform="translate(927.385 287.434) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.02.3-2" data-name="B-SH.02.3" width="8.691" height="3.267" transform="translate(980.238 303.57) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.02.3" width="8.691" height="3.267" transform="translate(980.238 303.57) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.4" width="8.711" height="3.267" transform="translate(930.508 288.389) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.02.4" width="8.691" height="3.267" transform="translate(983.363 304.525) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.02.4" width="8.691" height="3.267" transform="translate(983.363 304.525) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.5" width="8.711" height="3.267" transform="translate(933.633 289.344) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.02.5-2" data-name="B-SH.02.5" width="8.691" height="3.267" transform="translate(986.486 305.48) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.02.5" width="8.691" height="3.267" transform="translate(986.486 305.48) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.6" width="8.711" height="3.267" transform="translate(936.756 290.299) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.02.6-2" data-name="B-SH.02.6" width="8.691" height="3.267" transform="translate(989.611 306.436) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.02.6" width="8.691" height="3.267" transform="translate(989.611 306.436) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.7" width="8.711" height="3.267" transform="translate(939.881 291.254) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.02.7" width="8.691" height="3.267" transform="translate(992.734 307.391) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.02.7" width="8.691" height="3.267" transform="translate(992.734 307.391) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.8" width="8.711" height="3.267" transform="translate(943.006 292.209) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.9" width="8.711" height="3.267" transform="translate(946.129 293.164) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.10" width="8.711" height="3.267" transform="translate(949.252 294.119) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-SH.40.11" width="8.711" height="3.267" transform="translate(952.377 295.074) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.7" width="8.711" height="3.267" transform="translate(1023.449 316.803) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.6-2" data-name="B-SH.03.6" width="8.711" height="3.267" transform="translate(1020.324 315.848) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.5-2" data-name="B-SH.03.5" width="8.711" height="3.267" transform="translate(1017.201 314.893) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.4" width="8.711" height="3.267" transform="translate(1014.076 313.938) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.3-2" data-name="B-SH.03.3" width="8.711" height="3.267" transform="translate(1010.953 312.982) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="B-SH.03.13" width="8.575" height="3.267" transform="translate(1043.273 322.723) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.7" width="8.711" height="3.267" transform="translate(1023.449 316.803) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.6" width="8.711" height="3.267" transform="translate(1020.324 315.848) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.5" width="8.711" height="3.267" transform="translate(1017.201 314.893) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.4" width="8.711" height="3.267" transform="translate(1014.076 313.938) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.3" width="8.711" height="3.267" transform="translate(1010.953 312.982) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-SH.03.13" width="8.575" height="3.267" transform="translate(1043.273 322.723) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.36.2" width="10.345" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 942.506, 426.99)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.36.1" width="10.345" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 939.381, 426.035)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.36.8" width="10.345" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 961.25, 432.721)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
@@ -1769,7 +1769,7 @@ export const pathsData: SvgItem[] = [
     <rect id="C-SH.28.19" width="3.267" height="8.691" transform="translate(963.299 614.672) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-SH.28.18" width="3.267" height="8.691" transform="translate(962.344 617.795) rotate(-73)" fill="rgba(210,156,55,0.5)" stroke="#fff" stroke-width="0.5"/>
   </g>
-  <g id="lienke" transform="translate(6.253 227.172)">
+  <g id="lienke" transform="translate(2.253 227.172)">
     <path id="D-LK.49.1" d="M-5580.8,3891.027l-7.124.572-1.426,1.664.125,1.684,8.668-.643Z" transform="translate(5606.662 -3405.768)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="D-LK.49.2" width="8.691" height="3.267" transform="matrix(0.997, -0.074, 0.074, 0.997, 17.434, 489.18)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="D-LK.49.3" width="8.691" height="3.267" transform="matrix(0.997, -0.074, 0.074, 0.997, 17.676, 492.438)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -3277,18 +3277,18 @@ export const pathsData: SvgItem[] = [
     <rect id="A-LK48.9" width="3.267" height="7.738" transform="matrix(0.998, -0.063, 0.063, 0.998, 439.941, 7.533)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-LK48.1" d="M-3525.808,1417.8l1.634,1.439,2-.127-.49-7.723-3.532.224Z" transform="translate(3939.789 -1402.404)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="A-LK48.2" width="3.267" height="7.738" transform="matrix(0.998, -0.063, 0.063, 0.998, 417.119, 8.982)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.2" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 438.307, 27.9)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.50.1" d="M-3398.7,1489.438l.229,1.986,7.552-.873-.406-3.516-6.022.7Z" transform="translate(3836.78 -1463.523)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.11" width="7.602" height="3.267" transform="translate(441.676 57.107) rotate(-6.58)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.50.12" d="M-3377.792,1677.157l1.707,1.353,6.022-.7-.405-3.516-7.552.873Z" transform="translate(3820.07 -1614.816)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.12B" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 426.305, 58.363)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.49.12A" d="M-3457.737,1685.89l4.943-.547,1.361-1.7-.219-1.987-6.474.716Z" transform="translate(3884.79 -1620.762)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.49.12" d="M-3503.181,1689.367l1.7,1.362,4.943-.547-.388-3.518-6.474.716Z" transform="translate(3921.368 -1624.809)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.11" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 417.607, 59.324)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.23" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 423.072, 29.141)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.2" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 414.377, 30.102)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.49.24" d="M-3478.458,1499.241l6.473-.716-.22-1.987-1.7-1.361-4.943.546Z" transform="translate(3901.531 -1470.102)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.49.1" d="M-3523.241,1501.549l.22,1.987,6.474-.716-.389-3.517-4.943.546Z" transform="translate(3937.397 -1473.434)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.2" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 438.307, 27.9)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="A-LK.50.1" d="M-3398.7,1489.438l.229,1.986,7.552-.873-.406-3.516-6.022.7Z" transform="translate(3836.78 -1463.523)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.11" width="7.602" height="3.267" transform="translate(441.676 57.107) rotate(-6.58)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="A-LK.50.12" d="M-3377.792,1677.157l1.707,1.353,6.022-.7-.405-3.516-7.552.873Z" transform="translate(3820.07 -1614.816)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.12B" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 426.305, 58.363)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="A-LK.49.12A" d="M-3457.737,1685.89l4.943-.547,1.361-1.7-.219-1.987-6.474.716Z" transform="translate(3884.79 -1620.762)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="A-LK.49.12" d="M-3503.181,1689.367l1.7,1.362,4.943-.547-.388-3.518-6.474.716Z" transform="translate(3921.368 -1624.809)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.11" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 417.607, 59.324)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.23" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 423.072, 29.141)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.2" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 414.377, 30.102)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="A-LK.49.24" d="M-3478.458,1499.241l6.473-.716-.22-1.987-1.7-1.361-4.943.546Z" transform="translate(3901.531 -1470.102)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="A-LK.49.1" d="M-3523.241,1501.549l.22,1.987,6.474-.716-.389-3.517-4.943.546Z" transform="translate(3937.397 -1473.434)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.02.17" width="8.691" height="3.267" transform="translate(560.291 23.658) rotate(-84.21)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="B-LK.02.18" d="M-2745.5,1453.136l1.989.2,1.687-1.377.72-7.115-3.521-.357Z" transform="translate(3309.037 -1429.148)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.01.2" width="8.691" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 490.912, 12.34)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -3889,30 +3889,30 @@ export const pathsData: SvgItem[] = [
     <rect id="A-LK.46.12" width="3.267" height="6.513" transform="translate(381.541 31.182) rotate(-8.193)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="A-LK.46.26" width="3.267" height="6.513" transform="translate(379.584 40.738) rotate(-8.243)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="A-LK.46.11" width="3.267" height="6.513" transform="translate(378.227 31.664) rotate(-8.292)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.3" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 438.682, 31.146)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.22" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 423.432, 32.387)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.3" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 414.736, 33.35)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.20" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 424.15, 38.881)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.5" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 415.453, 39.844)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.21" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 423.791, 35.635)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.3A" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 415.094, 36.596)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.16" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 425.586, 51.869)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.9" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 416.891, 52.83)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.17" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 425.227, 48.623)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.8" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 416.531, 49.584)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.19" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 424.51, 42.129)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.6" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 415.813, 43.09)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.18" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 424.867, 45.375)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.6A" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 416.172, 46.338)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.15" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 425.945, 55.117)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.10" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 417.25, 56.078)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.5" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 439.432, 37.637)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.3A" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 439.057, 34.391)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.9" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 440.932, 50.617)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.8" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 440.557, 47.373)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.6" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 439.807, 40.881)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.6A" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 440.182, 44.127)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.10" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 441.307, 53.863)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.3" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 438.682, 31.146)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.22" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 423.432, 32.387)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.3" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 414.736, 33.35)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.20" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 424.15, 38.881)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.5" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 415.453, 39.844)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.21" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 423.791, 35.635)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.3A" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 415.094, 36.596)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.16" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 425.586, 51.869)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.9" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 416.891, 52.83)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.17" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 425.227, 48.623)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.8" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 416.531, 49.584)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.19" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 424.51, 42.129)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.6" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 415.813, 43.09)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.18" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 424.867, 45.375)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.6A" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 416.172, 46.338)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.15" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 425.945, 55.117)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.49.10" width="6.513" height="3.267" transform="matrix(0.994, -0.11, 0.11, 0.994, 417.25, 56.078)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.5" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 439.432, 37.637)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.3A" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 439.057, 34.391)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.9" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 440.932, 50.617)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.8" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 440.557, 47.373)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.6" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 439.807, 40.881)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.6A" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 440.182, 44.127)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="A-LK.50.10" width="7.602" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 441.307, 53.863)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.01.12A" width="8.691" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 495.039, 48.037)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.01.11" width="8.691" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 494.289, 41.547)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.01.12" width="8.691" height="3.267" transform="matrix(0.993, -0.115, 0.115, 0.993, 494.664, 44.793)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -4285,10 +4285,10 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.37.3" width="3.267" height="7.602" transform="translate(830.039 514.414) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.25.4" width="3.267" height="7.738" transform="translate(779.6 502.41) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.25.3" width="3.267" height="7.738" transform="translate(780.555 499.285) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.32.9" d="M-2046.33,4130.656l-1.337-1.719-1.984-.248-1.077,8.624,3.512.438Z" transform="translate(2747.717 -3597.781)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.32.8" width="8.691" height="3.267" transform="translate(693.746 539.129) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.32.2" width="8.691" height="3.267" transform="translate(674.297 536.699) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.32.1" width="8.691" height="3.267" transform="translate(671.057 536.295) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.32.9" d="M-2046.33,4130.656l-1.337-1.719-1.984-.248-1.077,8.624,3.512.438Z" transform="translate(2745.549 -3598.679)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.32.8" width="8.691" height="3.267" transform="translate(691.578 538.231) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.32.2" width="8.691" height="3.267" transform="translate(672.129 535.802) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.32.1" width="8.691" height="3.267" transform="translate(668.889 535.397) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.33.8-2" data-name="C-LK.33.8" width="8.691" height="3.267" transform="translate(660.25 534.945) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.33.9-2" data-name="C-LK.33.9" width="8.691" height="3.267" transform="translate(663.492 535.352) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.33.1-2" data-name="C-LK.33.1" d="M-2356.954,4091.119l-1.983-.248-1.719,1.337-.886,7.1,3.512.439Z" transform="translate(2998.832 -3567.227)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -4589,15 +4589,15 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.24.10" width="3.267" height="7.602" transform="translate(788.832 472.211) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.36.11" width="3.267" height="7.602" transform="translate(837.52 489.943) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.24.11" width="3.267" height="7.602" transform="translate(787.877 475.336) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.32.3" width="8.691" height="3.267" transform="translate(677.539 537.105) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.32.3" width="8.691" height="3.267" transform="translate(675.371 536.208) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.33.3-2" data-name="C-LK.33.3" width="8.691" height="3.267" transform="translate(644.043 532.922) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.32.4" width="8.691" height="3.267" transform="translate(680.781 537.51) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.32.4" width="8.691" height="3.267" transform="translate(678.613 536.612) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.33.4-2" data-name="C-LK.33.4" width="8.691" height="3.267" transform="translate(647.285 533.326) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.33.5-2" data-name="C-LK.33.5" width="8.691" height="3.267" transform="translate(650.525 533.732) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.32.5" width="8.691" height="3.267" transform="translate(684.021 537.914) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.32.5" width="8.691" height="3.267" transform="translate(681.854 537.017) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.33.6-2" data-name="C-LK.33.6" width="8.691" height="3.267" transform="translate(653.768 534.137) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.32.7" width="8.691" height="3.267" transform="translate(690.506 538.725) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.32.6" width="8.691" height="3.267" transform="translate(687.264 538.318) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.32.7" width="8.691" height="3.267" transform="translate(688.338 537.827) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.32.6" width="8.691" height="3.267" transform="translate(685.096 537.421) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.33.7-2" data-name="C-LK.33.7" width="8.691" height="3.267" transform="translate(657.01 534.541) rotate(-82.882)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.13.20" width="9.256" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 771.477, 336.24)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.13.9" width="9.256" height="3.267" transform="translate(774.818 325.307) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -5109,24 +5109,24 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.29.1-2" data-name="C-LK.29.1" width="3.267" height="8.711" transform="translate(946.615 129.311) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.20.2" width="3.267" height="8.711" transform="translate(896.92 118.672) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.20.1" width="3.267" height="8.711" transform="translate(897.875 115.549) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.19" width="7.602" height="3.267" transform="translate(1029.783 117.994) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.52.20" d="M-296.674,1948.567l-1.022-1.923-1.912-.584-2.223,7.27,3.384,1.035Z" transform="translate(1334.738 -1834.379)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.19" width="7.602" height="3.267" transform="translate(1029.783 117.994) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-LK.52.20" d="M-296.674,1948.567l-1.022-1.923-1.912-.584-2.223,7.27,3.384,1.035Z" transform="translate(1334.738 -1834.379)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.19-2" data-name="C-LK.30.19" width="7.602" height="3.267" transform="translate(1017.918 156.805) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.30.20-2" data-name="C-LK.30.20" d="M-359.04,2148.83l-2.343-.716-2.223,7.27.87.266,1.923-1.023Z" transform="translate(1384.648 -1997.625)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.2-2" data-name="C-LK.30.2" width="7.602" height="3.267" transform="translate(964.809 140.566) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.30.1-2" data-name="C-LK.30.1" d="M-666.489,2054.254l-3.384-1.034-1.773,5.8,1.022,1.922,1.912.584Z" transform="translate(1633.521 -1920.957)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.2" width="7.602" height="3.267" transform="translate(976.674 101.758) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.52.1" d="M-606.609,1854.094l-1.912-.584-1.923,1.022-1.772,5.8,3.384,1.035Z" transform="translate(1585.506 -1759.605)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.12" width="3.267" height="8.575" transform="translate(956.695 96.809) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.11" width="3.267" height="8.575" transform="translate(957.65 93.686) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.3A" width="3.267" height="8.691" transform="translate(970.592 50.955) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.3" width="3.267" height="8.691" transform="translate(971.547 47.832) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.2" width="3.267" height="8.691" transform="translate(972.502 44.707) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.54.1" d="M-603.549,1566.945l-6.839-2.091-.955,3.124,8.311,2.541.5-1.651Z" transform="translate(1584.801 -1526.395)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.5" width="3.267" height="8.691" transform="translate(969.637 54.08) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.6" width="3.267" height="8.691" transform="translate(968.682 57.203) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.2" width="3.267" height="8.575" transform="translate(966.246 65.568) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.1" width="3.267" height="8.575" transform="translate(967.201 62.443) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.2" width="7.602" height="3.267" transform="translate(976.674 101.758) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-LK.52.1" d="M-606.609,1854.094l-1.912-.584-1.923,1.022-1.772,5.8,3.384,1.035Z" transform="translate(1585.506 -1759.605)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.12" width="3.267" height="8.575" transform="translate(956.695 96.809) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.11" width="3.267" height="8.575" transform="translate(957.65 93.686) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.54.3A" width="3.267" height="8.691" transform="translate(970.592 50.955) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.54.3" width="3.267" height="8.691" transform="translate(971.547 47.832) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.54.2" width="3.267" height="8.691" transform="translate(972.502 44.707) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-LK.54.1" d="M-603.549,1566.945l-6.839-2.091-.955,3.124,8.311,2.541.5-1.651Z" transform="translate(1584.801 -1526.395)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.54.5" width="3.267" height="8.691" transform="translate(969.637 54.08) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.54.6" width="3.267" height="8.691" transform="translate(968.682 57.203) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.2" width="3.267" height="8.575" transform="translate(966.246 65.568) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.1" width="3.267" height="8.575" transform="translate(967.201 62.443) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.33.19" width="6.513" height="3.267" transform="translate(992.215 240.873) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.33.18" width="6.513" height="3.267" transform="translate(989.092 239.918) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.33.21" width="6.513" height="3.267" transform="translate(986.539 248.27) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -5272,37 +5272,37 @@ export const pathsData: SvgItem[] = [
     <rect id="B-LK.46.3A" width="7.738" height="3.267" transform="translate(1045.482 155.104) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.46.38" width="7.738" height="3.267" transform="translate(1039.525 163.41) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.46.3" width="7.738" height="3.267" transform="translate(1042.357 154.148) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.18" width="7.602" height="3.267" transform="translate(1026.66 117.039) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.18" width="7.602" height="3.267" transform="translate(1026.66 117.039) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.18-2" data-name="C-LK.30.18" width="7.602" height="3.267" transform="translate(1014.795 155.85) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.17" width="7.602" height="3.267" transform="translate(1023.535 116.084) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.17" width="7.602" height="3.267" transform="translate(1023.535 116.084) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.17-2" data-name="C-LK.30.17" width="7.602" height="3.267" transform="translate(1011.67 154.895) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.16" width="7.602" height="3.267" transform="translate(1020.412 115.129) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.16" width="7.602" height="3.267" transform="translate(1020.412 115.129) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.16-2" data-name="C-LK.30.16" width="7.602" height="3.267" transform="translate(1008.547 153.939) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.15" width="7.602" height="3.267" transform="translate(1017.287 114.174) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.15" width="7.602" height="3.267" transform="translate(1017.287 114.174) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.15-2" data-name="C-LK.30.15" width="7.602" height="3.267" transform="translate(1005.422 152.984) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.12B" width="7.602" height="3.267" transform="translate(1014.164 113.219) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.12B" width="7.602" height="3.267" transform="translate(1014.164 113.219) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.12B" width="7.602" height="3.267" transform="translate(1002.299 152.029) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.12A" width="7.602" height="3.267" transform="translate(1011.039 112.264) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.12A" width="7.602" height="3.267" transform="translate(1011.039 112.264) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.12A" width="7.602" height="3.267" transform="translate(999.174 151.074) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.12" width="7.602" height="3.267" transform="translate(1007.914 111.309) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.12" width="7.602" height="3.267" transform="translate(1007.914 111.309) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.12-2" data-name="C-LK.30.12" width="7.602" height="3.267" transform="translate(996.051 150.119) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.11" width="7.602" height="3.267" transform="translate(1004.791 110.354) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.11" width="7.602" height="3.267" transform="translate(1004.791 110.354) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.11-2" data-name="C-LK.30.11" width="7.602" height="3.267" transform="translate(992.926 149.164) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.10" width="7.602" height="3.267" transform="translate(1001.668 109.398) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.10" width="7.602" height="3.267" transform="translate(1001.668 109.398) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.10-2" data-name="C-LK.30.10" width="7.602" height="3.267" transform="translate(989.801 148.209) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.9" width="7.602" height="3.267" transform="translate(998.543 108.443) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.9" width="7.602" height="3.267" transform="translate(998.543 108.443) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.9-2" data-name="C-LK.30.9" width="7.602" height="3.267" transform="translate(986.678 147.254) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.8" width="7.602" height="3.267" transform="translate(995.418 107.488) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.8" width="7.602" height="3.267" transform="translate(995.418 107.488) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.8-2" data-name="C-LK.30.8" width="7.602" height="3.267" transform="translate(983.555 146.297) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.6A" width="7.602" height="3.267" transform="translate(992.295 106.533) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.6A" width="7.602" height="3.267" transform="translate(992.295 106.533) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.6A" width="7.602" height="3.267" transform="translate(980.43 145.342) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.6" width="7.602" height="3.267" transform="translate(989.172 105.578) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.6" width="7.602" height="3.267" transform="translate(989.172 105.578) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.6-2" data-name="C-LK.30.6" width="7.602" height="3.267" transform="translate(977.305 144.387) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.5" width="7.602" height="3.267" transform="translate(986.047 104.623) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.5" width="7.602" height="3.267" transform="translate(986.047 104.623) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.5-2" data-name="C-LK.30.5" width="7.602" height="3.267" transform="translate(974.182 143.432) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.3A" width="7.602" height="3.267" transform="translate(982.922 103.668) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.3A" width="7.602" height="3.267" transform="translate(982.922 103.668) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.3A" width="7.602" height="3.267" transform="translate(971.059 142.477) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.3" width="7.602" height="3.267" transform="translate(979.799 102.713) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.52.3" width="7.602" height="3.267" transform="translate(979.799 102.713) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.30.3-2" data-name="C-LK.30.3" width="7.602" height="3.267" transform="translate(967.934 141.521) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.29.3-2" data-name="C-LK.29.3" width="3.267" height="8.711" transform="translate(944.705 135.559) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.20.3" width="3.267" height="8.711" transform="translate(895.965 121.797) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -5314,14 +5314,14 @@ export const pathsData: SvgItem[] = [
     <rect id="B-LK.20.6" width="3.267" height="8.711" transform="translate(893.1 131.168) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.29.6A" width="3.267" height="8.711" transform="translate(940.885 148.055) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.20.6A" width="3.267" height="8.711" transform="translate(892.145 134.293) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.10" width="3.267" height="8.575" transform="translate(958.605 90.561) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.8" width="3.267" height="8.575" transform="translate(960.516 84.313) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.9" width="3.267" height="8.575" transform="translate(959.561 87.438) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.5" width="3.267" height="8.575" transform="translate(963.381 74.941) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.6A" width="3.267" height="8.575" transform="translate(961.471 81.189) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.6" width="3.267" height="8.575" transform="translate(962.426 78.064) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.3A" width="3.267" height="8.575" transform="translate(964.336 71.816) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.3" width="3.267" height="8.575" transform="translate(965.291 68.693) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.10" width="3.267" height="8.575" transform="translate(958.605 90.561) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.8" width="3.267" height="8.575" transform="translate(960.516 84.313) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.9" width="3.267" height="8.575" transform="translate(959.561 87.438) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.5" width="3.267" height="8.575" transform="translate(963.381 74.941) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.6A" width="3.267" height="8.575" transform="translate(961.471 81.189) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.6" width="3.267" height="8.575" transform="translate(962.426 78.064) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.3A" width="3.267" height="8.575" transform="translate(964.336 71.816) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-LK.53.3" width="3.267" height="8.575" transform="translate(965.291 68.693) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.21.10" width="3.267" height="8.575" transform="translate(880.047 173.863) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.28.11-2" data-name="C-LK.28.11" width="3.267" height="8.711" transform="translate(927.832 190.75) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.21.9" width="3.267" height="8.575" transform="translate(881.002 170.74) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -5653,12 +5653,12 @@ export const pathsData: SvgItem[] = [
     <path id="C-LK.76.1" d="M8.1,3519.622l-5.927-1.812-1.923,1.022-.584,1.912,7.4,2.262Z" transform="translate(1091.15 -3104.234)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.76.27" width="3.267" height="7.738" transform="translate(1099.123 422.463) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.76.28" d="M54.848,3532.019l-5.927-1.813-1.035,3.385,7.4,2.263.584-1.912Z" transform="translate(1052.193 -3114.25)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.1-2" data-name="C-LK.52.1" width="8.711" height="3.267" transform="translate(947.736 452.471) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.2-2" data-name="C-LK.52.2" width="8.711" height="3.267" transform="translate(950.859 453.426) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.52.1" width="8.711" height="3.267" transform="translate(947.736 452.471) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.52.2" width="8.711" height="3.267" transform="translate(950.859 453.426) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.52.7" width="8.711" height="3.267" transform="translate(966.48 458.203) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.8-2" data-name="C-LK.52.8" width="8.711" height="3.267" transform="translate(969.604 459.158) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.1-2" data-name="C-LK.53.1" width="8.691" height="3.267" transform="translate(975.338 460.889) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.2-2" data-name="C-LK.53.2" width="8.691" height="3.267" transform="translate(978.461 461.844) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.52.8" width="8.711" height="3.267" transform="translate(969.604 459.158) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.53.1" width="8.691" height="3.267" transform="translate(975.338 460.889) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.53.2" width="8.691" height="3.267" transform="translate(978.461 461.844) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.68.7" width="3.267" height="8.711" transform="translate(1011.779 472.051) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.68.8" width="3.267" height="8.711" transform="translate(1010.824 475.176) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.68.4" width="3.267" height="8.711" transform="translate(1021.236 478.359) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -5764,8 +5764,8 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.81.26" width="7.738" height="3.267" transform="translate(984.311 398.016) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.81.3" width="7.738" height="3.267" transform="translate(987.176 388.645) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.80.3" width="8.711" height="3.267" transform="translate(967.275 410.906) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.3-2" data-name="C-LK.52.3" width="8.711" height="3.267" transform="translate(953.984 454.381) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.3-2" data-name="C-LK.53.3" width="8.691" height="3.267" transform="translate(981.586 462.799) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.52.3" width="8.711" height="3.267" transform="translate(953.984 454.381) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.53.3" width="8.691" height="3.267" transform="translate(981.586 462.799) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.82.25" width="7.738" height="3.267" transform="translate(997.145 367.209) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.82.4" width="7.738" height="3.267" transform="translate(1000.17 357.316) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.81.25" width="7.738" height="3.267" transform="translate(987.436 398.971) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -5779,16 +5779,16 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.81.5" width="7.738" height="3.267" transform="translate(993.424 390.555) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.79.2" width="8.711" height="3.267" transform="translate(991.748 418.387) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.80.5" width="8.711" height="3.267" transform="translate(973.523 412.816) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.5-2" data-name="C-LK.52.5" width="8.711" height="3.267" transform="translate(960.232 456.293) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.5-2" data-name="C-LK.53.5" width="8.691" height="3.267" transform="translate(987.834 464.709) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.52.5" width="8.711" height="3.267" transform="translate(960.232 456.293) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.53.5" width="8.691" height="3.267" transform="translate(987.834 464.709) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.82.23" width="7.738" height="3.267" transform="translate(1003.395 369.119) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.82.6" width="7.738" height="3.267" transform="translate(1006.418 359.227) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.81.23" width="7.738" height="3.267" transform="translate(993.684 400.881) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.81.6" width="7.738" height="3.267" transform="translate(996.549 391.51) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.79.3" width="8.711" height="3.267" transform="translate(994.871 419.342) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.80.6" width="8.711" height="3.267" transform="translate(976.648 413.771) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.52.6-2" data-name="C-LK.52.6" width="8.711" height="3.267" transform="translate(963.355 457.248) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.6-2" data-name="C-LK.53.6" width="8.691" height="3.267" transform="translate(990.957 465.664) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.52.6" width="8.711" height="3.267" transform="translate(963.355 457.248) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.53.6" width="8.691" height="3.267" transform="translate(990.957 465.664) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.81.22" width="7.738" height="3.267" transform="translate(996.807 401.836) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.81.7" width="7.738" height="3.267" transform="translate(999.672 392.465) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.79.4" width="8.711" height="3.267" transform="translate(997.996 420.297) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -5981,7 +5981,7 @@ export const pathsData: SvgItem[] = [
     <rect id="B-LK.42.5" width="8.691" height="3.267" transform="translate(1062.246 221.313) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.42.6" width="8.691" height="3.267" transform="translate(1065.371 222.268) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-LK.42.7" width="8.691" height="3.267" transform="translate(1068.494 223.223) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.6-2" data-name="C-LK.50.6" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 888.9, 434.484)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.50.6" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 888.9, 434.484)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.50.7" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 892.023, 435.439)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.51.1" width="8.711" height="3.267" transform="translate(897.23 437.031) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.51.2" width="8.711" height="3.267" transform="translate(900.354 437.986) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6000,8 +6000,8 @@ export const pathsData: SvgItem[] = [
     <path id="C-LK.48.14" d="M-1165.042,3691.984l-3.384-1.035-1.614,5.276,1.022,1.923,1.912.585Z" transform="translate(2036.187 -3244.119)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.48.1" d="M-1152.816,3647.692l-1.912-.585-1.923,1.022-1.613,5.277,3.384,1.034Z" transform="translate(2026.672 -3208.699)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.48.2" width="7.058" height="3.267" transform="translate(871.793 445.742) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.2-2" data-name="C-LK.50.2" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 876.402, 430.662)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.50.1-2" data-name="C-LK.50.1" d="M-1126.441,3559.155l-3.384-1.035-2.091,6.839,1.022,1.923,1.911.584Z" transform="translate(2005.385 -3136.803)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.50.2" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 876.402, 430.662)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.50.1" d="M-1126.441,3559.155l-3.384-1.035-2.091,6.839,1.022,1.923,1.911.584Z" transform="translate(2005.385 -3136.803)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.44.7" width="8.691" height="3.267" transform="translate(872.354 499.775) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.44.6" width="8.691" height="3.267" transform="translate(869.23 498.82) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.45.5" d="M-1040.411,3955.092l-1.022-1.923-1.912-.584-2.541,8.311,3.384,1.035Z" transform="translate(1935.879 -3455.5)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6017,23 +6017,23 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.47.8" width="7.058" height="3.267" transform="translate(888.834 486.842) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.47.7" width="7.058" height="3.267" transform="translate(891.957 487.799) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.47.6" d="M-1013.949,3875.108l-3.384-1.035-2.063,6.749,1.912.584,1.923-1.023Z" transform="translate(1914.478 -3392.07)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.2-2" data-name="C-LK.54.2" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 946.242, 468.525)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.54.2" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 946.242, 468.525)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.54.15" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 943.537, 477.377)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.54.16" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 940.414, 476.422)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.1-2" data-name="C-LK.54.1" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 943.119, 467.57)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.54.1" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 943.119, 467.57)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.49.14" d="M-885.16,3797.344l-8.311-2.541-.955,3.124,6.839,2.091,1.923-1.022Z" transform="translate(1813.512 -3328.023)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.49.13" width="3.267" height="8.691" transform="translate(920.039 466.777) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.12-2" data-name="C-LK.49.12" width="3.267" height="8.691" transform="translate(920.996 463.654) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.11-2" data-name="C-LK.49.11" width="3.267" height="8.691" transform="translate(921.949 460.529) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.49.10-2" data-name="C-LK.49.10" d="M-873.581,3729.743l-.955,3.125,8.311,2.541.5-1.651-1.023-1.923Z" transform="translate(1797.441 -3275.461)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.8-2" data-name="C-LK.49.8" width="7.078" height="3.267" transform="translate(914.482 458.816) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.16-2" data-name="C-LK.49.16" width="7.078" height="3.267" transform="translate(911.775 467.668) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.15-2" data-name="C-LK.49.15" width="7.078" height="3.267" transform="translate(914.9 468.623) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.9-2" data-name="C-LK.49.9" width="7.078" height="3.267" transform="translate(917.605 459.771) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.2-2" data-name="C-LK.49.2" width="7.078" height="3.267" transform="translate(895.738 453.086) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.22-2" data-name="C-LK.49.22" width="7.078" height="3.267" transform="translate(893.031 461.938) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.23-2" data-name="C-LK.49.23" width="7.078" height="3.267" transform="translate(889.908 460.98) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.1-2" data-name="C-LK.49.1" width="7.078" height="3.267" transform="translate(892.613 452.131) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.12" width="3.267" height="8.691" transform="translate(920.996 463.654) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.11" width="3.267" height="8.691" transform="translate(921.949 460.529) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.49.10" d="M-873.581,3729.743l-.955,3.125,8.311,2.541.5-1.651-1.023-1.923Z" transform="translate(1797.441 -3275.461)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.8" width="7.078" height="3.267" transform="translate(914.482 458.816) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.16" width="7.078" height="3.267" transform="translate(911.775 467.668) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.15" width="7.078" height="3.267" transform="translate(914.9 468.623) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.9" width="7.078" height="3.267" transform="translate(917.605 459.771) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.2" width="7.078" height="3.267" transform="translate(895.738 453.086) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.22" width="7.078" height="3.267" transform="translate(893.031 461.938) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.23" width="7.078" height="3.267" transform="translate(889.908 460.98) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.1" width="7.078" height="3.267" transform="translate(892.613 452.131) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.48.7" width="7.058" height="3.267" transform="translate(887.414 450.52) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.48.6" width="7.058" height="3.267" transform="translate(884.289 449.563) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.48.9" width="7.058" height="3.267" transform="translate(881.576 458.434) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6062,8 +6062,8 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.64.1" width="9.8" height="3.267" transform="translate(933.307 598.367) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.63.9" width="9.78" height="3.267" transform="translate(927.584 596.596) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.63.8" width="9.78" height="3.267" transform="translate(924.461 595.641) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.14-2" data-name="C-SH.28.14" width="9.8" height="3.267" transform="translate(973.918 610.783) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.13-2" data-name="C-SH.28.13" width="9.8" height="3.267" transform="translate(970.795 609.828) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.14" width="9.8" height="3.267" transform="translate(973.918 610.783) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.13" width="9.8" height="3.267" transform="translate(970.795 609.828) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.65.25" width="3.267" height="8.711" transform="translate(978.508 580.873) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.65.24" width="3.267" height="8.711" transform="translate(977.553 583.996) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.65.45" width="3.267" height="8.691" transform="translate(987.986 587.186) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6128,8 +6128,8 @@ export const pathsData: SvgItem[] = [
     <path id="C-LK.55.9" d="M-490.739,3849.826l-1.022-1.923-1.651-.5-2.063,6.749,3.124.955Z" transform="translate(1491.189 -3370.52)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.55.8" width="7.058" height="3.267" transform="translate(992.59 482.674) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.55.11" width="7.058" height="3.267" transform="translate(989.877 491.545) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.53.9-2" data-name="C-LK.53.9" d="M-465.517,3761.688l-3.384-1.035-2.541,8.312,1.912.584,1.923-1.022Z" transform="translate(1471.771 -3300.434)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.53.8-2" data-name="C-LK.53.8" width="8.691" height="3.267" transform="translate(997.205 467.574) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.53.9" d="M-465.517,3761.688l-3.384-1.035-2.541,8.312,1.912.584,1.923-1.022Z" transform="translate(1471.771 -3300.434)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.53.8" width="8.691" height="3.267" transform="translate(997.205 467.574) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.53.7" width="8.691" height="3.267" transform="translate(994.082 466.619) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.2" width="3.267" height="8.691" transform="translate(1018.213 488.252) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.1" width="3.267" height="8.691" transform="translate(1019.168 485.129) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6165,32 +6165,32 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.70.9" width="3.267" height="7.738" transform="translate(1052.801 484.594) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.8" width="3.267" height="7.738" transform="translate(1051.846 487.717) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.7" width="3.267" height="7.738" transform="translate(1042.318 484.822) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.74.8" width="3.267" height="8.691" transform="translate(1116.605 510.934) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.74.9" width="3.267" height="8.691" transform="translate(1115.65 514.057) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.74.2" width="3.267" height="8.691" transform="translate(1122.336 492.188) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.74.1" d="M171.246,3895.557l-1.923,1.022-.584,1.912,8.311,2.541,1.035-3.384Z" transform="translate(954.553 -3409.426)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.18" width="3.267" height="7.738" transform="translate(1106.605 487.379) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.2" width="3.267" height="7.738" transform="translate(1097.35 484.549) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.73.1" d="M41.159,3855.786l-1.923,1.022-.584,1.911,7.4,2.263,1.035-3.385Z" transform="translate(1059.654 -3377.295)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.73.19" d="M93.8,3869.985l-5.927-1.812-1.035,3.384,7.4,2.263.584-1.912Z" transform="translate(1020.723 -3387.303)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.12" width="3.267" height="7.738" transform="translate(1100.875 506.123) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.73.11" d="M55.078,4001.909l-7.4-2.262-1.035,3.384,5.927,1.812,1.923-1.023Z" transform="translate(1053.197 -3493.523)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.9" width="3.267" height="7.738" transform="translate(1090.664 506.418) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.73.10" d="M3.813,4003.441l-7.4-2.262-.584,1.912,1.022,1.923,5.927,1.813Z" transform="translate(1094.252 -3494.762)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.2" width="8.691" height="3.267" transform="translate(1112.334 443.221) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="C-LK.75.1" d="M114.691,3636.734l-6.517,2.945-.769,2.038.823,1.822,7.92-3.579Z" transform="translate(1004.105 -3200.318)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.8" width="8.691" height="3.267" transform="translate(1120.406 461.082) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.9" width="8.691" height="3.267" transform="translate(1121.752 464.059) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.10" width="8.691" height="3.267" transform="translate(1123.098 467.037) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.74.8" width="3.267" height="8.691" transform="translate(1111.539 511.646) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.74.9" width="3.267" height="8.691" transform="translate(1110.584 514.769) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.74.2" width="3.267" height="8.691" transform="translate(1117.27 492.899) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.74.1" d="M171.246,3895.557l-1.923,1.022-.584,1.912,8.311,2.541,1.035-3.384Z" transform="translate(949.486 -3408.714)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.18" width="3.267" height="7.738" transform="translate(1100.937 487.271) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.2" width="3.267" height="7.738" transform="translate(1093.281 484.854) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.73.1" d="M41.159,3855.786l-1.923,1.022-.584,1.911,7.4,2.263,1.035-3.385Z" transform="translate(1055.586 -3376.99)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.73.19" d="M93.8,3869.985l-5.927-1.812-1.035,3.384,7.4,2.263.584-1.912Z" transform="translate(1014.989 -3387.405)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.12" width="3.267" height="7.738" transform="translate(1095.142 506.021) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.73.11" d="M55.078,4001.909l-7.4-2.262-1.035,3.384,5.927,1.812,1.923-1.023Z" transform="translate(1047.464 -3493.626)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.9" width="3.267" height="7.738" transform="translate(1086.561 507.072) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.73.10" d="M3.813,4003.441l-7.4-2.262-.584,1.912,1.022,1.923,5.927,1.813Z" transform="translate(1090.32 -3493.808)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.2" width="8.691" height="3.267" transform="translate(1108.887 443.277) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="C-LK.75.1" d="M114.691,3636.734l-6.517,2.945-.769,2.038.823,1.822,7.92-3.579Z" transform="translate(1000.658 -3200.262)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.8" width="8.691" height="3.267" transform="translate(1116.959 461.139) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.9" width="8.691" height="3.267" transform="translate(1118.305 464.115) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.10" width="8.691" height="3.267" transform="translate(1119.65 467.094) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.51.3" width="8.711" height="3.267" transform="translate(903.479 438.941) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.44.3" width="8.691" height="3.267" transform="translate(859.857 495.955) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.46.12" width="7.058" height="3.267" transform="translate(864.883 479.52) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.46.3" width="7.058" height="3.267" transform="translate(867.594 470.648) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.48.12" width="7.058" height="3.267" transform="translate(872.205 455.568) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.48.3" width="7.058" height="3.267" transform="translate(874.918 446.697) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.3-2" data-name="C-LK.50.3" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 879.527, 431.617)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.3-2" data-name="C-LK.49.3" width="7.078" height="3.267" transform="translate(898.861 454.041) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.21-2" data-name="C-LK.49.21" width="7.078" height="3.267" transform="translate(896.156 462.893) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.50.3" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 879.527, 431.617)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.3" width="7.078" height="3.267" transform="translate(898.861 454.041) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.21" width="7.078" height="3.267" transform="translate(896.156 462.893) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.51.4" width="8.711" height="3.267" transform="translate(906.602 439.896) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.44.4" width="8.691" height="3.267" transform="translate(862.982 496.91) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.46.11" width="7.058" height="3.267" transform="translate(868.006 480.475) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6199,24 +6199,24 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.48.4" width="7.058" height="3.267" transform="translate(878.041 447.652) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.50.4" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 882.652, 432.574)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.49.4" width="7.078" height="3.267" transform="translate(901.986 454.996) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.20-2" data-name="C-LK.49.20" width="7.078" height="3.267" transform="translate(899.279 463.848) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.20" width="7.078" height="3.267" transform="translate(899.279 463.848) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.51.5" width="8.711" height="3.267" transform="translate(909.727 440.852) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.44.5" width="8.691" height="3.267" transform="translate(866.105 497.865) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.46.10" width="7.058" height="3.267" transform="translate(871.131 481.43) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.46.5" width="7.058" height="3.267" transform="translate(873.842 472.559) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.48.10" width="7.058" height="3.267" transform="translate(878.453 457.479) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.48.5" width="7.058" height="3.267" transform="translate(881.166 448.609) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.50.5-2" data-name="C-LK.50.5" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 885.775, 433.527)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.5-2" data-name="C-LK.49.5" width="7.078" height="3.267" transform="translate(905.109 455.951) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.19-2" data-name="C-LK.49.19" width="7.078" height="3.267" transform="translate(902.404 464.803) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.50.5" width="8.691" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 885.775, 433.527)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.5" width="7.078" height="3.267" transform="translate(905.109 455.951) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.19" width="7.078" height="3.267" transform="translate(902.404 464.803) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.51.6" width="8.711" height="3.267" transform="translate(912.85 441.807) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.51.7" width="8.711" height="3.267" transform="translate(915.975 442.762) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.6-2" data-name="C-LK.49.6" width="7.078" height="3.267" transform="translate(908.234 456.906) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.18-2" data-name="C-LK.49.18" width="7.078" height="3.267" transform="translate(905.527 465.758) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.6" width="7.078" height="3.267" transform="translate(908.234 456.906) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.18" width="7.078" height="3.267" transform="translate(905.527 465.758) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.49.7" width="7.078" height="3.267" transform="translate(911.357 457.861) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.49.17-2" data-name="C-LK.49.17" width="7.078" height="3.267" transform="translate(908.652 466.713) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.49.17" width="7.078" height="3.267" transform="translate(908.652 466.713) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.47.4" width="7.058" height="3.267" transform="translate(894.67 478.928) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.3-2" data-name="C-LK.54.3" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 949.367, 469.48)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.54.3" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 949.367, 469.48)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.54.14" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 946.66, 478.332)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.56.14" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 939.338, 502.283)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.56.3" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 942.045, 493.432)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6236,7 +6236,7 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.60.15" width="7.058" height="3.267" transform="translate(924.693 550.186) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.60.4" width="7.058" height="3.267" transform="translate(927.406 541.314) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.63.4" width="9.78" height="3.267" transform="translate(911.965 591.82) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.5-2" data-name="C-LK.54.5" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 955.615, 471.391)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.54.5" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 955.615, 471.391)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.54.12" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 952.91, 480.242)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.56.12" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 945.586, 504.193)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.56.5" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 948.293, 495.342)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6246,7 +6246,7 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.60.14" width="7.058" height="3.267" transform="translate(927.818 551.141) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.60.5" width="7.058" height="3.267" transform="translate(930.529 542.27) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.63.5" width="9.78" height="3.267" transform="translate(915.088 592.775) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.54.6-2" data-name="C-LK.54.6" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 958.74, 472.348)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.54.6" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 958.74, 472.348)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.54.11" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 956.033, 481.197)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.56.11" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 948.711, 505.148)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.56.6" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 951.416, 496.297)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6282,15 +6282,15 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.61.7" width="7.058" height="3.267" transform="translate(967.498 553.572) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.65.7" width="7.058" height="3.267" transform="translate(960.176 577.523) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.64.3" width="9.8" height="3.267" transform="translate(939.555 600.277) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.4-2" data-name="C-SH.28.4" width="9.8" height="3.267" transform="translate(942.678 601.232) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.5-2" data-name="C-SH.28.5" width="9.8" height="3.267" transform="translate(945.803 602.188) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.6-2" data-name="C-SH.28.6" width="9.8" height="3.267" transform="translate(948.926 603.143) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.7-2" data-name="C-SH.28.7" width="9.8" height="3.267" transform="translate(952.051 604.098) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.8-2" data-name="C-SH.28.8" width="9.8" height="3.267" transform="translate(955.174 605.053) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.9-2" data-name="C-SH.28.9" width="9.8" height="3.267" transform="translate(958.299 606.008) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.10-2" data-name="C-SH.28.10" width="9.8" height="3.267" transform="translate(961.422 606.963) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.11-2" data-name="C-SH.28.11" width="9.8" height="3.267" transform="translate(964.547 607.918) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-SH.28.12-2" data-name="C-SH.28.12" width="9.8" height="3.267" transform="translate(967.67 608.873) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.4" width="9.8" height="3.267" transform="translate(942.678 601.232) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.5" width="9.8" height="3.267" transform="translate(945.803 602.188) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.6" width="9.8" height="3.267" transform="translate(948.926 603.143) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.7" width="9.8" height="3.267" transform="translate(952.051 604.098) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.8" width="9.8" height="3.267" transform="translate(955.174 605.053) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.9" width="9.8" height="3.267" transform="translate(958.299 606.008) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.10" width="9.8" height="3.267" transform="translate(961.422 606.963) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.11" width="9.8" height="3.267" transform="translate(964.547 607.918) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.64.12" width="9.8" height="3.267" transform="translate(967.67 608.873) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.65.37" width="3.267" height="8.691" transform="translate(995.627 562.193) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.65.32" width="3.267" height="8.711" transform="translate(985.195 559.004) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.65.38" width="3.267" height="8.691" transform="translate(994.672 565.318) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6325,9 +6325,9 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.71.10" width="3.267" height="7.738" transform="translate(1078.748 489.109) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.5" width="3.267" height="7.738" transform="translate(1044.229 478.574) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.10" width="3.267" height="7.738" transform="translate(1053.756 481.469) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.74.7" width="3.267" height="8.691" transform="translate(1117.561 507.809) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.13" width="3.267" height="7.738" transform="translate(1101.83 503) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.8" width="3.267" height="7.738" transform="translate(1091.619 503.293) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.74.7" width="3.267" height="8.691" transform="translate(1112.494 508.521) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.13" width="3.267" height="7.738" transform="translate(1096.097 502.897) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.8" width="3.267" height="7.738" transform="translate(1087.104 503.949) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.10" width="3.267" height="8.691" transform="translate(1010.57 513.244) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.17" width="3.267" height="8.691" transform="translate(1000.178 510.066) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.69.17" width="3.267" height="7.738" transform="translate(1041.021 523.123) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6335,9 +6335,9 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.71.11" width="3.267" height="7.738" transform="translate(1079.703 485.986) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.4" width="3.267" height="7.738" transform="translate(1045.184 475.451) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.11" width="3.267" height="7.738" transform="translate(1054.711 478.346) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.74.6" width="3.267" height="8.691" transform="translate(1118.516 504.686) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.14" width="3.267" height="7.738" transform="translate(1102.785 499.875) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.7" width="3.267" height="7.738" transform="translate(1092.574 500.17) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.74.6" width="3.267" height="8.691" transform="translate(1113.449 505.397) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.14" width="3.267" height="7.738" transform="translate(1097.052 499.772) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.7" width="3.267" height="7.738" transform="translate(1088.26 500.633) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.9" width="3.267" height="8.691" transform="translate(1011.527 510.121) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.18" width="3.267" height="8.691" transform="translate(1001.133 506.943) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.69.18" width="3.267" height="7.738" transform="translate(1041.977 520) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6345,9 +6345,9 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.71.12" width="3.267" height="7.738" transform="translate(1080.658 482.861) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.3" width="3.267" height="7.738" transform="translate(1046.139 472.326) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.12" width="3.267" height="7.738" transform="translate(1055.666 475.221) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.74.5" width="3.267" height="8.691" transform="translate(1119.471 501.561) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.15" width="3.267" height="7.738" transform="translate(1103.74 496.752) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.6" width="3.267" height="7.738" transform="translate(1093.529 497.045) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.74.5" width="3.267" height="8.691" transform="translate(1114.404 502.272) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.15" width="3.267" height="7.738" transform="translate(1098.007 496.649) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.6" width="3.267" height="7.738" transform="translate(1089.461 497.35) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.8" width="3.267" height="8.691" transform="translate(1012.482 506.996) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.19" width="3.267" height="8.691" transform="translate(1002.088 503.818) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.69.19" width="3.267" height="7.738" transform="translate(1042.932 516.875) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6355,13 +6355,13 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.71.13" width="3.267" height="7.738" transform="translate(1081.613 479.738) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.2" width="3.267" height="7.738" transform="translate(1047.094 469.203) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.70.13" width="3.267" height="7.738" transform="translate(1056.621 472.098) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.74.4" width="3.267" height="8.691" transform="translate(1120.426 498.438) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.16" width="3.267" height="7.738" transform="translate(1104.695 493.627) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.5" width="3.267" height="7.738" transform="translate(1094.484 493.922) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.4" width="3.267" height="7.738" transform="translate(1095.441 490.797) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.3" width="3.267" height="7.738" transform="translate(1096.395 487.674) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.74.3" width="3.267" height="8.691" transform="translate(1121.381 495.313) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.73.17" width="3.267" height="7.738" transform="translate(1105.65 490.504) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.74.4" width="3.267" height="8.691" transform="translate(1115.359 499.149) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.16" width="3.267" height="7.738" transform="translate(1098.962 493.524) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.5" width="3.267" height="7.738" transform="translate(1090.416 494.227) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.4" width="3.267" height="7.738" transform="translate(1091.373 491.102) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.3" width="3.267" height="7.738" transform="translate(1092.326 487.979) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.74.3" width="3.267" height="8.691" transform="translate(1116.314 496.024) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.73.17" width="3.267" height="7.738" transform="translate(1099.917 490.401) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.7" width="3.267" height="8.691" transform="translate(1013.438 503.873) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.20" width="3.267" height="8.691" transform="translate(1003.043 500.695) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.67.6" width="3.267" height="8.691" transform="translate(1014.393 500.748) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6412,11 +6412,11 @@ export const pathsData: SvgItem[] = [
     <rect id="C-LK.57.7" width="7.058" height="3.267" transform="translate(982.143 505.67) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.55.7" width="7.058" height="3.267" transform="translate(989.465 481.719) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.55.12" width="7.058" height="3.267" transform="translate(986.752 490.59) rotate(-73)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.6" width="8.691" height="3.267" transform="translate(1117.717 455.129) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.7" width="8.691" height="3.267" transform="translate(1119.061 458.105) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.4" width="8.691" height="3.267" transform="translate(1115.025 449.176) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.5" width="8.691" height="3.267" transform="translate(1116.371 452.152) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="C-LK.75.3" width="8.691" height="3.267" transform="translate(1113.68 446.197) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.6" width="8.691" height="3.267" transform="translate(1114.27 455.186) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.7" width="8.691" height="3.267" transform="translate(1115.613 458.162) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.4" width="8.691" height="3.267" transform="translate(1111.578 449.232) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.5" width="8.691" height="3.267" transform="translate(1112.924 452.209) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="C-LK.75.3" width="8.691" height="3.267" transform="translate(1110.232 446.254) rotate(-24.319)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.54.8" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 964.988, 474.258)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-LK.54.9" width="7.078" height="3.267" transform="matrix(0.292, -0.956, 0.956, 0.292, 962.281, 483.109)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="C-LK.59.9" d="M-568.995,4099.218l-1.022-1.923-1.651-.5-2.541,8.312,3.124.955Z" transform="translate(1554.8 -3572.008)" fill="rgba(238,75,55,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6525,17 +6525,17 @@ export const pathsData: SvgItem[] = [
     <rect id="C-BTS.03.3" width="9.765" height="6.239" transform="translate(1110.608 583.853) rotate(-73)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-BTS.03.4" width="9.765" height="6.239" transform="matrix(0.292, -0.956, 0.956, 0.292, 1107.752, 593.192)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="C-BTS.03.5" width="10.308" height="6.239" transform="matrix(0.292, -0.956, 0.956, 0.292, 1104.739, 603.049)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.05.11" d="M6806.867,3902.027l-8.709,4.989a38.508,38.508,0,0,0,11.09,8.644l4.269-8.639A22.479,22.479,0,0,1,6806.867,3902.027Z" transform="translate(-6147.657 -3528.665)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.9" width="9.494" height="8.138" transform="translate(642.411 364.229) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.10" width="9.494" height="8.138" transform="translate(646.456 371.29) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.6" width="9.494" height="8.138" transform="translate(630.277 343.046) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.6A" width="9.494" height="8.138" transform="translate(634.322 350.107) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.8" width="9.494" height="8.138" transform="translate(638.367 357.168) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.2" width="9.494" height="8.138" transform="translate(614.097 314.801) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.3" width="9.494" height="8.138" transform="translate(618.142 321.862) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.3A" width="9.494" height="8.138" transform="translate(622.187 328.923) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.5" width="9.494" height="8.138" transform="translate(626.232 335.985) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <rect id="A-BTV.05.1" width="9.494" height="8.138" transform="translate(610.052 307.74) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.05.11" d="M6806.867,3902.027l-8.709,4.989a38.508,38.508,0,0,0,11.09,8.644l4.269-8.639A22.479,22.479,0,0,1,6806.867,3902.027Z" transform="translate(-6147.657 -3528.665)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.9" width="9.494" height="8.138" transform="translate(642.411 364.229) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.10" width="9.494" height="8.138" transform="translate(646.456 371.29) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.6" width="9.494" height="8.138" transform="translate(630.277 343.046) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.6A" width="9.494" height="8.138" transform="translate(634.322 350.107) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.8" width="9.494" height="8.138" transform="translate(638.367 357.168) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.2" width="9.494" height="8.138" transform="translate(614.097 314.801) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.3" width="9.494" height="8.138" transform="translate(618.142 321.862) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.3A" width="9.494" height="8.138" transform="translate(622.187 328.923) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.5" width="9.494" height="8.138" transform="translate(626.232 335.985) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <rect id="B-BTV.05.1" width="9.494" height="8.138" transform="translate(610.052 307.74) rotate(-29.806)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTV.03A.3A" d="M6268.454,2844.776l-9.465.684a77.639,77.639,0,0,0,1.227,9.228l9.31-1.812A68.215,68.215,0,0,1,6268.454,2844.776Z" transform="translate(-5660.082 -2572.585)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTV.03A.5" d="M6281.117,2929.427l-9.31,1.812a77.6,77.6,0,0,0,2.323,9.015l9.019-2.912A68.2,68.2,0,0,1,6281.117,2929.427Z" transform="translate(-5671.674 -2649.135)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTV.03A.6" d="M6305.1,3012.139l-9.02,2.912a77.494,77.494,0,0,0,3.387,8.672l8.6-3.967A68.172,68.172,0,0,1,6305.1,3012.139Z" transform="translate(-5693.627 -2723.932)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6569,10 +6569,10 @@ export const pathsData: SvgItem[] = [
     <path id="B-BTS.06.5" d="M7230.036,2262.35l-7-2.141-2.187,7.156,1.335,2.511,5.081,1.553Z" transform="translate(-6529.896 -2043.956)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="B-BTS.06A.16" d="M7150.993,2522.745l-7.522-2.3-2.188,7.156,1.335,2.511,5.6,1.712Z" transform="translate(-6457.947 -2279.29)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="B-BTS.06A.1" d="M7174.443,2433.423l-5.6-1.712-2.512,1.335-2.187,7.156,7.522,2.3Z" transform="translate(-6478.621 -2199.047)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="B-BTS.01.11" d="M8784.8,3023.947l-6.991-2.137-2.775,9.079,5.067,1.55,2.512-1.335Z" transform="translate(-7935.356 -2732.678)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="B-BTS.01.10" d="M8813.215,2930.993l-1.335-2.511-5.067-1.55-2.776,9.079,6.991,2.137Z" transform="translate(-7961.586 -2646.879)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="B-BTS.01.1" d="M8307.02,2779.688l-5.067-1.55-2.512,1.335-2.187,7.156,6.991,2.138Z" transform="translate(-7503.299 -2512.323)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="B-BTS.01.20" d="M8283.568,2869.008l-6.991-2.137-2.187,7.156,1.335,2.511,5.068,1.549Z" transform="translate(-7482.624 -2592.565)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTS.09.11" d="M8784.8,3023.947l-6.991-2.137-2.775,9.079,5.067,1.55,2.512-1.335Z" transform="translate(-7935.356 -2732.678)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTS.09.10" d="M8813.215,2930.993l-1.335-2.511-5.067-1.55-2.776,9.079,6.991,2.137Z" transform="translate(-7961.586 -2646.879)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTS.09.1" d="M8307.02,2779.688l-5.067-1.55-2.512,1.335-2.187,7.156,6.991,2.138Z" transform="translate(-7503.299 -2512.323)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTS.09.20" d="M8283.568,2869.008l-6.991-2.137-2.187,7.156,1.335,2.511,5.068,1.549Z" transform="translate(-7482.624 -2592.565)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="B-BTV.09.12B" d="M8364.675,2609.245l-8.535-2.609-2.187,7.156,1.335,2.511,6.612,2.021Z" transform="translate(-7554.572 -2357.232)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="B-BTV.09.1" d="M8388.126,2519.923l-6.611-2.021-2.512,1.335-2.187,7.156,8.535,2.609Z" transform="translate(-7575.248 -2276.99)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <rect id="B-BTV.09.2" width="9.494" height="8.138" transform="translate(810.102 252.012) rotate(-73)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6696,8 +6696,8 @@ export const pathsData: SvgItem[] = [
     <path id="D-BTS.06A.5" d="M5293.764,5978.106l-2.984-.994-2.661,8q2.787.74,5.6,1.371l1.755-1.837Z" transform="translate(-4782.118 -5405.179)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="D-BTS.03.5" d="M5208.1,5689.591l-2.753.721-3.705,6.937q2.922,1.173,5.9,2.2l2.512-2.383Z" transform="translate(-4703.913 -5145.171)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="D-BTS.05.9" d="M4598.362,5615.461l-.642-2.453-9.18,2.4-.5,1.8q2.46,2.467,5.033,4.816Z" transform="translate(-4149.034 -5075.917)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.8" d="M5833.669,2715.479l-1.445-2.566-7.579-.767a27.951,27.951,0,0,1-3.021,4.114l7.107,6.295A37.429,37.429,0,0,0,5833.669,2715.479Z" transform="translate(-5264.57 -2452.646)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.6A" d="M5738.9,2704.295l-8.2-.831-2.671.94q-.589.53-1.219,1.01l5.1,6.687A27.932,27.932,0,0,0,5738.9,2704.295Z" transform="translate(-5178.83 -2444.795)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTS.02.8" d="M5833.669,2715.479l-1.445-2.566-7.579-.767a27.951,27.951,0,0,1-3.021,4.114l7.107,6.295A37.429,37.429,0,0,0,5833.669,2715.479Z" transform="translate(-5264.57 -2452.646)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTS.02.6A" d="M5738.9,2704.295l-8.2-.831-2.671.94q-.589.53-1.219,1.01l5.1,6.687A27.932,27.932,0,0,0,5738.9,2704.295Z" transform="translate(-5178.83 -2444.795)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTS.16.12" d="M4284.1,3013.659q-2.6.3-5.195.63l1.213,8.323q1.447-.183,2.894-.357l1.781-2.237Z" transform="translate(-3869.477 -2725.307)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTS.16.11" d="M4271.946,2930.521l-2.213-1.763q-1.751.21-3.5.432l1.212,8.323q2.6-.328,5.195-.63Z" transform="translate(-3858.018 -2648.53)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTS.17.22" d="M3021.287,3320.62q-2.786,1.057-5.56,2.147l2.382,5.937,2.624,1.135q1.695-.658,3.395-1.3Z" transform="translate(-2727.177 -3002.894)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -6711,62 +6711,62 @@ export const pathsData: SvgItem[] = [
     <rect id="Rectangle_5212" data-name="Rectangle 5212" width="10.579" height="8.138" transform="translate(216.033 341.302) rotate(-23.718)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTS.18.18" d="M2472.021,3557l-5.712,2.51,1.527,3.477a4.612,4.612,0,0,0,6.077,2.367l1.49-.655Z" transform="translate(-2230.335 -3216.656)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTS.18.1" d="M2444.32,3476.55l-3.871,1.7-1.032,2.65,2.573,5.857,5.712-2.51Z" transform="translate(-2206.016 -3143.902)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.1-2" data-name="A-BTV.03.1" d="M5143.287,1710.015l-1.054-.05q-4.406-.2-8.812-.349-.982,5.248-1.783,10.528,5.285.162,10.567.41Z" transform="translate(-4640.61 -1546.052)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.22" d="M5128.852,1820.044q-5.282-.248-10.568-.41-.8,5.258-1.413,10.542,3.92.113,7.838.275,1.531.063,3.061.134Z" transform="translate(-4627.257 -1645.542)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.21" d="M5239.984,1824.353q-4.067-.243-8.136-.434l-1.082,10.54q4.07.188,8.137.428Z" transform="translate(-4730.253 -1649.417)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.2-2" data-name="A-BTV.03.2" d="M5251.286,1714.221q-4.066-.246-8.135-.441l-1.082,10.539q4.069.191,8.136.434Z" transform="translate(-4740.474 -1549.817)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.3-2" data-name="A-BTV.03.3" d="M5336.3,1718.932q-4.061-.3-8.125-.542l-1.081,10.533q4.064.243,8.125.537Z" transform="translate(-4817.359 -1553.986)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.20" d="M5325,1828.993q-4.061-.294-8.125-.537l-1.081,10.533q4.064.24,8.126.532Z" transform="translate(-4807.144 -1653.519)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.19" d="M5409.9,1834.705q-4.055-.345-8.115-.639l-1.081,10.528q4.06.292,8.115.636Z" transform="translate(-4883.934 -1658.593)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.3A" d="M5421.195,1724.7q-4.055-.346-8.114-.643L5412,1734.581q4.06.294,8.115.639Z" transform="translate(-4894.144 -1559.108)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.5-2" data-name="A-BTV.03.5" d="M5505.985,1731.513q-4.05-.4-8.1-.743l-1.08,10.524q4.055.345,8.1.742Z" transform="translate(-4970.83 -1565.181)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.18" d="M5494.7,1841.488q-4.05-.4-8.1-.742l-1.08,10.525q4.055.344,8.1.74Z" transform="translate(-4960.623 -1664.633)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.17" d="M5579.38,1849.34q-4.044-.447-8.094-.844l-1.08,10.524q4.05.4,8.094.844Z" transform="translate(-5037.211 -1671.642)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.6-2" data-name="A-BTV.03.6" d="M5590.665,1739.381q-4.044-.447-8.094-.844l-1.08,10.522q4.05.4,8.094.844Z" transform="translate(-5047.416 -1572.205)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.6A" d="M5675.235,1748.3q-4.039-.5-8.083-.944l-1.08,10.522q4.044.448,8.083.946Z" transform="translate(-5123.903 -1580.178)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.16" d="M5663.95,1858.26q-4.039-.5-8.083-.946l-1.08,10.524q4.044.448,8.083.948Z" transform="translate(-5113.697 -1679.616)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.15" d="M5748.408,1868.252q-4.033-.549-8.073-1.048l-1.081,10.526q4.04.5,8.073,1.052Z" transform="translate(-5190.083 -1688.559)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.8" d="M5759.7,1758.267q-4.033-.547-8.073-1.045l-1.08,10.524q4.039.5,8.073,1.049Z" transform="translate(-5200.291 -1589.102)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.9" d="M5844.048,1769.287q-4.028-.6-8.062-1.146l-1.081,10.528q4.035.55,8.062,1.151Z" transform="translate(-5276.58 -1598.976)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.12B" d="M5832.755,1879.313q-4.028-.6-8.062-1.151l-1.081,10.53q4.035.552,8.062,1.156Z" transform="translate(-5266.367 -1698.469)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.12A" d="M5916.991,1891.445q-4.022-.652-8.051-1.254l-1.082,10.535q4.03.6,8.051,1.261Z" transform="translate(-5342.552 -1709.347)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.10" d="M5928.29,1781.359q-4.022-.648-8.053-1.246l-1.081,10.534q4.03.6,8.052,1.254Z" transform="translate(-5352.769 -1609.802)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.11" d="M6013.394,1796.685l-2.1-2.394q-3.456-.595-6.917-1.153l-1.082,10.541q4.821.782,9.629,1.637A58.419,58.419,0,0,0,6013.394,1796.685Z" transform="translate(-5428.858 -1621.581)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.03.12" d="M6002.7,1904.93q-4.808-.855-9.629-1.637l-1.082,10.542q3.555.58,7.1,1.2l2.291-1.633,1.078-6.82Q6002.6,1905.758,6002.7,1904.93Z" transform="translate(-5418.635 -1721.195)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.1" d="M5143.287,1710.015l-1.054-.05q-4.406-.2-8.812-.349-.982,5.248-1.783,10.528,5.285.162,10.567.41Z" transform="translate(-4640.61 -1546.052)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.22" d="M5128.852,1820.044q-5.282-.248-10.568-.41-.8,5.258-1.413,10.542,3.92.113,7.838.275,1.531.063,3.061.134Z" transform="translate(-4627.257 -1645.542)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.21" d="M5239.984,1824.353q-4.067-.243-8.136-.434l-1.082,10.54q4.07.188,8.137.428Z" transform="translate(-4730.253 -1649.417)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.2" d="M5251.286,1714.221q-4.066-.246-8.135-.441l-1.082,10.539q4.069.191,8.136.434Z" transform="translate(-4740.474 -1549.817)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.3" d="M5336.3,1718.932q-4.061-.3-8.125-.542l-1.081,10.533q4.064.243,8.125.537Z" transform="translate(-4817.359 -1553.986)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.20" d="M5325,1828.993q-4.061-.294-8.125-.537l-1.081,10.533q4.064.24,8.126.532Z" transform="translate(-4807.144 -1653.519)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.19" d="M5409.9,1834.705q-4.055-.345-8.115-.639l-1.081,10.528q4.06.292,8.115.636Z" transform="translate(-4883.934 -1658.593)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.3A" d="M5421.195,1724.7q-4.055-.346-8.114-.643L5412,1734.581q4.06.294,8.115.639Z" transform="translate(-4894.144 -1559.108)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.5" d="M5505.985,1731.513q-4.05-.4-8.1-.743l-1.08,10.524q4.055.345,8.1.742Z" transform="translate(-4970.83 -1565.181)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.18" d="M5494.7,1841.488q-4.05-.4-8.1-.742l-1.08,10.525q4.055.344,8.1.74Z" transform="translate(-4960.623 -1664.633)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.17" d="M5579.38,1849.34q-4.044-.447-8.094-.844l-1.08,10.524q4.05.4,8.094.844Z" transform="translate(-5037.211 -1671.642)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.6" d="M5590.665,1739.381q-4.044-.447-8.094-.844l-1.08,10.522q4.05.4,8.094.844Z" transform="translate(-5047.416 -1572.205)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.6A" d="M5675.235,1748.3q-4.039-.5-8.083-.944l-1.08,10.522q4.044.448,8.083.946Z" transform="translate(-5123.903 -1580.178)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.16" d="M5663.95,1858.26q-4.039-.5-8.083-.946l-1.08,10.524q4.044.448,8.083.948Z" transform="translate(-5113.697 -1679.616)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.15" d="M5748.408,1868.252q-4.033-.549-8.073-1.048l-1.081,10.526q4.04.5,8.073,1.052Z" transform="translate(-5190.083 -1688.559)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.8" d="M5759.7,1758.267q-4.033-.547-8.073-1.045l-1.08,10.524q4.039.5,8.073,1.049Z" transform="translate(-5200.291 -1589.102)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.9" d="M5844.048,1769.287q-4.028-.6-8.062-1.146l-1.081,10.528q4.035.55,8.062,1.151Z" transform="translate(-5276.58 -1598.976)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.12B" d="M5832.755,1879.313q-4.028-.6-8.062-1.151l-1.081,10.53q4.035.552,8.062,1.156Z" transform="translate(-5266.367 -1698.469)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.12A" d="M5916.991,1891.445q-4.022-.652-8.051-1.254l-1.082,10.535q4.03.6,8.051,1.261Z" transform="translate(-5342.552 -1709.347)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.10" d="M5928.29,1781.359q-4.022-.648-8.053-1.246l-1.081,10.534q4.03.6,8.052,1.254Z" transform="translate(-5352.769 -1609.802)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.11" d="M6013.394,1796.685l-2.1-2.394q-3.456-.595-6.917-1.153l-1.082,10.541q4.821.782,9.629,1.637A58.419,58.419,0,0,0,6013.394,1796.685Z" transform="translate(-5428.858 -1621.581)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.03.12" d="M6002.7,1904.93q-4.808-.855-9.629-1.637l-1.082,10.542q3.555.58,7.1,1.2l2.291-1.633,1.078-6.82Q6002.6,1905.758,6002.7,1904.93Z" transform="translate(-5418.635 -1721.195)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="B-BTS.01.7" d="M5996.282,2093.293l-1.792-2.361q-2.365-.413-4.733-.809l-1.5,10.667,6.684.967Z" transform="translate(-5415.259 -1890.147)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="B-BTS.01.8" d="M5981.289,2202.561l-6.684-.967-1.445,10.293q2.254.379,4.5.774l2.285-1.632Z" transform="translate(-5401.605 -1990.951)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.9" d="M5906.279,1481.9l-2.981-2.032q-3.488-.52-6.98-1l-1.081,10.529q8.125,1.132,16.22,2.462A58.35,58.35,0,0,0,5906.279,1481.9Z" transform="translate(-5331.138 -1337.378)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.10" d="M5977.407,1602.433q-4.076-.669-8.16-1.289l-1.081,10.536q5.314.81,10.614,1.707l1.521-1.557A58.291,58.291,0,0,0,5977.407,1602.433Z" transform="translate(-5397.089 -1447.96)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.11" d="M5893.085,1590.059q-4.027-.611-8.061-1.173l-1.081,10.531q4.033.564,8.06,1.178Z" transform="translate(-5320.926 -1436.875)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.12" d="M5808.765,1578.731q-4.032-.562-8.07-1.075l-1.08,10.527q4.038.515,8.069,1.078Z" transform="translate(-5244.667 -1426.719)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.8-2" data-name="A-BTV.02.8" d="M5820.055,1468.753q-4.033-.558-8.071-1.069l-1.08,10.524q4.039.513,8.07,1.075Z" transform="translate(-5254.875 -1327.271)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.6A-2" data-name="A-BTV.02.6A" d="M5735.624,1458.484q-4.038-.511-8.081-.974l-1.08,10.521q4.043.464,8.08.976Z" transform="translate(-5178.516 -1318.071)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.12A" d="M5724.338,1568.428q-4.037-.513-8.08-.976l-1.08,10.524q4.043.465,8.08.979Z" transform="translate(-5168.311 -1417.492)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.12B" d="M5639.805,1559.149q-4.042-.464-8.09-.878l-1.08,10.524q4.047.415,8.09.879Z" transform="translate(-5091.857 -1409.189)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.6-2" data-name="A-BTV.02.6" d="M5651.091,1449.217q-4.043-.463-8.09-.877l-1.08,10.52q4.047.415,8.09.879Z" transform="translate(-5102.063 -1309.778)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.5-2" data-name="A-BTV.02.5" d="M5566.452,1440.954q-4.048-.415-8.1-.781l-1.08,10.521q4.052.366,8.1.781Z" transform="translate(-5025.514 -1302.392)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.15" d="M5555.165,1550.9q-4.048-.415-8.1-.781l-1.08,10.524q4.053.365,8.1.78Z" transform="translate(-5015.307 -1401.814)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.16" d="M5470.419,1543.665q-4.053-.366-8.11-.682l-1.081,10.527q4.058.315,8.111.68Z" transform="translate(-4938.661 -1395.363)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.3A" d="M5481.708,1433.695q-4.053-.367-8.11-.686l-1.08,10.524q4.058.317,8.11.682Z" transform="translate(-4948.871 -1295.914)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.3-2" data-name="A-BTV.02.3" d="M5396.858,1427.438q-4.058-.319-8.12-.59l-1.081,10.529q4.062.268,8.12.584Z" transform="translate(-4872.132 -1290.342)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.17" d="M5385.566,1537.46q-4.059-.317-8.121-.584l-1.081,10.531q4.062.265,8.121.58Z" transform="translate(-4861.919 -1389.841)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.18" d="M5300.607,1532.282q-4.063-.268-8.13-.486l-1.082,10.536q4.067.215,8.131.481Z" transform="translate(-4785.08 -1385.248)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.2-2" data-name="A-BTV.02.2" d="M5311.9,1422.187q-3.779-.252-7.56-.462l-.57-.031-1.081,10.536q4.066.218,8.13.486Z" transform="translate(-4795.298 -1285.682)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.1-2" data-name="A-BTV.02.1" d="M5201.9,1417.6q-4.532-.247-9.068-.433-1.488,5.214-2.793,10.477,5.392.2,10.781.492Z" transform="translate(-4693.42 -1281.586)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.02.19" d="M5178.047,1527.143q-5.388-.289-10.781-.492-1.3,5.228-2.41,10.5,3.834.133,7.667.31,2.221.1,4.442.22Z" transform="translate(-4670.651 -1380.595)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.6A" d="M5801.946,1283.482l-7.774-.691-.91,10.24q6.82.827,13.624,1.789l.872-1.29Z" transform="translate(-5238.922 -1160.071)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.8" d="M5717.75,1275.983l-8.105-.72-.891,10.029q4.046.442,8.087.932Z" transform="translate(-5162.5 -1153.263)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.6-2" data-name="A-BTV.01.6" d="M5719.752,1159.864l-.7-.077-.982,11.05,15.88,1.411-2.905-5.023A14.92,14.92,0,0,0,5719.752,1159.864Z" transform="translate(-5170.922 -1048.837)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.5-2" data-name="A-BTV.01.5" d="M5642.449,1151.919q-4.045-.44-8.1-.833l-.992,11.162,8.106.72Z" transform="translate(-5094.322 -1040.969)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.9" d="M5633.142,1268.455l-8.106-.72-.881,9.913q4.05.394,8.1.836Z" transform="translate(-5085.997 -1146.455)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.10" d="M5548.453,1260.927l-8.105-.72-.879,9.893q4.055.347,8.1.74Z" transform="translate(-5009.414 -1139.648)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.3A" d="M5557.753,1144.094q-4.05-.393-8.1-.74l-.994,11.182,8.105.72Z" transform="translate(-5017.723 -1033.977)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.3-2" data-name="A-BTV.01.3" d="M5473.05,1137.239q-4.054-.347-8.112-.647l-.987,11.109,8.105.72Z" transform="translate(-4941.124 -1027.862)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.11" d="M5463.685,1253.4l-8.106-.72-.886,9.969q4.058.3,8.112.645Z" transform="translate(-4932.751 -1132.84)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.12" d="M5378.835,1245.871l-8.106-.72-.9,10.14q4.062.25,8.121.549Z" transform="translate(-4856.008 -1126.032)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.2-2" data-name="A-BTV.01.2" d="M5388.338,1131.354q-2.745-.2-5.492-.385-1.314-.087-2.628-.169l-.973,10.943,8.106.72Z" transform="translate(-4864.523 -1022.624)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.1-2" data-name="A-BTV.01.1" d="M5287.541,1127.043q-3.448-.216-6.9-.4-2.035,5.2-3.882,10.469l9.807.872Z" transform="translate(-4771.847 -1018.868)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
-    <path id="A-BTV.01.12A" d="M5254.193,1236.915l-9.807-.872q-1.8,5.15-3.426,10.361,3.961.173,7.919.392,2.207.122,4.413.258Z" transform="translate(-4739.471 -1117.796)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.9" d="M5906.279,1481.9l-2.981-2.032q-3.488-.52-6.98-1l-1.081,10.529q8.125,1.132,16.22,2.462A58.35,58.35,0,0,0,5906.279,1481.9Z" transform="translate(-5331.138 -1337.378)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.10" d="M5977.407,1602.433q-4.076-.669-8.16-1.289l-1.081,10.536q5.314.81,10.614,1.707l1.521-1.557A58.291,58.291,0,0,0,5977.407,1602.433Z" transform="translate(-5397.089 -1447.96)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.11" d="M5893.085,1590.059q-4.027-.611-8.061-1.173l-1.081,10.531q4.033.564,8.06,1.178Z" transform="translate(-5320.926 -1436.875)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.12" d="M5808.765,1578.731q-4.032-.562-8.07-1.075l-1.08,10.527q4.038.515,8.069,1.078Z" transform="translate(-5244.667 -1426.719)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.8" d="M5820.055,1468.753q-4.033-.558-8.071-1.069l-1.08,10.524q4.039.513,8.07,1.075Z" transform="translate(-5254.875 -1327.271)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.6A" d="M5735.624,1458.484q-4.038-.511-8.081-.974l-1.08,10.521q4.043.464,8.08.976Z" transform="translate(-5178.516 -1318.071)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.12A" d="M5724.338,1568.428q-4.037-.513-8.08-.976l-1.08,10.524q4.043.465,8.08.979Z" transform="translate(-5168.311 -1417.492)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.12B" d="M5639.805,1559.149q-4.042-.464-8.09-.878l-1.08,10.524q4.047.415,8.09.879Z" transform="translate(-5091.857 -1409.189)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.6" d="M5651.091,1449.217q-4.043-.463-8.09-.877l-1.08,10.52q4.047.415,8.09.879Z" transform="translate(-5102.063 -1309.778)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.5" d="M5566.452,1440.954q-4.048-.415-8.1-.781l-1.08,10.521q4.052.366,8.1.781Z" transform="translate(-5025.514 -1302.392)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.15" d="M5555.165,1550.9q-4.048-.415-8.1-.781l-1.08,10.524q4.053.365,8.1.78Z" transform="translate(-5015.307 -1401.814)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.16" d="M5470.419,1543.665q-4.053-.366-8.11-.682l-1.081,10.527q4.058.315,8.111.68Z" transform="translate(-4938.661 -1395.363)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.3A" d="M5481.708,1433.695q-4.053-.367-8.11-.686l-1.08,10.524q4.058.317,8.11.682Z" transform="translate(-4948.871 -1295.914)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.3" d="M5396.858,1427.438q-4.058-.319-8.12-.59l-1.081,10.529q4.062.268,8.12.584Z" transform="translate(-4872.132 -1290.342)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.17" d="M5385.566,1537.46q-4.059-.317-8.121-.584l-1.081,10.531q4.062.265,8.121.58Z" transform="translate(-4861.919 -1389.841)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.18" d="M5300.607,1532.282q-4.063-.268-8.13-.486l-1.082,10.536q4.067.215,8.131.481Z" transform="translate(-4785.08 -1385.248)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.2" d="M5311.9,1422.187q-3.779-.252-7.56-.462l-.57-.031-1.081,10.536q4.066.218,8.13.486Z" transform="translate(-4795.298 -1285.682)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.1" d="M5201.9,1417.6q-4.532-.247-9.068-.433-1.488,5.214-2.793,10.477,5.392.2,10.781.492Z" transform="translate(-4693.42 -1281.586)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.02.19" d="M5178.047,1527.143q-5.388-.289-10.781-.492-1.3,5.228-2.41,10.5,3.834.133,7.667.31,2.221.1,4.442.22Z" transform="translate(-4670.651 -1380.595)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.6A" d="M5801.946,1283.482l-7.774-.691-.91,10.24q6.82.827,13.624,1.789l.872-1.29Z" transform="translate(-5238.922 -1160.071)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.8" d="M5717.75,1275.983l-8.105-.72-.891,10.029q4.046.442,8.087.932Z" transform="translate(-5162.5 -1153.263)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.6" d="M5719.752,1159.864l-.7-.077-.982,11.05,15.88,1.411-2.905-5.023A14.92,14.92,0,0,0,5719.752,1159.864Z" transform="translate(-5170.922 -1048.837)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.5" d="M5642.449,1151.919q-4.045-.44-8.1-.833l-.992,11.162,8.106.72Z" transform="translate(-5094.322 -1040.969)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.9" d="M5633.142,1268.455l-8.106-.72-.881,9.913q4.05.394,8.1.836Z" transform="translate(-5085.997 -1146.455)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.10" d="M5548.453,1260.927l-8.105-.72-.879,9.893q4.055.347,8.1.74Z" transform="translate(-5009.414 -1139.648)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.3A" d="M5557.753,1144.094q-4.05-.393-8.1-.74l-.994,11.182,8.105.72Z" transform="translate(-5017.723 -1033.977)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.3" d="M5473.05,1137.239q-4.054-.347-8.112-.647l-.987,11.109,8.105.72Z" transform="translate(-4941.124 -1027.862)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.11" d="M5463.685,1253.4l-8.106-.72-.886,9.969q4.058.3,8.112.645Z" transform="translate(-4932.751 -1132.84)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.12" d="M5378.835,1245.871l-8.106-.72-.9,10.14q4.062.25,8.121.549Z" transform="translate(-4856.008 -1126.032)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.2" d="M5388.338,1131.354q-2.745-.2-5.492-.385-1.314-.087-2.628-.169l-.973,10.943,8.106.72Z" transform="translate(-4864.523 -1022.624)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.1" d="M5287.541,1127.043q-3.448-.216-6.9-.4-2.035,5.2-3.882,10.469l9.807.872Z" transform="translate(-4771.847 -1018.868)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
+    <path id="B-BTV.01.12A" d="M5254.193,1236.915l-9.807-.872q-1.8,5.15-3.426,10.361,3.961.173,7.919.392,2.207.122,4.413.258Z" transform="translate(-4739.471 -1117.796)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTS.12A.12" d="M4118.226,1568.009q-3.043.349-6.083.726l1.7,10.449q1.747-.216,3.5-.422l1.813-2.237Z" transform="translate(-3718.673 -1417.995)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTS.12A.11" d="M4101.207,1462.293l-2.214-1.767q-2.323.273-4.645.563l1.7,10.449q3.04-.377,6.083-.726Z" transform="translate(-3702.582 -1320.798)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
     <path id="A-BTV.20.1" d="M4247.335,1441.355q-3.134.3-6.264.635l-1.782,2.2.929,8.529q3.915-.429,7.836-.8Z" transform="translate(-3833.653 -1303.461)" fill="rgba(42,125,182,0.6)" stroke="#fff" stroke-width="0.5"/>
@@ -7481,14 +7481,14 @@ export const pathsData: SvgItem[] = [
     <path id="B-BTS.01.9" d="M5923.994,2194.252l-5.369-.777-1.431,10.2q2.679.426,5.355.875Z" transform="translate(-5367.541 -2123.9)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="B-BTS.01.6" d="M5939.018,2081.9q-2.676-.447-5.356-.871l-1.51,10.761,5.369.777Z" transform="translate(-5381.067 -2022.21)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="B-BTS.01.5" d="M5882.922,2073.239q-2.68-.423-5.363-.824l-1.517,10.808,5.369.777Z" transform="translate(-5330.327 -2014.424)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <path id="B-BTS.01.10-2" data-name="B-BTS.01.10" d="M5867.952,2186.133l-5.369-.777-1.424,10.146q2.683.4,5.362.826Z" transform="translate(-5316.868 -2116.558)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <path id="B-BTS.01.11-2" data-name="B-BTS.01.11" d="M5811.843,2178.014l-5.37-.777-1.424,10.144q2.687.377,5.369.778Z" transform="translate(-5266.128 -2109.216)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <path id="B-BTS.01.10" d="M5867.952,2186.133l-5.369-.777-1.424,10.146q2.683.4,5.362.826Z" transform="translate(-5316.868 -2116.558)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <path id="B-BTS.01.11" d="M5811.843,2178.014l-5.37-.777-1.424,10.144q2.687.377,5.369.778Z" transform="translate(-5266.128 -2109.216)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="B-BTS.01.3A" d="M5826.819,2065.067q-2.683-.4-5.369-.778l-1.518,10.808,5.37.777Z" transform="translate(-5279.587 -2007.076)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="B-BTS.01.3" d="M5770.71,2057.383q-2.687-.377-5.376-.731l-1.511,10.762,5.369.777Z" transform="translate(-5228.847 -2000.17)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="B-BTS.01.12" d="M5755.673,2169.9l-5.37-.777-1.431,10.191q2.689.353,5.376.73Z" transform="translate(-5215.328 -2101.874)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="B-BTS.01.12A" d="M5699.437,2161.777l-5.369-.777-1.444,10.286q2.692.329,5.382.682Z" transform="translate(-5164.461 -2094.532)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="B-BTS.01.2" d="M5714.594,2050.184q-2.689-.354-5.382-.684l-1.5,10.67,5.369.777Z" transform="translate(-5178.107 -1993.702)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <path id="B-BTS.01.1-2" data-name="B-BTS.01.1" d="M5658.472,2043.473q-2.693-.331-5.389-.638l-1.478,10.531,5.369.777Z" transform="translate(-5127.367 -1987.675)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <path id="B-BTS.01.1" d="M5658.472,2043.473q-2.693-.331-5.389-.638l-1.478,10.531,5.369.777Z" transform="translate(-5127.367 -1987.675)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="B-BTS.01.12B" d="M5643.139,2153.659l-5.369-.777-1.464,10.429q2.7.3,5.39.634Z" transform="translate(-5113.532 -2087.191)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <rect id="B-BTS.03A.6" width="9.494" height="5.425" transform="translate(635.85 90.736) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <rect id="B-BTS.03A.15" width="9.494" height="5.425" transform="translate(633.074 99.815) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
@@ -7560,22 +7560,22 @@ export const pathsData: SvgItem[] = [
     <rect id="B-BTS.08.12A" width="9.494" height="5.425" transform="translate(736.759 131.515) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <rect id="B-BTS.08.12B" width="9.494" height="5.425" transform="translate(731.571 129.929) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <rect id="B-BTS.08.15" width="9.494" height="5.425" transform="translate(726.383 128.342) rotate(-73)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.12-2" data-name="B-BTS.01.12" width="9.494" height="5.425" transform="translate(817.939 156.334) rotate(-73)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <path id="B-BTS.01.9-2" data-name="B-BTS.01.9" d="M8757.785,2911.943l-2.312-.707-2.876-.879-2.775,9.079,5.188,1.586Z" transform="translate(-7929.106 -2772.181)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.8-2" data-name="B-BTS.01.8" width="9.494" height="5.425" transform="translate(815.527 145.669) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.12A-2" data-name="B-BTS.01.12A" width="9.494" height="5.425" transform="translate(812.751 154.748) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.12B-2" data-name="B-BTS.01.12B" width="9.494" height="5.425" transform="translate(807.563 153.162) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.6A" width="9.494" height="5.425" transform="translate(810.339 144.083) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.6-2" data-name="B-BTS.01.6" width="9.494" height="5.425" transform="translate(805.151 142.496) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.15" width="9.494" height="5.425" transform="translate(802.375 151.576) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.16" width="9.494" height="5.425" transform="translate(797.187 149.989) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.5-2" data-name="B-BTS.01.5" width="9.494" height="5.425" transform="translate(799.963 140.91) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.3A-2" data-name="B-BTS.01.3A" width="9.494" height="5.425" transform="translate(794.775 139.324) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.17" width="9.494" height="5.425" transform="translate(791.999 148.403) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.19" width="9.494" height="5.425" transform="translate(781.623 145.231) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.18" width="9.494" height="5.425" transform="translate(786.811 146.817) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.3-2" data-name="B-BTS.01.3" width="9.494" height="5.425" transform="translate(789.587 137.738) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
-    <rect id="B-BTS.01.2-2" data-name="B-BTS.01.2" width="9.494" height="5.425" transform="translate(784.399 136.152) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.12" width="9.494" height="5.425" transform="translate(817.939 156.334) rotate(-73)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <path id="B-BTS.09.9" d="M8757.785,2911.943l-2.312-.707-2.876-.879-2.775,9.079,5.188,1.586Z" transform="translate(-7929.106 -2772.181)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.8" width="9.494" height="5.425" transform="translate(815.527 145.669) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.12A" width="9.494" height="5.425" transform="translate(812.751 154.748) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.12B" width="9.494" height="5.425" transform="translate(807.563 153.162) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.6A" width="9.494" height="5.425" transform="translate(810.339 144.083) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.6" width="9.494" height="5.425" transform="translate(805.151 142.496) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.15" width="9.494" height="5.425" transform="translate(802.375 151.576) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.16" width="9.494" height="5.425" transform="translate(797.187 149.989) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.5" width="9.494" height="5.425" transform="translate(799.963 140.91) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.3A" width="9.494" height="5.425" transform="translate(794.775 139.324) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.17" width="9.494" height="5.425" transform="translate(791.999 148.403) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.19" width="9.494" height="5.425" transform="translate(781.623 145.231) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.18" width="9.494" height="5.425" transform="translate(786.811 146.817) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.3" width="9.494" height="5.425" transform="translate(789.587 137.738) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+    <rect id="B-BTS.09.2" width="9.494" height="5.425" transform="translate(784.399 136.152) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <rect id="B-BTS.10.11" width="9.494" height="5.425" transform="translate(881.195 148.443) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <rect id="B-BTS.10.8" width="9.494" height="5.425" transform="translate(883.97 139.364) rotate(-73)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <rect id="B-BTS.10.6A" width="9.494" height="5.425" transform="translate(878.782 137.778) rotate(-73.001)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
@@ -7928,10 +7928,54 @@ export const pathsData: SvgItem[] = [
     <rect id="A-BTS.03.9" width="5.425" height="10.579" transform="translate(102.974 128.607) rotate(-11.086)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
     <path id="A-BTS.03.10" d="M1311.113,2786.923l-6.122,1.2,2.034,10.382,4.149-.813,1.587-2.36Z" transform="translate(-1196.693 -2660.559)" fill="rgba(244,158,25,0.6)" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
   </g>
+  <rect id="TM.11" width="21" height="21" transform="translate(132.141 736.104) rotate(3)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TM.09" width="21" height="21" transform="matrix(0.966, 0.259, -0.259, 0.966, 770.652, 769.494)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TH.02" width="57.167" height="22.942" transform="translate(344.692 176.341) rotate(-9)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TH.03" d="M0,0H47.167V19.942H10.117L4.672,14.529,0,9.587Z" transform="translate(661.176 347.291) rotate(16)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TH.10" d="M-1.9,5.318,61.54-12.5,60.167,31.942H0Z" transform="translate(649.94 654.061) rotate(6)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TH.07" d="M.983,4.465A191.032,191.032,0,0,1,39.974-5.5C61.443-8.535,86.86-7.668,86.86-7.668L71.694,56.572,0,50.942Z" transform="translate(715.102 642.165) rotate(6)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TH.06" d="M16.594-8.959,45.826-3.4l41.881,7.68L74.662,66.629-3.827,49.619,2.836,16.13,12,17.928Z" transform="translate(898.102 510.535) rotate(6)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TH.01" d="M-.611,4.947,42.119-1.119l2.267,30.388L-.345,25.1Z" transform="matrix(0.999, -0.052, 0.052, 0.999, 31.419, 388.616)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TH.08" width="76.167" height="42.942" transform="translate(264.289 581.689) rotate(3)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TH.04" width="114.167" height="53.942" transform="translate(781.549 319.719) rotate(17)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TH.05" width="62.167" height="30.942" transform="translate(964.611 374.137) rotate(17)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="CC.03" width="66.167" height="30.942" transform="translate(266.866 531.835) rotate(3)" fill="rgba(136,182,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="CX.128" width="103.167" height="30.942" transform="matrix(0.242, 0.97, -0.97, 0.242, 309.101, 68.797)" fill="rgba(42,182,51,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="CC.04" width="21" height="21" transform="translate(133.141 715.104) rotate(3)" fill="rgba(136,182,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="CC.02" width="21" height="21" transform="matrix(0.966, 0.259, -0.259, 0.966, 808.652, 778.279)" fill="rgba(136,182,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="CC.05" d="M0,0H41V12L-.661,19.488Z" transform="translate(673.311 391.875) rotate(16)" fill="rgba(136,182,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="CC.07" width="31.985" height="14.301" transform="translate(700.372 565.412) rotate(-9)" fill="rgba(136,182,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TD.04" width="21" height="21" transform="translate(263.141 666.104) rotate(3)" fill="rgba(58,132,1,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TD.04-2" data-name="TD.04" width="47.706" height="21" transform="translate(1080.028 238.916) rotate(17)" fill="rgba(58,132,1,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TM.10" width="42" height="52" transform="matrix(0.996, 0.087, -0.087, 0.996, 580.623, 717.856)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TM.12" width="42" height="52" transform="matrix(0.996, 0.087, -0.087, 0.996, 521.623, 712.856)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TM.01" d="M-.857-4.662,10.537-5.29,50.262,32.454l-1.208,7.63L0,29Z" transform="translate(194.371 395.066) rotate(-9)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TM.03" width="26" height="29" transform="translate(274.551 39.15) rotate(-13)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TM.04" d="M6.834-5.993,26.992-9.8,38.025,31.24-5.415,32.288Z" transform="translate(520.272 67.407) rotate(5)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TM.05" width="31.548" height="30.869" transform="matrix(0.956, 0.292, -0.292, 0.956, 639.069, 175.765)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TM.06" d="M-.469,10.374,22.69-6.04,58.619-7.691l-.071,39.561H0Z" transform="matrix(0.956, 0.292, -0.292, 0.956, 950.604, 186.87)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="TM.07" d="M.968,3.243-.461-39.8s34.285,4.538,49.206,22.054S61.272,31.622,61.272,31.622L18.442,30.81s7.9-7.112,3.491-19.291S.968,3.243.968,3.243Z" transform="matrix(0.956, 0.292, -0.292, 0.956, 1285.604, 421.033)" fill="rgba(182,80,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH01" width="44" height="21" transform="translate(412.636 195.34) rotate(-5)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH02" width="44" height="49" transform="translate(457.127 408.849) rotate(-14)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH12" width="44" height="49" transform="translate(472.127 472.849) rotate(-14)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH04" width="44" height="49" transform="translate(514.127 394.849) rotate(-14)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH11" width="44" height="49" transform="translate(529.127 457.849) rotate(-14)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="CC.01" width="76" height="34" transform="matrix(0.956, 0.292, -0.292, 0.956, 888.14, 576.756)" fill="rgba(136,182,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HT.12B" width="76" height="34" transform="matrix(0.956, 0.292, -0.292, 0.956, 1145.14, 711.756)" fill="rgba(182,203,139,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH03" width="44" height="21" transform="translate(489.253 191.503) rotate(4)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH10" width="33" height="21" transform="translate(853.357 510.353) rotate(-73)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH09" width="33" height="21" transform="translate(887.331 520.353) rotate(-73)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH06" width="22" height="21" transform="translate(969.399 256.353) rotate(-73)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH05" width="22" height="21" transform="translate(931.399 245.353) rotate(-73)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH08" width="50" height="21" transform="translate(902.196 474.353) rotate(-73)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="HH07" width="50" height="21" transform="translate(868.222 463.353) rotate(-73)" fill="rgba(94,94,225,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="CQ" d="M-1.583,2.576,15.845-1.252,44.1,3.764l1.585,10.7L3.566,18.947Z" transform="translate(500.253 621.149)" fill="rgba(42,182,51,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <path id="MN.05" d="M-15231.331-22178.506c-1.523,1.512-.381,21.941-2.669,35.184s-6.86,30.268-6.86,30.268,29.734,28.752,59.849,9.078,21.729-52.207,17.917-60.154a46.946,46.946,0,0,0-39.265-25.35C-15225.612-22190.992-15229.807-22180.02-15231.331-22178.506Z" transform="matrix(1, -0.017, 0.017, 1, 16292.394, 22385.721)" fill="rgba(128,217,223,0.6)" stroke="#fff" stroke-width="0.5"/>
 </svg>
 
+
   `,
-    topPercent: 7,
+    topPercent: 6.5,
     leftPercent: 7,
   },
 ];
