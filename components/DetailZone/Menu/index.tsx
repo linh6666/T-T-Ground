@@ -13,6 +13,7 @@ interface MenuProps {
   initialPhase?: string | null;
   initialBuildingType?: string | null;
   onModelsLoaded?: (models: string[]) => void;
+    onSelectModel?: (modelName: string) => void; 
 }
 
 interface MenuItem {
@@ -30,6 +31,7 @@ export default function Menu({
   initialPhase,
   initialBuildingType,
   onModelsLoaded,
+    onSelectModel,
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -206,7 +208,10 @@ const fetchData = async () => {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleSelectModel(item.model_building_vi)}
+              onClick={() => {
+    handleSelectModel(item.model_building_vi);
+    onSelectModel?.(item.model_building_vi); // ✅ Gọi sang ZoningSystem để tô màu đỏ
+  }}
                  variant="filled"
                 color="orange"
                 style={{

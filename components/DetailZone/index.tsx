@@ -1,11 +1,15 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useRef } from "react";
 import { Image } from "@mantine/core";
 import Menu from "./Menu/index";
 import { pathsData, SvgItem } from "./Data";
 import styles from "./ZoningSystem.module.css";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {
+  TransformWrapper,
+  TransformComponent,
+  ReactZoomPanPinchRef,
+} from "react-zoom-pan-pinch";
 
 interface ZoningSystemProps {
   project_id: string | null;
@@ -19,6 +23,10 @@ export default function ZoningSystem({
   initialBuildingType,
 }: ZoningSystemProps) {
   const [activeModels, setActiveModels] = useState<string[]>([]);
+  const [selectedModel, setSelectedModel] = useState<string | null>(null);
+
+  // ✅ ref để điều khiển zoom/pan
+  const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
 
   const filteredPaths = useMemo(() => {
     if (!activeModels || activeModels.length === 0) return [];
@@ -33,6 +41,10 @@ export default function ZoningSystem({
           el.setAttribute("style", "display:none");
         } else {
           el.removeAttribute("style");
+          if (selectedModel && elPrefix === selectedModel) {
+            el.setAttribute("fill", "red");
+            el.setAttribute("stroke", "red");
+          }
         }
       });
 
@@ -43,14 +55,29 @@ export default function ZoningSystem({
     });
 
     return result;
-  }, [activeModels]);
+  }, [activeModels, selectedModel]);
+
+  // ✅ Khi click model bên Menu
+  const handleModelSelect = (modelName: string) => {
+    setSelectedModel((prev) => (prev === modelName ? null : modelName));
+
+    // Zoom vào vùng SVG tương ứng (giả sử có id là modelName)
+    const svgElement = document.getElementById(modelName);
+    if (svgElement && transformRef.current) {
+      const bbox = svgElement.getBoundingClientRect();
+      const centerX = bbox.left + bbox.width / 2;
+      const centerY = bbox.top + bbox.height / 2;
+      transformRef.current.setTransform(centerX, centerY, 3); // Zoom 3x vào vùng đó
+    }
+  };
 
   return (
     <div className={styles.box}>
       <div className={styles.left}>
         <TransformWrapper
+          ref={transformRef}
           initialScale={1}
-     minScale={1} 
+          minScale={1}
           maxScale={5}
           wheel={{ step: 0.2 }}
           doubleClick={{ disabled: true }}
@@ -85,8 +112,10 @@ export default function ZoningSystem({
           initialPhase={initialPhase}
           initialBuildingType={initialBuildingType}
           onModelsLoaded={setActiveModels}
+          onSelectModel={handleModelSelect} // ✅ truyền xuống Menu
         />
       </div>
     </div>
   );
 }
+
