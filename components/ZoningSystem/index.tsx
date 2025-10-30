@@ -27,22 +27,39 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
           <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
 
           {/* SVG 1 */}
-          <svg
-            className={styles.overlaySvg}
-            xmlns="http://www.w3.org/2000/svg"
-            width="950"
-            height="730"
-            viewBox="0 0 1397.691 930.346"
-          >
-            <path
-              className={styles.hoverablePath1}
-              d="M-17923.908-22398.258l11.6,72.9,34.793,439.068s104.385-14.084,138.35-16.568,132.549,0,172.313,0,163.426,4.869,163.426,4.869,5.223-92.891,0-117.254-3.752-25.021-28.922-52.4-41.973-28.084-71.76-57.119-79.352-74.3-93.682-95.039-100.049-61.355-114.068-105.555-20.754-104.461-47.9-121.051-32.428,7.918-99.924,23-67.873,15.082-66.365,18.854A55.6,55.6,0,0,1-17923.908-22398.258Z"
-              transform="translate(17928.861 22706.727)"
-              fill="rgba(237,155,0,0.3)"
-              stroke="#fcb814"
-              strokeWidth={5}
-            />
-          </svg>
+     <svg
+  className={styles.overlaySvg}
+  xmlns="http://www.w3.org/2000/svg"
+  width="950"
+  height="730"
+  viewBox="0 0 1397.691 930.346"
+>
+  <path
+    className={styles.hoverablePath1}
+    d="M-17923.908-22398.258l11.6,72.9,34.793,439.068s104.385-14.084,138.35-16.568s132.549,0,172.313,0s163.426,4.869,163.426,4.869s5.223-92.891,0-117.254-3.752-25.021-28.922-52.4-41.973-28.084-71.76-57.119-79.352-74.3-93.682-95.039-100.049-61.355-114.068-105.555-20.754-104.461-47.9-121.051-32.428,7.918-99.924,23-67.873,15.082-66.365,18.854A55.6,55.6,0,0,1-17923.908-22398.258Z"
+    transform="translate(17928.861 22706.727)"
+    fill="rgba(237,155,0,0.3)"
+    stroke="#fcb814"
+    strokeWidth={5}
+  />
+
+  {/* 👉 Thêm chữ vào SVG */}
+ <text
+  x="950"
+  y="400"
+   fill="red"             // Màu chữ
+  stroke="white"         // Viền ngoài
+  strokeWidth="1"        // 💡 Màu chữ SVG (chuẩn nhất)
+  fontSize="32"
+  fontFamily="Arial"
+  fontWeight="bold"
+  textAnchor="middle"
+  alignmentBaseline="middle"
+  style={{ pointerEvents: 'none' }}
+>
+  THE OPERA
+</text>
+</svg>
 
           {/* SVG 2 */}
           <svg
@@ -60,6 +77,21 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
               stroke="#fcb814"
               strokeWidth={5}
             />
+            <text
+  x="450"
+  y="350"
+  fill="red"             // Màu chữ
+  stroke="white"         // Viền ngoài
+  strokeWidth="1"       // 💡 Màu chữ SVG (chuẩn nhất)
+  fontSize="32"
+  fontFamily="Arial"
+  fontWeight="bold"
+  textAnchor="middle"
+  alignmentBaseline="middle"
+  style={{ pointerEvents: 'none' }}
+>
+THE MARINA
+</text>
           </svg>
 
           {/* SVG 3 */}
@@ -78,6 +110,21 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
               stroke="#fcb814"
               strokeWidth={5}
             />
+            <text
+  x="180"
+  y="590"
+   fill="red"             // Màu chữ
+  stroke="white"         // Viền ngoài
+  strokeWidth="1"        // 💡 Màu chữ SVG (chuẩn nhất)
+  fontSize="32"
+  fontFamily="Arial"
+  fontWeight="bold"
+  textAnchor="middle"
+  alignmentBaseline="middle"
+  style={{ pointerEvents: 'none' }}
+>
+THE STELLA
+</text>
           </svg>
 
           {/* SVG 4 */}
@@ -96,6 +143,22 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
               stroke="#fcb814"
               strokeWidth={5}
             />
+       <text
+  x="930"
+  y="700"
+  fill="red"             // Màu chữ
+  stroke="white"         // Viền ngoài
+  strokeWidth="1"        // Độ dày viền
+  fontSize="32"
+  fontFamily="Arial"
+  fontWeight="bold"
+  textAnchor="middle"
+  alignmentBaseline="middle"
+  style={{ pointerEvents: "none" }}
+>
+  THE HERITAGE
+</text>
+
           </svg>
         </div>
           </TransformComponent>
