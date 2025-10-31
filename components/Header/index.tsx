@@ -12,8 +12,9 @@ import styles from "./Header.module.css";
 // 🧭 Danh sách menu gốc
 const baseLinks = [
   // { label: "TRANG CHỦ", href: "/", highlight: true },
-  { label: "GIỚI THIỆU", href: "/gioi-thieu",highlight: true },
-  { label: "MÔ HÌNH TƯƠNG TÁC", href: "/Tuong-tac" },
+    { label: "MÔ HÌNH TƯƠNG TÁC", href: "/Tuong-tac",highlight: true },
+  { label: "GIỚI THIỆU", href: "/gioi-thieu" },
+
   // { label: "QUẢN LÝ BÁN HÀNG", href: "/quan-ly-ban-hang" },
   { label: "QUẢN TRỊ DỰ ÁN", href: "/quan-tri-du-an" },
   { label: "QUẢN TRỊ HỆ THỐNG", href: "/quan-ly-he-thong" },
@@ -80,12 +81,28 @@ export default function Header() {
       ].includes(link.label);
     }
   });
+const isActive = (href: string, highlight?: boolean) => {
+  const current = pathname.toLowerCase();
+  const link = href.toLowerCase();
 
-  const isActive = (href: string, highlight?: boolean) => {
-    if (pathname === href) return styles.navActive;
-    if (highlight) return styles.navHighlight;
-    return styles.navNormal;
-  };
+  // ✅ Nếu đang ở "/" thì coi như là /tuong-tac
+  if (current === "/" && link === "/tuong-tac") {
+    return styles.navActive;
+  }
+
+  // ✅ Nếu pathname bắt đầu bằng đường dẫn cha (kể cả trang con)
+  if (current === link || current.startsWith(link + "/")) {
+    return styles.navActive;
+  }
+
+  // ✅ Nếu có gắn highlight mặc định
+  if (highlight) {
+    return styles.navHighlight;
+  }
+
+  return styles.navNormal;
+};
+
 
   return (
     <nav className={styles.navbar}>

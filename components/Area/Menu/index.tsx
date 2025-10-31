@@ -6,21 +6,29 @@ import { Button, Group, Image, Stack, Loader, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
+import { NotificationExtension } from "../../../extension/NotificationExtension";
 
-// 🧩 Kiểu prop nhận vào
 interface MenuProps {
   project_id: string | null;
 }
 
-// 🧩 Kiểu dữ liệu item trong menu
 interface MenuItem {
   label: string;
 }
 
-// 🧩 Kiểu dữ liệu trả về từ API createNodeAttribute
 interface NodeAttributeItem {
   subzone_vi?: string;
   [key: string]: unknown;
+}
+
+interface ApiError {
+  response?: {
+    data?: {
+      detail?: string;
+      message?: string;
+    };
+  };
+  message?: string;
 }
 
 export default function Menu({ project_id }: MenuProps) {
@@ -36,27 +44,30 @@ export default function Menu({ project_id }: MenuProps) {
       try {
         const body = {
           project_id,
-          filters: [{ label: "group", values: ["ct"],
-            
-           }
-        ],
+          filters: [{ label: "group", values: ["ct"] }],
         };
 
         const data = await createNodeAttribute(body);
 
+        // ✅ Hiển thị message nếu backend trả về
+        if (data?.message) {
+          NotificationExtension.Success(data.message);
+        }
+
         if (data?.data && Array.isArray(data.data)) {
-          // 🔹 Tách subzone_vi và loại bỏ trùng
-          const allSubzones: string[] = data.data
-            .flatMap((item: NodeAttributeItem) =>
-              String(item.subzone_vi || "")
-                .split(";")
-                .map((z) => z.trim())
-                .filter(Boolean)
-            );
+          const allSubzones: string[] = data.data.flatMap((item: NodeAttributeItem) =>
+            String(item.subzone_vi || "")
+              .split(";")
+              .map((z) => z.trim())
+              .filter(Boolean)
+          );
+
+          if (allSubzones.length === 0) {
+            NotificationExtension.Fails("Không có dữ liệu phân khu từ API!");
+          }
 
           const uniqueSubzones = Array.from(new Set(allSubzones));
 
-          // 🔹 Sắp xếp tự nhiên (ưu tiên số nếu có)
           const sortedSubzones = uniqueSubzones.sort((a, b) => {
             const numA = a.match(/\d+/)?.[0];
             const numB = b.match(/\d+/)?.[0];
@@ -64,17 +75,29 @@ export default function Menu({ project_id }: MenuProps) {
             return a.localeCompare(b, "vi", { sensitivity: "base" });
           });
 
-          // 🔹 Chỉ giữ label
           const items: MenuItem[] = sortedSubzones.map((subzone) => ({
             label: subzone,
           }));
 
           setMenuItems(items);
+
+          if (items.length > 0) {
+            // NotificationExtension.Success("Tải danh sách phân khu thành công!");
+          }
         } else {
           console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
+          NotificationExtension.Fails("Dữ liệu trả về không hợp lệ từ API!");
         }
-      } catch (error) {
-        console.error("❌ Lỗi khi gọi API:", error);
+      } catch (error: unknown) {
+        const err = error as ApiError;
+        console.error("❌ Lỗi khi gọi API:", err);
+
+        const apiMessage =
+          err?.response?.data?.detail ||
+          err?.response?.data?.message ||
+          err?.message;
+
+        NotificationExtension.Fails(apiMessage || "Gọi API thất bại!");
       } finally {
         setLoading(false);
       }
@@ -83,7 +106,6 @@ export default function Menu({ project_id }: MenuProps) {
     fetchData();
   }, [project_id]);
 
-  // 🚀 Điều hướng với subzone_vi
   const handleNavigate = (subzone_vi: string) => {
     if (!project_id) return;
     router.push(
@@ -91,16 +113,13 @@ export default function Menu({ project_id }: MenuProps) {
     );
   };
 
-  // ⬅️ Quay lại trang Điều khiển
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/Dieu-khien-1?id=${project_id}`);
   };
 
-  // 🎨 Giao diện hiển thị
   return (
     <div className={styles.box}>
-      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/TTHOMES logo-01.png"
@@ -109,12 +128,10 @@ export default function Menu({ project_id }: MenuProps) {
         />
       </div>
 
-      {/* Tiêu đề */}
       <div className={styles.title}>
         <h1>PHÂN KHU</h1>
       </div>
 
-      {/* Danh sách nút */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -124,7 +141,7 @@ export default function Menu({ project_id }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleNavigate(item.label)} // 👉 truyền subzone_vi
+                onClick={() => handleNavigate(item.label)}
                 variant="outline"
               >
                 {item.label}
@@ -138,7 +155,6 @@ export default function Menu({ project_id }: MenuProps) {
         )}
       </div>
 
-      {/* Footer */}
       <div className={styles.footer}>
         <Group gap="xs">
           <Button
@@ -166,3 +182,4 @@ export default function Menu({ project_id }: MenuProps) {
     </div>
   );
 }
+

@@ -19,7 +19,7 @@
 }
 
 .logo {
-  width: 160px;
+  width: 161px;
   height: 50px;
 }
 
@@ -94,6 +94,7 @@
 }
 
 .navActive {
+   font-weight: 800;
   color: #bb8d38;
 }
 

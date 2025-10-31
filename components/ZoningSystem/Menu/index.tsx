@@ -6,20 +6,24 @@ import { Button, Group, Image, Stack, Loader, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
+import { NotificationExtension } from "../../../extension/NotificationExtension";
 
-// Kiểu prop nhận vào
 interface MenuProps {
   project_id: string | null;
 }
 
-// Kiểu dữ liệu item trong menu
 interface MenuItem {
   label: string;
 }
 
-// Kiểu dữ liệu trả về từ API createNodeAttribute
 interface NodeAttributeItem {
   phase_vi?: string;
+  [key: string]: unknown;
+}
+
+interface ApiResponse {
+  message?: string;
+  data?: NodeAttributeItem[];
   [key: string]: unknown;
 }
 
@@ -27,7 +31,6 @@ export default function Menu({ project_id }: MenuProps) {
   const router = useRouter();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-  // ✅ trạng thái active cho ON/OFF
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,10 +43,14 @@ export default function Menu({ project_id }: MenuProps) {
           filters: [{ label: "group", values: ["ct"] }],
         };
 
-        const data = await createNodeAttribute(body);
+        const data: ApiResponse = await createNodeAttribute(body);
+
+        // ✅ Kiểm tra nếu API có message
+        if (data?.message) {
+          NotificationExtension.Success(data.message);
+        }
 
         if (data?.data && Array.isArray(data.data)) {
-          // Tách phase_vi và loại trùng
           const allPhases: string[] = data.data.flatMap(
             (item: NodeAttributeItem) =>
               String(item.phase_vi || "")
@@ -54,7 +61,6 @@ export default function Menu({ project_id }: MenuProps) {
 
           const uniquePhases = Array.from(new Set(allPhases));
 
-          // Sắp xếp
           const sortedPhases = uniquePhases.sort((a, b) => {
             const numA = a.match(/\d+/)?.[0];
             const numB = b.match(/\d+/)?.[0];
@@ -62,16 +68,32 @@ export default function Menu({ project_id }: MenuProps) {
             return a.localeCompare(b, "vi", { sensitivity: "base" });
           });
 
-          // Chỉ giữ label
           const items: MenuItem[] = sortedPhases.map((phase) => ({
             label: phase,
           }));
           setMenuItems(items);
         } else {
           console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
+          NotificationExtension.Fails("Dữ liệu trả về không hợp lệ từ API!");
         }
-      } catch (error) {
+      } catch (error: unknown) {
         console.error("❌ Lỗi khi gọi API:", error);
+
+        // ✅ Nếu backend trả về lỗi có message hoặc detail
+        let apiMessage = "Gọi API thất bại!";
+        if (error && typeof error === "object") {
+          const errObj = error as {
+            response?: { data?: { detail?: string; message?: string } };
+            message?: string;
+          };
+          apiMessage =
+            errObj.response?.data?.detail ||
+            errObj.response?.data?.message ||
+            errObj.message ||
+            apiMessage;
+        }
+
+        NotificationExtension.Fails(apiMessage);
       } finally {
         setLoading(false);
       }
@@ -80,34 +102,15 @@ export default function Menu({ project_id }: MenuProps) {
     fetchData();
   }, [project_id]);
 
-  // Điều hướng với phase_vi
   const handleNavigate = (phase: string) => {
     if (!project_id) return;
-    router.push(
-      `/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phase)}`
-    );
+    router.push(`/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phase)}`);
   };
 
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/Dieu-khien?id=${project_id}`);
   };
-
-  // ✅ Hàm tạo style cho nút ON/OFF
-  // const getButtonStyle = (isActive: boolean) => ({
-  //   width: 30,
-  //   height: 30,
-  //   padding: 0,
-  //   borderRadius: 40,
-  //   display: "flex",
-  //   alignItems: "center",
-  //   justifyContent: "center",
-  //   overflow: "hidden",
-  //   transition: "background 0.3s",
-  //   background: isActive ? "linear-gradient(to top, #FFE09A,#FFF1D2)" : "#FFFAEE",
-  //   color: isActive ? "#752E0B" : "#752E0B",
-  //   border: "1.5px solid #752E0B",
-  // });
 
   return (
     <div className={styles.box}>
@@ -128,9 +131,9 @@ export default function Menu({ project_id }: MenuProps) {
           <Loader color="orange" />
         ) : menuItems.length > 0 ? (
           <Stack align="center" style={{ gap: "20px", marginTop: "30px" }}>
-            {menuItems.map((item, index) => (
+            {menuItems.map((item) => (
               <Button
-                key={index}
+                key={item.label}
                 className={styles.menuBtn}
                 onClick={() => handleNavigate(item.label)}
                 variant="outline"
@@ -146,12 +149,8 @@ export default function Menu({ project_id }: MenuProps) {
         )}
       </div>
 
-      {/* ✅ Footer có ON/OFF có trạng thái */}
       <div className={styles.footer}>
         <Group gap="xs">
-          {/* Nút ON */}
-
-          {/* Nút quay lại */}
           <Button
             onClick={handleBack}
             variant="filled"

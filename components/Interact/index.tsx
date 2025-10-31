@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { Card, Image, Stack, Text, Button, Loader, Modal } from "@mantine/core";
 import styles from "./Interact.module.css";
 import { getListProject } from "../../api/apigetlistProject";
-import Link from "next/link";
+// import Link from "next/link";
 
 interface Project {
   id: string;
@@ -82,7 +82,13 @@ export default function DetailInteractive() {
       <div className={styles.background}>
         <div className={styles.container}>
           <div className={styles.cardGrid}>
+             <Card
+   
+  >
+   
+  </Card>
             {projects.map((project) => (
+             
               <Card
                 key={project.id}
                 shadow="sm"
@@ -120,7 +126,7 @@ export default function DetailInteractive() {
             ))}
           </div>
 
-          <div className={styles.footerwrapper}>
+          {/* <div className={styles.footerwrapper}>
             <p className={styles.footerline}>
               <span>Website được phát triển và hoàn thiện bởi</span>
               <Link href="https://www.mohinhviet.com/" target="_blank">
@@ -134,7 +140,7 @@ export default function DetailInteractive() {
             <p className={styles.footersubtex}>
               Đơn vị tiên phong trong lĩnh vực mô hình và giải pháp trình bày dự án bất động sản.
             </p>
-          </div>
+          </div> */}
         </div>
       </div>
 

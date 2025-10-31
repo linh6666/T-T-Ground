@@ -1,4 +1,4 @@
-import { Card, Image, Stack, Text, Button } from "@mantine/core";
+import { Card, Image, Stack, Text } from "@mantine/core";
 import styles from "./Interact.module.css";
 // import Link from "next/link";
 
@@ -48,13 +48,13 @@ export default function DetailInteractive() {
                 Huyện Cần Giuộc - Tỉnh Long An
               </Text>
             </Stack>
-            <Button
+            {/* <Button
               component="a"
               href=""
               className={`${styles.baseButton} ${styles.primaryButton}`}
             >
               Đi tới dự án
-            </Button>
+            </Button> */}
           </Card>
 
           {/* Card 2 */}
@@ -80,13 +80,13 @@ export default function DetailInteractive() {
                 Thành Phố Vĩnh Long
               </Text>
             </Stack>
-            <Button
+            {/* <Button
               component="a"
               href=""
               className={`${styles.baseButton} ${styles.primaryButton}`}
             >
               Đi tới dự án
-            </Button>
+            </Button> */}
           </Card>
         </div>
           <div className={styles.footerwrapper}>
