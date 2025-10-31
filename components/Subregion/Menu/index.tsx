@@ -13,7 +13,7 @@ import Function from "./Function";
 interface MenuProps {
   project_id: string | null;
   initialSubzone?: string | null;
-    onModelsLoaded?: (models: string[]) => void;
+  onModelsLoaded?: (models: string[]) => void;
 }
 
 interface MenuItem {
@@ -27,13 +27,20 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id, initialSubzone, onModelsLoaded }: MenuProps) {
+export default function Menu({
+  project_id,
+  initialSubzone,
+  onModelsLoaded,
+}: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const subzoneFromQuery = searchParams.get("subzone_vi") || initialSubzone;
 
   const [active, setActive] = useState<"on" | "off" | null>(null);
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
+
+  // ✅ CHỈ SỬA DÒNG NÀY: bỏ "multi" để khi load ban đầu MULTI không sáng
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
+
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -56,11 +63,9 @@ export default function Menu({ project_id, initialSubzone, onModelsLoaded }: Men
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
         const uniqueMap = new Map<string, MenuItem>();
 
-     onModelsLoaded?.(
-        data.data.map((i: NodeAttributeItem) => i.building_code)
-      );
-
-
+        onModelsLoaded?.(
+          data.data.map((i: NodeAttributeItem) => i.building_code)
+        );
 
         data.data.forEach((item: NodeAttributeItem) => {
           const type_vi = (item.building_type_vi as string) || "";
@@ -141,7 +146,9 @@ export default function Menu({ project_id, initialSubzone, onModelsLoaded }: Men
     justifyContent: "center",
     overflow: "hidden",
     transition: "background 0.3s",
-    background: isActive ? "linear-gradient(to top, #FFE09A,#FFF1D2)" : "#FFFAEE",
+    background: isActive
+      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+      : "#FFFAEE",
     color: "#752E0B",
     border: "1.5px solid #752E0B",
   });
@@ -157,7 +164,7 @@ export default function Menu({ project_id, initialSubzone, onModelsLoaded }: Men
       </div>
 
       <div className={styles.title}>
-       <h1>{subzoneFromQuery?.toUpperCase()}</h1>
+        <h1>{subzoneFromQuery?.toUpperCase()}</h1>
       </div>
 
       <div className={styles.Function}>
@@ -176,9 +183,10 @@ export default function Menu({ project_id, initialSubzone, onModelsLoaded }: Men
                 color="orange"
                 style={{
                   marginBottom: "10px",
-                  background: isMultiMode === "multi"
-                    ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-                    : undefined,
+                  background:
+                    isMultiMode === "multi"
+                      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                      : undefined,
                 }}
               >
                 {item.label}

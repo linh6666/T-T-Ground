@@ -14,8 +14,7 @@ interface MenuProps {
   project_id: string | null;
   initialSubzone?: string | null;
   initialBuildingTypeVi?: string | null;
-    onModelsLoaded?: (models: string[]) => void;
-  
+  onModelsLoaded?: (models: string[]) => void;
 }
 
 interface MenuItem {
@@ -35,17 +34,24 @@ export default function Menu({
   project_id,
   initialSubzone,
   initialBuildingTypeVi,
-  onModelsLoaded
+  onModelsLoaded,
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const subzoneFromQuery = searchParams.get("subzone_vi") || initialSubzone || "";
+  const subzoneFromQuery =
+    searchParams.get("subzone_vi") || initialSubzone || "";
   const buildingTypeViFromQuery =
     searchParams.get("building_type_vi") || initialBuildingTypeVi || "";
+
   const [active, setActive] = useState<"on" | "off" | null>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
+
+  // ✅ CHỈ SỬA DÒNG NÀY — bỏ "multi" để khi load MULTI MODE không sáng
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(
+    null
+  );
+
   const [loadingOn, setLoadingOn] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -65,14 +71,18 @@ export default function Menu({
 
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
         const uniqueMap = new Map<string, MenuItem>();
-  onModelsLoaded?.(
-        data.data.map((i: NodeAttributeItem) => i.building_code)
-      );
 
+        onModelsLoaded?.(
+          data.data.map((i: NodeAttributeItem) => i.building_code)
+        );
 
         data.data.forEach((item: NodeAttributeItem) => {
           const type_vi = (item.model_building_vi as string) || "";
-          if (type_vi.trim() && !uniqueMap.has(type_vi) && type_vi !== "CẢNH QUAN") {
+          if (
+            type_vi.trim() &&
+            !uniqueMap.has(type_vi) &&
+            type_vi !== "CẢNH QUAN"
+          ) {
             uniqueMap.set(type_vi, {
               label: type_vi,
               subzone_vi: subzoneFromQuery,
@@ -100,18 +110,30 @@ export default function Menu({
 
   useEffect(() => {
     fetchData();
-  }, [project_id, subzoneFromQuery, buildingTypeViFromQuery,onModelsLoaded]);
+  }, [project_id, subzoneFromQuery, buildingTypeViFromQuery, onModelsLoaded]);
 
-  const handleNavigate = (subzone: string, building_type_vi: string, model_building_vi: string) => {
+  const handleNavigate = (
+    subzone: string,
+    building_type_vi: string,
+    model_building_vi: string
+  ) => {
     if (!project_id) return;
     router.push(
-      `/chi-tiet-xay-dung?id=${project_id}&subzone_vi=${encodeURIComponent(subzone)}&building_type_vi=${encodeURIComponent(building_type_vi)}&model_building_vi=${encodeURIComponent(model_building_vi)}`
+      `/chi-tiet-xay-dung?id=${project_id}&subzone_vi=${encodeURIComponent(
+        subzone
+      )}&building_type_vi=${encodeURIComponent(
+        building_type_vi
+      )}&model_building_vi=${encodeURIComponent(model_building_vi)}`
     );
   };
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(subzoneFromQuery)}`);
+    router.push(
+      `/tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(
+        subzoneFromQuery
+      )}`
+    );
   };
 
   const handleClickOn = async () => {
@@ -167,7 +189,11 @@ export default function Menu({
   return (
     <div className={styles.box}>
       <div className={styles.logo}>
-        <Image src="/Logo/TTHOMES logo-01.png" alt="Logo" className={styles.imgea} />
+        <Image
+          src="/Logo/TTHOMES logo-01.png"
+          alt="Logo"
+          className={styles.imgea}
+        />
       </div>
 
       <div className={styles.title}>
@@ -184,17 +210,21 @@ export default function Menu({
                 key={index}
                 className={styles.menuBtn}
                 onClick={() =>
-                  handleNavigate(item.subzone_vi, item.building_type_vi, item.model_building_vi)
+                  handleNavigate(
+                    item.subzone_vi,
+                    item.building_type_vi,
+                    item.model_building_vi
+                  )
                 }
                 variant="filled"
                 color="orange"
                 style={{
                   marginBottom: "10px",
-                  background: isMultiMode === "multi"
-                    ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-                    : undefined,
+                  background:
+                    isMultiMode === "multi"
+                      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                      : undefined,
                 }}
-                // disabled={isMultiMode === "multi"} 
               >
                 {item.label}
               </Button>
@@ -222,7 +252,7 @@ export default function Menu({
                   setActive("on");
                   handleClickOn();
                 } else {
-                  setActive(null); // nếu muốn tắt trạng thái ON
+                  setActive(null);
                 }
               }}
               disabled={loadingOn}
@@ -237,7 +267,7 @@ export default function Menu({
                   setActive("off");
                   handleClickOFF();
                 } else {
-                  setActive(null); // nếu muốn tắt trạng thái OFF
+                  setActive(null);
                 }
               }}
             >

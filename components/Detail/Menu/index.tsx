@@ -24,6 +24,7 @@ interface MenuItem {
 
 interface NodeAttributeItem {
   building_type_vi?: string;
+  group?: string;
   [key: string]: unknown;
 }
 
@@ -35,11 +36,13 @@ export default function Menu({
   const router = useRouter();
   const searchParams = useSearchParams();
   const phaseValue = searchParams.get("phase") || initialPhase;
+
+  // ⚙️ State
   const [active, setActive] = useState<"on" | "off" | null>(null);
   const [phase, setPhase] = useState<string>(phaseValue || "");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null); // ❗ Không sáng khi mở đầu
 
   useEffect(() => {
     if (phaseValue && phaseValue !== phase) {
@@ -48,6 +51,7 @@ export default function Menu({
     }
   }, [phaseValue, phase, onPhaseChange]);
 
+  // 📡 Gọi API danh sách nhà
   const fetchData = useCallback(async () => {
     if (!project_id || !phase) return;
     setLoading(true);
@@ -65,7 +69,7 @@ export default function Menu({
 
         data.data.forEach((item: NodeAttributeItem) => {
           const buildingType = item.building_type_vi || "";
-          const groupValue = item.group as string | undefined;
+          const groupValue = item.group;
 
           if (
             buildingType.trim() &&
@@ -81,8 +85,7 @@ export default function Menu({
           }
         });
 
-        const finalItems = Array.from(uniqueMap.values());
-        setMenuItems(finalItems);
+        setMenuItems(Array.from(uniqueMap.values()));
       } else {
         setMenuItems([]);
       }
@@ -98,6 +101,7 @@ export default function Menu({
     fetchData();
   }, [fetchData]);
 
+  // 🧭 Điều hướng
   const handleNavigate = (phase: string, buildingType: string) => {
     if (!project_id) return;
     router.push(
@@ -107,11 +111,13 @@ export default function Menu({
     );
   };
 
+  // ⏪ Quay lại
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/Phan-khu?id=${project_id}`);
   };
 
+  // 🔆 ON / OFF
   const handleClickOn = async () => {
     if (!project_id) return;
     setActive("on");
@@ -134,11 +140,13 @@ export default function Menu({
     }
   };
 
+  // 🌗 MULTI
   const handleMultiModeClick = () => {
     setIsMultiMode("multi");
     fetchData();
   };
 
+  // 🎨 Style nút ON/OFF
   const getButtonStyle = (isActive: boolean) => ({
     width: 30,
     height: 30,
@@ -156,6 +164,7 @@ export default function Menu({
 
   return (
     <div className={styles.box}>
+      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/logo-tt-city-millennia.png"
@@ -164,10 +173,12 @@ export default function Menu({
         />
       </div>
 
-       <div className={styles.title}>
+      {/* Tiêu đề */}
+      <div className={styles.title}>
         <h1>{phase?.toUpperCase()}</h1>
+      </div>
 
-    </div>
+      {/* Danh sách menu */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -177,16 +188,15 @@ export default function Menu({
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() =>
-                  handleNavigate(item.phase_vi, item.building_type_vi)
-                }
+                onClick={() => handleNavigate(item.phase_vi, item.building_type_vi)}
                 variant="filled"
                 color="orange"
                 style={{
                   marginBottom: "10px",
-                  background: isMultiMode === "multi"
-                    ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-                    : undefined,
+                  background:
+                    isMultiMode === "multi"
+                      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                      : undefined,
                 }}
               >
                 {item.label}
@@ -200,38 +210,32 @@ export default function Menu({
         )}
       </div>
 
+      {/* Footer */}
       <div className={styles.footer}>
         <Stack align="center" gap="xs">
+          {/* 🔘 MULTI/SINGLE */}
           <Function
             activeMode={isMultiMode}
             setActiveMode={setIsMultiMode}
             onMultiModeClick={handleMultiModeClick}
           />
+
+          {/* ⚙️ ON/OFF + Back */}
           <Group gap="xs">
             <Button
               style={getButtonStyle(active === "on")}
-              onClick={() => {
-                if (active !== "on") {
-                  setActive("on");
-                  handleClickOn();
-                } else {
-                  setActive(null);
-                }
-              }}
+              onClick={() =>
+                active !== "on" ? handleClickOn() : setActive(null)
+              }
             >
               <Text style={{ fontSize: "13px" }}>ON</Text>
             </Button>
 
             <Button
               style={getButtonStyle(active === "off")}
-              onClick={() => {
-                if (active !== "off") {
-                  setActive("off");
-                  handleClickOFF();
-                } else {
-                  setActive(null);
-                }
-              }}
+              onClick={() =>
+                active !== "off" ? handleClickOFF() : setActive(null)
+              }
             >
               <Text style={{ fontSize: "12px" }}>OFF</Text>
             </Button>
@@ -247,8 +251,6 @@ export default function Menu({
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                overflow: "hidden",
-                transition: "background 0.3s",
                 background: "#FFFAEE",
                 color: "#752E0B",
                 border: "1.5px solid #752E0B",

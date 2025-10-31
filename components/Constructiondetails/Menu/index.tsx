@@ -53,7 +53,7 @@ export default function Menu({
   const [loadingOn, setLoadingOn] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
+const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
 
   // ✅ Hàm fetchData được đưa ra ngoài useEffect để tái sử dụng
   const fetchData = async () => {

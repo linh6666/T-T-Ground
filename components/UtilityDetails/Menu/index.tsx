@@ -33,12 +33,12 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   const phaseFromQuery = searchParams.get("building") || initialBuildingType;
 
   const [active, setActive] = useState<"on" | "off" | null>(null);
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null); // ✅ ban đầu null
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingOn, setLoadingOn] = useState(false);
 
-  // ✅ Di chuyển fetchData ra ngoài để có thể gọi lại
+  // ✅ Hàm fetch dữ liệu
   const fetchData = async () => {
     if (!project_id || !phaseFromQuery) return;
 
@@ -88,6 +88,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     fetchData();
   }, [project_id, phaseFromQuery]);
 
+  // ✅ Xử lý khi nhấn 1 nút model
   const handleMenuClick = async (subzoneLabel: string) => {
     if (!project_id || !phaseFromQuery) return;
 
@@ -107,14 +108,17 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     }
   };
 
+  // ✅ Quay lại trang tiện ích
   const handleBack = () => {
     if (!project_id) return;
     router.push(`/tien-ich?id=${project_id}`);
   };
 
+  // ✅ Khi nhấn MULTI
   const handleMultiModeClick = () => {
-    setIsMultiMode("multi");
-    fetchData(); // ✅ Gọi lại được vì đã đưa ra ngoài
+    // Bấm lần đầu: kích hoạt multi, bấm lại thì tắt (null)
+    setIsMultiMode(prev => (prev === "multi" ? null : "multi"));
+    fetchData();
   };
 
   const getButtonStyle = (isActive: boolean) => ({
@@ -134,6 +138,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     border: "1.5px solid #752E0B",
   });
 
+  // ✅ ON/OFF API
   const handleClickOn = async () => {
     if (!project_id) return;
     setActive("on");
@@ -164,6 +169,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
 
   return (
     <div className={styles.box}>
+      {/* Logo */}
       <div className={styles.logo}>
         <Image
           src="/Logo/logo-tt-city-millennia.png"
@@ -172,10 +178,12 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         />
       </div>
 
+      {/* Title */}
       <div className={styles.title}>
         <h1>{phaseFromQuery?.toUpperCase()}</h1>
       </div>
 
+      {/* Menu danh sách */}
       <div className={styles.Function}>
         {loading ? (
           <Loader color="orange" />
@@ -190,11 +198,12 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
                 color="orange"
                 style={{
                   marginBottom: "10px",
-                  background: isMultiMode === "multi"
-                    ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-                    : undefined,
+                  background:
+                    isMultiMode === "multi"
+                      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                      : undefined,
                 }}
-                   disabled={isMultiMode === "multi"} 
+                disabled={isMultiMode === "multi"}
               >
                 {item.label}
               </Button>
@@ -207,6 +216,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
         )}
       </div>
 
+      {/* Footer */}
       <div className={styles.footer}>
         <Stack align="center" gap="xs">
           <Function
@@ -215,35 +225,30 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
             onMultiModeClick={handleMultiModeClick}
           />
           <Group gap="xs">
+            {/* Nút ON */}
             <Button
               style={getButtonStyle(active === "on")}
               onClick={() => {
-                if (active !== "on") {
-                  setActive("on");
-                  handleClickOn();
-                } else {
-                  setActive(null);
-                }
+                if (active !== "on") handleClickOn();
+                setActive(active === "on" ? null : "on");
               }}
               disabled={loadingOn}
             >
               <Text style={{ fontSize: "13px" }}>ON</Text>
             </Button>
 
+            {/* Nút OFF */}
             <Button
               style={getButtonStyle(active === "off")}
               onClick={() => {
-                if (active !== "off") {
-                  setActive("off");
-                  handleClickOFF();
-                } else {
-                  setActive(null);
-                }
+                if (active !== "off") handleClickOFF();
+                setActive(active === "off" ? null : "off");
               }}
             >
               <Text style={{ fontSize: "12px" }}>OFF</Text>
             </Button>
 
+            {/* Nút quay lại */}
             <Button
               onClick={handleBack}
               variant="filled"
@@ -270,3 +275,4 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
     </div>
   );
 }
+

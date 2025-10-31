@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
 import { Button, Group, Image, Stack, Text } from "@mantine/core";
@@ -13,7 +15,7 @@ interface MenuProps {
   initialPhase?: string | null;
   initialBuildingType?: string | null;
   onModelsLoaded?: (models: string[]) => void;
-    onSelectModel?: (modelName: string) => void; 
+  onSelectModel?: (modelName: string) => void;
 }
 
 interface MenuItem {
@@ -31,7 +33,7 @@ export default function Menu({
   initialPhase,
   initialBuildingType,
   onModelsLoaded,
-    onSelectModel,
+  onSelectModel,
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -39,94 +41,91 @@ export default function Menu({
   const phaseFromQuery = searchParams.get("phase") || initialPhase;
   const buildingTypeFromQuery =
     searchParams.get("building_type_vi") || initialBuildingType;
+
+  // 🟡 Ban đầu không sáng nút nào
   const [active, setActive] = useState<"on" | "off" | null>(null);
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>("multi");
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
   const [loadingOn, setLoadingOn] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
-const fetchData = async () => {
-  if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
+  // 🔹 Lấy danh sách model theo khu & loại nhà
+  const fetchData = async () => {
+    if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
 
-  try {
-    const data = await createNodeAttribute({
-      project_id,
-      filters: [
-        { label: "group", values: ["ct", "phase_vi"] },
-        { label: "phase_vi", values: [phaseFromQuery] },
-        { label: "building_type_vi", values: [buildingTypeFromQuery] },
-      ],
-    });
-
-    if (data?.data && Array.isArray(data.data)) {
-      const uniqueMap = new Map<string, MenuItem>();
-
-      // Gọi callback nếu có
-      onModelsLoaded?.(
-        data.data.map((i: NodeAttributeItem) => i.model_building_vi)
-      );
-
-      // Lọc dữ liệu duy nhất theo model_building_vi
-      data.data.forEach((item: NodeAttributeItem) => {
-        const modelLabel = item.model_building_vi as string;
-
-        if (modelLabel && !uniqueMap.has(modelLabel)) {
-          uniqueMap.set(modelLabel, {
-            model_building_vi: modelLabel,
-            phase_vi: phaseFromQuery!,
-          });
-        }
+    try {
+      const data = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ct", "phase_vi"] },
+          { label: "phase_vi", values: [phaseFromQuery] },
+          { label: "building_type_vi", values: [buildingTypeFromQuery] },
+        ],
       });
 
-      // Sắp xếp theo số trong model_building_vi (ví dụ: C-LK.20 → 20)
-      const sortedItems = Array.from(uniqueMap.values()).sort((a, b) => {
-        const getNumber = (label: string) => {
-          const match = label.match(/\d+/);
-          return match ? parseInt(match[0], 10) : 0;
-        };
+      if (data?.data && Array.isArray(data.data)) {
+        const uniqueMap = new Map<string, MenuItem>();
 
-        return getNumber(a.model_building_vi) - getNumber(b.model_building_vi);
-      });
+        // Gọi callback nếu có
+        onModelsLoaded?.(
+          data.data.map((i: NodeAttributeItem) => i.model_building_vi)
+        );
 
-      setMenuItems(sortedItems);
-    } else {
+        data.data.forEach((item: NodeAttributeItem) => {
+          const modelLabel = item.model_building_vi as string;
+
+          if (modelLabel && !uniqueMap.has(modelLabel)) {
+            uniqueMap.set(modelLabel, {
+              model_building_vi: modelLabel,
+              phase_vi: phaseFromQuery!,
+            });
+          }
+        });
+
+        const sortedItems = Array.from(uniqueMap.values()).sort((a, b) => {
+          const getNumber = (label: string) => {
+            const match = label.match(/\d+/);
+            return match ? parseInt(match[0], 10) : 0;
+          };
+          return getNumber(a.model_building_vi) - getNumber(b.model_building_vi);
+        });
+
+        setMenuItems(sortedItems);
+      } else {
+        setMenuItems([]);
+      }
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API:", error);
       setMenuItems([]);
     }
-  } catch (error) {
-    console.error("❌ Lỗi khi gọi API:", error);
-    setMenuItems([]);
-  }
-};
-
+  };
 
   useEffect(() => {
     fetchData();
   }, [project_id, phaseFromQuery, buildingTypeFromQuery, onModelsLoaded]);
 
- const handleSelectModel = async (modelName: string) => {
-  if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
+  // 🔹 Khi chọn model
+  const handleSelectModel = async (modelName: string) => {
+    if (!project_id || !phaseFromQuery || !buildingTypeFromQuery) return;
 
-  try {
-    const result = await createNodeAttribute({
-      project_id,
-      filters: [
-        { label: "group", values: ["ct", "phase_vi"] },
-        { label: "phase_vi", values: [phaseFromQuery] },
-        { label: "building_type_vi", values: [buildingTypeFromQuery] },
-        { label: "model_building_vi", values: [modelName] },
-      ],
-    });
+    try {
+      const result = await createNodeAttribute({
+        project_id,
+        filters: [
+          { label: "group", values: ["ct", "phase_vi"] },
+          { label: "phase_vi", values: [phaseFromQuery] },
+          { label: "building_type_vi", values: [buildingTypeFromQuery] },
+          { label: "model_building_vi", values: [modelName] },
+        ],
+      });
 
-    console.log("📦 Dữ liệu model cụ thể:", result);
+      console.log("📦 Dữ liệu model cụ thể:", result);
+      onModelsLoaded?.([modelName]);
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi lại API model:", error);
+    }
+  };
 
-    // ✅ Gọi lại để cập nhật vùng active
-    onModelsLoaded?.([modelName]);
-
-  } catch (error) {
-    console.error("❌ Lỗi khi gọi lại API model:", error);
-  }
-};
-
-
+  // 🔹 Điều hướng quay lại
   const handleBack = () => {
     if (!project_id || !phaseFromQuery) return;
     router.push(
@@ -134,6 +133,7 @@ const fetchData = async () => {
     );
   };
 
+  // 🔹 Xử lý nút ON/OFF
   const handleClickOn = async () => {
     if (!project_id) return;
     setActive("on");
@@ -162,6 +162,7 @@ const fetchData = async () => {
     }
   };
 
+  // 🔹 Khi bấm MULTI
   const handleMultiModeClick = () => {
     setIsMultiMode("multi");
     fetchData();
@@ -208,19 +209,20 @@ const fetchData = async () => {
               <Button
                 key={index}
                 className={styles.menuBtn}
-              onClick={() => {
-    handleSelectModel(item.model_building_vi);
-    onSelectModel?.(item.model_building_vi); // ✅ Gọi sang ZoningSystem để tô màu đỏ
-  }}
-                 variant="filled"
+                onClick={() => {
+                  handleSelectModel(item.model_building_vi);
+                  onSelectModel?.(item.model_building_vi);
+                }}
+                variant="filled"
                 color="orange"
                 style={{
                   marginBottom: "10px",
-                  background: isMultiMode === "multi"
-                    ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-                    : undefined,
+                  background:
+                    isMultiMode === "multi"
+                      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                      : undefined,
                 }}
-                 disabled={isMultiMode === "multi"} 
+                disabled={isMultiMode === "multi"}
               >
                 {item.model_building_vi}
               </Button>
@@ -233,7 +235,7 @@ const fetchData = async () => {
         )}
       </div>
 
-      {/* Footer Back Button */}
+      {/* Footer */}
       <div className={styles.footer}>
         <Stack align="center" gap="xs">
           <Function
@@ -242,55 +244,31 @@ const fetchData = async () => {
             onMultiModeClick={handleMultiModeClick}
           />
           <Group gap="xs">
-            {/* ✅ Nút ON có gọi API */}
             <Button
               style={getButtonStyle(active === "on")}
               onClick={() => {
-                if (active !== "on") {
-                  setActive("on");
-                  handleClickOn();
-                } else {
-                  setActive(null); // nếu muốn tắt trạng thái ON
-                }
+                if (active !== "on") handleClickOn();
+                setActive(active === "on" ? null : "on");
               }}
               disabled={loadingOn}
             >
               <Text style={{ fontSize: "13px" }}>ON</Text>
             </Button>
 
-            {/* Nút OFF */}
             <Button
               style={getButtonStyle(active === "off")}
               onClick={() => {
-                if (active !== "off") {
-                  setActive("off");
-                  handleClickOFF();
-                } else {
-                  setActive(null); // nếu muốn tắt trạng thái OFF
-                }
+                if (active !== "off") handleClickOFF();
+                setActive(active === "off" ? null : "off");
               }}
             >
               <Text style={{ fontSize: "12px" }}>OFF</Text>
             </Button>
 
-            {/* Nút quay lại */}
             <Button
               onClick={handleBack}
               variant="filled"
-              style={{
-                width: 30,
-                height: 30,
-                padding: 0,
-                borderRadius: 40,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                overflow: "hidden",
-                transition: "background 0.3s",
-                background: "#FFFAEE",
-                color: "#752E0B",
-                border: "1.5px solid #752E0B",
-              }}
+              style={getButtonStyle(false)}
             >
               <IconArrowLeft size={18} color="#752E0B" />
             </Button>
