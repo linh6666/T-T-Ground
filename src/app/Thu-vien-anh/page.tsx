@@ -1,17 +1,11 @@
-import React from "react";
-import { Metadata } from "next";
 
-import ListImage from "../../../components/ListImage";
-export const metadata: Metadata = {
-  title: "Thư viện hình ảnh!",
-  description: "Tìm hiểu chi tiết về dự án!",
-};
+import React, { Suspense } from "react";
+import InteractiveClient from "./InteractiveClient";
 
-export default function Interactive() {
-  
+export default function Page() {
   return (
-    <>
-      <ListImage />
-    </>
+    <Suspense fallback={<div>Loading...</div>}>
+      <InteractiveClient />
+    </Suspense>
   );
 }
