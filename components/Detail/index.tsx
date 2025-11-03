@@ -1,20 +1,65 @@
 "use client";
 
 import { Image } from "@mantine/core";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import styles from "./ZoningSystem.module.css";
 import Menu from "./Menu/index";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import {
+  TransformWrapper,
+  TransformComponent,
+  ReactZoomPanPinchRef,
+} from "react-zoom-pan-pinch";
+import { useSearchParams } from "next/navigation";
 
 interface ZoningSystemProps {
   project_id: string | null;
   phase?: string | null;
 }
 
-export default function ZoningSystem({ project_id, phase }: ZoningSystemProps) {
-  const [currentPhase, setCurrentPhase] = useState<string>(phase || "");
+export default function ZoningSystem({ project_id }: ZoningSystemProps) {
+  const searchParams = useSearchParams();
+  const urlPhase = searchParams.get("phase");
+  const [currentPhase, setCurrentPhase] = useState<string>(urlPhase || "");
+  const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
 
-  // 🔹 Danh sách phase và path SVG tương ứng
+  // ✅ Hàm pan/zoom tới phase tương ứng
+  const panToPhase = (phase: string) => {
+    if (!transformRef.current) return;
+
+    switch (phase) {
+      case "THE MARINA":
+        transformRef.current.setTransform(-117, -81, 1.2);
+        break;
+      case "THE STELLA":
+        transformRef.current.setTransform(-50, -20, 1.2); // 👉 chỉnh theo vị trí thực tế
+        break;
+      case "THE HERITAGE":
+        transformRef.current.setTransform(-200, -150, 1.3); // 👉 chỉnh theo vị trí thực tế
+        break;
+      case "THE OPERA":
+        transformRef.current.setTransform(-300, -100, 1.2); // 👉 chỉnh theo vị trí thực tế
+        break;
+      default:
+        break;
+    }
+  };
+
+  // ✅ Khi load URL lần đầu → tự động pan
+  useEffect(() => {
+    if (!transformRef.current || !urlPhase) return;
+    const timer = setTimeout(() => {
+      panToPhase(urlPhase);
+    }, 150); // chờ DOM render
+    return () => clearTimeout(timer);
+  }, [urlPhase]);
+
+  // ✅ Khi click hoặc chọn từ Menu
+  const handlePhaseChange = (newPhase: string) => {
+    setCurrentPhase(newPhase);
+    panToPhase(newPhase);
+  };
+
+  // ✅ Dữ liệu các phase vẽ SVG
   const phasePaths = [
     {
       name: "THE STELLA",
@@ -54,17 +99,21 @@ export default function ZoningSystem({ project_id, phase }: ZoningSystemProps) {
     <div className={styles.box}>
       <div className={styles.left}>
         <TransformWrapper
+          ref={transformRef}
           initialScale={1}
           minScale={1}
           maxScale={5}
           wheel={{ step: 0.2 }}
           doubleClick={{ disabled: true }}
+                 onPanningStop={(ref) => {
+            const { positionX, positionY } = ref.state;
+            console.log("📍 Vị trí sau khi kéo:", positionX, positionY);
+          }}
         >
           <TransformComponent>
             <div className={styles.imageWrapper}>
               <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
 
-              {/* 🔹 Render SVG tự động */}
               {phasePaths.map(({ name, fill, stroke, d, textX, textY }) => {
                 const active = name === currentPhase;
                 return (
@@ -83,25 +132,22 @@ export default function ZoningSystem({ project_id, phase }: ZoningSystemProps) {
                       stroke={active ? stroke : "none"}
                       strokeWidth={5}
                       className={styles.hoverablePath}
+                      onClick={() => handlePhaseChange(name)}
                     />
-
-                    {/* 🔸 Chỉ hiển thị text khi SVG đang active */}
                     {active && (
                       <text
                         x={textX}
                         y={textY}
-                        fill="white"
                         fontSize="36"
-                        fontFamily="Arial"
                         fontWeight="bold"
                         textAnchor="middle"
                         alignmentBaseline="middle"
                         style={{
-    pointerEvents: "none",
-    fill: "red",          // ✅ Màu chữ
-    stroke: "white",      // ✅ Viền ngoài
-    strokeWidth: "1",     // ✅ Độ dày viền
-  }}
+                          pointerEvents: "none",
+                          fill: "red",
+                          stroke: "white",
+                          strokeWidth: 1,
+                        }}
                       >
                         {name}
                       </text>
@@ -118,10 +164,9 @@ export default function ZoningSystem({ project_id, phase }: ZoningSystemProps) {
         <Menu
           project_id={project_id}
           initialPhase={currentPhase}
-          onPhaseChange={(newPhase: string) => setCurrentPhase(newPhase)}
+          onPhaseChange={handlePhaseChange}
         />
       </div>
     </div>
   );
 }
-

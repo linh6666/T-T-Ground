@@ -16,6 +16,7 @@ interface MenuProps {
   initialBuildingType?: string | null;
   onModelsLoaded?: (models: string[]) => void;
   onSelectModel?: (modelName: string) => void;
+  onPhaseChange?: (phases: string) => void;
 }
 
 interface MenuItem {
@@ -34,10 +35,10 @@ export default function Menu({
   initialBuildingType,
   onModelsLoaded,
   onSelectModel,
+  onPhaseChange
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
-
   const phaseFromQuery = searchParams.get("phase") || initialPhase;
   const buildingTypeFromQuery =
     searchParams.get("building_type_vi") || initialBuildingType;
@@ -47,6 +48,14 @@ export default function Menu({
   const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
   const [loadingOn, setLoadingOn] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+  const [phase, setPhase] = useState<string>(phaseFromQuery || "");
+
+    useEffect(() => {
+      if (phaseFromQuery && phaseFromQuery !== phase) {
+        setPhase(phaseFromQuery);
+        onPhaseChange?.(phaseFromQuery);
+      }
+    }, [phaseFromQuery, phase, onPhaseChange]);
 
   // 🔹 Lấy danh sách model theo khu & loại nhà
   const fetchData = async () => {

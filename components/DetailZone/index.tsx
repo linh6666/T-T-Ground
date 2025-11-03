@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useRef } from "react";
+import React, { useState, useMemo, useRef,useEffect } from "react";
 import { Image } from "@mantine/core";
 import Menu from "./Menu/index";
 import { pathsData, SvgItem } from "./Data";
@@ -10,6 +10,7 @@ import {
   TransformComponent,
   ReactZoomPanPinchRef,
 } from "react-zoom-pan-pinch";
+import { useSearchParams } from "next/navigation";
 
 interface ZoningSystemProps {
   project_id: string | null;
@@ -24,6 +25,9 @@ export default function ZoningSystem({
 }: ZoningSystemProps) {
   const [activeModels, setActiveModels] = useState<string[]>([]);
   const [selectedModel, setSelectedModel] = useState<string | null>(null);
+   const searchParams = useSearchParams();
+    const urlPhase = searchParams.get("phase"); 
+    const [, setCurrentPhase] = useState<string>(urlPhase || "");
 
   // ✅ ref để điều khiển zoom/pan
   const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
@@ -62,14 +66,44 @@ export default function ZoningSystem({
     setSelectedModel((prev) => (prev === modelName ? null : modelName));
 
     // Zoom vào vùng SVG tương ứng (giả sử có id là modelName)
-    const svgElement = document.getElementById(modelName);
-    if (svgElement && transformRef.current) {
-      const bbox = svgElement.getBoundingClientRect();
-      const centerX = bbox.left + bbox.width / 2;
-      const centerY = bbox.top + bbox.height / 2;
-      transformRef.current.setTransform(centerX, centerY, 3); // Zoom 3x vào vùng đó
-    }
+ 
   };
+
+    // ✅ Khi phase đổi từ URL -> tự động pan đúng vị trí (chỉ chạy 1 lần khi load)
+useEffect(() => {
+  if (!transformRef.current || !urlPhase) return;
+
+  const timer = setTimeout(() => {
+    zoomToPhase(urlPhase);
+  }, 80); // Chờ DOM load đủ để không bị zoom lệch
+
+  return () => clearTimeout(timer);
+}, [urlPhase]);
+const zoomToPhase = (phase: string) => {
+  if (!transformRef.current) return;
+  switch (phase) {
+    case "THE MARINA":
+      transformRef.current.setTransform(-3, -75, 1.2);
+      break;
+    case "THE STELLA":
+      transformRef.current.setTransform(0, -142, 1.3);
+      break;
+    case "THE HERITAGE":
+      transformRef.current.setTransform(-286, -250, 1.4);
+      break;
+    case "THE OPERA":
+      transformRef.current.setTransform(-455, -175, 1.5);
+      break;
+    default:
+      transformRef.current.resetTransform();
+  }
+};
+    // ✅ Cập nhật nếu chọn bằng Menu hoặc click
+const handlePhaseChange = (newPhase: string) => {
+  setCurrentPhase(newPhase);
+  zoomToPhase(newPhase);
+};
+  
 
   return (
     <div className={styles.box}>
@@ -81,6 +115,10 @@ export default function ZoningSystem({
           maxScale={5}
           wheel={{ step: 0.2 }}
           doubleClick={{ disabled: true }}
+                 onPanningStop={(ref) => {
+            const { positionX, positionY } = ref.state;
+            console.log("📍 Vị trí sau khi kéo:", positionX, positionY);
+          }}
         >
           <TransformComponent>
             <div className={styles.imageWrapper}>
@@ -113,6 +151,8 @@ export default function ZoningSystem({
           initialBuildingType={initialBuildingType}
           onModelsLoaded={setActiveModels}
           onSelectModel={handleModelSelect} // ✅ truyền xuống Menu
+          onPhaseChange={handlePhaseChange}
+
         />
       </div>
     </div>
