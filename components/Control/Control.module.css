@@ -27,6 +27,7 @@
 /* Ảnh full kích thước */
 .img {
   object-fit: cover;
+  
   display: block;
 }
 

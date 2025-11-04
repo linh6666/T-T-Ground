@@ -87,4 +87,9 @@ GET_LIST_ADDRESS:"/api/v1/address/provinces",
 GET_LIST_ADDRESS_DEATIL:"/api/v1/address/provinces",
 
 
+/// delete
+DELETE_PROJECT:"/api/v1/control/release_controll/{project_id}"
+
+
+
 }
