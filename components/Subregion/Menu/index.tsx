@@ -14,6 +14,7 @@ interface MenuProps {
   project_id: string | null;
   initialSubzone?: string | null;
   onModelsLoaded?: (models: string[]) => void;
+    onPhaseChange?: (subzone: string) => void;
 }
 
 interface MenuItem {
@@ -31,10 +32,12 @@ export default function Menu({
   project_id,
   initialSubzone,
   onModelsLoaded,
+  onPhaseChange
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const subzoneFromQuery = searchParams.get("subzone_vi") || initialSubzone;
+   const phaseFromQuery = searchParams.get("subzone") || initialSubzone;
 
   const [active, setActive] = useState<"on" | "off" | null>(null);
 
@@ -43,6 +46,14 @@ export default function Menu({
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
+   const [subzone, setSubzone] = useState<string>(phaseFromQuery || "");
+
+   useEffect(() => {
+        if (phaseFromQuery && phaseFromQuery !== subzone) {
+          setSubzone(phaseFromQuery);
+          onPhaseChange?.(phaseFromQuery);
+        }
+      }, [phaseFromQuery, subzone, onPhaseChange]);
 
   // ✅ Di chuyển fetchData ra ngoài để có thể gọi lại
   const fetchData = async () => {

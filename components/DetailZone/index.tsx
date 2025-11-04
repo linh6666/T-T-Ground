@@ -79,6 +79,7 @@ useEffect(() => {
 
   return () => clearTimeout(timer);
 }, [urlPhase]);
+
 const zoomToPhase = (phase: string) => {
   if (!transformRef.current) return;
   switch (phase) {

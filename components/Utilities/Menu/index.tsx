@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import styles from "./Menu.module.css";
-import { Button, Group, Image, Stack, Loader, Text } from "@mantine/core";
+import { Button, Group, Image, Loader, Text } from "@mantine/core";
 import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifiterutilities";
@@ -98,18 +98,20 @@ export default function Menu({ project_id }: MenuProps) {
         {loading ? (
           <Loader color="orange" />
         ) : menuItems.length > 0 ? (
-          <Stack className={styles.scroll} style={{ marginTop: "5px" }}>
+          <div className={styles.scroll} style={{ marginTop: "5px" }}>
             {menuItems.map((item, index) => (
               <Button
                 key={index}
                 className={styles.menuBtn}
                 onClick={() => handleNavigate(item.label)}
                 variant="outline"
+                 style={{ margin: "8px", fontSize: "9px" }} 
+                
               >
                 {item.label}
               </Button>
             ))}
-          </Stack>
+          </div>
         ) : (
           <Text mt="md" c="dimmed">
             Không có dữ liệu hiển thị
