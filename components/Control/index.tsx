@@ -26,15 +26,17 @@ export default function ControlPage({ project_id }: ControlPageProps) {
         <Image
           src="/image/home_bg.png"
           alt="Ảnh trang chủ"
-          className={styles.img}
+       
+          className={styles.mapImage}
         />
         </div>
         </TransformComponent>
         </TransformWrapper>
       </div>
+    
 
       <div className={styles.right}>
-        {/* Truyền tiếp project_id sang Menu */}
+    
         <Menu project_id={project_id} />
       </div>
     </div>

@@ -21,42 +21,13 @@
   padding: 10px;
 }
 .imageWrapper {
-  position: relative;
-  width: 100%;
-}
-/* Ảnh full kích thước */
-.img {
-  object-fit: cover;
   
-  display: block;
+  width: 100%;
+   height: auto; 
 }
 
-/* 💊 Tablet responsive (768px - 1023px) */
-@media (min-width: 768px) and (max-width: 1023px) {
-  .box {
-    flex-direction: row;
-    gap: 10px;
-    padding: 15px;
-  }
 
-  .left {
-    flex: 2;
-  }
 
-  .right {
-    width: 200px;
-    font-size: 17px;
-    padding: 15px;
-  }
-
-  .img {
-    height: auto;
-    max-height: 500px;
-    border-radius: 8px;
-  }
-}
-
-/* 📱 Mobile responsive (≤768px) */
 @media (max-width: 768px) {
   .box {
     flex-direction: column;

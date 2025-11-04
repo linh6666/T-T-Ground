@@ -22,9 +22,12 @@
 }
 
 /* Ảnh full kích thước */
-.img {
-  object-fit: cover;
-  display: block;
+.background{
+  width: auto;
+  height: auto;
+  max-width: 100%; /* ảnh không vượt container */
+  max-height: 100%;
+  object-fit: contain;
 }
 
 /* 💊 Tablet responsive (768px - 1023px) */
