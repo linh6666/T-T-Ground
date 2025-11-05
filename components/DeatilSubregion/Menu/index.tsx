@@ -15,6 +15,7 @@ interface MenuProps {
   initialSubzone?: string | null;
   initialBuildingTypeVi?: string | null;
   onModelsLoaded?: (models: string[]) => void;
+   onPhaseChange?: (subzone: string) => void;
 }
 
 interface MenuItem {
@@ -35,6 +36,7 @@ export default function Menu({
   initialSubzone,
   initialBuildingTypeVi,
   onModelsLoaded,
+  onPhaseChange
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -51,9 +53,20 @@ export default function Menu({
   const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(
     null
   );
+   const phaseFromQuery = searchParams.get("subzone") || initialSubzone;
 
   const [loadingOn, setLoadingOn] = useState(false);
   const [loading, setLoading] = useState(false);
+     const [subzone, setSubzone] = useState<string>(phaseFromQuery || "");
+
+
+useEffect(() => {
+        if (phaseFromQuery && phaseFromQuery !== subzone) {
+          setSubzone(phaseFromQuery);
+          onPhaseChange?.(phaseFromQuery);
+        }
+      }, [phaseFromQuery, subzone, onPhaseChange]);
+
 
   const fetchData = async () => {
     if (!project_id || !subzoneFromQuery) return;

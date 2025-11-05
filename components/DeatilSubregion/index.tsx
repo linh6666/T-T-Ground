@@ -1,12 +1,12 @@
 "use client";
 
 import { Image } from "@mantine/core";
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo,useRef,useEffect } from "react";
 import styles from "./ZoningSystem.module.css";
 import Menu from "./Menu/index";
 import { pathsData, SvgItem } from "./Data";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
-
+import { TransformWrapper, TransformComponent,ReactZoomPanPinchRef, } from "react-zoom-pan-pinch";
+import { useSearchParams } from "next/navigation";
 // 🧩 Kiểu props
 interface ZoningSystemProps {
   project_id: string | null;
@@ -20,6 +20,14 @@ export default function ZoningSystem({
   building_type_vi, // ✅ nhận từ InteractiveClient
 }: ZoningSystemProps) {
   const [activeModels, setActiveModels] = useState<string[]>([]);
+
+const transformRef = useRef<ReactZoomPanPinchRef | null>(null);
+       const searchParams = useSearchParams();
+      const urlPhase = searchParams.get("subzone_vi"); 
+        const [, setCurrentPhase] = useState<string>(urlPhase || "");
+
+
+
        const filteredPaths = useMemo(() => {
          if (!activeModels || activeModels.length === 0) return [];
           const result = pathsData.map((item: SvgItem) => {
@@ -43,10 +51,46 @@ export default function ZoningSystem({
          
              return result;
            }, [activeModels]);
+
+useEffect(() => {
+  // Kiểm tra giá trị của transformRef
+  if (!transformRef.current || !urlPhase)return;
+  
+
+  const timer = setTimeout(() => {
+   
+    zoomToPhase(urlPhase);
+  }, 300);
+  return () => clearTimeout(timer);
+}, [urlPhase]);
+
+
+const zoomToPhase = (subzone: string) => {
+  if (!transformRef.current) return;
+  switch (subzone) {
+    case "ĐA LỘC":
+      transformRef.current.setTransform(-35, -155, 1.5);
+      break;
+    case "ĐA PHÚC":
+      transformRef.current.setTransform(-249, -142, 1.3);
+      break;
+    default:
+      transformRef.current.resetTransform();
+  }
+};
+    // ✅ Cập nhật nếu chọn bằng Menu hoặc click
+const handlePhaseChange = (newPhase: string) => {
+  setCurrentPhase(newPhase);
+  zoomToPhase(newPhase);
+};
+
+
+
   return (
     <div className={styles.box}>
      <div className={styles.left}>
         <TransformWrapper
+          ref={transformRef}
           initialScale={1}
      minScale={1} 
           maxScale={5}
@@ -83,7 +127,8 @@ export default function ZoningSystem({
           project_id={project_id}
           initialSubzone={subzone_vi}
           initialBuildingTypeVi={building_type_vi}
-          onModelsLoaded={setActiveModels} // ✅ truyền xuống
+          onModelsLoaded={setActiveModels} 
+           onPhaseChange={handlePhaseChange}// ✅ truyền xuống
         />
       </div>
     </div>

@@ -18,6 +18,7 @@ interface MenuProps {
   initialModelBuildingVi?: string | null;
    onModelsLoaded?: (models: string[]) => void;
      onSelectModel?: (modelName: string) => void;
+     onPhaseChange?: (subzone: string) => void;
 }
 
 // 🧱 Kiểu menu item
@@ -43,6 +44,7 @@ export default function Menu({
   initialModelBuildingVi,
    onModelsLoaded,
     onSelectModel,
+    onPhaseChange
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -50,12 +52,20 @@ export default function Menu({
   const subzoneFromQuery = searchParams.get("subzone_vi") || initialSubzone || "";
   const buildingTypeViFromQuery = searchParams.get("building_type_vi") || initialBuildingTypeVi || "";
   const modelBuildingViFromQuery = searchParams.get("model_building_vi") || initialModelBuildingVi || "";
-
+ const phaseFromQuery = searchParams.get("subzone") || initialSubzone;
   const [active, setActive] = useState<"on" | "off" | null>(null);
   const [loadingOn, setLoadingOn] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
+const [subzone, setSubzone] = useState<string>(phaseFromQuery || "");
+
+useEffect(() => {
+        if (phaseFromQuery && phaseFromQuery !== subzone) {
+          setSubzone(phaseFromQuery);
+          onPhaseChange?.(phaseFromQuery);
+        }
+      }, [phaseFromQuery, subzone, onPhaseChange]);
 
   // ✅ Hàm fetchData được đưa ra ngoài useEffect để tái sử dụng
   const fetchData = async () => {
