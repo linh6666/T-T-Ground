@@ -9,6 +9,7 @@ import { createNodeAttribute } from "../../../api/apifiterutilities";
 
 interface MenuProps {
   project_id: string | null;
+  onModelsLoaded?: (models: string[]) => void;
 }
 
 interface MenuItem {
@@ -20,7 +21,7 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id }: MenuProps) {
+export default function Menu({ project_id, onModelsLoaded, }: MenuProps) {
   const router = useRouter();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -39,6 +40,9 @@ export default function Menu({ project_id }: MenuProps) {
         const data = await createNodeAttribute(body);
 
         if (data?.data && Array.isArray(data.data)) {
+          onModelsLoaded?.(
+          data.data.map((i: NodeAttributeItem) => i.building_code)
+        );
           // Lấy tất cả item từ API
           const allZones: string[] = data.data
             .flatMap((item: NodeAttributeItem) =>
@@ -73,7 +77,7 @@ export default function Menu({ project_id }: MenuProps) {
     };
 
     fetchData();
-  }, [project_id]);
+  }, [project_id,onModelsLoaded]);
 
   const handleNavigate = (model_building_vi: string) => {
     if (!project_id) return;

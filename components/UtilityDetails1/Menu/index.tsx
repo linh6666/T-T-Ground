@@ -13,6 +13,7 @@ import Function from "./Function";
 interface MenuProps {
   project_id: string | null;
   initialBuildingType?: string | null;
+   onModelsLoaded?: (models: string[]) => void;
 }
 
 interface MenuItem {
@@ -26,7 +27,7 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id, initialBuildingType }: MenuProps) {
+export default function Menu({ project_id, initialBuildingType,onModelsLoaded, }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const phaseFromQuery = searchParams.get("model") || initialBuildingType;
@@ -52,6 +53,10 @@ const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
       });
 
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+
+          onModelsLoaded?.(
+          data.data.map((i: NodeAttributeItem) => i.building_code)
+        );
         const uniqueMap = new Map<string, MenuItem>();
 
         data.data.forEach((item: NodeAttributeItem) => {
@@ -84,7 +89,7 @@ const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
 
   useEffect(() => {
     fetchData();
-  }, [project_id, phaseFromQuery]);
+  }, [project_id, phaseFromQuery,onModelsLoaded]);
 
   const handleMenuClick = async (subzoneLabel: string) => {
     if (!project_id || !phaseFromQuery) return;
