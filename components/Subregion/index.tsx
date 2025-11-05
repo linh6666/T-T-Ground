@@ -65,10 +65,10 @@ const zoomToPhase = (subzone: string) => {
   if (!transformRef.current) return;
   switch (subzone) {
     case "ĐA LỘC":
-      transformRef.current.setTransform(-35, -155, 3);
+      transformRef.current.setTransform(-35, -155, 1.5);
       break;
     case "ĐA PHÚC":
-      transformRef.current.setTransform(-270, -109, 3);
+      transformRef.current.setTransform(-270, -109, 1.5);
       break;
     default:
       transformRef.current.resetTransform();
