@@ -56,7 +56,7 @@ useEffect(() => {
   const timer = setTimeout(() => {
    
     zoomToPhase(urlPhase);
-  }, 80);
+  }, 300);
   return () => clearTimeout(timer);
 }, [urlPhase]);
 
@@ -68,7 +68,7 @@ const zoomToPhase = (subzone: string) => {
       transformRef.current.setTransform(-35, -155, 1.5);
       break;
     case "ĐA PHÚC":
-      transformRef.current.setTransform(-270, -109, 1.5);
+      transformRef.current.setTransform(-249, -142, 1.3);
       break;
     default:
       transformRef.current.resetTransform();
