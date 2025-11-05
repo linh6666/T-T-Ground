@@ -17,6 +17,7 @@ interface ZoningSystemProps {
 
 export default function ZoningSystem({ project_id, initialBuildingType }: ZoningSystemProps) {
    const [activeModels, setActiveModels] = useState<string[]>([]);
+    const [selectedModel, setSelectedModel] = useState<string | null>(null);
   const filteredPaths = useMemo(() => {
            if (!activeModels || activeModels.length === 0) return [];
     
@@ -25,11 +26,21 @@ export default function ZoningSystem({ project_id, initialBuildingType }: Zoning
           const svgDoc = parser.parseFromString(item.svg, "image/svg+xml");
     
           Array.from(svgDoc.querySelectorAll("rect, path")).forEach((el) => {
+            
             const elPrefix = el.id?.split(".").slice(0, 2).join(".");
+  const originalFill = el.getAttribute("data-original-fill") || el.getAttribute("fill") || "#fff";
+ if (!el.hasAttribute("data-original-fill")) el.setAttribute("data-original-fill", originalFill);
             if (!elPrefix || !activeModels.includes(elPrefix)) {
               el.setAttribute("style", "display:none");
             } else {
               el.removeAttribute("style");
+              if (selectedModel && elPrefix === selectedModel) {
+      el.setAttribute("fill", "red");
+      el.setAttribute("stroke", "white");
+    } else {
+      el.setAttribute("fill", originalFill);
+      el.removeAttribute("stroke");
+    }
             }
           });
     
@@ -40,7 +51,12 @@ export default function ZoningSystem({ project_id, initialBuildingType }: Zoning
         });
     
         return result;
-      }, [activeModels]);
+      }, [activeModels,selectedModel]);
+ 
+  const handleModelSelect = (modelName: string) => {
+    // Nhấp lần 2 vào model đã chọn → bỏ highlight
+    setSelectedModel((prev) => (prev === modelName ? null : modelName));
+  };
   
   
   return (
@@ -83,6 +99,7 @@ export default function ZoningSystem({ project_id, initialBuildingType }: Zoning
         {/* 👇 Truyền project_id và initialBuildingType sang Menu */}
         <Menu project_id={project_id} initialBuildingType={initialBuildingType} 
          onModelsLoaded={setActiveModels}
+         onSelectModel={handleModelSelect}
         />
       </div>
     </div>

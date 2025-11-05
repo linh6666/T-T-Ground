@@ -13,7 +13,8 @@ import Function from "./Function";
 interface MenuProps {
   project_id: string | null;
   initialBuildingType?: string | null;
-   onModelsLoaded?: (models: string[]) => void;
+  onModelsLoaded?: (models: string[]) => void;
+  onSelectModel?: (modelName: string) => void;
 }
 
 interface MenuItem {
@@ -27,7 +28,12 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id, initialBuildingType,onModelsLoaded, }: MenuProps) {
+export default function Menu({
+  project_id,
+  initialBuildingType,
+  onModelsLoaded,
+  onSelectModel,
+}: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const phaseFromQuery = searchParams.get("model") || initialBuildingType;
@@ -36,7 +42,7 @@ export default function Menu({ project_id, initialBuildingType,onModelsLoaded, }
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [loadingOn, setLoadingOn] = useState(false);
-const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
 
   // ✅ Hàm fetchData được đưa ra ngoài để tái sử dụng
   const fetchData = async () => {
@@ -53,8 +59,7 @@ const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
       });
 
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-
-          onModelsLoaded?.(
+        onModelsLoaded?.(
           data.data.map((i: NodeAttributeItem) => i.building_code)
         );
         const uniqueMap = new Map<string, MenuItem>();
@@ -74,7 +79,28 @@ const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
           }
         });
 
-        const finalItems = Array.from(uniqueMap.values());
+        let finalItems = Array.from(uniqueMap.values());
+        
+        // 🚀 BẮT ĐẦU PHẦN SẮP XẾP DỮ LIỆU
+        finalItems = finalItems.sort((a, b) => {
+            // Sử dụng localeCompare để sắp xếp chuỗi (từ A-Z) một cách chuẩn xác
+            // hoặc chuyển thành số nếu chuỗi là số (ví dụ: "1", "2", "10")
+            const labelA = a.label;
+            const labelB = b.label;
+
+            // Thử chuyển thành số để sắp xếp số đúng cách (ví dụ: 1, 2, 10 thay vì 1, 10, 2)
+            const numA = parseInt(labelA, 10);
+            const numB = parseInt(labelB, 10);
+
+            if (!isNaN(numA) && !isNaN(numB)) {
+                return numA - numB;
+            }
+
+            // Nếu không phải số, sắp xếp theo bảng chữ cái
+            return labelA.localeCompare(labelB, 'vi', { sensitivity: 'base' });
+        });
+        // 🚀 KẾT THÚC PHẦN SẮP XẾP DỮ LIỆU
+
         setMenuItems(finalItems);
       } else {
         setMenuItems([]);
@@ -89,7 +115,7 @@ const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
 
   useEffect(() => {
     fetchData();
-  }, [project_id, phaseFromQuery,onModelsLoaded]);
+  }, [project_id, phaseFromQuery, onModelsLoaded]);
 
   const handleMenuClick = async (subzoneLabel: string) => {
     if (!project_id || !phaseFromQuery) return;
@@ -182,9 +208,8 @@ const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
       </div>
 
       <div className={styles.title}>
-  <h1>{(phaseFromQuery || "LOẠI TIỆN ÍCH").toUpperCase()}</h1>
-</div>
-
+        <h1>{(phaseFromQuery || "LOẠI TIỆN ÍCH").toUpperCase()}</h1>
+      </div>
 
       <div className={styles.Function}>
         {loading ? (
@@ -195,7 +220,10 @@ const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleMenuClick(item.label)}
+                onClick={() => {
+                  handleMenuClick(item.label);
+                  onSelectModel?.(item.label);
+                }}
                 variant="filled"
                 color="orange"
                 style={{
