@@ -17,6 +17,7 @@ interface MenuProps {
   initialBuildingTypeVi?: string | null;
   initialModelBuildingVi?: string | null;
    onModelsLoaded?: (models: string[]) => void;
+     onSelectModel?: (modelName: string) => void;
 }
 
 // 🧱 Kiểu menu item
@@ -41,6 +42,7 @@ export default function Menu({
   initialBuildingTypeVi,
   initialModelBuildingVi,
    onModelsLoaded,
+    onSelectModel,
 }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -200,7 +202,10 @@ const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleItemClick(item.model_building_vi)}
+                onClick={() => {
+                  handleItemClick(item.model_building_vi);
+                onSelectModel?.(item.model_building_vi);
+              }}
                 variant="filled"
                 color="orange"
                 style={{

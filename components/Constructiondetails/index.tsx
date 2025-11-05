@@ -7,61 +7,81 @@ import Menu from "./Menu/index";
 import { pathsData, SvgItem } from "./Data";
 import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
-// 🧩 Kiểu props
 interface ZoningSystemProps {
   project_id: string | null;
   subzone_vi?: string | null;
-  building_type_vi?: string | null; // ✅ thêm trường này
-  model_building_vi?: string | null; // Thêm trường này
+  building_type_vi?: string | null;
+  model_building_vi?: string | null;
 }
 
 export default function ZoningSystem({
   project_id,
   subzone_vi,
-  building_type_vi, // ✅ nhận từ InteractiveClient
-  model_building_vi, // Thêm dòng này
+  building_type_vi,
+  model_building_vi,
 }: ZoningSystemProps) {
+  const [activeModels, setActiveModels] = useState<string[]>([]);
+  const [selectedModel, setSelectedModel] = useState<string | null>(null);
 
-const [activeModels, setActiveModels] = useState<string[]>([]);
-
+  // 🔹 Lọc và highlight SVG
   const filteredPaths = useMemo(() => {
     if (!activeModels || activeModels.length === 0) return [];
 
-    const result = pathsData.map((item: SvgItem) => {
+    return pathsData.map((item: SvgItem) => {
       const parser = new DOMParser();
       const svgDoc = parser.parseFromString(item.svg, "image/svg+xml");
 
       Array.from(svgDoc.querySelectorAll("rect, path")).forEach((el) => {
-        const elPrefix = el.id?.split(".").slice(0, 2).join(".");
-        if (!elPrefix || !activeModels.includes(elPrefix)) {
-          el.setAttribute("style", "display:none");
-        } else {
-          el.removeAttribute("style");
-        }
-      });
+  const elPrefix = el.id?.split(".").slice(0, 2).join(".");
+  const originalFill = el.getAttribute("data-original-fill") || el.getAttribute("fill") || "#fff";
+  if (!el.hasAttribute("data-original-fill")) el.setAttribute("data-original-fill", originalFill);
+
+  if (!elPrefix || !activeModels.includes(elPrefix)) {
+    el.setAttribute("style", "display:none");
+  } else {
+    el.removeAttribute("style");
+
+    if (selectedModel && elPrefix === selectedModel) {
+      el.setAttribute("fill", "red");
+      el.setAttribute("stroke", "white");
+    } else {
+      el.setAttribute("fill", originalFill);
+      el.removeAttribute("stroke");
+    }
+  }
+});
+
 
       return {
         ...item,
         svg: svgDoc.documentElement.outerHTML,
       };
     });
+  }, [activeModels, selectedModel]);
 
-    return result;
-  }, [activeModels]);
-  
+  // 🔹 Khi click vào model bên Menu
+  const handleModelSelect = (modelName: string) => {
+    // Nhấp lần 2 vào model đã chọn → bỏ highlight
+    setSelectedModel((prev) => (prev === modelName ? null : modelName));
+  };
+
   return (
     <div className={styles.box}>
-       <div className={styles.left}>
+      <div className={styles.left}>
         <TransformWrapper
           initialScale={1}
-     minScale={1} 
+          minScale={1}
           maxScale={5}
           wheel={{ step: 0.2 }}
           doubleClick={{ disabled: true }}
         >
           <TransformComponent>
             <div className={styles.imageWrapper}>
-              <Image src="/image/home_bg4.png" alt="Ảnh" className={styles.img} />
+              <Image
+                src="/image/home_bg4.png"
+                alt="Ảnh"
+                className={styles.img}
+              />
 
               {filteredPaths.length > 0 ? (
                 filteredPaths.map((item) => (
@@ -84,13 +104,13 @@ const [activeModels, setActiveModels] = useState<string[]>([]);
       </div>
 
       <div className={styles.right}>
-        {/* 👇 Truyền cả project_id, subzone_vi, building_type_vi và model_building_vi xuống Menu */}
         <Menu
           project_id={project_id}
           initialSubzone={subzone_vi}
-          initialBuildingTypeVi={building_type_vi} // ✅ truyền xuống
-           initialModelBuildingVi={model_building_vi}
-                 onModelsLoaded={setActiveModels} // Thêm dòng này
+          initialBuildingTypeVi={building_type_vi}
+          initialModelBuildingVi={model_building_vi}
+          onSelectModel={handleModelSelect}
+          onModelsLoaded={setActiveModels}
         />
       </div>
     </div>
