@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Card, Image, Stack, Text, Button, Loader, Modal } from "@mantine/core";
 import styles from "./Interact.module.css";
 import { getListProject } from "../../api/apigetlistProject";
-// import Link from "next/link";
 
 interface Project {
   id: string;
@@ -21,6 +20,7 @@ interface Project {
 
 export default function DetailInteractive() {
   const [projects, setProjects] = useState<Project[]>([]);
+  const [initialOrder, setInitialOrder] = useState<string[]>([]); // <--- lưu thứ tự ban đầu
   const [loading, setLoading] = useState(true);
   const [showLoginModal, setShowLoginModal] = useState(false);
 
@@ -37,26 +37,34 @@ export default function DetailInteractive() {
       try {
         const { data } = await getListProject({ token, skip: 0, limit: 20 });
 
-        // Gán link riêng cho từng dự án, vẫn truyền project.id
-       const dataWithLink = data.map((project: Project, index: number) => {
-  let baseLink = "";
-  if (index === 0) baseLink = "/Tuong-tac/Phuoc-tho";
-  else if (index === 1) baseLink = "/Tuong-tac/Millennia-City";
-  else if (index === 2) baseLink = "/Dieu-khien";
-  else baseLink = `/Dieu-khien-${index}`;
+        // Nếu đây là lần đầu fetch -> lưu lại thứ tự ID ban đầu
+        if (initialOrder.length === 0) {
+          setInitialOrder(data.map((p: Project) => p.id));
+        }
 
-  const link = `${baseLink}?id=${project.id}`;
+        // Nếu đã có thứ tự ban đầu -> sắp xếp lại theo đúng thứ tự đó
+        const sortedData = [...data].sort((a, b) => {
+          return (
+            initialOrder.indexOf(a.id) - initialOrder.indexOf(b.id)
+          );
+        });
 
-  // ⚙️ Gán ảnh cố định tạm thời cho 2 dự án đầu tiên
-  let image_url = project.image_url;
-  if (index === 0)
-    image_url = "/image/home_bg4.png"; // ảnh local trong /public/images/
-  else if (index === 1)
-    image_url = "/image/home_bg.png"; // ảnh local khác
+        // Gán link + ảnh nhưng KHÔNG thay đổi thứ tự
+        const dataWithLink = sortedData.map((project: Project, index: number) => {
+          let baseLink = "";
+          if (index === 0) baseLink = "/Tuong-tac/Phuoc-tho";
+          else if (index === 1) baseLink = "/Tuong-tac/Millennia-City";
+          else if (index === 2) baseLink = "/Dieu-khien";
+          else baseLink = `/Dieu-khien-${index}`;
 
-  return { ...project, link, image_url };
-});
+          const link = `${baseLink}?id=${project.id}`;
 
+          let image_url = project.image_url;
+          if (index === 0) image_url = "/image/home_bg4.png";
+          else if (index === 1) image_url = "/image/home_bg.png";
+
+          return { ...project, link, image_url };
+        });
 
         setProjects(dataWithLink);
       } catch (error) {
@@ -67,7 +75,7 @@ export default function DetailInteractive() {
     }
 
     fetchProjects();
-  }, []);
+  }, [initialOrder]); // <--- theo dõi initialOrder để không bị gọi sai
 
   if (loading) {
     return (
@@ -82,13 +90,13 @@ export default function DetailInteractive() {
       <div className={styles.background}>
         <div className={styles.container}>
           <div className={styles.cardGrid}>
-             <Card
+                 <Card
    
   >
    
   </Card>
+
             {projects.map((project) => (
-             
               <Card
                 key={project.id}
                 shadow="sm"
@@ -117,7 +125,7 @@ export default function DetailInteractive() {
                 </Stack>
                 <Button
                   component="a"
-                  href={project.link} // link riêng + project.id
+                  href={project.link}
                   className={`${styles.baseButton} ${styles.primaryButton}`}
                 >
                   Đi tới dự án
@@ -125,10 +133,9 @@ export default function DetailInteractive() {
               </Card>
             ))}
           </div>
-
-         
         </div>
       </div>
+
       <Modal
         opened={showLoginModal}
         onClose={() => setShowLoginModal(false)}
