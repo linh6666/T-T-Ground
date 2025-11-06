@@ -71,13 +71,13 @@ export default function Menu({ project_id }: MenuProps) {
   const handleNavigate = (building_type_vi: string) => {
     if (!project_id) return;
     router.push(
-      `/chi-tiet-tien-ich?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}`
+      `/Tuong-tac/Millennia-City/Chi-tiet-tien-ich?id=${project_id}&building_type_vi=${encodeURIComponent(building_type_vi)}`
     );
   };
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/Dieu-khien?id=${project_id}`);
+    router.push(`/Tuong-tac/Millennia-City?id=${project_id}`);
   };
 
   return (

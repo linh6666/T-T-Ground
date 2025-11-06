@@ -105,7 +105,7 @@ export default function Menu({
   const handleNavigate = (phase: string, buildingType: string) => {
     if (!project_id) return;
     router.push(
-      `/chi-tiet-khu?id=${project_id}&phase=${encodeURIComponent(
+      `/Tuong-tac/Millennia-City/Cong-trinh?id=${project_id}&phase=${encodeURIComponent(
         phase
       )}&building_type_vi=${encodeURIComponent(buildingType)}`
     );
@@ -114,7 +114,7 @@ export default function Menu({
   // ⏪ Quay lại
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/Phan-khu?id=${project_id}`);
+    router.push(`/Tuong-tac/Millennia-City/Phan-khu?id=${project_id}`);
   };
 
   // 🔆 ON / OFF

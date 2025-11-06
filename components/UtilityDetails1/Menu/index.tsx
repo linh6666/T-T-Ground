@@ -172,7 +172,7 @@ export default function Menu({
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/tien-ich-1?id=${project_id}`);
+    router.push(`/Tuong-tac/Phuoc-tho/Tien-ich?id=${project_id}`);
   };
 
   const getButtonStyle = (isActive: boolean) => ({

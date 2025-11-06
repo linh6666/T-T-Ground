@@ -19,10 +19,10 @@ export default function Menu({ project_id }: MenuProps) {
   const menuItems = [
    
       { label: "GIỚI THIỆU DỰ ÁN", link: "" },
-    { label: "HỆ THỐNG PHÂN KHU", link: `/khu-vuc${project_id ? `?id=${project_id}` : ""}` },
-     { label: "HỆ THỐNG TIỆN ÍCH", link: `/tien-ich-1${project_id ? `?id=${project_id}` : ""}` } ,
-    { label: "HIỆU ỨNG ÁNH SÁNG", link: `/hieu-ung-anh-sang-1${project_id ? `?id=${project_id}` : ""}` },
-    { label: "THƯ VIỆN", link:`/Thu-vien-anh-phuoc-tho${project_id ? `?id=${project_id}` : ""}` },
+    { label: "HỆ THỐNG PHÂN KHU", link: `/Tuong-tac/Phuoc-tho/Phan-khu${project_id ? `?id=${project_id}` : ""}` },
+     { label: "HỆ THỐNG TIỆN ÍCH", link: `/Tuong-tac/Phuoc-tho/Tien-ich${project_id ? `?id=${project_id}` : ""}` } ,
+    { label: "HIỆU ỨNG ÁNH SÁNG", link: `/Tuong-tac/Phuoc-tho/Hieu-ung-anh-sang${project_id ? `?id=${project_id}` : ""}` },
+    { label: "THƯ VIỆN", link:`/Tuong-tac/Phuoc-tho/Thu-vien-anh-phuoc-tho${project_id ? `?id=${project_id}` : ""}` },
     { label: "MÔ HÌNH", link: "" },
   
   ];

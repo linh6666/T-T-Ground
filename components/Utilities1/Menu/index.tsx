@@ -82,13 +82,13 @@ export default function Menu({ project_id, onModelsLoaded, }: MenuProps) {
   const handleNavigate = (model_building_vi: string) => {
     if (!project_id) return;
     router.push(
-      `/chi-tiet-tien-ich-1?id=${project_id}&model_building_vi=${encodeURIComponent(model_building_vi)}`
+      `/Tuong-tac/Phuoc-tho/Chi-tiet-tien-ich?id=${project_id}&model_building_vi=${encodeURIComponent(model_building_vi)}`
     );
   };
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/Dieu-khien-1?id=${project_id}`);
+    router.push(`/Tuong-tac/Phuoc-tho/?id=${project_id}`);
   };
 
   return (

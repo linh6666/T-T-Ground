@@ -40,8 +40,8 @@ export default function DetailInteractive() {
         // Gán link riêng cho từng dự án, vẫn truyền project.id
        const dataWithLink = data.map((project: Project, index: number) => {
   let baseLink = "";
-  if (index === 0) baseLink = "/Dieu-khien-1";
-  else if (index === 1) baseLink = "/Dieu-khien";
+  if (index === 0) baseLink = "/Tuong-tac/Phuoc-tho";
+  else if (index === 1) baseLink = "/Tuong-tac/Millennia-City";
   else if (index === 2) baseLink = "/Dieu-khien";
   else baseLink = `/Dieu-khien-${index}`;
 
@@ -126,25 +126,9 @@ export default function DetailInteractive() {
             ))}
           </div>
 
-          {/* <div className={styles.footerwrapper}>
-            <p className={styles.footerline}>
-              <span>Website được phát triển và hoàn thiện bởi</span>
-              <Link href="https://www.mohinhviet.com/" target="_blank">
-                <Image
-                  src="/MHV_VN_SOLOGAN_H.png"
-                  alt="Mô Hình Việt"
-                  className={styles.footerlogo}
-                />
-              </Link>
-            </p>
-            <p className={styles.footersubtex}>
-              Đơn vị tiên phong trong lĩnh vực mô hình và giải pháp trình bày dự án bất động sản.
-            </p>
-          </div> */}
+         
         </div>
       </div>
-
-      {/* Modal thông báo đăng nhập */}
       <Modal
         opened={showLoginModal}
         onClose={() => setShowLoginModal(false)}

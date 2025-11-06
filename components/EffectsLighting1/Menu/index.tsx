@@ -38,7 +38,7 @@ export default function Menu({ project_id }: MenuProps) {
   // 🧭 Quay lại trang điều khiển
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/Dieu-khien-1?id=${project_id}`);
+    router.push(`/Tuong-tac/Phuoc-tho?id=${project_id}`);
   };
 
   // 🧠 Khi nhấp nút — gọi API

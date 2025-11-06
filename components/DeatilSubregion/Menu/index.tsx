@@ -132,7 +132,7 @@ useEffect(() => {
   ) => {
     if (!project_id) return;
     router.push(
-      `/chi-tiet-xay-dung?id=${project_id}&subzone_vi=${encodeURIComponent(
+      `/Tuong-tac/Phuoc-tho/Cong-trinh?id=${project_id}&subzone_vi=${encodeURIComponent(
         subzone
       )}&building_type_vi=${encodeURIComponent(
         building_type_vi
@@ -143,7 +143,7 @@ useEffect(() => {
   const handleBack = () => {
     if (!project_id) return;
     router.push(
-      `/tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(
+      `/Tuong-tac/Phuoc-tho/Loai-cong-trinh?id=${project_id}&subzone_vi=${encodeURIComponent(
         subzoneFromQuery
       )}`
     );

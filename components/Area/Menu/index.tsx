@@ -109,13 +109,13 @@ export default function Menu({ project_id }: MenuProps) {
   const handleNavigate = (subzone_vi: string) => {
     if (!project_id) return;
     router.push(
-      `/tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(subzone_vi)}`
+      `/Tuong-tac/Phuoc-tho/Loai-cong-trinh?id=${project_id}&subzone_vi=${encodeURIComponent(subzone_vi)}`
     );
   };
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/Dieu-khien-1?id=${project_id}`);
+    router.push(`/Tuong-tac/Phuoc-tho?id=${project_id}`);
   };
 
   return (
@@ -129,7 +129,7 @@ export default function Menu({ project_id }: MenuProps) {
       </div>
 
       <div className={styles.title}>
-        <h1>PHÂN KHU</h1>
+        <h1>HỆ THỐNG PHÂN KHU</h1>
       </div>
 
       <div className={styles.Function}>

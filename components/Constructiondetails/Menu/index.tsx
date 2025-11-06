@@ -119,7 +119,7 @@ useEffect(() => {
   const handleBack = () => {
     if (!project_id) return;
     router.push(
-      `/chi-tiet-tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(
+      `/Tuong-tac/Phuoc-tho/Mau-cong-trinh?id=${project_id}&subzone_vi=${encodeURIComponent(
         subzoneFromQuery
       )}&building_type_vi=${encodeURIComponent(buildingTypeViFromQuery)}`
     );

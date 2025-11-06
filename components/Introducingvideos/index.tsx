@@ -14,7 +14,7 @@ export default function VideoPage() {
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/Dieu-khien?id=${project_id}`);
+    router.push(`/Tuong-tac/Millennia-City?id=${project_id}`);
   };
 
   // 🟢 Khi trang vừa load, tự động gọi API

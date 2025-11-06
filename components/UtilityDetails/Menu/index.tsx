@@ -111,7 +111,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
   // ✅ Quay lại trang tiện ích
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/tien-ich?id=${project_id}`);
+    router.push(`/Tuong-tac/Millennia-City/Tien-ich?id=${project_id}`);
   };
 
   // ✅ Khi nhấn MULTI

@@ -18,11 +18,11 @@ export default function Menu({ project_id }: MenuProps) {
   // 🧠 Tạo sẵn link kèm project_id (nếu có)
   const menuItems = [
    
-      { label: "GIỚI THIỆU DỰ ÁN", link: `/gioi-thieu-du-an${project_id ? `?id=${project_id}` : ""}` },
-    { label: "HỆ THỐNG PHÂN KHU", link: `/Phan-khu${project_id ? `?id=${project_id}` : ""}` },
-     { label: "HỆ THỐNG TIỆN ÍCH", link: `/tien-ich${project_id ? `?id=${project_id}` : ""}` } ,
-    { label: "HIỆU ỨNG ÁNH SÁNG", link: `/hieu-ung-anh-sang${project_id ? `?id=${project_id}` : ""}` },
-    { label: "THƯ VIỆN", link: `/Thu-vien-anh${project_id ? `?id=${project_id}` : ""}` },
+      { label: "GIỚI THIỆU DỰ ÁN", link: `/Tuong-tac/Millennia-City/Gioi-thieu-du-an${project_id ? `?id=${project_id}` : ""}` },
+    { label: "HỆ THỐNG PHÂN KHU", link: `/Tuong-tac/Millennia-City/Phan-khu${project_id ? `?id=${project_id}` : ""}` },
+     { label: "HỆ THỐNG TIỆN ÍCH", link: `/Tuong-tac/Millennia-City/Tien-ich${project_id ? `?id=${project_id}` : ""}` } ,
+    { label: "HIỆU ỨNG ÁNH SÁNG", link: `/Tuong-tac/Millennia-City/Hieu-ung-anh-sang${project_id ? `?id=${project_id}` : ""}` },
+    { label: "THƯ VIỆN", link: `/Tuong-tac/Millennia-City/Thu-vien-anh${project_id ? `?id=${project_id}` : ""}` },
     { label: "MÔ HÌNH", link: "" },
   
   ];

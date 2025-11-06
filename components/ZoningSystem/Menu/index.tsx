@@ -104,12 +104,12 @@ export default function Menu({ project_id }: MenuProps) {
 
   const handleNavigate = (phase: string) => {
     if (!project_id) return;
-    router.push(`/chi-tiet?id=${project_id}&phase=${encodeURIComponent(phase)}`);
+    router.push(`/Tuong-tac/Millennia-City/Mau-cong-trinh?id=${project_id}&phase=${encodeURIComponent(phase)}`);
   };
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/Dieu-khien?id=${project_id}`);
+    router.push(`/Tuong-tac/Millennia-City?id=${project_id}`);
   };
 
   return (
@@ -123,7 +123,7 @@ export default function Menu({ project_id }: MenuProps) {
       </div>
 
       <div className={styles.title}>
-        <h1>PHÂN KHU</h1>
+        <h1>HỆ THỐNG PHÂN KHU</h1>
       </div>
 
       <div className={styles.Function}>

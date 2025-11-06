@@ -109,7 +109,7 @@ export default function Menu({
   const handleNavigate = (subzone: string, building_type_vi: string) => {
     if (!project_id) return;
     router.push(
-      `/chi-tiet-tieu-vung?id=${project_id}&subzone_vi=${encodeURIComponent(
+      `/Tuong-tac/Phuoc-tho/Mau-cong-trinh?id=${project_id}&subzone_vi=${encodeURIComponent(
         subzone
       )}&building_type_vi=${encodeURIComponent(building_type_vi)}`
     );
@@ -117,7 +117,7 @@ export default function Menu({
 
   const handleBack = () => {
     if (!project_id) return;
-    router.push(`/khu-vuc?id=${project_id}`);
+    router.push(`/Tuong-tac/Phuoc-tho/Phan-khu?id=${project_id}`);
   };
 
   const handleClickOn = async () => {

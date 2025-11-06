@@ -164,7 +164,7 @@ export default function ListImage({ project_id }: ListImageProps) {
       {/* Nút quay lại và truyền project_id đúng cách */}
    <Group gap="xs" mt="md" justify="flex-end">
   <Button
-    onClick={() => router.push(`/Dieu-khien-1?id=${project_id}`)}
+    onClick={() => router.push(`/Tuong-tac/Phuoc-tho/?id=${project_id}`)}
     variant="filled"
     style={{
       width: 30,
