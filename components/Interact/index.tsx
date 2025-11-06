@@ -40,8 +40,8 @@ export default function DetailInteractive() {
         // Gán link riêng cho từng dự án, vẫn truyền project.id
        const dataWithLink = data.map((project: Project, index: number) => {
   let baseLink = "";
-  if (index === 0) baseLink = "/Dieu-khien";
-  else if (index === 1) baseLink = "/Dieu-khien-1";
+  if (index === 0) baseLink = "/Dieu-khien-1";
+  else if (index === 1) baseLink = "/Dieu-khien";
   else if (index === 2) baseLink = "/Dieu-khien";
   else baseLink = `/Dieu-khien-${index}`;
 
@@ -50,9 +50,9 @@ export default function DetailInteractive() {
   // ⚙️ Gán ảnh cố định tạm thời cho 2 dự án đầu tiên
   let image_url = project.image_url;
   if (index === 0)
-    image_url = "/image/home_bg.png"; // ảnh local trong /public/images/
+    image_url = "/image/home_bg4.png"; // ảnh local trong /public/images/
   else if (index === 1)
-    image_url = "/image/home_bg4.png"; // ảnh local khác
+    image_url = "/image/home_bg.png"; // ảnh local khác
 
   return { ...project, link, image_url };
 });
