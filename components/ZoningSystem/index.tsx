@@ -27,7 +27,7 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
           <Image src="/image/home_bg.png" alt="Ảnh" className={styles.img} />
 
           {/* SVG 1 */}
-     <svg className={styles.overlaySvg} xmlns="http://www.w3.org/2000/svg" width="900" height="750" viewBox="0 0 933.865 628.938">
+     <svg className={styles.overlaySvg} xmlns="http://www.w3.org/2000/svg" width="930" height="750" viewBox="0 0 933.865 628.938">
   <path
     d="M-17510.859-22160.312s20.957.43,45.455,2.578,38.68,2.9,38.68,2.9l1.654-13.549s6.152-70.6-1.654-95.5c-.2-.633-3.67-6.084-3.873-6.846-7.227-27.174,17.25-31.93,19.773-76.463,2.578-45.533-23.211-85.484-39.115-107.822s-9.025-73.885,8.6-100.09,5.291-24.451-4.3-34.363-24.73-36.244-25.391-57.395-16.988-26.965-16.988-26.965-32.809,7.623-45.018,8.387-48.83-7.625-60.275-25.672-20.094-20.842-48.578,13.219-44.51,21.35-74.012,50.836-36.887,75.988-36.379,82.6,17.295,25.924,21.873,39.4,13.225,62.527,20.092,66.342,64.047,48.629,77.273,64.9,46.158,51.4,54.553,56.734,56.158,44.432,58.191,48.9,10.967,27.859,9.439,70.055S-17510.859-22160.312-17510.859-22160.312Z"
     transform="translate(17871.887 22706.729)"
@@ -41,7 +41,7 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
 </svg>
 
 {/* THE OPERA */}
-<svg className={styles.overlaySvg} xmlns="http://www.w3.org/2000/svg" width="900" height="750" viewBox="0 0 933.865 628.938">
+<svg className={styles.overlaySvg} xmlns="http://www.w3.org/2000/svg" width="940" height="750" viewBox="0 0 933.865 628.938">
   <path
     d="M-17265.029-22330.482c-2.541-.437-14.408-28.164-26.7-50.611s-21.187-30.8-15.68-58.971,29.238-68.219,30.512-67.777,38.561,6.162,57.207,16.725,38.564,25.527,58.906,25.965,103.4-28.164,120.352-29.047,37.711,8.8,86.025,41.371,122.895,74.816,147.473,115.748,8.051,55.449,8.051,55.449-57.633-22.443-80.092-15.844-56.785,46.213-61.021,53.691-277.572-85.377-290.711-86.7S-17262.486-22330.043-17265.029-22330.482Z"
     transform="translate(17724.801 22633.65)"
@@ -49,7 +49,7 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
     stroke="#fcb814"
     strokeWidth="5"
   />
-  <text x="690" y="280" fill="white" stroke="white" strokeWidth="1" fontSize="30" fontFamily="Arial" fontWeight="bold" textAnchor="middle" alignmentBaseline="middle" style={{ pointerEvents: 'none' }}>
+  <text x="670" y="260" fill="white" stroke="white" strokeWidth="1" fontSize="30" fontFamily="Arial" fontWeight="bold" textAnchor="middle" alignmentBaseline="middle" style={{ pointerEvents: 'none' }}>
     THE OPERA
   </text>
 </svg>
@@ -69,7 +69,7 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
 </svg>
 
 {/* THE HERITAGE */}
-<svg className={styles.overlaySvg} xmlns="http://www.w3.org/2000/svg" width="900" height="750" viewBox="0 0 933.865 628.938">
+<svg className={styles.overlaySvg} xmlns="http://www.w3.org/2000/svg" width="930" height="750" viewBox="0 0 933.865 628.938">
   <path
     d="M-17263.166-21999.693c19.35,1.59,74.525,8.48,108.826,17.193s164.471,48.789,167.549,50.1,7.916,5.227,7.916,5.227-2.2-11.76-7.916-20.037-19.35-38.469,0-50.816,45.732-28.031,80.475-16.27,42.656,17.424,50.131,6.1,3.08-20.475-31.221-36.592-51.451-60.986-40.018-82.768,6.6-24.83,6.6-24.83-281.885-84.943-287.16-86.25-38.391-.754-39.691,0,12.229,35.291,2.08,63.645-19.6,32.09-19.6,47.3,9.967,32.041,7.1,67.354S-17263.166-21999.693-17263.166-21999.693Z"
     transform="translate(17709.254 22549.893)"
@@ -77,7 +77,7 @@ export default function ZoningSystem({ project_id }: ZoningSystemProps) {
     stroke="#fcb814"
     strokeWidth="5"
   />
-  <text x="620" y="500" fill="white" stroke="white" strokeWidth="1" fontSize="30" fontFamily="Arial" fontWeight="bold" textAnchor="middle" alignmentBaseline="middle" style={{ pointerEvents: 'none' }}>
+  <text x="620" y="470" fill="white" stroke="white" strokeWidth="1" fontSize="30" fontFamily="Arial" fontWeight="bold" textAnchor="middle" alignmentBaseline="middle" style={{ pointerEvents: 'none' }}>
     THE HERITAGE
   </text>
 </svg>

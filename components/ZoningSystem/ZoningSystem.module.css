@@ -32,7 +32,7 @@
 .overlaySvg {
   position: absolute;
   top: 1%;
-  left: 7.5%;
+  left: 6%;
   pointer-events: auto; /* Đảm bảo SVG nhận sự kiện hover */
 }
 
