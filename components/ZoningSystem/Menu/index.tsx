@@ -59,7 +59,10 @@ export default function Menu({ project_id }: MenuProps) {
                 .filter(Boolean)
           );
 
-          const uniquePhases = Array.from(new Set(allPhases));
+          // 🆕 BƯỚC LỌC MỚI: Loại bỏ các phase có giá trị là "skip" (không phân biệt chữ hoa/thường)
+          const filteredPhases = allPhases.filter((phase) => phase.toLowerCase() !== "skip");
+
+          const uniquePhases = Array.from(new Set(filteredPhases));
 
           const sortedPhases = uniquePhases.sort((a, b) => {
             const numA = a.match(/\d+/)?.[0];

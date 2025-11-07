@@ -42,7 +42,7 @@ export default function Menu({
   const [phase, setPhase] = useState<string>(phaseValue || "");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null); // ❗ Không sáng khi mở đầu
+  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
 
   useEffect(() => {
     if (phaseValue && phaseValue !== phase) {
@@ -70,6 +70,11 @@ export default function Menu({
         data.data.forEach((item: NodeAttributeItem) => {
           const buildingType = item.building_type_vi || "";
           const groupValue = item.group;
+
+          // 🆕 LOGIC LỌC: Bỏ qua nếu building_type_vi là "skip" (không phân biệt chữ hoa/thường)
+          if (buildingType.toLowerCase() === "skip") {
+            return; 
+          }
 
           if (
             buildingType.trim() &&

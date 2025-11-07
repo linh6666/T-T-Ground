@@ -81,6 +81,9 @@ export default function Menu({
 
         data.data.forEach((item: NodeAttributeItem) => {
           const modelLabel = item.model_building_vi as string;
+          if (modelLabel?.toLowerCase() === "skip") {
+            return;
+          }
 
           if (modelLabel && !uniqueMap.has(modelLabel)) {
             uniqueMap.set(modelLabel, {
