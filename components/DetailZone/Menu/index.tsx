@@ -128,7 +128,7 @@ export default function Menu({
       });
 
       console.log("📦 Dữ liệu model cụ thể:", result);
-      onModelsLoaded?.([modelName]);
+      // onModelsLoaded?.([modelName]); // svg hiển thị theo từng nút
     } catch (error) {
       console.error("❌ Lỗi khi gọi lại API model:", error);
     }

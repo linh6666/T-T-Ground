@@ -139,7 +139,7 @@ useEffect(() => {
           { label: "building_code", values: [modelName] },
         ],
       });
-       onModelsLoaded?.([modelName]);
+      //  onModelsLoaded?.([modelName]); đoạn là chỉ hiển thị 1 svg theo từng nút 
     } catch (error) {
       console.error("❌ Lỗi khi click nút:", error);
     }
