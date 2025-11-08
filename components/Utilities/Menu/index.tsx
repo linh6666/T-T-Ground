@@ -9,6 +9,7 @@ import { createNodeAttribute } from "../../../api/apifiterutilities";
 
 interface MenuProps {
   project_id: string | null;
+  onModelsLoaded?: (models: string[]) => void;
 }
 
 interface MenuItem {
@@ -20,53 +21,69 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id }: MenuProps) {
+export default function Menu({ project_id,onModelsLoaded }: MenuProps) {
   const router = useRouter();
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!project_id) return;
+useEffect(() => {
+  const fetchData = async () => {
+    if (!project_id) return;
 
-      setLoading(true);
-      try {
-        const body = {
-          project_id,
-          filters: [{ label: "group", values: ["ti"] }],
-        };
+    setLoading(true);
+    try {
+      const body = {
+        project_id,
+        filters: [{ label: "group", values: ["ti"] }],
+      };
 
-        const data = await createNodeAttribute(body);
+      const data = await createNodeAttribute(body);
 
-        if (data?.data && Array.isArray(data.data)) {
-          const allZones: string[] = data.data
-            .flatMap((item: NodeAttributeItem) =>
-              String(item.building_type_vi || "")
-                .split(";")
-                .map((z) => z.trim())
-                .filter(Boolean)
-            );
+      if (data?.data && Array.isArray(data.data)) {
+        // ✅ Gọi callback khi models đã load xong
+        onModelsLoaded?.(
+          data.data.map((i: NodeAttributeItem) => i.building_code)
+        );
 
-          const uniqueZones = Array.from(new Set(allZones));
+        const allZones: string[] = data.data
+          .flatMap((item: NodeAttributeItem) =>
+            String(item.building_type_vi || "")
+              .split(";")
+              .map((z) => z.trim())
+              .filter(Boolean)
+          );
 
-          // --- Sắp xếp fix cứng ---
-          const fixedOrder = ["Trung tâm thương mại", "Trường học", "Giao thông","Thể dục thể thao","Hạ tầng kỹ thuật","Đài phun nước"];
-          const sortedZones = fixedOrder.filter(z => uniqueZones.includes(z));
-          const remainingZones = uniqueZones.filter(z => !fixedOrder.includes(z));
-          const finalZones = [...sortedZones, ...remainingZones];
+        const uniqueZones = Array.from(new Set(allZones));
 
-          const items: MenuItem[] = finalZones.map((zone) => ({ label: zone }));
-          setMenuItems(items);
-        }
-      } catch (error) {
-        console.error("❌ Lỗi khi gọi API:", error);
-      } finally {
-        setLoading(false);
+        // --- Sắp xếp fix cứng ---
+        const fixedOrder = [
+          "Trung tâm thương mại",
+          "Trường học",
+          "Giao thông",
+          "Thể dục thể thao",
+          "Hạ tầng kỹ thuật",
+          "Đài phun nước",
+        ];
+
+        const sortedZones = fixedOrder.filter((z) => uniqueZones.includes(z));
+        const remainingZones = uniqueZones.filter(
+          (z) => !fixedOrder.includes(z)
+        );
+        const finalZones = [...sortedZones, ...remainingZones];
+
+        const items: MenuItem[] = finalZones.map((zone) => ({ label: zone }));
+        setMenuItems(items);
       }
-    };
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [project_id]);
+  fetchData();
+}, [project_id, onModelsLoaded]);
+
 
   const handleNavigate = (building_type_vi: string) => {
     if (!project_id) return;

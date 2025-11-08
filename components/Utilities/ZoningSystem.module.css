@@ -104,8 +104,8 @@
   display: block;
 }
 
-.overlaySvg {
+/* .overlaySvg {
   position: absolute;
   pointer-events: none;
-  transform: translate(-50%, -50%); /* căn giữa SVG theo điểm top/left */
-}
+  transform: translate(-50%, -50%); 
+} */
