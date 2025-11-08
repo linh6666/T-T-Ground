@@ -8,7 +8,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 import { createON } from "../../../api/apiON";
 import { createOFF } from "../../../api/apiOFF";
-import Function from "./Function";
+// import Function from "./Function";
 
 interface MenuProps {
   project_id: string | null;
@@ -42,7 +42,7 @@ export default function Menu({
   const [active, setActive] = useState<"on" | "off" | null>(null);
 
   // ✅ CHỈ SỬA DÒNG NÀY: bỏ "multi" để khi load ban đầu MULTI không sáng
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
+  // const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
 
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
@@ -142,10 +142,10 @@ export default function Menu({
     }
   };
 
-  const handleMultiModeClick = () => {
-    setIsMultiMode("multi");
-    fetchData(); // ✅ Gọi lại được vì đã đưa ra ngoài
-  };
+  // const handleMultiModeClick = () => {
+  //   setIsMultiMode("multi");
+  //   fetchData(); // ✅ Gọi lại được vì đã đưa ra ngoài
+  // };
 
   const getButtonStyle = (isActive: boolean) => ({
     width: 30,
@@ -194,10 +194,10 @@ export default function Menu({
                 color="orange"
                 style={{
                   marginBottom: "10px",
-                  background:
-                    isMultiMode === "multi"
-                      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-                      : undefined,
+                  // background:
+                  //   isMultiMode === "multi"
+                  //     ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                  //     : undefined,
                 }}
               >
                 {item.label}
@@ -213,11 +213,11 @@ export default function Menu({
 
       <div className={styles.footer}>
         <Stack align="center" gap="xs">
-          <Function
+          {/* <Function
             activeMode={isMultiMode}
             setActiveMode={setIsMultiMode}
             onMultiModeClick={handleMultiModeClick}
-          />
+          /> */}
           <Group gap="xs">
             <Button
               style={getButtonStyle(active === "on")}

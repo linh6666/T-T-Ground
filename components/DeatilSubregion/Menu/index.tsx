@@ -8,7 +8,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 import { createON } from "../../../api/apiON";
 import { createOFF } from "../../../api/apiOFF";
-import Function from "./Function";
+// import Function from "./Function";
 
 interface MenuProps {
   project_id: string | null;
@@ -50,9 +50,9 @@ export default function Menu({
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
   // ✅ CHỈ SỬA DÒNG NÀY — bỏ "multi" để khi load MULTI MODE không sáng
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(
-    null
-  );
+  // const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(
+  //   null
+  // );
    const phaseFromQuery = searchParams.get("subzone") || initialSubzone;
 
   const [loadingOn, setLoadingOn] = useState(false);
@@ -177,10 +177,10 @@ useEffect(() => {
     }
   };
 
-  const handleMultiModeClick = () => {
-    setIsMultiMode("multi");
-    fetchData();
-  };
+  // const handleMultiModeClick = () => {
+  //   setIsMultiMode("multi");
+  //   fetchData();
+  // };
 
   const getButtonStyle = (isActive: boolean) => ({
     width: 30,
@@ -233,10 +233,10 @@ useEffect(() => {
                 color="orange"
                 style={{
                   marginBottom: "10px",
-                  background:
-                    isMultiMode === "multi"
-                      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-                      : undefined,
+                  // background:
+                  //   isMultiMode === "multi"
+                  //     ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                  //     : undefined,
                 }}
               >
                 {item.label}
@@ -252,11 +252,11 @@ useEffect(() => {
 
       <div className={styles.footer}>
         <Stack align="center" gap="xs">
-          <Function
+          {/* <Function
             activeMode={isMultiMode}
             setActiveMode={setIsMultiMode}
             onMultiModeClick={handleMultiModeClick}
-          />
+          /> */}
           <Group gap="xs">
             <Button
               style={getButtonStyle(active === "on")}
