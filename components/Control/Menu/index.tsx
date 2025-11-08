@@ -23,7 +23,7 @@ export default function Menu({ project_id }: MenuProps) {
      { label: "HỆ THỐNG TIỆN ÍCH", link: `/Tuong-tac/Millennia-City/Tien-ich${project_id ? `?id=${project_id}` : ""}` } ,
     { label: "HIỆU ỨNG ÁNH SÁNG", link: `/Tuong-tac/Millennia-City/Hieu-ung-anh-sang${project_id ? `?id=${project_id}` : ""}` },
     { label: "THƯ VIỆN", link: `/Tuong-tac/Millennia-City/Thu-vien-anh${project_id ? `?id=${project_id}` : ""}` },
-    { label: "MÔ HÌNH", link: "" },
+    { label: "MÔ HÌNH", link: `/Tuong-tac/Millennia-City/Mo-hinh${project_id ? `?id=${project_id}` : ""}` },
   
   ];
 
