@@ -4,8 +4,8 @@ import { Metadata } from "next";
 
 import PageAbout from "../../../components/PegaAbout";
 export const metadata: Metadata = {
-  title: "Giới thiệu Mô Hình Việt",
-  description: "Tìm hiểu về Mô Hình Việt, công ty tiên phong sáng tạo và phát triển mô hình.",
+  title: "Giới thiệu Dự án ",
+  description: "Tìm hiểu về Dự án ",
 };
 
 export default function Interactive() {

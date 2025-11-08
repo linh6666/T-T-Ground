@@ -15,9 +15,9 @@ export default function Footer() {
 
           {/* Thông tin công ty ở giữa */}
           <Box className={styles.company}>
-            <Title order={5}>CÔNG TY CỔ PHẦN TẬP ĐOÀN T&T</Title>
-               <Text>Phone: <strong>(+84) 24 7308 1616</strong></Text>
-            <Text>31 - 33 Ngô Quyền, P. Cửa Nam, TP. Hà Nội, Việt Nam</Text>
+            <Title order={5}>CÔNG TY CỔ PHẦN BẤT ĐỘNG SẢN T&T HOMES</Title>
+               <Text>Phone: <strong>(+84) 24 38316969</strong></Text>
+            <Text>Tầng 1, Số 2A Phố Phạm Sư Mạnh, Phường Cửa Nam, Thành phố Hà Nội, Việt Nam</Text>
          
            
           </Box>

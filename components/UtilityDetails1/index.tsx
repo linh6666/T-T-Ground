@@ -35,7 +35,7 @@ export default function ZoningSystem({ project_id, initialBuildingType }: Zoning
             } else {
               el.removeAttribute("style");
               if (selectedModel && elPrefix === selectedModel) {
-      el.setAttribute("fill", "red");
+      el.setAttribute("fill", "#bb8d38");
       el.setAttribute("stroke", "white");
     } else {
       el.setAttribute("fill", originalFill);

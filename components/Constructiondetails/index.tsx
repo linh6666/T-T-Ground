@@ -46,7 +46,7 @@ export default function ZoningSystem({
     el.removeAttribute("style");
 
     if (selectedModel && elPrefix === selectedModel) {
-      el.setAttribute("fill", "red");
+      el.setAttribute("fill", "#c5963dff");
       el.setAttribute("stroke", "white");
     } else {
       el.setAttribute("fill", originalFill);
