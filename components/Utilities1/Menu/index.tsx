@@ -7,6 +7,8 @@ import { useRouter } from "next/navigation";
 import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifiterutilities";
 
+import { NotificationExtension } from "../../../extension/NotificationExtension";
+
 interface MenuProps {
   project_id: string | null;
   onModelsLoaded?: (models: string[]) => void;
@@ -27,58 +29,73 @@ export default function Menu({ project_id, onModelsLoaded, }: MenuProps) {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      if (!project_id) return;
+  const fetchData = async () => {
+    if (!project_id) return;
 
-      setLoading(true);
-      try {
-        const body = {
-          project_id,
-          filters: [{ label: "group", values: ["ti"] }],
-        };
+    setLoading(true);
+    try {
+      const body = {
+        project_id,
+        filters: [{ label: "group", values: ["ti"] }],
+      };
 
-        const data = await createNodeAttribute(body);
+      const data = await createNodeAttribute(body);
 
-        if (data?.data && Array.isArray(data.data)) {
-          onModelsLoaded?.(
+      // ✅ Hiển thị message nếu backend trả về
+      if (data?.message) {
+        NotificationExtension.Success(data.message);
+      }
+
+      if (data?.data && Array.isArray(data.data)) {
+        onModelsLoaded?.(
           data.data.map((i: NodeAttributeItem) => i.building_code)
         );
-          // Lấy tất cả item từ API
-          const allZones: string[] = data.data
-            .flatMap((item: NodeAttributeItem) =>
-              String(item.model_building_vi || "")
-                .split(";")
-                .map((z) => z.trim())
-                .filter(Boolean)
-            );
 
-          // Loại bỏ trùng lặp
-          const uniqueZones = Array.from(new Set(allZones));
+        // Lấy tất cả item từ API
+        const allZones: string[] = data.data
+          .flatMap((item: NodeAttributeItem) =>
+            String(item.model_building_vi || "")
+              .split(";")
+              .map((z) => z.trim())
+              .filter(Boolean)
+          );
 
-          // --- Ẩn các item không muốn hiển thị ---
-          const hiddenItems = ["Shophouse 01"];
-          const filteredZones = uniqueZones.filter(z => !hiddenItems.includes(z));
+        // Loại bỏ trùng lặp
+        const uniqueZones = Array.from(new Set(allZones));
 
-          // --- Sắp xếp fix cứng ---
-          const fixedOrder = ["Thương mại", "Trường học", "Giao thông"];
-          const sortedZones = fixedOrder.filter(z => filteredZones.includes(z));
-          const remainingZones = filteredZones.filter(z => !fixedOrder.includes(z));
-          const finalZones = [...sortedZones, ...remainingZones];
+        // --- Ẩn các item không muốn hiển thị ---
+        const hiddenItems = ["Shophouse 01"];
+        const filteredZones = uniqueZones.filter(z => !hiddenItems.includes(z));
 
-          // Chuyển thành menu items
-          const items: MenuItem[] = finalZones.map((zone) => ({ label: zone }));
-          setMenuItems(items);
+        // --- Sắp xếp fix cứng ---
+        const fixedOrder = ["Thương mại", "Trường học", "Giao thông"];
+        const sortedZones = fixedOrder.filter(z => filteredZones.includes(z));
+        const remainingZones = filteredZones.filter(z => !fixedOrder.includes(z));
+        const finalZones = [...sortedZones, ...remainingZones];
+
+        // Chuyển thành menu items
+        const items: MenuItem[] = finalZones.map((zone) => ({ label: zone }));
+        setMenuItems(items);
+
+        if (items.length > 0) {
+         
+        } else {
+          NotificationExtension.Fails("Không có khu vực nào để hiển thị!");
         }
-      } catch (error) {
-        console.error("❌ Lỗi khi gọi API:", error);
-      } finally {
-        setLoading(false);
+      } else {
+        console.warn("⚠️ Dữ liệu trả về không đúng định dạng:", data);
+        NotificationExtension.Fails("Dữ liệu trả về không hợp lệ từ API!");
       }
-    };
+    } catch (error) {
+      console.error("❌ Lỗi khi gọi API:", error);
+      NotificationExtension.Fails("Gọi API thất bại!");
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    fetchData();
-  }, [project_id,onModelsLoaded]);
-
+  fetchData();
+}, [project_id, onModelsLoaded]);
   const handleNavigate = (model_building_vi: string) => {
     if (!project_id) return;
     router.push(
@@ -102,7 +119,7 @@ export default function Menu({ project_id, onModelsLoaded, }: MenuProps) {
       </div>
 
       <div className={styles.title}>
-        <h1>TIỆN ÍCH</h1>
+        <h1>TIỆN ÍCHKKK</h1>
       </div>
 
       <div className={styles.Function}>
