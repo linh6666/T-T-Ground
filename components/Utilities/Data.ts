@@ -7940,7 +7940,7 @@ export const pathsData: SvgItem[] = [
   <path id="TRƯỜNG LIÊN CẤP FPT" data-name="TRƯỜNG LIÊN CẤP FPT" d="M0,0,76.192.473,76.458,48.5.267,48.031Z" transform="translate(264.288 576.119) rotate(3)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
   <path id="TRƯỜNG LIÊN CẤP FPT-2" data-name="TRƯỜNG LIÊN CẤP FPT" d="M0,0,76.192.473,76.458,48.5.267,48.031Z" transform="translate(178.289 571.119) rotate(3)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
   <rect id="TH.04" width="114.167" height="53.942" transform="translate(781.549 319.719) rotate(17)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
-  <rect id="TH.05" width="62.167" height="30.942" transform="translate(964.611 374.137) rotate(17)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
+  <rect id="TH05" width="62.167" height="30.942" transform="translate(964.611 374.137) rotate(17)" fill="rgba(182,163,42,0.6)" stroke="#fff" stroke-width="0.5"/>
   <rect id="TRUNG TÂM Y TẾ" data-name="TRUNG TÂM Y TẾ" width="66.167" height="30.942" transform="translate(266.866 531.835) rotate(3)" fill="rgba(136,182,42,0.6)" stroke="#fff" stroke-width="0.5"/>
   <rect id="CX.128" width="103.167" height="30.942" transform="matrix(0.242, 0.97, -0.97, 0.242, 309.101, 68.797)" fill="rgba(42,182,51,0.6)" stroke="#fff" stroke-width="0.5"/>
   <rect id="SÂN CHƠI NƯỚC" data-name="SÂN CHƠI NƯỚC" width="21" height="21" transform="translate(133.141 715.104) rotate(3)" fill="rgba(136,182,42,0.6)" stroke="#fff" stroke-width="0.5"/>

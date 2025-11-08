@@ -13,6 +13,8 @@ import Function from "./Function";
 interface MenuProps {
   project_id: string | null;
   initialBuildingType?: string | null;
+    onModelsLoaded?: (models: string[]) => void;
+  onSelectModel?: (modelName: string) => void;
 }
 
 interface MenuItem {
@@ -27,7 +29,8 @@ interface NodeAttributeItem {
   [key: string]: unknown;
 }
 
-export default function Menu({ project_id, initialBuildingType }: MenuProps) {
+export default function Menu({ project_id, initialBuildingType,onModelsLoaded,
+  onSelectModel, }: MenuProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const phaseFromQuery = searchParams.get("building") || initialBuildingType;
@@ -53,6 +56,9 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
       });
 
       if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+         onModelsLoaded?.(
+          data.data.map((i: NodeAttributeItem) => i.building_code)
+        );
         const uniqueMap = new Map<string, MenuItem>();
 
         data.data.forEach((item: NodeAttributeItem) => {
@@ -86,7 +92,7 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
 
   useEffect(() => {
     fetchData();
-  }, [project_id, phaseFromQuery]);
+  }, [project_id, phaseFromQuery,onModelsLoaded]);
 
   // ✅ Xử lý khi nhấn 1 nút model
   const handleMenuClick = async (subzoneLabel: string) => {
@@ -193,7 +199,9 @@ export default function Menu({ project_id, initialBuildingType }: MenuProps) {
               <Button
                 key={index}
                 className={styles.menuBtn}
-                onClick={() => handleMenuClick(item.label)}
+                onClick={() => {handleMenuClick(item.label);
+                  onSelectModel?.(item.label);
+                }}
                 variant="filled"
                 color="orange"
                 style={{
