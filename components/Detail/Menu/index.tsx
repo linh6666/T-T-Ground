@@ -8,7 +8,7 @@ import { IconArrowLeft } from "@tabler/icons-react";
 import { createNodeAttribute } from "../../../api/apifilter";
 import { createON } from "../../../api/apiON";
 import { createOFF } from "../../../api/apiOFF";
-import Function from "./Function";
+// import Function from "./Function";
 
 interface MenuProps {
   project_id: string | null;
@@ -42,7 +42,7 @@ export default function Menu({
   const [phase, setPhase] = useState<string>(phaseValue || "");
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
   const [loading, setLoading] = useState(false);
-  const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
+  // const [isMultiMode, setIsMultiMode] = useState<"single" | "multi" | null>(null);
 
   useEffect(() => {
     if (phaseValue && phaseValue !== phase) {
@@ -146,10 +146,10 @@ export default function Menu({
   };
 
   // 🌗 MULTI
-  const handleMultiModeClick = () => {
-    setIsMultiMode("multi");
-    fetchData();
-  };
+  // const handleMultiModeClick = () => {
+  //   setIsMultiMode("multi");
+  //   fetchData();
+  // };
 
   // 🎨 Style nút ON/OFF
   const getButtonStyle = (isActive: boolean) => ({
@@ -198,10 +198,10 @@ export default function Menu({
                 color="orange"
                 style={{
                   marginBottom: "10px",
-                  background:
-                    isMultiMode === "multi"
-                      ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
-                      : undefined,
+                  // background:
+                  //   isMultiMode === "multi"
+                  //     ? "linear-gradient(to top, #FFE09A,#FFF1D2)"
+                  //     : undefined,
                 }}
               >
                 {item.label}
@@ -219,11 +219,11 @@ export default function Menu({
       <div className={styles.footer}>
         <Stack align="center" gap="xs">
           {/* 🔘 MULTI/SINGLE */}
-          <Function
+          {/* <Function
             activeMode={isMultiMode}
             setActiveMode={setIsMultiMode}
             onMultiModeClick={handleMultiModeClick}
-          />
+          /> */}
 
           {/* ⚙️ ON/OFF + Back */}
           <Group gap="xs">
