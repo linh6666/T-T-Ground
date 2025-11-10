@@ -57,6 +57,17 @@ const images = [
        "/Millenia/tt-city-millennia1_optimized.jpeg",
        "/Millenia/view 1.jpg",
        "/Millenia/VIEW9.jpg",
+       "/Millenia/Bản sao của LK1_D.jpg",
+        "/Millenia/Bản sao của LK1.1.jpg",
+         "/Millenia/Bản sao của SH1_D.jpg",
+          "/Millenia/Bản sao của SH1_G.jpg",
+           "/Millenia/Bản sao của SH1.jpg",
+            "/Millenia/Bản sao của SL_D.jpg",
+             "/Millenia/Bản sao của sl.jpg",
+              "/Millenia/POOL_1.jpg",
+               "/Millenia/POOL_2.jpg",
+                "/Millenia/POOL_3.jpg",
+                 "/Millenia/POOL_4.jpg",
 ];
 interface ListImageProps {
   project_id: string | null;
