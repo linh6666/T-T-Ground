@@ -43,7 +43,7 @@ export default function LargeFixedTable() {
       const result = await getListRoles({ token, skip: 0, limit: 100 });
       const users = result.data.map((user: DataType) => ({
         id: user.id, // ✅ map thêm id
-        role_id: user.system_id,
+        system_id: user.system_id,
         permission_id: user.permission_id,
         description_vi: user.description_vi,
         // description_en: user.description_en,

@@ -1,6 +1,6 @@
 import { Card, Image, Stack, Text } from "@mantine/core";
 import styles from "./Interact.module.css";
-// import Link from "next/link";
+
 
 export default function DetailInteractive() {
   return (
@@ -26,6 +26,11 @@ export default function DetailInteractive() {
           >
             
           </Card>
+                 <a
+      href="https://ttcitymillennia.net.vn/"
+      target="_blank"
+     
+    >
           <Card
             shadow="sm"
             radius="md"
@@ -56,6 +61,7 @@ export default function DetailInteractive() {
               Đi tới dự án
             </Button> */}
           </Card>
+          </a>
 
           {/* Card 2 */}
           <Card
