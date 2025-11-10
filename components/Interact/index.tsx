@@ -52,16 +52,16 @@ export default function DetailInteractive() {
         // Gán link + ảnh nhưng KHÔNG thay đổi thứ tự
         const dataWithLink = sortedData.map((project: Project, index: number) => {
           let baseLink = "";
-          if (index === 0) baseLink = "/Tuong-tac/Phuoc-tho";
-          else if (index === 1) baseLink = "/Tuong-tac/Millennia-City";
+          if (index === 0) baseLink = "/Tuong-tac/Millennia-City";
+          else if (index === 1) baseLink = "/Tuong-tac/Phuoc-tho";
           else if (index === 2) baseLink = "/Dieu-khien";
           else baseLink = `/Dieu-khien-${index}`;
 
           const link = `${baseLink}?id=${project.id}`;
 
           let image_url = project.image_url;
-          if (index === 0) image_url = "/image/home_bg4.png";
-          else if (index === 1) image_url = "/image/home_bg.png";
+          if (index === 0) image_url = "/image/home_bg.png";
+          else if (index === 1) image_url = "/image/home_bg4.png";
 
           return { ...project, link, image_url };
         });
