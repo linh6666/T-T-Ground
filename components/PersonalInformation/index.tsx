@@ -9,14 +9,15 @@ import {
   IconHeartFilled,
   IconBuildingWarehouse,
   IconList,
+  
+  IconExchange,
 } from "@tabler/icons-react";
 import { Loader, Container,  Text } from "@mantine/core";
 import { getCurrentUser } from "../../api/apiProfile";
 import ProfileInfo from "./Profile";
-// import  FavoritesList from "./FavoritesList";
 import  Project from "./Project";
-// import Warehouse from "./Warehouse";
-// import { useRouter } from "next/navigation";
+import ResetPasswword from "./ResetPasswword";
+
 
 interface User {
   email: string;
@@ -40,7 +41,7 @@ export default function ProfilePage() {
 //   const router = useRouter();
 
   const [activeTab, setActiveTab] = useState<
-    "home" | "profile" | "orders" | "bookings" | "membership" | "promotions"| "listcustomer"
+    "home" | "profile" | "orders" | "bookings" | "membership" | "promotions"| "listcustomer"| "ResetPassword"
   >("profile");
 
   useEffect(() => {
@@ -100,6 +101,8 @@ export default function ProfilePage() {
         // <Warehouse/>
          case "listcustomer":
         return <>xin chào các bạn nhé </>;
+          case "ResetPassword":
+        return <ResetPasswword />;
       default:
         return <div>Chọn mục từ menu để hiển thị</div>;
     }
@@ -160,6 +163,18 @@ export default function ProfilePage() {
               >
                 <IconList
  size={18} /> Danh sách khách hàng
+              </button>
+            </li>
+                 <li>
+              <button
+                onClick={() => setActiveTab("ResetPassword")}
+                className={`${styles.menuItem} ${
+                  activeTab === "ResetPassword" ? styles.active : ""
+                }`}
+              >
+                <IconExchange
+
+ size={18} /> Đổi mật khẩu tài khoản
               </button>
             </li>
 
