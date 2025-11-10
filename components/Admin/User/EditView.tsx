@@ -5,25 +5,46 @@ import {
   Button,
   Group,
   LoadingOverlay,
+  MultiSelect,
   Switch,
   TextInput,
 } from "@mantine/core";
-import { useForm, } from "@mantine/form";
+import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
 import { IconCheck, IconX } from "@tabler/icons-react";
-import { useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { API_ROUTE } from "../../../const/apiRouter";
 import { api } from "../../../libray/axios";
 import { CreateUserPayload } from "../../../api/apiEdituser";
+import { getListProvinces } from "../../../api/apigetlistaddress";
+import { getWardsByProvince } from "../../../api/apigetlistProvinces";
 
 interface EditViewProps {
   onSearch: () => Promise<void>;
   id: string;
 }
 
+interface Province {
+  code: string;
+  full_name_vi: string;
+}
+
+interface Ward {
+  code: string;
+  full_name_vi: string;
+}
+
 const EditView = ({ onSearch, id }: EditViewProps) => {
   const [visible, { open, close }] = useDisclosure(false);
+  const [provinceOptions, setProvinceOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [wardOptions, setWardOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
+
   const form = useForm<CreateUserPayload>({
     initialValues: {
       email: "",
@@ -31,21 +52,18 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       is_active: false,
       is_superuser: false,
       phone: "",
-      area_id: "",
-      province_id: "",
-      ward_id: "",
-      introducer_id: "",
+      province_id: [],
+      ward_id: [],
+     
     },
     validate: {
-      // email: isNotEmpty("Email không được để trống"),
-      // full_name: isNotEmpty("Họ và tên không được để trống"),
-      // phone: isNotEmpty("Số điện thoại không được để trống"),
+      // Add validation rules here if needed
     },
   });
 
   const formRef = useRef(form);
 
-  /** Submit cập nhật user */
+  /** Submit updated user data */
   const handleSubmit = async (values: CreateUserPayload) => {
     open();
     try {
@@ -54,14 +72,14 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       await onSearch();
       modals.closeAll();
     } catch (error) {
-      console.error("Lỗi khi cập nhật user:", error);
-      alert("Đã xảy ra lỗi khi cập nhật người dùng.");
+      console.error("Error updating user:", error);
+      alert("An error occurred while updating the user.");
     } finally {
       close();
     }
   };
 
-  /** Lấy dữ liệu chi tiết user */
+  /** Fetch user details */
   const fetchUserDetail = useCallback(async () => {
     if (!id) return;
     open();
@@ -76,14 +94,14 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
         is_active: userData.is_active || false,
         is_superuser: userData.is_superuser || false,
         phone: userData.phone || "",
-        area_id: userData.area_id || "",
-        province_id: userData.province_id || "",
-        ward_id: userData.ward_id || "",
-        introducer_id: userData.introducer_id || "",
+        province_id: userData.province_id ? [userData.province_id] : [],
+        ward_id: userData.ward_id ? [userData.ward_id] : [],
+        // introducer_id: userData.introducer_id || "",
       });
+      setSelectedProvince(userData.province_id || null);
     } catch (error) {
-      console.error("Lỗi khi lấy dữ liệu user:", error);
-      alert("Không thể tải thông tin người dùng.");
+      console.error("Error fetching user data:", error);
+      alert("Unable to load user information.");
       modals.closeAll();
     } finally {
       close();
@@ -93,6 +111,45 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   useEffect(() => {
     fetchUserDetail();
   }, [fetchUserDetail]);
+
+  /** Fetch the list of provinces */
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const data: Province[] = await getListProvinces();
+        const formatted = data.map((item) => ({
+          value: item.code,
+          label: item.full_name_vi,
+        }));
+        setProvinceOptions(formatted);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      }
+    };
+    fetchProvinces();
+  }, []);
+
+  /** Fetch wards based on selected province */
+  useEffect(() => {
+    if (selectedProvince) {
+      const fetchWards = async () => {
+        try {
+          const data: Ward[] = await getWardsByProvince(selectedProvince);
+          const formatted = data.map((item) => ({
+            value: item.code,
+            label: item.full_name_vi,
+          }));
+          setWardOptions(formatted);
+        } catch (error) {
+          console.error("Error fetching wards:", error);
+          setWardOptions([]);
+        }
+      };
+      fetchWards();
+    } else {
+      setWardOptions([]);
+    }
+  }, [selectedProvince]);
 
   return (
     <Box
@@ -131,42 +188,47 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
         {...form.getInputProps("phone")}
       />
 
-      <TextInput
-        label="Mã khu vực "
-        placeholder="Nhập khu vực"
+      <MultiSelect
+        label="Tỉnh"
+        placeholder="Chọn tỉnh"
+        data={provinceOptions}
         mt="md"
-        {...form.getInputProps("area_id")}
+        value={form.values.province_id.slice(-1)} // Only show 1 selection
+        onChange={(value) => {
+          const limited = value.slice(-1); // Keep only 1 selection
+          setSelectedProvince(limited[0] || null);
+          form.setFieldValue("province_id", limited);
+          form.setFieldValue("ward_id", []); // Reset wards when province changes
+        }}
+      />
+
+      <MultiSelect
+        label="Phường"
+        placeholder="Chọn phường"
+        data={wardOptions}
+        mt="md"
+        value={form.values.ward_id.slice(-1)} // Only show 1 selection
+        onChange={(value) => {
+          const limited = value.slice(-1);
+          form.setFieldValue("ward_id", limited);
+        }}
       />
 
       <TextInput
-        label="Tỉnh "
-        placeholder="Nhập tỉnh"
-        mt="md"
-        {...form.getInputProps("province_id")}
-      />
-
-      <TextInput
-        label="Phường "
-        placeholder="Nhập phường"
-        mt="md"
-        {...form.getInputProps("ward_id")}
-      />
-
-      <TextInput
-        label="Người giới thiệu "
+        label="Người giới thiệu"
         placeholder="Nhập người giới thiệu"
         mt="md"
         {...form.getInputProps("introducer_id")}
       />
 
       <Switch
-        label="Kích hoạt tài khoản "
+        label="Kích hoạt tài khoản"
         mt="md"
         {...form.getInputProps("is_active", { type: "checkbox" })}
       />
 
       <Switch
-        label="Quyền quản trị "
+        label="Quyền quản trị"
         mt="md"
         {...form.getInputProps("is_superuser", { type: "checkbox" })}
       />

@@ -6,23 +6,58 @@ import {
   Checkbox,
   Group,
   LoadingOverlay,
+  MultiSelect,
   PasswordInput,
   TextInput,
 } from "@mantine/core";
+import { useState, useEffect } from "react";
 import { isNotEmpty, matchesField, useForm } from "@mantine/form";
 import { IconCheck, IconX } from "@tabler/icons-react";
 import { modals } from "@mantine/modals";
 import { useDisclosure } from "@mantine/hooks";
-import { createUser } from "../../../api/apicreateuser"; // 🔁 sửa đường dẫn nếu cần
+import { createUser } from "../../../api/apicreateuser";
+import { getListProvinces } from "../../../api/apigetlistaddress";
+import { getWardsByProvince } from "../../../api/apigetlistProvinces";
+
+// Định nghĩa kiểu cho giá trị của form
+interface FormValues {
+  email: string;
+  full_name: string;
+  password: string;
+  confirm_password: string;
+  is_active: boolean;
+  is_superuser: boolean;
+  phone: string;
+  province_id: string[]; // Mảng chuỗi cho tỉnh
+  ward_id: string[]; // Mảng chuỗi cho phường
+  introducer_id: string;
+}
 
 interface CreateViewProps {
   onSearch: () => Promise<void>;
 }
 
+interface Province {
+  code: string;
+  full_name_vi: string;
+}
+
+interface Ward {
+  code: string;
+  full_name_vi: string;
+}
+
 const CreateView = ({ onSearch }: CreateViewProps) => {
   const [visible, { open, close }] = useDisclosure(false);
+  const [provinceOptions, setProvinceOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [wardOptions, setWardOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+  const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
 
-  const form = useForm({
+  const form = useForm<FormValues>({
     initialValues: {
       email: "",
       full_name: "",
@@ -31,9 +66,8 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       is_active: false,
       is_superuser: false,
       phone: "",
-      area_id: "",
-      province_id: "",
-      ward_id: "",
+      province_id: [],
+      ward_id: [],
       introducer_id: "",
     },
     validate: {
@@ -45,7 +79,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     },
   });
 
-  const handleSubmit = async (values: typeof form.values) => {
+  const handleSubmit = async (values: FormValues) => {
     open();
     try {
       const userData = {
@@ -54,9 +88,8 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         is_superuser: values.is_superuser,
         full_name: values.full_name,
         phone: values.phone,
-        area_id: values.area_id,
-        province_id: values.province_id,
-        ward_id: values.ward_id,
+        province_id: values.province_id[0] || "",
+        ward_id: values.ward_id[0] || "",
         introducer_id: values.introducer_id,
         password: values.password,
       };
@@ -70,6 +103,45 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       close();
     }
   };
+
+  // Lấy danh sách tỉnh/thành
+  useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const data: Province[] = await getListProvinces();
+        const formatted = data.map((item) => ({
+          value: item.code,
+          label: item.full_name_vi,
+        }));
+        setProvinceOptions(formatted);
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách tỉnh/thành:", error);
+      }
+    };
+    fetchProvinces();
+  }, []);
+
+  // Lấy danh sách phường/xã theo tỉnh đã chọn
+  useEffect(() => {
+    if (selectedProvince) {
+      const fetchWards = async () => {
+        try {
+          const data: Ward[] = await getWardsByProvince(selectedProvince);
+          const formatted = data.map((item) => ({
+            value: item.code,
+            label: item.full_name_vi,
+          }));
+          setWardOptions(formatted);
+        } catch (error) {
+          console.error("Lỗi khi lấy danh sách phường/xã:", error);
+          setWardOptions([]);
+        }
+      };
+      fetchWards();
+    } else {
+      setWardOptions([]);
+    }
+  }, [selectedProvince]);
 
   return (
     <Box
@@ -108,37 +180,34 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         {...form.getInputProps("phone")}
       />
 
-     
+      {/* ✅ MultiSelect chỉ cho phép chọn 1 tỉnh */}
+      <MultiSelect
+  label="Tỉnh"
+  placeholder="Chọn tỉnh"
+  data={provinceOptions}
+  mt="md"
+  value={form.values.province_id.slice(-1)} // chỉ hiển thị 1 lựa chọn
+  onChange={(value) => {
+    const limited = value.slice(-1); // chỉ giữ lại 1 lựa chọn
+    setSelectedProvince(limited[0] || null);
+    form.setFieldValue("province_id", limited);
+    form.setFieldValue("ward_id", []); // reset phường khi đổi tỉnh
+  }}
+/>
 
-      {/* 🆕 Các trường bổ sung */}
-      <TextInput
-        label=" Khu Vực"
-        placeholder="Nhập khu vực"
-        mt="md"
-        {...form.getInputProps("area_id")}
-      />
+<MultiSelect
+  label="Phường"
+  placeholder="Chọn phường"
+  data={wardOptions}
+  mt="md"
+  value={form.values.ward_id.slice(-1)} // chỉ hiển thị 1 lựa chọn
+  onChange={(value) => {
+    const limited = value.slice(-1);
+    form.setFieldValue("ward_id", limited); // chỉ lưu giá trị đầu tiên
+  }}
+/>
 
-      <TextInput
-        label="Tỉnh"
-        placeholder="Nhập tỉnh"
-        mt="md"
-        {...form.getInputProps("province_id")}
-      />
-
-      <TextInput
-        label=" Phường"
-        placeholder="Nhập phường"
-        mt="md"
-        {...form.getInputProps("ward_id")}
-      />
-
-      <TextInput
-        label="Mã Người Giới Thiệu"
-        placeholder="Nhập Người giới thiệu"
-        mt="md"
-        {...form.getInputProps("introducer_id")}
-      />
-       <PasswordInput
+      <PasswordInput
         label="Mật khẩu"
         placeholder="Nhập mật khẩu"
         withAsterisk
@@ -153,7 +222,6 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         mt="md"
         {...form.getInputProps("confirm_password")}
       />
-      {/* ✅ Hết phần bổ sung */}
 
       <Checkbox
         label="Hoạt động"
