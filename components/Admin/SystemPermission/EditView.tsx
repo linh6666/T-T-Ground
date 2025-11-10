@@ -62,7 +62,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   const handleSubmit = async (values: CreateUserPayload) => {
     open();
     try {
-      const url = API_ROUTE.UPDATE_ROLEPERMISSION.replace("{system_permission_id}", id);
+      const url = API_ROUTE.UPDATE_SYSTEMPERMISSION.replace("{system_permission_id}", id);
       await api.put(url, values);
       await onSearch();
       modals.closeAll();
@@ -79,7 +79,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
     if (!id) return;
     open();
     try {
-      const url = API_ROUTE.UPDATE_ROLEPERMISSION.replace("{system_permission_id}", id);
+      const url = API_ROUTE.UPDATE_SYSTEMPERMISSION.replace("{system_permission_id}", id);
       const response = await api.get(url);
       const userData = response.data;
 
