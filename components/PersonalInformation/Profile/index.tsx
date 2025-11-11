@@ -98,9 +98,10 @@ const handleCancel = () => {
     children: "Bạn có chắc muốn hủy các thay đổi không?",
     labels: { confirm: "Có", cancel: "Không" },
     onConfirm: () => {
-      setEditedUser({ ...user }); // reset dữ liệu
-      setIsEditing(false); // tắt chế độ chỉnh sửa
-      NotificationExtension.Info("Đã hủy các thay đổi"); // thông báo nhẹ
+      setEditedUser({ ...user }); // Reset dữ liệu
+      setSelectedProvince(user.province_id); // Khôi phục tỉnh
+      setIsEditing(false); // Tắt chế độ chỉnh sửa
+      NotificationExtension.Info("Đã hủy các thay đổi");
     },
   });
 };
