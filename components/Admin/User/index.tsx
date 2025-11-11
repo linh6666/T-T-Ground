@@ -21,10 +21,10 @@ interface DataType {
   phone: string;
   is_active: boolean;
   is_superuser: boolean;
-  area_id: string;
+  // area_id: string;
   province_id: string;
   ward_id: string;
-  introducer_id: string;
+  // introducer_id: string;
   id: string;
   creation_time: string;
   last_login: string;
@@ -57,10 +57,10 @@ export default function LargeFixedTable() {
         phone: user.phone,
         is_active: user.is_active,
         is_superuser: user.is_superuser,
-        area_id: user.area_id,
+        // area_id: user.area_id,
         province_id: user.province_id,
         ward_id: user.ward_id,
-        introducer_id: user.introducer_id,
+        // introducer_id: user.introducer_id,
         id: user.id,
         creation_time: user.creation_time,
         last_login: user.last_login,
@@ -114,10 +114,10 @@ export default function LargeFixedTable() {
     { title: "Điện Thoại", dataIndex: "phone", key: "phone", width: 130 },
     { title: "Kích Hoạt", dataIndex: "is_active", key: "is_active", width: 80, render: (text) => (text ? "Có" : "Không") },
     { title: "Quản Trị Viên", dataIndex: "is_superuser", key: "is_superuser", width: 100, render: (text) => (text ? "Có" : "Không") },
-    { title: "Mã Khu Vực", dataIndex: "area_id", key: "area_id", width: 80 },
-    { title: "Mã Tỉnh", dataIndex: "province_id", key: "province_id", width: 100 },
-    { title: "Mã Phường", dataIndex: "ward_id", key: "ward_id", width: 100 },
-    { title: "Mã Người Giới Thiệu", dataIndex: "introducer_id", key: "introducer_id", width: 120 },
+    // { title: "Mã Khu Vực", dataIndex: "area_id", key: "area_id", width: 80 },
+    { title: "Tỉnh", dataIndex: "province_id", key: "province_id", width: 100 },
+    { title: "Phường", dataIndex: "ward_id", key: "ward_id", width: 100 },
+    // { title: "Mã Người Giới Thiệu", dataIndex: "introducer_id", key: "introducer_id", width: 120 },
     {
       title: "Thời Gian Tạo",
       dataIndex: "creation_time",

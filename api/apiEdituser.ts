@@ -3,13 +3,12 @@ import { API_ROUTE } from "../const/apiRouter"; // ✅ import đúng object ch�
 
 export interface CreateUserPayload {
   email: string;
-  full_name: string;
-  phone: string;
+//  system_id: string[];
+
   is_active: boolean;
   is_superuser: boolean;
   //  area_id: string,
-   province_id: string[]; // Mảng chuỗi cho tỉnh
-  ward_id: string[]; // Mảng chuỗi cho phường
+  
       // introducer_id: string,
 }
 
