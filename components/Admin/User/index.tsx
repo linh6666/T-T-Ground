@@ -1,8 +1,9 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { Table } from "antd";
+
 import type { ColumnsType } from "antd/es/table";
+import { Table, Pagination } from "antd";
 import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
 import dayjs from "dayjs";
@@ -13,6 +14,8 @@ import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
 import EditView from "./EditView";
 import DeleteView from "./DeleteView";
+import { getListProvinces } from "../../../api/apigetlistaddress";
+import { getWardsByProvince } from "../../../api/apigetlistProvinces";
 
 interface DataType {
   key: string;
@@ -31,12 +34,82 @@ interface DataType {
   last_logout: string;
 }
 
-export default function LargeFixedTable() {
+
+interface ListRolesResponse {
+  data: DataType[];
+  total: number; // tổng số record
+}
+interface Province {
+  code: string;
+  full_name_vi: string;
+}
+
+interface Ward {
+  code: string;
+  full_name_vi: string;
+}
+export default function LargeFixedTable({}) {
+
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+    const [total, setTotal] = useState<number>(0);
+   const [provinceOptions, setProvinceOptions] = useState<{ value: string; label: string }[]>([]);
+    const [wardOptions, setWardOptions] = useState<
+    { value: string; label: string }[]
+  >([]);
+  // const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
+
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const pageSize = 10; 
+
 
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
+useEffect(() => {
+    const fetchProvinces = async () => {
+      try {
+        const data: Province[] = await getListProvinces();
+        const formatted = data.map((item) => ({
+          value: item.code,
+          label: item.full_name_vi,
+        }));
+        setProvinceOptions(formatted);
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách tỉnh/thành:", error);
+      }
+    };
+    fetchProvinces();
+  }, []);
+ 
+useEffect(() => {
+  const fetchAllWards = async () => {
+    try {
+      const provinceCodes = provinceOptions.map((p) => p.value);
+
+      // Gọi API song song cho từng tỉnh
+      const results = await Promise.all(
+        provinceCodes.map((code) => getWardsByProvince(code))
+      );
+
+      // Gộp tất cả kết quả lại thành một mảng duy nhất
+      const allWards: { value: string; label: string }[] = results.flatMap((data: Ward[]) =>
+        data.map((item: Ward) => ({
+          value: item.code,
+          label: item.full_name_vi,
+        }))
+      );
+
+      setWardOptions(allWards);
+    } catch (error) {
+      console.error("Lỗi khi lấy danh sách phường/xã:", error);
+      setWardOptions([]);
+    }
+  };
+
+  if (provinceOptions.length) {
+    fetchAllWards();
+  }
+}, [provinceOptions]);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -49,7 +122,10 @@ export default function LargeFixedTable() {
     }
 
     try {
-      const result = await getListUser ({ token, skip: 0, limit: 100 });
+         const skip = (currentPage - 1) * pageSize;
+      const result: ListRolesResponse = await getListUser({ token, skip, limit: pageSize });
+      
+      // const result = await getListUser ({ token, skip: 0, limit: 100 });
       const users = result.data.map((user: DataType) => ({
         key: user.id,
         full_name: user.full_name,
@@ -67,13 +143,14 @@ export default function LargeFixedTable() {
         last_logout: user.last_logout,
       }));
       setData(users);
+      setTotal(result.total);
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("Đã xảy ra lỗi khi tải dữ liệu.");
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [token, currentPage]);
 
   useEffect(() => {
     fetchData();
@@ -98,14 +175,21 @@ export default function LargeFixedTable() {
       cancelProps: { display: "none" },
     });
   };
-   const openDeleteUserModal = (role: DataType) => {
-    modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
-      children: <DeleteView idItem={[role.id]} onSearch={fetchData} />,
-      confirmProps: { display: 'none' },
-      cancelProps: { display: 'none' },
-    });
-  };
+const openDeleteUserModal = (role: DataType) => {
+  modals.openConfirmModal({
+    title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
+    children: (
+      <DeleteView
+        idItem={[role.id]}
+        onSearch={() => {
+          fetchData(); // load lại dữ liệu sau khi xóa
+        }}
+      />
+    ),
+    confirmProps: { display: 'none' },
+    cancelProps: { display: 'none' },
+  });
+};
 
   // ✅ Đưa columns vào trong component để dùng được openEditUserModal
   const columns: ColumnsType<DataType> = [
@@ -115,9 +199,20 @@ export default function LargeFixedTable() {
     { title: "Kích Hoạt", dataIndex: "is_active", key: "is_active", width: 80, render: (text) => (text ? "Có" : "Không") },
     { title: "Quản Trị Viên", dataIndex: "is_superuser", key: "is_superuser", width: 100, render: (text) => (text ? "Có" : "Không") },
     // { title: "Mã Khu Vực", dataIndex: "area_id", key: "area_id", width: 80 },
-    { title: "Tỉnh", dataIndex: "province_id", key: "province_id", width: 100 },
-    { title: "Phường", dataIndex: "ward_id", key: "ward_id", width: 100 },
-    // { title: "Mã Người Giới Thiệu", dataIndex: "introducer_id", key: "introducer_id", width: 120 },
+    {
+  title: "Tỉnh/Thành Phố",
+  dataIndex: "province_id",
+  key: "province_id",
+  render: (id) => provinceOptions.find(p => p.value === id)?.label || "Chưa có",width: 100
+
+},
+  {
+  title: "Phường/Xã",
+  dataIndex: "ward_id",
+  key: "ward_id",
+  width: 100,
+  render: (id) => wardOptions.find(w => w.value === id)?.label || "Chưa có"
+},
     {
       title: "Thời Gian Tạo",
       dataIndex: "creation_time",
@@ -171,6 +266,16 @@ export default function LargeFixedTable() {
       />
 
       {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
+      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+        <Pagination
+          total={total} // dùng total từ API
+          current={currentPage}
+          pageSize={pageSize}
+          onChange={(page) => setCurrentPage(page)}
+          showSizeChanger={false}
+          showQuickJumper={false}
+        />
+      </div>
     </>
   );
 }

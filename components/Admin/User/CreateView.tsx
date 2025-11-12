@@ -30,7 +30,7 @@ interface FormValues {
   phone: string;
   province_id: string[]; // Mảng chuỗi cho tỉnh
   ward_id: string[]; // Mảng chuỗi cho phường
-  introducer_id: string;
+  // introducer_id: string;
 }
 
 interface CreateViewProps {
@@ -68,7 +68,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       phone: "",
       province_id: [],
       ward_id: [],
-      introducer_id: "",
+      // introducer_id: "",
     },
     validate: {
       email: isNotEmpty("Email không được để trống"),
@@ -90,7 +90,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         phone: values.phone,
         province_id: values.province_id[0] || "",
         ward_id: values.ward_id[0] || "",
-        introducer_id: values.introducer_id,
+        // introducer_id: values.introducer_id,
         password: values.password,
       };
       await createUser(userData);
