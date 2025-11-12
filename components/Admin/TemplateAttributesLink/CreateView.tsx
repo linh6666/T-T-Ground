@@ -43,7 +43,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     initialValues: {
       project_template_id: "",
       attribute_id: "",
-      is_required: "",
+      // is_required: "",
     },
     validate: {
       project_template_id: isNotEmpty("Không được để trống"),
@@ -94,7 +94,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       const userData = {
         project_template_id: values.project_template_id,
         attribute_id: values.attribute_id,
-        is_required: values.is_required, // chuyển chuỗi thành boolean nếu cần
+        // is_required: values.is_required,
       };
       await createUser(userData);
       await onSearch();
