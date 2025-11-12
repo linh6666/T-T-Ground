@@ -15,7 +15,7 @@ export interface CreateUserPayload {
 
   project_template_id:string;
   attribute_id:string;
-  // is_required:string;
+  is_required:string;
 }
 
 // ==========================

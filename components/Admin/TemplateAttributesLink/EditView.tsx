@@ -17,6 +17,7 @@ import { api } from "../../../libray/axios";
 import { CreateUserPayload } from "../../../api/apiTemplateAttributesLink";
 import { getListRoles } from "../../../api/apigetlistAttributes";
 import { getListProjectTemplates } from "../../../api/apiProjectTemplates";
+import { NotificationExtension } from "../../../extension/NotificationExtension";
 
 interface EditViewProps {
   onSearch: () => Promise<void>;
@@ -58,13 +59,19 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   const handleSubmit = async (values: CreateUserPayload) => {
     open();
     try {
-      const url = API_ROUTE.UPDATE_PROJECTTEMPLATES.replace("{template_id}", id);
-      await api.put(url, values);
+      const url = API_ROUTE.UPDATE_TEMPLATEATTRIBUTESLINK.replace("{link_id}", id);
+      const res = await api.put(url, values);
+
+      // ✅ Thêm thông báo
+      NotificationExtension.Success(
+        res?.data?.message || "Cập nhật dữ liệu thành công!"
+      );
+
       await onSearch();
       modals.closeAll();
-    } catch (error) {
-      console.error("Lỗi khi cập nhật:", error);
-      alert("Đã xảy ra lỗi khi cập nhật.");
+    } catch (error: unknown) {
+     console.error("Lỗi khi tạo:", error);
+      NotificationExtension.Fails("Đã xảy ra lỗi khi tạo!");
     } finally {
       close();
     }
@@ -75,7 +82,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
     if (!id) return;
     open();
     try {
-      const url = API_ROUTE.UPDATE_PROJECTTEMPLATES.replace("{template_id}", id);
+      const url = API_ROUTE.GET_TEMPLATEATTRIBUTESLINK.replace("{link_id}", id);
       const res = await api.get(url);
       const data = res.data;
 
@@ -115,7 +122,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       setAttributeOptions(
         res.data.map((item: Attribute) => ({
           value: item.id,
-          label: item.label || item.attribute_name || "Không có tên", // ✅ đổi name_vi → label
+          label: item.label || item.attribute_name || "Không có tên",
         }))
       );
     } catch (error) {

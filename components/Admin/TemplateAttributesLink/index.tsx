@@ -6,15 +6,15 @@ import type { ColumnsType } from "antd/es/table";
 import AppAction from "../../../common/AppAction";
 import { modals } from "@mantine/modals";
 import { getListTemplateAttributesLink } from "../../../api/apiTemplateAttributesLink";
-import { getListProjectTemplates } from "../../../api/apiProjectTemplates"; // API khác để load Select
+import { getListProjectTemplates } from "../../../api/apiProjectTemplates";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group, Select } from "@mantine/core";
 import CreateView from "./CreateView";
 import EditView from "./EditView";
 import DeleteView from "./DeleteView";
 import { IconChevronDown } from "@tabler/icons-react";
+import { getListRoles } from "../../../api/apigetlistAttributes";
 
-// 🔹 Interfaces
 interface DataType {
   id: string;
   project_template_id: string;
@@ -33,12 +33,22 @@ interface TemplateAttributeLink {
   attribute_id: string;
 }
 
+interface Attribute {
+  id: string | number;
+  label?: string;
+  attribute_name?: string;
+}
+
 export default function LargeFixedTable() {
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-  const [templateId, setTemplateId] = useState<string>(""); // template được chọn
-  const [templateOptions, setTemplateOptions] = useState<{ value: string; label: string }[]>([]); // danh sách dropdown
+  const [templateId, setTemplateId] = useState<string>("");
+
+  // dropdown mẫu dự án
+  const [templateOptions, setTemplateOptions] = useState<{ value: string; label: string }[]>([]);
+  // dropdown thuộc tính
+  const [attributeOptions, setAttributeOptions] = useState<{ value: string; label: string }[]>([]);
 
   const token = localStorage.getItem("access_token") || "";
 
@@ -56,21 +66,40 @@ export default function LargeFixedTable() {
       }));
       setTemplateOptions(options);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      console.error("Lỗi khi load danh sách template:", errorMessage);
+      console.error("Lỗi khi load danh sách template:", err);
       setTemplateOptions([]);
+    }
+  }, [token]);
+
+  // ============================================================
+  // 🔹 2️⃣ Gọi API lấy danh sách thuộc tính
+  // ============================================================
+  const fetchAttributeList = useCallback(async () => {
+    try {
+      const res = await getListRoles({ token, skip: 0, limit: 100 });
+      const data: Attribute[] = res.data || [];
+
+      const options = data.map((item) => ({
+        value: item.id.toString(),
+        label: item.label || item.attribute_name || `Thuộc tính ${item.id}`,
+      }));
+      setAttributeOptions(options);
+    } catch (err) {
+      console.error("Lỗi khi load danh sách thuộc tính:", err);
+      setAttributeOptions([]);
     }
   }, [token]);
 
   useEffect(() => {
     fetchTemplateList();
-  }, [fetchTemplateList]);
+    fetchAttributeList();
+  }, [fetchTemplateList, fetchAttributeList]);
 
   // ============================================================
-  // 🔹 2️⃣ Gọi API lấy dữ liệu bảng khi đã chọn template_id
+  // 🔹 3️⃣ Gọi API lấy dữ liệu bảng
   // ============================================================
   const fetchAttributes = useCallback(async () => {
-    if (!templateId) return; // chỉ gọi khi có template_id
+    if (!templateId) return;
     setLoading(true);
     setError(null);
 
@@ -90,8 +119,7 @@ export default function LargeFixedTable() {
       }));
       setData(rows);
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : String(err);
-      setError("Không thể tải dữ liệu bảng: " + errorMessage);
+      setError("Không thể tải dữ liệu bảng");
       console.error(err);
     } finally {
       setLoading(false);
@@ -103,7 +131,56 @@ export default function LargeFixedTable() {
   }, [fetchAttributes]);
 
   // ============================================================
-  // 🔹 3️⃣ Modal các thao tác CRUD
+  // 🔹 4️⃣ Cột bảng
+  // ============================================================
+  const columns: ColumnsType<DataType> = [
+    {
+      title: "Mẫu dự án",
+      dataIndex: "project_template_id",
+      key: "project_template_id",
+      width: 100,
+      render: (text: string) => (
+        <span>{templateOptions.find((option) => option.value === text)?.label || "Không có tên"}</span>
+      ),
+    },
+    {
+      title: "Thuộc tính",
+      dataIndex: "attribute_id",
+      key: "attribute_id",
+      width: 100,
+      render: (text: string) => (
+        <span>{attributeOptions.find((option) => option.value === text)?.label || "Không có tên"}</span>
+      ),
+    },
+    {
+      title: "Hành động",
+      width: 60,
+      fixed: "right",
+      render: (record: DataType) => (
+        <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
+          <EuiFlexItem grow={false}>
+            <EuiButtonIcon
+              iconType="documentEdit"
+              aria-label="Chỉnh sửa"
+              color="success"
+              onClick={() => openEditUserModal(record)}
+            />
+          </EuiFlexItem>
+          <EuiFlexItem grow={false}>
+            <EuiButtonIcon
+              iconType="trash"
+              aria-label="Xóa"
+              color="danger"
+              onClick={() => openDeleteUserModal(record)}
+            />
+          </EuiFlexItem>
+        </EuiFlexGroup>
+      ),
+    },
+  ];
+
+  // ============================================================
+  // 🔹 5️⃣ Các modal CRUD
   // ============================================================
   const openModal = () => {
     modals.openConfirmModal({
@@ -135,66 +212,17 @@ export default function LargeFixedTable() {
   };
 
   // ============================================================
-  // 🔹 4️⃣ Cột bảng
-  // ============================================================
-  const columns: ColumnsType<DataType> = [
-    {
-      title: "Mẫu dự án",
-      dataIndex: "project_template_id",
-      key: "project_template_id",
-      width: 100,
-    },
-    {
-      title: "Thuộc tính",
-      dataIndex: "attribute_id",
-      key: "attribute_id",
-      width: 100,
-    },
-    {
-      title: "Hành Động",
-      width: 60,
-      fixed: "right",
-      render: (record: DataType) => (
-        <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
-          <EuiFlexItem grow={false}>
-            <EuiButtonIcon
-              iconType="documentEdit"
-              aria-label="Chỉnh sửa"
-              color="success"
-              onClick={() => openEditUserModal(record)}
-            />
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <EuiButtonIcon
-              iconType="trash"
-              aria-label="Xóa"
-              color="danger"
-              onClick={() => openDeleteUserModal(record)}
-            />
-          </EuiFlexItem>
-        </EuiFlexGroup>
-      ),
-    },
-  ];
-
-  // ============================================================
-  // 🔹 5️⃣ Render giao diện
+  // 🔹 6️⃣ Render giao diện
   // ============================================================
   return (
     <>
-      <Group
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
+      <Group justify="space-between" align="center">
         <Select
-          label="Tên dự án mẫu"
+          label="Chọn mẫu dự án để xem dữ liệu"
           placeholder="Chọn dự án mẫu"
           data={templateOptions}
           value={templateId}
-          onChange={(value) => setTemplateId(value || "")} // chọn thì gọi fetchAttributes
+          onChange={(value) => setTemplateId(value || "")}
           rightSection={<IconChevronDown size={16} />}
           withAsterisk
           clearable
@@ -203,14 +231,7 @@ export default function LargeFixedTable() {
         <AppAction openModal={openModal} />
       </Group>
 
-      <Table
-        columns={columns}
-        dataSource={data}
-        loading={loading}
-        pagination={false}
-        bordered
-        rowKey="id"
-      />
+      <Table columns={columns} dataSource={data} loading={loading} pagination={false} bordered rowKey="id" />
 
       {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
     </>

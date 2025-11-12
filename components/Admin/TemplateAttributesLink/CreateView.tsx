@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { createUser } from "../../../api/apiTemplateAttributesLink";
 import { getListRoles } from "../../../api/apigetlistAttributes";
 import { getListProjectTemplates } from "../../../api/apiProjectTemplates";
+import { NotificationExtension } from "../../../extension/NotificationExtension";
 
 interface CreateViewProps {
   onSearch: () => Promise<void>;
@@ -30,6 +31,7 @@ interface Attribute {
   label?: string;
   attribute_name?: string;
 }
+
 const CreateView = ({ onSearch }: CreateViewProps) => {
   const [visible, { open, close }] = useDisclosure(false);
 
@@ -43,7 +45,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     initialValues: {
       project_template_id: "",
       attribute_id: "",
-      // is_required: "",
+      is_required: "",
     },
     validate: {
       project_template_id: isNotEmpty("Không được để trống"),
@@ -74,12 +76,12 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
     const fetchAttributes = async () => {
       try {
         const res = await getListRoles({ token, skip: 0, limit: 100 });
-      setAttributeOptions(
-  res.data.map((item: Attribute) => ({
-    value: item.id,
-    label: item.label || item.attribute_name || "Không có tên",
-  }))
-);
+        setAttributeOptions(
+          res.data.map((item: Attribute) => ({
+            value: item.id,
+            label: item.label || item.attribute_name || "Không có tên",
+          }))
+        );
       } catch (error) {
         console.error("Lỗi khi tải danh sách thuộc tính:", error);
       }
@@ -94,14 +96,16 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       const userData = {
         project_template_id: values.project_template_id,
         attribute_id: values.attribute_id,
-        // is_required: values.is_required,
+        is_required: values.is_required,
       };
+
       await createUser(userData);
+      NotificationExtension.Success("Tạo thành công!");
       await onSearch();
       modals.closeAll();
     } catch (error) {
       console.error("Lỗi khi tạo:", error);
-      alert("Đã xảy ra lỗi khi tạo bản ghi.");
+      NotificationExtension.Fails("Đã xảy ra lỗi khi tạo!");
     } finally {
       close();
     }
@@ -141,6 +145,18 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
         withAsterisk
         {...form.getInputProps("attribute_id")}
       />
+      <Select
+        label="Bắt buộc?"
+        placeholder="Chọn"
+        data={[
+          { value: "true", label: "Bắt buộc" },
+          { value: "false", label: "Không bắt buộc" },
+        ]}
+        rightSection={<IconChevronDown size={16} />}
+        mt="md"
+        {...form.getInputProps("is_required")}
+      />
+
 
       <Group justify="flex-end" mt="lg">
         <Button

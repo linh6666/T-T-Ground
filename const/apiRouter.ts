@@ -73,6 +73,7 @@ DELETE_PROJECTTEMPLATES:"/api/v1/project_templates/{template_id}",
 ///TemplateAttributesLink
 
 GET_LIST_TEMPLATEATTRIBUTESLINK:"/api/v1/template_attributes/by-template/{template_id}",
+GET_TEMPLATEATTRIBUTESLINK:"/api/v1/template_attributes/{link_id}",
 CREATE_TEMPLATEATTRIBUTESLINK:"/api/v1/template_attributes/",
 UPDATE_TEMPLATEATTRIBUTESLINK:"/api/v1/template_attributes/{link_id}",
 DELETE_TEMPLATEATTRIBUTESLINK:"/api/v1/template_attributes/{link_id}",
