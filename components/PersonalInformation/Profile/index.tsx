@@ -185,7 +185,7 @@ useEffect(() => {
           </Group>
 
           {!isEditing && (
-          <Button color="#762f0b" onClick={() => setIsEditing(true)}>
+          <Button color="#ffbe00" onClick={() => setIsEditing(true)} style={{ color: '#762f0b' }}>
   Chỉnh sửa
 </Button>
           )}
@@ -354,11 +354,12 @@ useEffect(() => {
         {/* 🟡 Hai nút "Lưu" và "Hủy" hiển thị khi đang chỉnh sửa */}
         {isEditing && (
           <Group justify="flex-end" mt="xl">
-            <Button color="#762f0b" onClick={handleSave} loading={loading}>
-              Lưu thay đổi
-            </Button>
-            <Button color="red" variant="outline" onClick={handleCancel} disabled={loading}>
+           
+            <Button color="#808080" variant="outline" onClick={handleCancel} disabled={loading}>
               Hủy
+            </Button>
+             <Button color="#ffbe00" onClick={handleSave} loading={loading} style={{ color: '#762f0b' }}>
+              Lưu thay đổi
             </Button>
           </Group>
         )}

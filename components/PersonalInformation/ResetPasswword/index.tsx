@@ -53,7 +53,7 @@ export default function ProfileInfo() {
         onChange={(event) => setNewPassword(event.currentTarget.value)}
         mb="md"
       />
-      <Button onClick={handleChangePassword}>Đổi mật khẩu</Button>
+      <Button color="#ffbe00"  onClick={handleChangePassword} style={{ color: '#762f0b' }}>Đổi mật khẩu</Button>
     </Container>
   );
 }
