@@ -43,12 +43,12 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
   rank: "",
     },
     validate: {
-      name: (value) => (value ? null : "Tên không được để trống"),
-      rank: (value) => (value ? null : "Cấp bậckhông được để trống"),
-      type: (value) => (value ? null : "Loại không được để trống"),
-      address: (value) => (value ? null : "Địa chỉ không được để trống"),
-      investor: (value) => (value ? null : "Chủ đầu tư không được để trống"),
-      image_url: (value) => (value ? null : "Hình ảnh không được để trống"),
+      // name: (value) => (value ? null : "Tên không được để trống"),
+      // rank: (value) => (value ? null : "Cấp bậckhông được để trống"),
+      // type: (value) => (value ? null : "Loại không được để trống"),
+      // address: (value) => (value ? null : "Địa chỉ không được để trống"),
+      // investor: (value) => (value ? null : "Chủ đầu tư không được để trống"),
+      // image_url: (value) => (value ? null : "Hình ảnh không được để trống"),
      
       
     },
@@ -77,7 +77,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
     if (!id) return;
     open();
     try {
-      const url = API_ROUTE. UPDATE_PROJECTS.replace("{project_id}", id);
+      const url = API_ROUTE.UPDATE_PROJECTS.replace("{project_id}", id);
       const response = await api.get(url);
       const userData = response.data;
 

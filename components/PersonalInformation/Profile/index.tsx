@@ -59,38 +59,41 @@ export default function ProfileInfo({ user }: ProfileInfoProps) {
 
   // 🟢 Hàm lưu
 const handleSave = async () => {
-  setLoading(true);
-  try {
-    const payload = {
-      full_name: editedUser.full_name,
-      phone: editedUser.phone,
-      province_id: editedUser.province_id,
-      ward_id: editedUser.ward_id,
-      introducer_id: editedUser.introducer_id,
-      detal_address: editedUser.detal_address,
-    };
-    const result = await Editme(payload);
-    console.log("Cập nhật thành công:", result);
+  modals.openConfirmModal({
+    title: "Xác nhận lưu thay đổi",
+    children: "Bạn có chắc muốn lưu các thay đổi này không?",
+    labels: { confirm: "Có", cancel: "Không" },
+    onConfirm: async () => {
+      setLoading(true);
+      try {
+        const payload = {
+          full_name: editedUser.full_name,
+          phone: editedUser.phone,
+          province_id: editedUser.province_id,
+          ward_id: editedUser.ward_id,
+          introducer_id: editedUser.introducer_id,
+          detal_address: editedUser.detal_address,
+        };
+        const result = await Editme(payload);
+        console.log("Cập nhật thành công:", result);
 
-    // Thay alert bằng NotificationExtension
-    NotificationExtension.Success("Cập nhật thông tin thành công!");
-
-    setEditedUser(result);
-    setIsEditing(false);
-  } catch (error) {
-    // Type guard on the error
-    if (error instanceof Error) {
-      console.error("Lỗi khi cập nhật:", error.message);
-      NotificationExtension.Fails(`Cập nhật thất bại: ${error.message}`);
-    } else {
-      console.error("Lỗi không xác định:", error);
-      NotificationExtension.Fails("Cập nhật thất bại: Có lỗi xảy ra.");
-    }
-  } finally {
-    setLoading(false);
-  }
+        NotificationExtension.Success("Cập nhật thông tin thành công!");
+        setEditedUser(result);
+        setIsEditing(false);
+      } catch (error) {
+        if (error instanceof Error) {
+          console.error("Lỗi khi cập nhật:", error.message);
+          NotificationExtension.Fails(`Cập nhật thất bại: ${error.message}`);
+        } else {
+          console.error("Lỗi không xác định:", error);
+          NotificationExtension.Fails("Cập nhật thất bại: Có lỗi xảy ra.");
+        }
+      } finally {
+        setLoading(false);
+      }
+    },
+  });
 };
-
   // 🔴 Hàm hủy chỉnh sửa
 const handleCancel = () => {
   modals.openConfirmModal({
@@ -261,7 +264,7 @@ useEffect(() => {
         });
       }}
       placeholder="Nhập quyền (Admin hoặc User thường)"
-    readOnly
+    disabled
     />
   ) : (
     <Text>
