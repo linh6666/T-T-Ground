@@ -8,6 +8,7 @@ import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "antd/dist/reset.css";
 import "@mantine/charts/styles.css";
+
 import AppContainer from "../../common/AppContainer";
 import "./globals.css";
 

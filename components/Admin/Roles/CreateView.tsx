@@ -5,6 +5,7 @@ import {
   Button,
   Group,
   LoadingOverlay,
+  Select,
   Textarea,
   TextInput,
 } from "@mantine/core";
@@ -75,18 +76,36 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       />
 
       <TextInput
-        label="Tên"
-        placeholder="Nhập Tên"
+        label="Tên vai trò"
+        placeholder="Nhập Tên vai trò"
         withAsterisk
         mt="md"
         {...form.getInputProps("name")}
       />
 
-      <TextInput
+      {/* <TextInput
         label="Cấp Bậc"
         placeholder="Nhập cấp bậc"
         withAsterisk
         mt="md"
+        {...form.getInputProps("rank")}
+      /> */}
+      <Select
+        label="Cấp Bậc"
+        placeholder="Chọn cấp bậc"
+        withAsterisk
+        mt="md"
+         clearable
+        data={[
+          { value: "1", label: "Cấp 1" },
+          { value: "2", label: "Cấp 2" },
+          { value: "3", label: "Cấp 3" },
+          { value: "4", label: "Cấp 4" },
+          { value: "5", label: "Cấp 5" },
+          { value: "6", label: "Cấp 6" },
+          { value: "7", label: "Cấp 7" },
+          { value: "8", label: "Cấp 8" },
+        ]}
         {...form.getInputProps("rank")}
       />
 <Textarea
@@ -97,12 +116,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
   mt="md"
   {...form.getInputProps("description_vi")}
 />
-
-
-     
-
-   
-  
+ 
 
       <Group justify="flex-end" mt="lg">
         <Button

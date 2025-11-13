@@ -64,7 +64,7 @@ export default function LargeFixedTable() {
   // ✅ Hàm mở modal chỉnh sửa
   const openEditUserModal = (role: DataType) => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa người dùng</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa vai trò </div>,
       children: <EditView id={role.id} onSearch={fetchData} />, // ✅ đổi fetchRoles → fetchData
       confirmProps: { display: "none" },
       cancelProps: { display: "none" },
@@ -73,7 +73,7 @@ export default function LargeFixedTable() {
 
   // ✅ Định nghĩa cột bảng
   const columns: ColumnsType<DataType> = [
-    { title: "Tên", dataIndex: "name", key: "name", width: 30 },
+    { title: "Tên vai trò", dataIndex: "name", key: "name", width: 30 },
     { title: "Cấp Bậc", dataIndex: "rank", key: "rank", width: 90 },
     { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
     // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
@@ -103,7 +103,7 @@ export default function LargeFixedTable() {
   // ✅ Modal thêm người dùng
   const openModal = () => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm người dùng mới</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm vai trò mới</div>,
       children: <CreateView onSearch={fetchData} />,
       size: "lg",
       radius: "md",

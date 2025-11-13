@@ -5,6 +5,7 @@ import {
   Button,
   Group,
   LoadingOverlay,
+  Select,
   Textarea,
   TextInput,
 } from "@mantine/core";
@@ -76,12 +77,10 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       const userData = response.data;
 
       formRef.current.setValues({
-        name: userData.name || "",
-        rank_total: userData.rank_total|| "",
-    
-        description_vi: userData.description_vi || "",
-        // description_en: userData.description_en || "",
-      });
+  name: userData.name || "",
+  rank_total: userData.rank_total ? String(userData.rank_total) : "",
+  description_vi: userData.description_vi || "",
+});
     } catch (error) {
       console.error("Lỗi khi lấy dữ liệu user:", error);
       alert("Không thể tải thông tin người dùng.");
@@ -125,20 +124,30 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       />
 
       <TextInput
-        label="Tên"
-        placeholder="Nhập Tên"
+        label="Tên vai trò"
+        placeholder="Nhập Tên vai trò"
         withAsterisk
         mt="md"
         {...form.getInputProps("name")}
       />
 
-      <TextInput
-        label="Cấp bậc"
-        placeholder="Nhập Cấp bậc"
-        withAsterisk
-        mt="md"
-        {...form.getInputProps("rank_total")}
-      />
+     <Select
+  label="Cấp Bậc"
+  placeholder="Chọn cấp bậc"
+  withAsterisk
+  mt="md"
+  data={[
+    { value: "1", label: "Cấp 1" },
+    { value: "2", label: "Cấp 2" },
+    { value: "3", label: "Cấp 3" },
+    { value: "4", label: "Cấp 4" },
+    { value: "5", label: "Cấp 5" },
+    { value: "6", label: "Cấp 6" },
+    { value: "7", label: "Cấp 7" },
+    { value: "8", label: "Cấp 8" },
+  ]}
+  {...form.getInputProps("rank_total")}
+/>
 <Textarea
   label="Mô tả "
   placeholder="Nhập mô tả "

@@ -8,7 +8,7 @@ import AppAction from "../../../common/AppAction";
 
 import { modals } from "@mantine/modals";
 import { getListSystem } from "../../../api/apigetlistsystym";
-import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
+import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem, EuiToolTip } from "@elastic/eui";
 import { Group } from "@mantine/core";
 import CreateView from "./CreateView";
 import EditView from "./EditView";
@@ -72,7 +72,7 @@ export default function LargeFixedTable() {
   // Modal chỉnh sửa
   const openEditUserModal = (role: DataType) => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa người dùng</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa vai trò</div>,
       children: <EditView id={role.id} onSearch={fetchData} />,
       confirmProps: { display: "none" },
       cancelProps: { display: "none" },
@@ -92,7 +92,7 @@ export default function LargeFixedTable() {
   // Modal thêm
   const openModal = () => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm người dùng mới</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm vai trò mới</div>,
       children: <CreateView onSearch={fetchData} />,
       size: "lg",
       radius: "md",
@@ -103,7 +103,7 @@ export default function LargeFixedTable() {
 
   // Columns bảng
   const columns: ColumnsType<DataType> = [
-    { title: "Tên", dataIndex: "name", key: "name", width: 30 },
+    { title: "Tên vai trò", dataIndex: "name", key: "name", width: 30 },
     { title: "Cấp Bậc", dataIndex: "rank_total", key: "rank_total", width: 90 },
     { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
     {
@@ -111,24 +111,30 @@ export default function LargeFixedTable() {
       width: 30,
       fixed: "right",
       render: (user: DataType) => (
-        <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
-          <EuiFlexItem grow={false}>
-            <EuiButtonIcon
-              iconType="documentEdit"
-              aria-label="Chỉnh sửa"
-              color="success"
-              onClick={() => openEditUserModal(user)}
-            />
-          </EuiFlexItem>
-          <EuiFlexItem grow={false}>
-            <EuiButtonIcon
-              iconType="trash"
-              aria-label="Xóa"
-              color="danger"
-              onClick={() => openDeleteUserModal(user)}
-            />
-          </EuiFlexItem>
-        </EuiFlexGroup>
+       <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
+  <EuiFlexItem grow={false}>
+    <EuiToolTip content="Chỉnh sửa">
+      <EuiButtonIcon
+        iconType="documentEdit"
+        aria-label="Chỉnh sửa"
+        color="success"
+        onClick={() => openEditUserModal(user)}
+      />
+    </EuiToolTip>
+  </EuiFlexItem>
+
+  <EuiFlexItem grow={false}>
+    <EuiToolTip content="Xóa">
+      <EuiButtonIcon
+        iconType="trash"
+        aria-label="Xóa"
+        color="danger"
+        onClick={() => openDeleteUserModal(user)}
+      />
+    </EuiToolTip>
+  </EuiFlexItem>
+</EuiFlexGroup>
+
       ),
     },
   ];

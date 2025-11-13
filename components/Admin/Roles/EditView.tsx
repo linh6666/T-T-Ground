@@ -7,6 +7,8 @@ import {
   Group,
   LoadingOverlay,
 
+  Select,
+
   Textarea,
   TextInput,
 } from "@mantine/core";
@@ -79,7 +81,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
 
       formRef.current.setValues({
         name: userData.name || "",
-        rank: userData.rank || "",
+        rank: userData.rank ? String(userData.rank) : "",
     
         description_vi: userData.description_vi || "",
         // description_en: userData.description_en || "",
@@ -127,37 +129,40 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       />
 
       <TextInput
-        label="Tên"
-        placeholder="Nhập Tên"
+        label="Tên vai trò"
+        placeholder="Nhập Tên vai trò"
         withAsterisk
         mt="md"
         {...form.getInputProps("name")}
       />
 
-      <TextInput
-        label="Cấp bậc"
-        placeholder="Nhập Cấp bậc"
-        withAsterisk
-        mt="md"
-        {...form.getInputProps("rank")}
-      />
+      <Select
+       label="Cấp Bậc"
+       placeholder="Chọn cấp bậc"
+       withAsterisk
+       mt="md"
+       data={[
+         { value: "1", label: "Cấp 1" },
+         { value: "2", label: "Cấp 2" },
+         { value: "3", label: "Cấp 3" },
+         { value: "4", label: "Cấp 4" },
+         { value: "5", label: "Cấp 5" },
+         { value: "6", label: "Cấp 6" },
+         { value: "7", label: "Cấp 7" },
+         { value: "8", label: "Cấp 8" },
+       ]}
+       {...form.getInputProps("rank")}
+     />
 <Textarea
-  label="Mô tả (Tiếng Việt)"
-  placeholder="Nhập mô tả tiếng Việt"
+  label="Mô tả"
+  placeholder="Nhập mô tả "
   autosize
   minRows={3}
   mt="md"
   {...form.getInputProps("description_vi")}
 />
 
-<Textarea
-  label="Mô tả (Tiếng Anh)"
-  placeholder="Enter English description"
-  autosize
-  minRows={3}
-  mt="md"
-  {...form.getInputProps("description_en")}
-/>
+
        
 
       <Group justify="flex-end" mt="lg">

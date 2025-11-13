@@ -63,7 +63,7 @@ export default function LargeFixedTable() {
 //   ✅ Hàm mở modal chỉnh sửa
   const openEditUserModal = (role: DataType) => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa người dùng</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa mã chức năng</div>,
       children: <EditView id={role.id} onSearch={fetchData} />, // ✅ đổi fetchRoles → fetchData
       confirmProps: { display: "none" },
       cancelProps: { display: "none" },
@@ -100,7 +100,7 @@ export default function LargeFixedTable() {
   // ✅ Modal thêm người dùng
   const openModal = () => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm người dùng mới</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm mã chức năng</div>,
       children: <CreateView onSearch={fetchData} />,
       size: "lg",
       radius: "md",
@@ -111,7 +111,7 @@ export default function LargeFixedTable() {
 
     const openDeleteUserModal = (role: DataType) => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa mã chức năng</div>,
       children: <DeleteView idItem={[role.id]} onSearch={fetchData} />,
       confirmProps: { display: 'none' },
       cancelProps: { display: 'none' },
