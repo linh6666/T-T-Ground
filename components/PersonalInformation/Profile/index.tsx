@@ -62,6 +62,12 @@ const handleSave = async () => {
   modals.openConfirmModal({
     title: "Xác nhận lưu thay đổi",
     children: "Bạn có chắc muốn lưu các thay đổi này không?",
+    confirmProps: {
+   style: {
+      backgroundColor: "#ffbe00",
+      color: "#762f0b",
+    },
+  },
     labels: { confirm: "Có", cancel: "Không" },
     onConfirm: async () => {
       setLoading(true);
@@ -96,17 +102,23 @@ const handleSave = async () => {
 };
   // 🔴 Hàm hủy chỉnh sửa
 const handleCancel = () => {
-  modals.openConfirmModal({
-    title: "Xác nhận",
-    children: "Bạn có chắc muốn hủy các thay đổi không?",
-    labels: { confirm: "Có", cancel: "Không" },
-    onConfirm: () => {
-      setEditedUser({ ...user }); // Reset dữ liệu
-      setSelectedProvince(user.province_id); // Khôi phục tỉnh
-      setIsEditing(false); // Tắt chế độ chỉnh sửa
-      NotificationExtension.Info("Đã hủy các thay đổi");
+ modals.openConfirmModal({
+  title: "Xác nhận",
+  children: "Bạn có chắc muốn hủy các thay đổi không?",
+  labels: { confirm: "Có", cancel: "Không" },
+  confirmProps: {
+   style: {
+      backgroundColor: "#ffbe00",
+      color: "#762f0b",
     },
-  });
+  },
+  onConfirm: () => {
+    setEditedUser({ ...user }); // Reset dữ liệu
+    setSelectedProvince(user.province_id); // Khôi phục tỉnh
+    setIsEditing(false); // Tắt chế độ chỉnh sửa
+    NotificationExtension.Info("Đã hủy các thay đổi");
+  },
+});
 };
 
   // Lấy danh sách tỉnh
@@ -358,12 +370,24 @@ useEffect(() => {
         {isEditing && (
           <Group justify="flex-end" mt="xl">
            
-            <Button color="#808080" variant="outline" onClick={handleCancel} disabled={loading}>
-              Hủy
-            </Button>
-             <Button color="#ffbe00" onClick={handleSave} loading={loading} style={{ color: '#762f0b' }}>
-              Lưu thay đổi
-            </Button>
+          <Button
+  color="#808080"
+  variant="outline"
+  onClick={handleCancel}
+  disabled={loading}
+  style={{ fontSize: '12px' }} // chỉnh size nhỏ hơn
+>
+  Hủy
+</Button>
+
+<Button
+  color="#ffbe00"
+  onClick={handleSave}
+  loading={loading}
+  style={{ color: '#762f0b', fontSize: '12px' }} // chỉnh size nhỏ hơn
+>
+  Lưu thay đổi
+</Button>
           </Group>
         )}
       </Paper>

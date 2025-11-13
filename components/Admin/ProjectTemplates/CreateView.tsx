@@ -68,8 +68,8 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       />
 
       <TextInput
-        label="Bản Mẫu "
-        placeholder="Nhập Bản Mẫu"
+        label="Loại dự án"
+        placeholder="Nhập loại dự án"
         withAsterisk
         mt="md"
         {...form.getInputProps("template_vi")}

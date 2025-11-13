@@ -123,8 +123,8 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       />
 
       <TextInput
-        label="Bản Mẫu"
-        placeholder="Nhập bản mẫu"
+        label="Loại dự án"
+        placeholder="Nhập loại dự án"
         withAsterisk
         mt="md"
         {...form.getInputProps("template_vi")}

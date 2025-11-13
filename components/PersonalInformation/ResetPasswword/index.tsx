@@ -86,7 +86,7 @@ export default function ProfileInfo() {
         mb="md"
       />
       <PasswordInput
-        placeholder="Xác nhận mật khẩu mới"
+        placeholder="Nhập lại mật khẩu mới"
         value={confirmPassword}
         onChange={(event) => setConfirmPassword(event.currentTarget.value)}
         mb="md"
