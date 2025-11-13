@@ -10,6 +10,8 @@ import { modals } from "@mantine/modals";
 import { getListRoles } from "../../../api/apigetlistSystemPermission";
 import { EuiButtonIcon, EuiFlexGroup, EuiFlexItem } from "@elastic/eui";
 import { Group } from "@mantine/core";
+import { getListSystem } from "../../../api/apigetlistsystym";
+import { getListPermisson } from "../../../api/apigetlistpermission";
 import CreateView from "./CreateView";
 import EditView from "./EditView";
 import DeleteView from "./DeleteView";
@@ -21,11 +23,23 @@ interface DataType {
   description_vi: string;
 //   description_en: string;
 }
+interface System {
+  id: number | string;
+  name?: string;
+}
+
+interface Permission {
+  id: number | string;
+  code?: string;
+  permission_name?: string;
+}
 
 export default function LargeFixedTable() {
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+   const [systemOptions, setSystemOptions] = useState<{ value: string; label: string }[]>([]);
+  const [permissionOptions, setPermissionOptions] = useState<{ value: string; label: string }[]>([]);
 
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
 
@@ -58,13 +72,45 @@ export default function LargeFixedTable() {
   }, [token]);
 
   useEffect(() => {
+ const fetchSystems = async () => {
+      try {
+        const res = await getListSystem({ token: localStorage.getItem("accessToken") || "" });
+        const data = res?.data || [];
+        setSystemOptions(
+          data.map((item: System) => ({
+            value: item.id?.toString(),
+            label: item.name ||  "Không có tên",
+          }))
+        );
+      } catch (error) {
+        console.error("Lỗi khi load danh sách hệ thống:", error);
+      }
+    };
+
+    const fetchPermissions = async () => {
+      try {
+        const res = await getListPermisson({ token: localStorage.getItem("accessToken") || "" });
+        const data = res?.data || [];
+        setPermissionOptions(
+          data.map((item: Permission) => ({
+            value: item.id?.toString(),
+            label: item.code || item.permission_name || "Không có tên",
+          }))
+        );
+      } catch (error) {
+        console.error("Lỗi khi load danh sách quyền:", error);
+      }
+    };
+
     fetchData();
+        fetchSystems();
+    fetchPermissions();
   }, [fetchData]);
 
   // ✅ Hàm mở modal chỉnh sửa
   const openEditUserModal = (role: DataType) => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa người dùng</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Chỉnh sửa cấu hình</div>,
       children: <EditView id={role.id} onSearch={fetchData} />, // ✅ đổi fetchRoles → fetchData
       confirmProps: { display: "none" },
       cancelProps: { display: "none" },
@@ -73,8 +119,28 @@ export default function LargeFixedTable() {
 
   // ✅ Định nghĩa cột bảng
   const columns: ColumnsType<DataType> = [
-    { title: "Mã Hệ Thống", dataIndex: "system_id", key: "system_id", width: 30 },
-    { title: "Mã Quyền", dataIndex: "permission_id", key: "permission_id", width: 90 },
+    // { title: "Mã Hệ Thống", dataIndex: "system_id", key: "system_id", width: 30 },
+    // { title: "Mã Quyền", dataIndex: "permission_id", key: "permission_id", width: 90 },
+     {
+    title: "Tên vai trò",
+    dataIndex: "system_id",
+    key: "system_id",
+    width: 30,
+    render: (system_id: number) => {
+      const system = systemOptions.find((s) => s.value === system_id.toString());
+      return system ? system.label : `#${system_id}`;
+    },
+  },
+  {
+    title: "Chức năng",
+    dataIndex: "permission_id",
+    key: "permission_id",
+    width: 90,
+    render: (permission_id: number) => {
+      const permission = permissionOptions.find((p) => p.value === permission_id.toString());
+      return permission ? permission.label : `#${permission_id}`;
+    },
+  },
     { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
     // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
     {
@@ -103,7 +169,7 @@ export default function LargeFixedTable() {
   // ✅ Modal thêm người dùng
   const openModal = () => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm người dùng mới</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Thêm cấu hình mới</div>,
       children: <CreateView onSearch={fetchData} />,
       size: "lg",
       radius: "md",
@@ -114,7 +180,7 @@ export default function LargeFixedTable() {
 
     const openDeleteUserModal = (role: DataType) => {
     modals.openConfirmModal({
-      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa cấu hình</div>,
       children: <DeleteView idItem={[role.id]} onSearch={fetchData} />,
       confirmProps: { display: 'none' },
       cancelProps: { display: 'none' },

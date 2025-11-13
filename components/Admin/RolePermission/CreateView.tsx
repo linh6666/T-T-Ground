@@ -120,8 +120,8 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
 
       {/* 🔹 Dropdown chọn vai trò */}
       <Select
-        label="Vai trò"
-        placeholder="Chọn vai trò"
+        label="Tên vai trò"
+        placeholder="Chọn tên vai trò"
         data={roleOptions}
         rightSection={<IconChevronDown size={16} />}
         mt="md"
@@ -131,8 +131,8 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
 
       {/* 🔹 Dropdown chọn quyền */}
       <Select
-        label="Mã chức năng"
-        placeholder="Chọn mã chức năng"
+        label="Chức năng"
+        placeholder="Chọn Chức năng"
         data={permissionOptions}
         rightSection={<IconChevronDown size={16} />}
         mt="md"

@@ -140,7 +140,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
 
       {/* 🔹 Dropdown Vai trò */}
       <Select
-        label="Vai trò"
+        label="Tên vai trò"
         placeholder="Chọn vai trò"
         data={roleOptions}
         rightSection={<IconChevronDown size={16} />}
@@ -151,8 +151,8 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
 
       {/* 🔹 Dropdown Mã chức năng */}
       <Select
-        label="Mã chức năng"
-        placeholder="Chọn mã chức năng"
+        label="Chức năng"
+        placeholder="Chọn chức năng"
         data={permissionOptions}
         rightSection={<IconChevronDown size={16} />}
         mt="md"
