@@ -74,7 +74,18 @@ export default function LargeFixedTable() {
   // ✅ Định nghĩa cột bảng
   const columns: ColumnsType<DataType> = [
     { title: "Tên vai trò", dataIndex: "name", key: "name", width: 30 },
-    { title: "Cấp Bậc", dataIndex: "rank", key: "rank", width: 90 },
+
+
+    // { title: "Cấp Bậc", dataIndex: "rank", key: "rank", width: 90 },
+
+{
+  title: "Cấp Bậc",
+  dataIndex: "rank",
+  key: "rank",
+  width: 90,
+  sorter: (a, b) => a.rank - b.rank,  // thêm vào đây
+},
+
     { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
     // { title: "Mô Tả (Tiếng Anh)", dataIndex: "description_en", key: "description_en", width: 100 },
     {

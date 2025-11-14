@@ -104,7 +104,13 @@ export default function LargeFixedTable() {
   // Columns bảng
   const columns: ColumnsType<DataType> = [
     { title: "Tên vai trò", dataIndex: "name", key: "name", width: 30 },
-    { title: "Cấp Bậc", dataIndex: "rank_total", key: "rank_total", width: 90 },
+{
+  title: "Cấp Bậc",
+  dataIndex: "rank_total",
+  key: "rank_total",
+  width: 90,
+  sorter: (a, b) => a.rank_total - b.rank_total,  // thêm vào đây
+},
     { title: "Mô Tả ", dataIndex: "description_vi", key: "description_vi", width: 100 },
     {
       title: "Hành Động",

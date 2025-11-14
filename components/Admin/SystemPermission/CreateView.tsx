@@ -5,6 +5,7 @@ import {
   Button,
   Group,
   LoadingOverlay,
+  MultiSelect,
   Select,
   Textarea,
 } from "@mantine/core";
@@ -48,7 +49,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
   const form = useForm({
     initialValues: {
       system_id: "",
-      permission_id: "",
+      permission_id: [],
       description_vi: "",
     },
     validate: {
@@ -143,7 +144,7 @@ const CreateView = ({ onSearch }: CreateViewProps) => {
       />
 
       {/* 🔹 Dropdown chọn quyền */}
-      <Select
+      <MultiSelect
         label="Chức năng"
         placeholder="Chọn chức năng"
         data={permissionOptions}
