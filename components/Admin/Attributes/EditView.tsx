@@ -61,7 +61,7 @@ const EditView = ({ onSearch, id }: EditViewProps) => {
       modals.closeAll();
     } catch (error) {
       console.error("Lỗi khi cập nhật user:", error);
-      alert("Đã xảy ra lỗi khi cập nhật người dùng.");
+      alert("Đã xảy ra lỗi khi cập nhật thuộc tính.");
     } finally {
       close();
     }
