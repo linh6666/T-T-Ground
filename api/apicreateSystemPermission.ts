@@ -4,7 +4,7 @@ import { API_ROUTE } from "../const/apiRouter"; // ✅ import đúng object ch�
 
 export interface CreateUserPayload {
   system_id: string;
-  permission_id: string[];
+  permission_id: string;
 description_vi: string;
 
  

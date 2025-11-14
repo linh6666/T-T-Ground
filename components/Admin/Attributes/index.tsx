@@ -56,15 +56,16 @@ export default function LargeFixedTable() {
       const result: ListRolesResponse = await getListRoles({ token, skip, limit: pageSize });
 
       const users = result.data.map((user: DataType) => ({
-        id: user.id,
-        label: user.label,
-        data_type: user.data_type,
-        display_label_vi: user.display_label_vi,
-        parent_attribute_id: user.parent_attribute_id,
+        ...user,
+        key: user.id,
       }));
 
       setData(users);
       setTotal(result.total); // dùng total thay vì count
+         const totalPages = Math.ceil(result.total / pageSize);
+      if (currentPage > totalPages && totalPages > 0) {
+        setCurrentPage(totalPages);
+      }
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("Đã xảy ra lỗi khi tải dữ liệu.");

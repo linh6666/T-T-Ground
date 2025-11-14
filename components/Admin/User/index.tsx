@@ -24,21 +24,19 @@ interface DataType {
   phone: string;
   is_active: boolean;
   is_superuser: boolean;
-  // area_id: string;
   province_id: string;
   ward_id: string;
-  // introducer_id: string;
   id: string;
   creation_time: string;
   last_login: string;
   last_logout: string;
 }
 
-
 interface ListRolesResponse {
   data: DataType[];
   total: number; // tổng số record
 }
+
 interface Province {
   code: string;
   full_name_vi: string;
@@ -48,24 +46,21 @@ interface Ward {
   code: string;
   full_name_vi: string;
 }
+
 export default function LargeFixedTable({}) {
 
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
-    const [total, setTotal] = useState<number>(0);
-   const [provinceOptions, setProvinceOptions] = useState<{ value: string; label: string }[]>([]);
-    const [wardOptions, setWardOptions] = useState<
-    { value: string; label: string }[]
-  >([]);
-  // const [selectedProvince, setSelectedProvince] = useState<string | null>(null);
-
+  const [total, setTotal] = useState<number>(0);
+  const [provinceOptions, setProvinceOptions] = useState<{ value: string; label: string }[]>([]);
+  const [wardOptions, setWardOptions] = useState<{ value: string; label: string }[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const pageSize = 10; 
 
-
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
-useEffect(() => {
+
+  useEffect(() => {
     const fetchProvinces = async () => {
       try {
         const data: Province[] = await getListProvinces();
@@ -80,37 +75,36 @@ useEffect(() => {
     };
     fetchProvinces();
   }, []);
- 
-useEffect(() => {
-  const fetchAllWards = async () => {
-    try {
-      const provinceCodes = provinceOptions.map((p) => p.value);
 
-      // Gọi API song song cho từng tỉnh
-      const results = await Promise.all(
-        provinceCodes.map((code) => getWardsByProvince(code))
-      );
+  useEffect(() => {
+    const fetchAllWards = async () => {
+      try {
+        const provinceCodes = provinceOptions.map((p) => p.value);
 
-      // Gộp tất cả kết quả lại thành một mảng duy nhất
-      const allWards: { value: string; label: string }[] = results.flatMap((data: Ward[]) =>
-        data.map((item: Ward) => ({
-          value: item.code,
-          label: item.full_name_vi,
-        }))
-      );
+        const results = await Promise.all(
+          provinceCodes.map((code) => getWardsByProvince(code))
+        );
 
-      setWardOptions(allWards);
-    } catch (error) {
-      console.error("Lỗi khi lấy danh sách phường/xã:", error);
-      setWardOptions([]);
+        const allWards: { value: string; label: string }[] = results.flatMap((data: Ward[]) =>
+          data.map((item: Ward) => ({
+            value: item.code,
+            label: item.full_name_vi,
+          }))
+        );
+
+        setWardOptions(allWards);
+      } catch (error) {
+        console.error("Lỗi khi lấy danh sách phường/xã:", error);
+        setWardOptions([]);
+      }
+    };
+
+    if (provinceOptions.length) {
+      fetchAllWards();
     }
-  };
+  }, [provinceOptions]);
 
-  if (provinceOptions.length) {
-    fetchAllWards();
-  }
-}, [provinceOptions]);
-
+  // ✅ Sửa fetchData
   const fetchData = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -122,28 +116,24 @@ useEffect(() => {
     }
 
     try {
-         const skip = (currentPage - 1) * pageSize;
+      const skip = (currentPage - 1) * pageSize;
       const result: ListRolesResponse = await getListUser({ token, skip, limit: pageSize });
-      
-      // const result = await getListUser ({ token, skip: 0, limit: 100 });
+
+      // Map dữ liệu, giữ toàn bộ thuộc tính, gán key riêng
       const users = result.data.map((user: DataType) => ({
+        ...user,
         key: user.id,
-        full_name: user.full_name,
-        email: user.email,
-        phone: user.phone,
-        is_active: user.is_active,
-        is_superuser: user.is_superuser,
-        // area_id: user.area_id,
-        province_id: user.province_id,
-        ward_id: user.ward_id,
-        // introducer_id: user.introducer_id,
-        id: user.id,
-        creation_time: user.creation_time,
-        last_login: user.last_login,
-        last_logout: user.last_logout,
       }));
+
       setData(users);
       setTotal(result.total);
+
+      // Nếu trang hiện tại vượt tổng trang, lùi về trang cuối cùng
+      const totalPages = Math.ceil(result.total / pageSize);
+      if (currentPage > totalPages && totalPages > 0) {
+        setCurrentPage(totalPages);
+      }
+
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("Đã xảy ra lỗi khi tải dữ liệu.");
@@ -175,44 +165,43 @@ useEffect(() => {
       cancelProps: { display: "none" },
     });
   };
-const openDeleteUserModal = (role: DataType) => {
-  modals.openConfirmModal({
-    title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
-    children: (
-      <DeleteView
-        idItem={[role.id]}
-        onSearch={() => {
-          fetchData(); // load lại dữ liệu sau khi xóa
-        }}
-      />
-    ),
-    confirmProps: { display: 'none' },
-    cancelProps: { display: 'none' },
-  });
-};
 
-  // ✅ Đưa columns vào trong component để dùng được openEditUserModal
+  const openDeleteUserModal = (role: DataType) => {
+    modals.openConfirmModal({
+      title: <div style={{ fontWeight: 600, fontSize: 18 }}>Xóa vai trò</div>,
+      children: (
+        <DeleteView
+          idItem={[role.id]}
+          onSearch={() => {
+            fetchData();
+          }}
+        />
+      ),
+      confirmProps: { display: 'none' },
+      cancelProps: { display: 'none' },
+    });
+  };
+
   const columns: ColumnsType<DataType> = [
     { title: "Họ và Tên", dataIndex: "full_name", key: "full_name", width: 150, fixed: "left" },
     { title: "Email", dataIndex: "email", key: "email", width: 130 },
     { title: "Điện Thoại", dataIndex: "phone", key: "phone", width: 130 },
     { title: "Kích Hoạt", dataIndex: "is_active", key: "is_active", width: 80, render: (text) => (text ? "Có" : "Không") },
     { title: "Quản Trị Viên", dataIndex: "is_superuser", key: "is_superuser", width: 100, render: (text) => (text ? "Có" : "Không") },
-    // { title: "Mã Khu Vực", dataIndex: "area_id", key: "area_id", width: 80 },
     {
-  title: "Tỉnh/Thành Phố",
-  dataIndex: "province_id",
-  key: "province_id",
-  render: (id) => provinceOptions.find(p => p.value === id)?.label || "Chưa có",width: 100
-
-},
-  {
-  title: "Phường/Xã",
-  dataIndex: "ward_id",
-  key: "ward_id",
-  width: 100,
-  render: (id) => wardOptions.find(w => w.value === id)?.label || "Chưa có"
-},
+      title: "Tỉnh/Thành Phố",
+      dataIndex: "province_id",
+      key: "province_id",
+      width: 100,
+      render: (id) => provinceOptions.find(p => p.value === id)?.label || "Chưa có"
+    },
+    {
+      title: "Phường/Xã",
+      dataIndex: "ward_id",
+      key: "ward_id",
+      width: 100,
+      render: (id) => wardOptions.find(w => w.value === id)?.label || "Chưa có"
+    },
     {
       title: "Thời Gian Tạo",
       dataIndex: "creation_time",
@@ -226,14 +215,14 @@ const openDeleteUserModal = (role: DataType) => {
       title: "Hành Động",
       width: 100,
       fixed: "right",
-   render: (record: DataType) => (
+      render: (record: DataType) => (
         <EuiFlexGroup wrap={false} gutterSize="s" alignItems="center">
           <EuiFlexItem grow={false}>
             <EuiButtonIcon
               iconType="documentEdit"
               aria-label="Chỉnh sửa"
               color="success"
-              onClick={() => openEditUserModal(record)} // ✅ đã fix
+              onClick={() => openEditUserModal(record)}
             />
           </EuiFlexItem>
           <EuiFlexItem grow={false}>
@@ -241,7 +230,7 @@ const openDeleteUserModal = (role: DataType) => {
               iconType="trash"
               aria-label="Xóa"
               color="danger"
-               onClick={() => openDeleteUserModal(record)}
+              onClick={() => openDeleteUserModal(record)}
             />
           </EuiFlexItem>
         </EuiFlexGroup>
@@ -268,7 +257,7 @@ const openDeleteUserModal = (role: DataType) => {
       {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
         <Pagination
-          total={total} // dùng total từ API
+          total={total}
           current={currentPage}
           pageSize={pageSize}
           onChange={(page) => setCurrentPage(page)}

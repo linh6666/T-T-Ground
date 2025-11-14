@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { Table } from "antd";
+import { Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
@@ -26,6 +26,9 @@ export default function LargeFixedTable() {
   const [data, setData] = useState<DataType[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+    const [total, setTotal] = useState<number>(0);
+      const [currentPage, setCurrentPage] = useState<number>(1);
+      const pageSize = 10; 
 
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
 
@@ -40,15 +43,19 @@ export default function LargeFixedTable() {
     }
 
     try {
-      const result = await getListRoles({ token, skip: 0, limit: 100 });
+      const skip = (currentPage - 1) * pageSize;
+      const result = await getListRoles({ token, skip, limit: pageSize });
       const users = result.data.map((user: DataType) => ({
-        id: user.id, // ✅ map thêm id
-        name: user.name,
-        rank: user.rank,
-        description_vi: user.description_vi,
+           ...user,
+        key: user.id,
         // description_en: user.description_en,
       }));
       setData(users);
+       setTotal(result.total);
+        const totalPages = Math.ceil(result.total / pageSize);
+      if (currentPage > totalPages && totalPages > 0) {
+        setCurrentPage(totalPages);
+      }
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("Đã xảy ra lỗi khi tải dữ liệu.");
@@ -149,6 +156,16 @@ export default function LargeFixedTable() {
       />
 
       {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
+       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+        <Pagination
+          total={total}
+          current={currentPage}
+          pageSize={pageSize}
+          onChange={(page) => setCurrentPage(page)}
+          showSizeChanger={false}
+          showQuickJumper={false}
+        />
+      </div>
     </>
   );
 }

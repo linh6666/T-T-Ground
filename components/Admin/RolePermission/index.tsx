@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { Table } from "antd";
+import { Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import AppSearch from "../../../common/AppSearch";
 import AppAction from "../../../common/AppAction";
@@ -39,7 +39,9 @@ export default function LargeFixedTable() {
   const [error, setError] = useState<string | null>(null);
    const [roleOptions, setRoleOptions] = useState<{ value: string; label: string }[]>([]);
   const [permissionOptions, setPermissionOptions] = useState<{ value: string; label: string }[]>([]);
-
+  const [total, setTotal] = useState<number>(0);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const pageSize = 10; 
   const token = localStorage.getItem("access_token") || "YOUR_TOKEN_HERE";
 
   const fetchData = useCallback(async () => {
@@ -53,22 +55,30 @@ export default function LargeFixedTable() {
     }
 
     try {
-      const result = await getlistRolePermission({ token, skip: 0, limit: 100 });
+        const skip = (currentPage - 1) * pageSize;
+      const result = await getlistRolePermission({ token, skip, limit: pageSize });
       const users = result.data.map((user: DataType) => ({
-        id: user.id, // ✅ map thêm id
-        role_id: user.role_id,
-        permission_id: user.permission_id,
-        description_vi: user.description_vi,
-        // description_en: user.description_en,
+        ...user,
+        key: user.id,
       }));
       setData(users);
+       setTotal(result.total);
+
+       ////
+ const totalPages = Math.ceil(result.total / pageSize);
+      if (currentPage > totalPages && totalPages > 0) {
+        setCurrentPage(totalPages);
+      }
+
+/////
+
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
       else setError("Đã xảy ra lỗi khi tải dữ liệu.");
     } finally {
       setLoading(false);
     }
-  }, [token]);
+  }, [token,currentPage]);
 
 ///////
 const fetchOptions = useCallback(async () => {
@@ -202,6 +212,16 @@ const fetchOptions = useCallback(async () => {
       />
 
       {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
+       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+        <Pagination
+          total={total}
+          current={currentPage}
+          pageSize={pageSize}
+          onChange={(page) => setCurrentPage(page)}
+          showSizeChanger={false}
+          showQuickJumper={false}
+        />
+      </div>
     </>
   );
 }

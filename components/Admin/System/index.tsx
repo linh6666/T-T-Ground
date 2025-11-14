@@ -56,6 +56,10 @@ export default function LargeFixedTable() {
       // Cập nhật dữ liệu và tổng số record
       setData(result.data);
     setTotal(result.total); 
+      const totalPages = Math.ceil(result.total / pageSize);
+      if (currentPage > totalPages && totalPages > 0) {
+        setCurrentPage(totalPages);
+      }
 
     } catch (err: unknown) {
       if (err instanceof Error) setError(err.message);
@@ -103,7 +107,7 @@ export default function LargeFixedTable() {
 
   // Columns bảng
   const columns: ColumnsType<DataType> = [
-    { title: "Tên vai trò", dataIndex: "name", key: "name", width: 30 },
+    { title: "Tên vai trò ", dataIndex: "name", key: "name", width: 30 },
 {
   title: "Cấp Bậc",
   dataIndex: "rank_total",

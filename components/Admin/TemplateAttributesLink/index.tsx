@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState, useCallback } from "react";
-import { Table } from "antd";
+import { Pagination, Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import AppAction from "../../../common/AppAction";
 import { modals } from "@mantine/modals";
@@ -44,7 +44,9 @@ export default function LargeFixedTable() {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [templateId, setTemplateId] = useState<string>("");
-
+  const [total, setTotal] = useState<number>(0);
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const pageSize = 10; 
   // dropdown mẫu dự án
   const [templateOptions, setTemplateOptions] = useState<{ value: string; label: string }[]>([]);
   // dropdown thuộc tính
@@ -104,11 +106,15 @@ export default function LargeFixedTable() {
     setError(null);
 
     try {
+
+  const skip = (currentPage - 1) * pageSize;
+
       const res = await getListTemplateAttributesLink({
         token,
         template_id: templateId,
-        skip: 0,
-        limit: 100,
+        skip,
+        limit: pageSize
+        
       });
       const data: TemplateAttributeLink[] = res.data || [];
 
@@ -118,13 +124,20 @@ export default function LargeFixedTable() {
         attribute_id: item.attribute_id,
       }));
       setData(rows);
+  setTotal(res.total);
+  const totalPages = Math.ceil(res.total / pageSize);
+      if (currentPage > totalPages && totalPages > 0) {
+        setCurrentPage(totalPages);
+      }
+
+
     } catch (err) {
       setError("Không thể tải dữ liệu bảng");
       console.error(err);
     } finally {
       setLoading(false);
     }
-  }, [templateId, token]);
+  }, [templateId, token,currentPage]);
 
   useEffect(() => {
     fetchAttributes();
@@ -234,6 +247,16 @@ export default function LargeFixedTable() {
       <Table columns={columns} dataSource={data} loading={loading} pagination={false} bordered rowKey="id" />
 
       {error && <p style={{ color: "red", marginTop: 10 }}>{error}</p>}
+       <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
+        <Pagination
+          total={total}
+          current={currentPage}
+          pageSize={pageSize}
+          onChange={(page) => setCurrentPage(page)}
+          showSizeChanger={false}
+          showQuickJumper={false}
+        />
+      </div>
     </>
   );
 }
